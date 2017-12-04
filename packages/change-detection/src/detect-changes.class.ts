@@ -8,12 +8,28 @@ import { instanceOf } from './instance-of.func';
 
 @Injectable()
 export class DetectChangesClass {
+
+  private cd: string | void;
+
   /**
    * Creates an instance of DetectChangesClass.
    * @memberof DetectChangesClass
    */
   constructor(public lookup: LookUpInterface, public target: any, properties: PropertiesInterface) {
     this.initializeConfigProperty(properties);
+  }
+
+  /**
+   * @param {*} component 
+   * @param {string} cd 
+   * @memberof DetectChangesClass
+   */
+  detach(component: any, cd: string) { 
+    if (component) {
+      if (cd) {
+        component[cd].detach();        
+      }
+    }
   }
 
   /**
@@ -38,7 +54,7 @@ export class DetectChangesClass {
   setterDetectChanges(component: any) {
     if (component.__proto__.detectChangesDecorator instanceof Object) {
       const lookup = this.lookup;
-      const cd = this.findChangeDetection(component);
+      const cd = this.cd = this.findChangeDetection(component);
 
       _.each(component.__proto__.detectChangesDecorator.properties, (propertySettings: PropertySettingsInterface, propertyName: string) => {
         const originalValue = component[propertyName];
