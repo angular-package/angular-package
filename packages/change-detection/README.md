@@ -5,14 +5,17 @@ Decorator to improve component performance by setting initially change detection
 Pros:
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
+* Component change detection mechanism controll.
+* Initially detached from change detection tree.
+* Uses `set` to detect specified property changes.
 
 Cons:
-
+* Need to provide instance of `ChangeDetectorRef`.
 
 **Important!**
+* Live demo and inside folder available soon.
 * Set `ChangeDetectionStrategy` to `OnPush`.
-
-
+* Provide `ChangeDetectorRef` to component `constructor()`.
 
 ----
 
@@ -31,6 +34,9 @@ Cons:
 
 ## Demonstration
 
+**Not available yet**
+
+[Live demonstration](#angular-package.wwwdev.io/change-detection)
 
 ## Installation
 
@@ -43,7 +49,7 @@ npm i --save @angular-package/change-detection
 ## Usage
 
 ```typescript
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 
 import { DetectChanges } from '@angular-package/change-detection';
 
@@ -79,6 +85,7 @@ export class Component {
     return this._surname;
   }
 
+  constructor(public cd: ChangeDetectorRef) { }
 }
 ```
 
