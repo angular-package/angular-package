@@ -3,15 +3,16 @@
 Decorator to improve component performance by setting initially change detection state to `Detached` and detect changes on specified properties when `set`.
 
 
-**(+)Pros:**
+**Pros(+):**
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * Component change detection mechanism controll.
 * Initially detached from change detection tree.
 * Uses `set` to detect specified property changes.
 
-**(-)Cons:**
-* Need to provide instance of `ChangeDetectorRef`.
+**Cons(-):**
+* Need to provide `ChangeDetectorRef` instance.
+* No `demo` at the moment.
 
 **Important!**
 * Live demo and inside folder available soon.
