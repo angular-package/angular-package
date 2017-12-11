@@ -69,7 +69,7 @@ import { AddressInterface } from './interface';
   templateUrl: './component.html'
 })
 @ChangeDetection(
-  false,  // <--- Set change detection status to `Detached` when this property detection is set to false.
+  false,  // <--- Set change detection status to `Detached`.
   {
     name: true,  // <--- Detect changes on specific properties when true. [propertyName]: detection(true:false). It can be changed dynamically with `this.__properties` property.
     surname: false
