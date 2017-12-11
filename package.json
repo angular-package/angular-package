@@ -12,6 +12,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
+    "demo:change-detection": "cd packages/change-detection/demo && npm start",
     "build": "",
     "bundle": "",
     "postbuild": "",
