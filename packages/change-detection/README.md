@@ -14,10 +14,8 @@ Package to improve application performance by setting initially change detection
 * Cannot add dynamically property.
 * Need to provide `ChangeDetectorRef` instance.
 * Need to add `ngOnInit()` and `ngAfterContentinit()` methods to work properly.
-* No `demo` at the moment.
 
 **Important!**
-* Live demo and inside folder will be available soon.
 * Set `ChangeDetectionStrategy` to `OnPush`.
 * Inject `ChangeDetectorRef` to component `constructor()`.
 * Implement `ngOnInit()` and `ngAfterContentInit()` methods.
@@ -39,9 +37,11 @@ Package to improve application performance by setting initially change detection
 
 ## Demonstration
 
-**Not available yet**
+**Available**
 
-[Live demonstration](#angular-package.wwwdev.io/change-detection)
+[Live demonstration](http://angular-package.wwwdev.io/change-detection)
+
+Demo available inside repository.
 
 ## Installation
 
