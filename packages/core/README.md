@@ -1,4 +1,4 @@
-# @ngx-core/common
+# @angular-package/core
 
 Some Angular 2+ features used in other ngx libraries
 
@@ -16,7 +16,7 @@ Some Angular 2+ features used in other ngx libraries
 To install, run:
 
 ```bash
-npm install @ngx-core/common --save
+npm i @angular-package/core --save
 ```
 
 ## Usage
@@ -47,7 +47,7 @@ How do I know when to release 1.0.0?
 
 ## License
 
-MIT © ngx-core
+MIT © angular-core
 
 ## Donate
 
