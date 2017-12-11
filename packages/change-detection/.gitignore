@@ -62,4 +62,4 @@ Thumbs.db
 /.vscode
 /build
 /dist
-/demo
+# /demo
