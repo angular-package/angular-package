@@ -1,23 +1,26 @@
-# @angular-package/change-detection
+# angular-package/change-detection
 
-Decorator to improve component performance by setting initially change detection state to `Detached` and detect changes on specified properties when `set`.
+Package to improve application performance by setting initially change detection component state to `Detached` and detect changes on provided properties when they are `set`.
 
 
 **Pros(+):**
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
-* Component change detection mechanism controll.
-* Initially detached from change detection tree.
+* Component change detection properties are controlled by property `__properties: PropertiesInterface`.
+* Initially `Detached` from change detection tree to improve application performance.
 * Uses `set` to detect specified property changes.
 
 **Cons(-):**
+* Cannot add dynamically property.
 * Need to provide `ChangeDetectorRef` instance.
+* Need to add `ngOnInit()` and `ngAfterContentinit()` methods to work properly.
 * No `demo` at the moment.
 
 **Important!**
-* Live demo and inside folder available soon.
+* Live demo and inside folder will be available soon.
 * Set `ChangeDetectionStrategy` to `OnPush`.
-* Provide `ChangeDetectorRef` to component `constructor()`.
+* Inject `ChangeDetectorRef` to component `constructor()`.
+* Implement `ngOnInit()` and `ngAfterContentInit()` methods.
 
 ----
 
@@ -50,46 +53,129 @@ npm i --save @angular-package/change-detection
 
 ## Usage
 
+**1. Add to any component of your application `ChangeDetection` decorator like in `component.ts` below.**
 ```typescript
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+// component.ts
+// external
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetection } from '@angular-package/change-detection';
 
-import { DetectChanges } from '@angular-package/change-detection';
-
+// internal
+import { AddressInterface } from './interface';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'component',
-  templateUrl:  './component.html'
+  changeDetection: ChangeDetectionStrategy.OnPush, // <--- Set detection strategy to `OnPush`.
+  selector: 'changedetection-component',
+  templateUrl: './component.html'
 })
-@DetectChanges({
-  name: { changeDetection: true },
-  surname: { changeDetection: true }
-})
-export class Component {
+@ChangeDetection(
+  false,  // <--- Set change detection status to `Detached` when this property detection is set to false.
+  {
+    name: true,  // <--- Detect changes on specific properties when true. [propertyName]: detection(true:false). It can be changed dynamically with `this.__properties` property.
+    surname: false
+  }
+)
+export class ChangeDetectionComponent
+  implements
+  OnInit,  // <--- Implement OnInit
+  AfterViewInit { // <--- Implement AfterViewInit
 
-  public _name: string;
-  @Input('name')
+  __properties: any;
+
+  public _address: AddressInterface
+  @Input('address')
+  set address(address: AddressInterface) {
+    this._address = address;
+  }
+  get address(): AddressInterface {
+    return this._address;
+  }
+
+  @Input('name') _name;
   set name(name: string) {
-    console.log(`set name: `, name);
     this._name = name;
   }
   get name(): string {
     return this._name;
   }
 
-  public _surname: string;
-  @Input('surname')
-  set surname(surname: string) {
-    console.log(`set surname: `, surname);
-    this._surname = surname;
-  }
-  get surname(): string {
-    return this._surname;
-  }
+  @Input('surname') surname;
 
-  constructor(public cd: ChangeDetectorRef) { }
+  constructor(public changeDetector: ChangeDetectorRef) { }  // <--- Inject `ChangeDetectorRef`.
+
+  ngOnInit() { } // <--- Add method ngOnInit.
+  ngAfterContentInit() { } // <--- Add method AfterContentInit.
+  ngAfterViewInit() { }
+  update($event) {
+    this.__properties = this.__properties;
+    console.log(`update`, $event, this);
+  }
 }
+
 ```
+
+**2. Template file `component.html` of component above displays name and surname, and add some inputs to check how it works.**
+```html
+<!-- component.html -->
+<div>
+  <input type="checkbox" name="detection" [value]="true" (change)="update($event)" [(ngModel)]="__detection" />
+  <div>
+    <input type="text" placeholder="Name" name="name" [(ngModel)]="name" />
+    <input type="checkbox" (change)="update($event)" [(ngModel)]="__properties.name" *ngIf="__detection === false" />
+  </div>
+  <div>
+    <input type="text" placeholder="Surname" name="surname" [(ngModel)]="surname" />
+    <input type="checkbox" (change)="update($event)" [(ngModel)]="__properties.surname" *ngIf="__detection === false" />
+  </div>
+  <p>
+    {{name}} {{surname}}
+  </p>
+</div>
+```
+
+**3. Add newly created component to `AppModule`.**
+```typescript
+// external.
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+// internal.
+import { AppComponent } from './app.component';
+import { ChangeDetectionComponent } from './component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ChangeDetectionComponent // <-- Add component above to primary module.
+  ],
+  imports: [
+    BrowserModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
+**4. Displays component with `ChangeDetection` decorator.**
+```html
+<!-- app.component.html -->
+<changedetection-component [address]="{city: 'Web', street: 'HTML'}" [name]="'Chris'" [surname]="'Cyborg'"></changedetection-component>
+```
+
+## Arguments
+
+```typescript
+ChangeDetection(detection = false, properties: PropertiesInterface)
+```
+
+| name | Type | Description |
+|----------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| detection | boolean = true | Whether change detection is active or not. If **not**, change detection status is set to `Detached`. If **yes**, change detection status is set to `CheckOnce`. |
+| properties | PropertiesInterface<br /> **{[index:string]:boolean}** | If change detection is set to `Detached`, properties provided with `index` as name and value `true` will be sensitive for changes. |
+
+
 
 
 ## Scripts
