@@ -62,3 +62,5 @@ Thumbs.db
 .vscode
 build
 dist
+graphics
+fonts
