@@ -1,5 +1,7 @@
+/// <reference path="./typings/index.d.ts" />
+
 // external
-import * as _ from 'lodash';
+import _ from '_lodash';
 
 // internal
 import { ChangeDetectionInterface, LookupInterface, LookupItemInterface, PropertiesInterface } from './interface';
@@ -16,16 +18,15 @@ import { ChangeDetectorClass } from './change-detector.class';
 export function ChangeDetection(detection = true, properties: PropertiesInterface): Function {
   return function (target: any) {
     // Store original setters and getters provided `properties`.
-    let setterGetterClass = new SetterGetterClass(target).store(properties);
+    const setterGetterClass = new SetterGetterClass(target).store(properties);
     // Store original `ngAfterContentInit()` method.
-    let ngAfterContentInit = target.prototype.ngAfterContentInit;
+    const ngAfterContentInit = target.prototype.ngAfterContentInit;
     // Store original `ngOnInit()` method.
-    let ngOnInit = target.prototype.ngOnInit;
-
+    const ngOnInit = target.prototype.ngOnInit;
     // Declare new `ngOnInit()` and apply original to it.
     target.prototype.ngOnInit = function () {
       // Create change detector instance.
-      let changeDetector = new ChangeDetectorClass(this);
+      const changeDetector = new ChangeDetectorClass(this);
       // Create local instance of properties variable.
       properties = Object.assign({}, properties);
       // Add `changeDetection` property to component.
@@ -59,19 +60,19 @@ export function ChangeDetection(detection = true, properties: PropertiesInterfac
           Status of detection true or false.
         */
         __detection: {
-          set: function (detection: boolean) {
-            this.changeDetection.detection = detection;
+          set: function (value: boolean) {
+            this.changeDetection.detection = value;
             if (this.changeDetection.ready === true) {
-              if (detection === false) {
+              if (value === false) {
                 changeDetector.detach();
-              } else if (detection === true) {
+              } else if (value === true) {
                 this.changeDetector.reattach();
               }
               changeDetector.detect();
             }
           },
           get: function (): boolean {
-            return this.changeDetection.detection
+            return this.changeDetection.detection;
           }
         },
 
@@ -79,11 +80,11 @@ export function ChangeDetection(detection = true, properties: PropertiesInterfac
           Properties marked to make change detection working when component is `Detached`.
         */
         __properties: {
-          set: function (properties: PropertiesInterface) {
+          set: function (value: PropertiesInterface) {
             if (this.changeDetection.ready === true) {
               changeDetector.detect();
             }
-            this.changeDetection.properties = properties;
+            this.changeDetection.properties = value;
           },
           get: function (): PropertiesInterface {
             return this.changeDetection.properties;
@@ -105,7 +106,7 @@ export function ChangeDetection(detection = true, properties: PropertiesInterfac
       if (ngOnInit) {
         ngOnInit.apply(this, arguments);
       }
-    }
+    };
 
     // Declare new `ngAfterContentInit()` and apply original to it.
     target.prototype.ngAfterContentInit = function () {
@@ -116,6 +117,6 @@ export function ChangeDetection(detection = true, properties: PropertiesInterfac
       if (ngAfterContentInit) {
         ngAfterContentInit.apply(this, arguments);
       }
-    }
+    };
   };
 }
