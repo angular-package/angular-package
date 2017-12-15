@@ -9,7 +9,7 @@ export interface ChangeDetectionInterface {
    */
   detection: boolean;
   properties: PropertiesInterface;
-  ready:boolean;
+  ready: boolean;
 }
 
 export interface LookupItemInterface {
