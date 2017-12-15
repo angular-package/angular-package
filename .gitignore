@@ -64,4 +64,9 @@ build
 dist
 graphics
 fonts
-packages/layout
+/packages/docs
+/packages/form
+/packages/markdown
+/packages/prism
+/packages/reactive
+/packages/ui
