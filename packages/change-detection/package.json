@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/change-detection",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io)",
   "homepage": "https://github.com/angular-package/angular-package#readme",
