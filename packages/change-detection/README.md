@@ -7,7 +7,7 @@ Package to improve application performance by setting initially change detection
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * Component change detection properties are controlled by property `__properties: PropertiesInterface`.
-* Initially `Detached` from change detection tree to improve application performance.
+* Set component initially to `Detached` to detach from change detection tree to improve application performance.
 * Uses `set` to detect specified property changes.
 
 **Cons(-):**
