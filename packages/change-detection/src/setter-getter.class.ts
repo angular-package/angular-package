@@ -1,6 +1,9 @@
-import * as _ from 'lodash';
+/// <reference path="./typings/index.d.ts" />
+
+import _ from '_lodash';
 import { LookupInterface } from './interface';
 import { PropertiesInterface } from './interface';
+import { ErrorMessages } from './error-messages.func';
 
 /**
  * Manage component properties setters and getters.
@@ -62,7 +65,6 @@ export class SetterGetterClass {
    */
   lookupSetter(property: string, component?: any): any {
     if (component) {
-      console.log(`lookupSetter`, property, component, component.__proto__.__lookupSetter__(`name`));
       return component.__proto__.__lookupSetter__(property);
     } else if (this.target) {
       return this.lookup.setter[property];
@@ -84,22 +86,18 @@ export class SetterGetterClass {
   }
 
   /**
-   * Replace setter and getter in provided component and with specific property name to have original setter and getter and detection changes.
+   * Replace setter and getter in provided component and with specific property name to have original setter and getter and detection
+   * changes.
    * @param {*} component
    * @param {string} property
    * @memberof SetterGetterClass
    */
   replace(component: any, property: string, originalName?: string): void {
     const originalValue = component[property];
-    console.log(`originalValue: `, property, originalValue, Object.assign({}, component));
-    let getter = this.lookupGetter(property, component);
-    let setter = this.lookupSetter(property, component);
-
-    console.log(`replace`, setter);
-
+    const getter = this.lookupGetter(property, component);
+    const setter = this.lookupSetter(property, component);
     Object.defineProperty(component, property, {
       set: function (value: any) {
-        console.log(`set`, value);
         if (setter !== undefined) {
           setter.apply(this, arguments);
         } else {
@@ -130,10 +128,14 @@ export class SetterGetterClass {
    * @memberof SetterGetterClass
    */
   store(properties: PropertiesInterface): this {
-    _.each(properties, (value: any, property: string) => {
-      this.getter(property);
-      this.setter(property);
-    });
+    if (_.each !== undefined) {
+      _.each(properties, (value: any, property: string) => {
+        this.getter(property);
+        this.setter(property);
+      });
+    } else {
+      throw new Error(ErrorMessages('lodash imported as _').undefined);
+    }
     return this;
   }
 }
