@@ -1,7 +1,5 @@
-/// <reference path="./typings/index.d.ts" />
-
 // external
-import _ from '_lodash';
+import * as _ from 'lodash-es';
 
 // internal
 import { ChangeDetectionInterface, LookupInterface, LookupItemInterface, PropertiesInterface } from './interface';
