@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/core",
-  "version": "1.1.2",
+  "version": "0.1.1",
   "description": "Core features",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io)",
   "homepage": "https://github.com/angular-package/common#readme",
