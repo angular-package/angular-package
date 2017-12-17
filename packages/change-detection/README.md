@@ -238,7 +238,7 @@ How do I know when to release 1.0.0?
 
 ## License
 
-MIT © angular-package
+MIT © angular-package ([license](https://github.com/angular-package/angular-package/blob/master/LICENSE))
 
 ## Donate
 
