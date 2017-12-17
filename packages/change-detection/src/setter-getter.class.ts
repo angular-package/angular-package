@@ -1,6 +1,4 @@
-/// <reference path="./typings/index.d.ts" />
-
-import _ from '_lodash';
+import * as _ from 'lodash-es';
 import { LookupInterface } from './interface';
 import { PropertiesInterface } from './interface';
 import { ErrorMessages } from './error-messages.func';
