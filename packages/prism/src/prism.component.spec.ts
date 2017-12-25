@@ -7,7 +7,7 @@ import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing'
 
 // internal
 import { PrismComponent } from './prism.component';
-import { PrismModule } from './prism.module';
+import { ApPrismModule } from './prism.module';
 
 beforeAll(() => {
   TestBed.resetTestEnvironment();
@@ -23,7 +23,7 @@ describe('PrismComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [PrismModule]
+      imports: [ApPrismModule]
     }).compileComponents();
   }));
 

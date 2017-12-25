@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PrismModule } from './../src/prism.module';
+import { ApPrismModule } from './../src/prism.module';
 import { TestComponent } from './test.component';
 
 export const declarations = [
@@ -9,7 +9,7 @@ export const declarations = [
 ];
 export const imports = [
   CommonModule,
-  PrismModule
+  ApPrismModule
 ];
 
 @NgModule({
