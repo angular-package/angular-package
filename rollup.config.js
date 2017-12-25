@@ -3,23 +3,39 @@ import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript';
 import uglify from 'rollup-plugin-uglify';
-// import replace from 'rollup-plugin-replace';
 import { minify } from 'uglify-es';
+import sourcemaps from 'rollup-plugin-sourcemaps';
 
 // rollup-plugin-angular addons
 import sass from 'node-sass';
 import CleanCSS from 'clean-css';
 import { minify as minifyHtml } from 'html-minifier';
 
-const cssmin = new CleanCSS();
-const htmlminOpts = {
-  caseSensitive: true,
-  collapseWhitespace: true,
-  removeComments: true,
-};
+/**
+ * 
+ * 
+ * @export
+ * @param {any} name 
+ * @param {any} [config={}] 
+ * @param {string} [input='./dist/index.js'] 
+ * @param {string} [outputFile='./dist/bundle.umd.js'] 
+ * @returns 
+ */
+export default function (name,  config = {}, input = './dist/index.js', outputFile = './dist/bundle.umd.js') {
 
-export default function (name, config = {}) {
+  const cssmin = new CleanCSS();
+  const htmlminOpts = {
+    caseSensitive: true,
+    collapseWhitespace: true,
+    removeComments: true,
+  };
 
+  /**
+   * 
+   * 
+   * @param {any} message 
+   * @returns 
+   */
   function onwarn(message) {
     const suppressed = [
       'UNRESOLVED_IMPORT',
@@ -30,15 +46,14 @@ export default function (name, config = {}) {
       return console.warn(message.message);
     }
   }
-
   
   var defaultConfig = {
-    input: './dist/index.js',
+    input,
     output: {
       // core output options
-      file: 'dist/bundle.umd.js',    // required
+      file: outputFile,    // required
       format: 'umd',  // required
-      name: 'angular-package.'+name,
+      name: 'ap.'+name,
   
       // advanced output options
       // paths: ,
@@ -106,12 +121,12 @@ export default function (name, config = {}) {
         // to node-resolve
         customResolveOptions: {}
       }),
+      sourcemaps(),
       typescript({
         typescript: require('./node_modules/typescript')
       }),
       (process.env.BUILD === 'production') ? uglify({}, minify) : function() { }
     ]
   }
-
   return Object.assign(defaultConfig, config);
 }
