@@ -64,7 +64,7 @@ build
 dist
 graphics
 fonts
-/packages/docs
+# /packages/docs
 /packages/form
 /packages/markdown
 
