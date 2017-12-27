@@ -83,7 +83,7 @@
   },
   "peerDependencies": {
     "@angular/cdk": "5.0.2",
-    "@angular/flex-layout": "^2.0.0-beta.10-4905443",
+    "@angular/flex-layout": "^2.0.0-beta.12",
     "@angular/material": "^5.0.2",
     "@angular-package/prism": "^2.0.0",
     "@ngx-markdown/core": "^0.2.2",
