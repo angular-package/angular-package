@@ -41,7 +41,7 @@ Image preview:
 
 ## Demonstration
 
-[Live demonstration](http://angular-package.wwwdev.io/example)
+[Live demonstration](http://angular-package.wwwdev.io/docs/example)
 
 Clone this repository:
 
