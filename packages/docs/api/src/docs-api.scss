@@ -1,0 +1,55 @@
+ngx-docs-api {
+  $firstTd: 110px;
+
+  display: flex;
+  flex-direction: column;
+  width: 99.9%;
+  margin: 0 0 32px;
+  margin-top: 32px;
+  padding: 0 3px;
+  box-sizing: border-box;
+
+  table {
+    width: 100%;
+    margin: 0 0 32px 0;
+
+    border-radius: 2px;
+    border-spacing: 0;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+
+    > thead {
+      padding: 8px 16px;
+      color: rgba(0,0,0,.54);
+      background: rgba(0,0,0,.03);
+
+      > tr {
+        &:first-child {
+          background: transparent;
+        }
+        > th {
+          font-weight: 400;
+          padding: 13px 32px;
+          text-align: left;
+
+          &:first-child {
+            width: $firstTd;
+          }
+        }
+      }
+    }
+
+    > tbody {
+      > tr {
+        > td {
+          border: 1px solid rgba(0,0,0,.03);
+          padding: 13px 32px;
+          &:first-child {
+            width: $firstTd;
+          }
+        }
+      }
+    }
+  }
+}
