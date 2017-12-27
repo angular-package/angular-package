@@ -1,21 +1,13 @@
-# @ngx-docs/api
+# @angular-package/docs
 
+**ApDocsApiModule**  
 Angular 2+ components to create documentation on Angular Material.
 
-[![GitHub version](https://badge.fury.io/gh/ngx-docs%2Fapi.svg)](https://badge.fury.io/gh/ngx-docs%2Fapi)
-[![npm version](https://badge.fury.io/js/%40ngx-docs%2Fapi.svg)](https://badge.fury.io/js/%40ngx-docs%2Fapi)
-
-[![GitHub issues](https://img.shields.io/github/issues/ngx-docs/api.svg)](https://github.com/ngx-docs/api/issues)
-[![GitHub forks](https://img.shields.io/github/forks/ngx-docs/api.svg)](https://github.com/ngx-docs/api/network)
-[![GitHub stars](https://img.shields.io/github/stars/ngx-docs/api.svg)](https://github.com/ngx-docs/api/stargazers)
-[![GitHub license](https://img.shields.io/github/license/ngx-docs/api.svg)](https://github.com/ngx-docs/api/blob/master/LICENSE)
-
-
-Pros:
+**Pros(+):**
 * Component changeDetection is set to `OnPush`, it gives better overall performance.
 * Body `key` is header value, so it is possible to dynamically change table structure.
 
-Cons:
+**Cons(-):**
 * Need to change `@Input()` instance to have changes visible on template.
 * Tests are not ready yet.
 
@@ -40,21 +32,21 @@ Image preview:
 
 ## Demonstration
 
-[Live demonstration](http://ngx-docs.wwwdev.io/api)
+[Live demonstration](http://angular-package.wwwdev.io/docs/api)
 
 Clone this repository:
 
 ```bash
-git clone https://github.com/ngx-docs/api.git
+git clone https://github.com/angular-package/angular-package.git
 ```
 
-Go to `demo` folder and by opening your command line do the following:
+Go to `packages/docs/api/demo` folder, in command line write the following:
 
 ```bash
 npm i && npm start
 ```
 
-Open http://localhost:4200/ in your browser.
+Open [http://localhost:4200/](http://localhost:4200) in your browser.
 
 
 
@@ -63,13 +55,74 @@ Open http://localhost:4200/ in your browser.
 To install, run:
 
 ```bash
-npm install @ngx-docs/api --save
+npm install @angular-package/docs --save
 ```
+
+In the next step, add `peerDependencies` packages with the following command:
+
+```bash
+npm i --save @angular/flex-layout@2.0.0-beta.10-4905443 @angular/material@5.0.2 @angukar/cdk@5.0.2 @angular-package/prism@2.0.0 @types/prismjs@1.9.0 prismjs@1.9.0 @ngx-markdown/core@0.2.2
+```
+
 
 ## Usage
 
-In your component file:
+Example usage with `@angular/cli`.
+
+Import `MarkdownModule` and `ApDocsApiModule` to `app.module.ts` :
+
 ```typescript
+// app.module.ts
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+// @ngx
+import { MarkdownModule } from '@ngx-markdown/core'; // <--- here
+// @angular-package
+import { ApDocsApiModule } from '@angular-package/docs'; // <--- here
+// internal
+import { AppComponent } from './app.component';
+
+/**
+ * @export
+ * @class AppModule
+ */
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+
+    ApDocsApiModule, // <--- here
+    MarkdownModule.forRoot({ // <--- here
+      // this options are defaults when use forChild().
+      options: {
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: true,
+        sanitize: false,
+        smartLists: true,
+        smartypants: true
+      },
+      // template while loading
+      loadingTemplate: `<div> Loading ... </div>`
+    })
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
+In your component file `app.component.ts` add data to api:
+
+```typescript
+// app.component.ts
 import { Component } from '@angular/core';
 
 @Component({
@@ -95,6 +148,7 @@ export class AppComponent {
 In `app.component.html` write the following code:
 
 ```html
+<!-- app.component.html -->
 <ngx-docs-api
   [title]="title"
   [description]="description"
@@ -133,7 +187,7 @@ How do I know when to release 1.0.0?
 
 ## License
 
-MIT © ngx-docs
+MIT © angular-package
 
 ## Donate
 
