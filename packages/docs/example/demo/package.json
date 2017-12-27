@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-package/docs": "^0.1.8",
+    "@angular-package/docs": "^0.1.9",
     "@angular-package/prism": "^2.0.0",
     "@angular/animations": "^5.1.2",
     "@angular/cdk": "^5.0.2",
