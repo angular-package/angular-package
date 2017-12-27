@@ -61,7 +61,7 @@ npm install @angular-package/docs --save
 In the next step, add `peerDependencies` packages with the following command:
 
 ```bash
-npm i --save @angular/flex-layout@2.0.0-beta.10-4905443 @angular/material@5.0.2 @angukar/cdk@5.0.2 @angular-package/prism@2.0.0 @types/prismjs@1.9.0 prismjs@1.9.0 @ngx-markdown/core@0.2.2
+npm i --save @angular/flex-layout@2.0.0-beta.12 @angular/material@5.0.2 @angukar/cdk@5.0.2 @angular-package/prism@2.0.0 @types/prismjs@1.9.0 prismjs@1.9.0 @ngx-markdown/core@0.2.2
 ```
 
 
