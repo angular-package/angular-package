@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+body, html {
+  background: #468966;
+}
+app-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: #468966;
+}
+app-root > img {
+  border-radius: 5px;
+}
