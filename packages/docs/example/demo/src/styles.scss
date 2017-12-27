@@ -1,16 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular-package/docs/dist/example/src/docs-example.scss"; // added
-// @import "./app/src/docs-example.scss"; // added
-@import "~@angular-package/docs/dist/api/src/docs-api.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto'); // added
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:600&subset=latin-ext');
+
+@import "~@angular-package/docs/dist/example/src/docs-example.scss"; // added
+@import "~@angular-package/docs/dist/api/src/docs-api.scss";
 @import "~prismjs/themes/prism.css"; // added
 @import "~@angular/material/prebuilt-themes/indigo-pink.css"; // added
+@import 'assets/scss/loading.scss';
+@import 'assets/scss/theme.scss';
 
-html, body, material-app, mat-sidenav-container {
+html, body {
   margin: 0;
+  padding: 0px;
   width: 100%;
   height: 100%;
   font-family: 'Roboto', sans-serif;
+  background: #ffffff;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+app-root {
+  > div#loading {
+    @extend .loading;
+  }
 }
 mat-sidenav {
   padding: 16px;
@@ -41,6 +56,10 @@ mat-sidenav {
   padding-bottom: 0px;
 }
 .mat-drawer-container {
+  width: 100%;
+  height: 100%;
   background-color: #ffffff !important;
   color: rgba(0,0,0,.87);
 }
+
+
