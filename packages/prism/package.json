@@ -8,6 +8,10 @@
   "module": "dist/index.js",
   "jsnext:main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "scripts": {
     "build": "./node_modules/.bin/ngc -p tsconfig.json",
     "bundle": "rollup -c rollup.config.js --environment BUILD:production",
