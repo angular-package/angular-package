@@ -14,7 +14,7 @@ Useful packages written on Angular framework.
 | form             | Create dynamically forms or html form elements.| Not started   |   [Readme][5]  |
 | markdown         | Angular 5+ markdown to html using marked a markdown <br/>parser and compiler.  | Not started   |   [Readme][6]  |
 | prism            | Simple Angular 5+ Prism highlighter module.    | **Ready**     |   [Readme][7] |
-| reactive         | Additional Angular 5+ decorators to speed up development. | Not started   |   [Readme][8] |
+| reactive         | Additional Angular 5+ decorators to speed up development. | *In progress*   |   [Readme][8] |
 | ui               |                                                | Not started   |   [Readme][9] |
 
 
