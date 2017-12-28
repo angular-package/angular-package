@@ -6,9 +6,6 @@ const globals = {
 };
 const external = Object.keys(globals);
 
-const config = rollupDefaultConfig('changeDetection', {
-  external,
-  globals
-});
+const config = rollupDefaultConfig('changeDetection', { external }, { globals });
 
 export default config;
