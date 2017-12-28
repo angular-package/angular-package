@@ -1,4 +1,4 @@
-# angular-package/change-detection
+# @angular-package/change-detection
 
 Package to improve application performance by setting initially change detection component state to `Detached` and detect changes on choosed properties when they are `set`.
 
