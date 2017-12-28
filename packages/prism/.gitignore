@@ -63,3 +63,4 @@ Thumbs.db
 !.vscode/tasks.json
 /build
 /dist
+/.git
