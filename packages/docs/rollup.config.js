@@ -9,9 +9,6 @@ const globals = {
 };
 const external = Object.keys(globals);
 
-const config = rollupDefaultConfig('docs', {
-  external,
-  globals
-});
+const config = rollupDefaultConfig('docs', { external }, { globals });
 
 export default config;
