@@ -1,9 +1,9 @@
 {
   "name": "@angular-package/core",
   "version": "0.1.2",
-  "description": "Core features",
+  "description": "Core angular-package features.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io)",
-  "homepage": "https://github.com/angular-package/common#readme",
+  "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/core#readme",
   "main": "dist/bundle.umd.js",
   "module": "dist/index.js",
   "jsnext:main": "dist/index.js",
@@ -11,6 +11,10 @@
   "contributors": [
     "Angular Package <angular-package@wwwdev.io>"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "scripts": {
     "build": "./node_modules/.bin/ngc -p tsconfig.json",
     "bundle": "rollup -c rollup.config.js --environment BUILD:production",
@@ -65,6 +69,7 @@
     "rxjs": "^5.5.6",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
+    "uglify-es": "^3.3.2",
     "zone.js": "^0.8.19"
   },
   "keywords": [],
