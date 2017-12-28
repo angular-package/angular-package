@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/docs",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Angular 5+ module to create documentation.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/docs)",
   "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/docs#readme",
