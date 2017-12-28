@@ -12,16 +12,14 @@ import CleanCSS from 'clean-css';
 import { minify as minifyHtml } from 'html-minifier';
 
 /**
- * 
- * 
  * @export
  * @param {any} name 
  * @param {any} [config={}] 
+ * @param {any} [output={ }] 
  * @param {string} [input='./dist/index.js'] 
- * @param {string} [outputFile='./dist/bundle.umd.js'] 
- * @returns 
+ * @returns {}
  */
-export default function (name,  config = {}, input = './dist/index.js', outputFile = './dist/bundle.umd.js') {
+export default function (name, config = {}, output = { }, input = './dist/index.js') {
 
   const cssmin = new CleanCSS();
   const htmlminOpts = {
@@ -49,9 +47,9 @@ export default function (name,  config = {}, input = './dist/index.js', outputFi
   
   var defaultConfig = {
     input,
-    output: {
+    output: Object.assign({
       // core output options
-      file: outputFile,    // required
+      file: './dist/bundle.umd.js',    // required
       format: 'umd',  // required
       name: 'ap.'+name,
   
@@ -70,7 +68,7 @@ export default function (name,  config = {}, input = './dist/index.js', outputFi
       // amd: ,
       // indent: , 
       // strict: 
-    },
+    }, output),
     onwarn,
     plugins: [
       angular((process.env.BUILD === 'production') ? {
