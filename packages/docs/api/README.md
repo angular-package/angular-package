@@ -1,7 +1,7 @@
 # @angular-package/docs
 
 **ApDocsApiModule**  
-Angular 2+ components to create documentation on Angular Material.
+Angular 5+ components to create documentation on Angular Material.
 
 **Pros(+):**
 * Component changeDetection is set to `OnPush`, it gives better overall performance.
