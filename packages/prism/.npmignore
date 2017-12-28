@@ -15,9 +15,9 @@ config.gypi
 CVS
 karma.conf.js
 npm-debug.log
-node_modules
-src
-test
-demo
-coverage
-graphics
+/node_modules
+/src
+/test
+/demo
+/coverage
+/graphics
