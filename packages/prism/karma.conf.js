@@ -1,31 +1,8 @@
 // Karma configuration
-
 const angular = require('rollup-plugin-angular');
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const typescript = require('rollup-plugin-typescript');
-
-// rollup-plugin-angular addons
-const sass = require('node-sass');
-const CleanCSS = require('clean-css');
-const htmlMinifier = require('html-minifier');
-
-const cssmin = new CleanCSS();
-const htmlminOpts = {
-  caseSensitive: true,
-  collapseWhitespace: true,
-  removeComments: true,
-};
-
-const rpaConfig = {
-  preprocessors: {
-    template: template => htmlMinifier.minify(template, htmlminOpts),
-    style: scss => {
-      const css = sass.renderSync({ data: scss }).css;
-      return cssmin.minify(css).styles;
-    },
-  }
-};
 
 module.exports = function(config) {
   config.set({
@@ -72,16 +49,14 @@ module.exports = function(config) {
 
     rollupPreprocessor: {
       // will help to prevent conflicts between different tests entries
-      external: [
-        {'lodash-es': '_'},
-        {'prismjs': 'Prism'}
-      ],  
-      name: 'ngx-prism.core',
-      format: 'umd',
-      sourcemap: 'inline',
+      output: {
+        format: 'umd',
+        name: 'ap.prismCore',
+        sourcemap: 'inline'  
+      },
       // rollup settings. See Rollup documentation
       plugins: [
-        angular({}),
+        angular(),
         commonjs(),
         nodeResolve({
           // use "module" field for ES6 module if possible
