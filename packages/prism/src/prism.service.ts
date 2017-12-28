@@ -2,7 +2,7 @@
 
 // external
 import { ElementRef, Injectable, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import Prism from 'prismjs';
 import * as _ from 'lodash-es';
 
