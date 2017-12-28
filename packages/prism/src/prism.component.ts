@@ -18,7 +18,9 @@ import { PrismService } from './prism.service';
  * @export
  * @class PrismComponent
  * @extends {PrismHoodClass}
+ * @implements {AfterContentInit}
  * @implements {AfterViewInit}
+ * @implements {OnInit}
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,14 +39,7 @@ import { PrismService } from './prism.service';
   language: true,
   interpolation: true
 })
-export
-  class PrismComponent
-  extends PrismHoodClass
-  implements
-  AfterContentInit,
-  AfterViewInit,
-  OnInit {
-
+export class PrismComponent extends PrismHoodClass implements AfterContentInit, AfterViewInit, OnInit {
   /**
    * Creates an instance of PrismComponent.
    * @param {ChangeDetectorRef} changeDetectorRef
