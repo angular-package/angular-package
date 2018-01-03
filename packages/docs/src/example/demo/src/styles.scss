@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto'); // added
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web:600&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:600&subset=latin-ext'); // added
 
-@import "~@angular-package/docs/dist/example/src/docs-example.scss"; // added
-@import "~@angular-package/docs/dist/api/src/docs-api.scss";
+@import "~@angular-package/docs/example/src/docs-example.scss"; // added
+@import "~@angular-package/docs/api/src/docs-api.scss"; // added
 @import "~prismjs/themes/prism.css"; // added
 @import "~@angular/material/prebuilt-themes/indigo-pink.css"; // added
-@import 'assets/scss/loading.scss';
-@import 'assets/scss/theme.scss';
+@import 'assets/scss/loading.scss'; // added
+@import 'assets/scss/theme.scss'; // added
 
 html, body {
   margin: 0;
