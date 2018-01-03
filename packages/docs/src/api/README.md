@@ -1,4 +1,4 @@
-# @angular-package/docs
+# @angular-package/docs/api
 
 **ApDocsApiModule**  
 Angular 5+ components to create documentation on Angular Material.

@@ -1,0 +1,87 @@
+<!--
+
+  SINGLE MODE
+
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Import" formControlName="import">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Description" formControlName="description" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="15"></textarea>
+  </mat-form-field>
+  <button type="submit" color="primary" mat-raised-button>Submit</button>
+  <br />
+  <label>API</label>
+  <div formGroupName="api" fxFlex="row">
+    <mat-form-field>
+      <input matInput placeholder="Type" formControlName="type">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Selector" formControlName="selector">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Exported as" formControlName="exportedAs">
+    </mat-form-field>
+  </div>
+</form>
+-->
+
+<!--
+
+  MULTI MODE
+
+-->
+
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <mat-form-field>
+    <input matInput placeholder="Import" formControlName="import">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Description" formControlName="description" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="15"></textarea>
+  </mat-form-field>
+
+  <label>API</label>
+  <div formArrayName="types" *ngFor="let t of form.get('types')?.controls; let i = index;">
+    <div [formGroupName]="i">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <ng-container *ngIf="api" >
+  <div fxLayout="column" formGroupName="api" *ngFor="let type of objectKeys(api)">
+    <div>
+      <div fxLayout="column" [formGroupName]="type">
+        <h3>
+          {{type}}
+        </h3>
+        {{api[type] | json}}
+        <div *ngFor="let t of api[type]; let j = index" [formGroupName]="j">
+          <div fxLayout="row">
+            <mat-form-field>
+              <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Selector" formControlName="selector">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Exported as" formControlName="exportedAs">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+  <button type="submit" color="primary" mat-raised-button>Submit</button>
+</form>

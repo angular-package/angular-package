@@ -1,0 +1,74 @@
+<h2 *ngIf="title" >
+  {{title}}
+</h2>
+<p class="import" *ngIf="import" >
+  <code>
+    {{import}}
+  </code>
+</p>
+<p class="description" *ngIf="description" >
+  <ngx-markdown [string]="description"></ngx-markdown>
+</p>
+<ng-container *ngIf="api">
+  <!--  *ngFor="let types of api" -->
+<div class="api" fxLayout="column" *ngFor="let k of objectKeys(api)">
+  <div  >
+    <h3>
+      {{k}}
+    </h3>
+    <div *ngFor="let type of api[k]">
+      <h4 *ngIf="type.name" >
+        {{type.name}}
+      </h4>
+      <!-- Selector -->
+      <p class="selector" *ngIf="type.selector">
+        Selector:
+        <ng-container *ngIf="isArray(type.selector) === true">
+          <code *ngFor="let selector of type.selector">
+            {{selector}}
+          </code>
+        </ng-container>
+        <ng-container *ngIf="isArray(type.selector) === false"><code>{{type.selector}}</code></ng-container>
+      </p>
+
+      <!-- Exported as -->
+      <p class="exportedAs" *ngIf="type.exportedAs">
+        Exported as:
+        <ng-container *ngIf="isArray(type.exportedAs) === true">
+          <code *ngFor="let exportedAs of type.exportedAs">
+            {{exportedAs}}
+          </code>
+        </ng-container>
+        <ng-container *ngIf="isArray(type.exportedAs) === false"><code>{{type.exportedAs}}</code></ng-container>
+      </p>
+
+      <div class="table" *ngFor="let t of type.table">
+        <table  >
+          <thead>
+            <tr>
+              <th [attr.colspan]="t.header.length">
+                <h4>
+                  {{t.name}}
+                </h4>
+                <ngx-markdown *ngIf="t.description" class="description" [string]="t.description"></ngx-markdown>
+              </th>
+            </tr>
+            <tr>
+              <th *ngFor="let name of t.header">
+                <ngx-markdown [string]="name"></ngx-markdown>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of t.body">
+              <td *ngFor="let name of t.header">
+                <ngx-markdown [string]="row[name.toLowerCase()]"></ngx-markdown>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>
