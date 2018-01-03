@@ -1,0 +1,11 @@
+<h1>
+  @Decorator
+</h1>
+<app-subscribe-component [inputPropSG]="inputPropSG" [inputProp]="inputProp">
+  <p slot1>
+    <input #elInputPropSG type="text" name="inputPropSG" value="{{inputPropSG}}" (change)="update(elInputPropSG)" />
+  </p>
+  <p slot2>
+    <input #elInputProp type="text" name="inputProp" value="{{inputProp}}" (change)="update(elInputProp)" />
+  </p>
+</app-subscribe-component>
