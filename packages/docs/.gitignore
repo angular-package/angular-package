@@ -65,6 +65,8 @@ Thumbs.db
 /.vscode
 /build
 /dist
+
+# Remove bundled folders
 /api
 /example
 preview.png
