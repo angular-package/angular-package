@@ -76,5 +76,5 @@ fonts
 /packages/markdown
 # /packages/prism
 /packages/prism/demo
-/packages/reactive
+# /packages/reactive
 /packages/ui
