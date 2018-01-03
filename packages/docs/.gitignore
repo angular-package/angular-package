@@ -62,8 +62,15 @@ Thumbs.db
 .DS_Store
 
 # Ignored files
-/.vscode
-/build
-/dist
-/api/demo
+/.vscode/*
+/build/*
+/dist/*
+/api/*
+/example/*
 preview.png
+
+# Ignore rollup bundle files
+/bundle.*
+
+# Ignore ngc index files
+/index.*

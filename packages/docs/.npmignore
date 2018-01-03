@@ -19,6 +19,4 @@ node_modules
 /src
 /test
 /demo
-/example
-/api
 /index.ts

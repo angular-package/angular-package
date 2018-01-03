@@ -9,6 +9,6 @@ const globals = {
 };
 const external = Object.keys(globals);
 
-const config = rollupDefaultConfig('docs', { external }, { globals });
+const config = rollupDefaultConfig('docs', { external }, { file: './bundle.umd.js', globals }, './index.js');
 
 export default config;
