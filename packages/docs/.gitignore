@@ -68,6 +68,7 @@ Thumbs.db
 
 # Remove bundled folders
 /api
+/src/api/demo
 /example
 preview.png
 
