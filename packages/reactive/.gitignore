@@ -62,7 +62,7 @@ Thumbs.db
 /.vscode
 
 # Ignore one of dist subpackage
-/decorator
+/decorator/*
 
 # Ignore rollup bundle files
 /bundle.*
