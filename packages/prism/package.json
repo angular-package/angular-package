@@ -31,7 +31,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@angular-package/change-detection": "^0.1.1"
+    "@angular-package/change-detection": "^0.1.2"
   },
   "devDependencies": {
     "@angular/common": "^5.1.2",
@@ -40,7 +40,7 @@
     "@angular/core": "^5.1.2",
     "@angular/platform-browser": "^5.1.2",
     "@angular/platform-browser-dynamic": "^5.1.2",
-    "@types/angular": "^1.6.39",
+    "@types/angular": "^1.6.40",
     "@types/jasmine": "^2.8.3",
     "@types/karma": "^1.7.3",
     "@types/lodash-es": "^4.17.0",
@@ -64,7 +64,7 @@
     "prismjs": "^1.9.0",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^2.6.2",
-    "rollup": "^0.53.0",
+    "rollup": "^0.53.3",
     "rollup-plugin-angular": "^0.5.3",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
@@ -74,7 +74,7 @@
     "rxjs": "^5.5.6",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
-    "uglify-es": "^3.3.2",
+    "uglify-es": "^3.3.4",
     "zone.js": "^0.8.19"
   },
   "peerDependencies": {
