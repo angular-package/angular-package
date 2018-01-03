@@ -62,11 +62,11 @@ Thumbs.db
 .DS_Store
 
 # Ignored files
-/.vscode/*
-/build/*
-/dist/*
-./api
-./example
+/.vscode
+/build
+/dist
+/api
+/example
 preview.png
 
 # Ignore rollup bundle files
