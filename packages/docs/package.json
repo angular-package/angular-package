@@ -4,10 +4,10 @@
   "description": "Angular 5+ module to create documentation.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/docs)",
   "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/docs#readme",
-  "main": "./dist/bundle.umd.js",
-  "module": "./dist/index.js",
-  "jsnext:main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "main": "./bundle.umd.js",
+  "module": "./index.js",
+  "jsnext:main": "./index.js",
+  "typings": "./index.d.ts",
   "contributors": [
     "Angular Package <angular-package@wwwdev.io>"
   ],
@@ -16,7 +16,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "clean": "rimraf ./dist ./node_modules",
+    "clean": "rimraf ./example ./api ./node_modules ./index.* ./bundle.umd.*",
     "bundle": "rollup -c rollup.config.js --environment BUILD:production",
     "bundle:dev": "rollup -c rollup.config.js --environment BUILD:development",
     "prebuild": "npm install",
@@ -26,8 +26,8 @@
     "start": "npm run build && npm run bundle",
     "clean:start": "npm run clean && npm start",
     "clean:start:pack": "npm run clean && npm run clean:start && npm pack",
-    "copyfiles:api": "copyfiles ./api/src/*.html ./api/src/*.scss ./api/src/*.css ./dist",
-    "copyfiles:example": "copyfiles ./example/src/*.html ./example/src/*.scss ./example/src/*.css ./dist",
+    "copyfiles:api": "cd ./src/api && copyfiles ./src/*.html ./src/*.scss ./src/*.css ./../../api",
+    "copyfiles:example": "cd ./src/example && copyfiles ./src/*.html ./src/*.scss ./src/*.css ./../../example",
     "copyfiles:all": "npm run copyfiles:example && npm run copyfiles:api",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@angular-package/prism": "^2.0.0",
     "@angular/animations": "^5.1.2",
-    "@angular/cdk": "5.0.2",
+    "@angular/cdk": "5.0.3",
     "@angular/common": "^5.1.2",
     "@angular/compiler": "^5.1.2",
     "@angular/compiler-cli": "^5.1.2",
@@ -44,7 +44,7 @@
     "@angular/flex-layout": "^2.0.0-beta.12",
     "@angular/forms": "^5.1.2",
     "@angular/http": "^5.1.2",
-    "@angular/material": "^5.0.2",
+    "@angular/material": "^5.0.3",
     "@angular/platform-browser": "^5.1.2",
     "@angular/platform-browser-dynamic": "^5.1.2",
     "@ngx-markdown/core": "^0.2.2",
@@ -82,9 +82,9 @@
     "zone.js": "^0.8.19"
   },
   "peerDependencies": {
-    "@angular/cdk": "5.0.2",
+    "@angular/cdk": "5.0.3",
     "@angular/flex-layout": "^2.0.0-beta.12",
-    "@angular/material": "^5.0.2",
+    "@angular/material": "^5.0.3",
     "@angular-package/prism": "^2.0.0",
     "@ngx-markdown/core": "^0.2.2",
     "@types/prismjs": "^1.9.0",
