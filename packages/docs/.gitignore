@@ -65,8 +65,8 @@ Thumbs.db
 /.vscode/*
 /build/*
 /dist/*
-/api/*
-/example/*
+./api
+./example
 preview.png
 
 # Ignore rollup bundle files
