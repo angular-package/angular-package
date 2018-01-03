@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Unsubscribe } from '@angular-package/reactive';
+import { Unsubscribe } from '@angular-package/reactive/decorator/unsubscribe';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
