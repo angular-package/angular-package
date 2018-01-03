@@ -1,1 +1,2 @@
-export { Subscribe, Unsubscribe } from './src';
+export { Subscribe } from './subscribe';
+export { Unsubscribe } from './unsubscribe';
