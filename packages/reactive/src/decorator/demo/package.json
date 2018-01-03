@@ -1,6 +1,6 @@
 {
-  "name": "ng-reactive",
-  "version": "0.0.0",
+  "name": "angular-package-reactive-demo",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-package/reactive": "file:angular-package-reactive-0.1.0.tgz",
+    "@angular-package/reactive": "^0.1.0",
     "@angular/animations": "^4.4.6",
     "@angular/common": "^4.4.6",
     "@angular/compiler": "^4.4.6",
