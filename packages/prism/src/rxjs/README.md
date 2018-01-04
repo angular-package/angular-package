@@ -43,7 +43,7 @@ Not available
 To install, run:
 
 ```bash
-npm install @angular-package/prism/rxjs --save
+npm install @angular-package/prism --save
 ```
 
 Add peer dependencies:
