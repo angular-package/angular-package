@@ -3,13 +3,16 @@
 Rxjs Angular 5+ Prism highlighter module.
 
 **Pros(+):**
-* Component changeDetection is set to `OnPush`, it gives better overall performance.
+* **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
+* **MIT** License: it can be used commercially.
+* Component `changeDetectionStrategy` is set to `OnPush`, It gives better overall __performance__. 
 * Dynamically change highlight string with `code` input property.
 * Interpolate string to highlight with `interpolation` object.
 * `@angular-package/reactive/decorator` with `rxjs/Subject` to Subscribe to `code` and `language` property changes.
 
 **Cons(-):**
 * Hooks are defined globally.
+* No demonstration.
 
 
 ----
