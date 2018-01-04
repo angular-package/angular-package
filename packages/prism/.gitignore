@@ -61,6 +61,16 @@ Thumbs.db
 # Ignored files
 /.vscode/*
 !.vscode/tasks.json
-/build
-/dist
+# /build
+# /dist
 /.git
+
+# bundle
+/core
+/rxjs
+
+# index
+/index.*
+
+# bundle
+/bundle.umd.*
