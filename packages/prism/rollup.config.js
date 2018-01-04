@@ -10,6 +10,6 @@ const globals = {
 };
 const external = Object.keys(globals);
 
-const config = rollupDefaultConfig('prismCore', { external }, { globals });
+const config = rollupDefaultConfig('prismCore', { external }, { file: './bundle.umd.js', globals }, './index.js');
 
 export default config;
