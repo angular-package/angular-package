@@ -58,7 +58,7 @@ npm i @angular-package/reactive --save
 
 ```typescript
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Unsubscribe } from '@ngx-reactive/decorator';
+import { Unsubscribe } from '@angular-package/reactive/decorator/unsubscribe';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
