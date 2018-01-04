@@ -18,6 +18,7 @@ Decorator to automatize process of creating observable properties in component.
 * Possibility to use only `Subject<T>()`.
 * Need to add `ngOnInit()` and `ngOnDestroy()` lifecycle hooks.
 * There are no typeguards.
+* There are no test at the moment.
 * It is needed to define properties in component.
 
 **Important**  
