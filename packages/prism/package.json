@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/prism",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Simple Angular 5+ Prism highlighter module.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/prism)",
   "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/prism#readme",
