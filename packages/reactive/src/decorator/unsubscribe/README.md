@@ -33,11 +33,11 @@ Decorator to automatize process of unsubscribe subscriptions in component.
 
 ## Demonstration
 
-Demonstration usage with `@angular/cli` available on github [repository](https://github.com/angular-package/angular-package.git):
+Demonstration usage with `@angular/cli` available on github [repository](https://github.com/angular-package/angular-package/tree/master/packages/reactive/demo):
 
 ```bash
 git clone https://github.com/angular-package/angular-package.git
-cd packages/reactive/src/decorator/demo
+cd angular-package/packages/reactive/demo
 npm i && npm start
 ```
 
