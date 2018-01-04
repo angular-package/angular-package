@@ -21,7 +21,7 @@ Decorator to automatize process of creating observable properties in component.
 * There are no test at the moment.
 * It is needed to define properties in component.
 
-**Important**  
+**Important!**  
 * First, property with suffix $$ for example `property$$` is automatically set as `new Subject<T>()`.
 * Second, property with suffix $ for example `property$` is automatically set as `this['property$$'].asObservable()`.
 * Every property with name from observables will have added to setter `this['property$$'].next(value)`.
@@ -32,6 +32,7 @@ Decorator to automatize process of creating observable properties in component.
 * [Demonstration](#demonstration)
 * [Install](#install)
 * [Usage](#usage)
+* [Properties](#properties)
 * [Style guide](#style-guide)
 * [Git](#git)
   * [Commit](#commit)
@@ -66,118 +67,72 @@ npm i @angular-package/reactive --save
 
 ## Usage
 
-**Example** on `@angular/cli`, add the following component:
+**Example** on `@angular/cli`.
+
+Update your `app.component.ts` to the following.
 
 ```typescript
-// subscribe.component.ts
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+// app.component.ts
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 import { Subscribe } from '@angular-package/reactive/decorator/subscribe';
 
 @Component({
-  selector: 'app-subscribe-component',
-  templateUrl: './subscribe.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-@Subscribe<string>(['prop', 'inputPropSG'])
-@Subscribe<number>(['inputProp'])
-export class SubscribeComponent implements OnDestroy, OnInit {
+@Subscribe<string>(['name'])
+@Subscribe<number>(['age'])
+export class AppComponent implements OnInit {
 
-  prop = 'Because it is';
-  @Input('inputProp') inputProp: number;
+  public nameSubscription: Subscription;
+  public ageSubscription: Subscription;
 
-  _inputPropSG: string;
-  @Input('inputPropSG') set inputPropSG(value: string) {
-    this._inputPropSG = value;
+  public name: string;
+  public name$: Observable<string>;
+
+  public age$: Observable<number>;
+  public age_: number;
+  set age(value: number) {
+    this.age_ = value;
   }
-  get inputPropSG(): string {
-    return this._inputPropSG;
-  }
-
-  /**
-   * Observable instance to subscribe.
-   * @type {Observable<string>}
-   * @memberof SubscribeComponent
-   */
-  public prop$: Observable<string>;
-  public inputPropSG$: Observable<string>;
-
-  /**
-   *
-   * @type {Observable<number>}
-   * @memberof SubscribeComponent
-   */
-  public inputProp$: Observable<number>;
-
-  /**
-   * Subscription instance of observable.
-   * @type {Subscription}
-   * @memberof SubscribeComponent
-   */
-  public prop$$$: Subscription;
-  public inputProp$$$: Subscription;
-  public inputPropSG$$$: Subscription;
-
-  constructor() { }
-
-  ngOnDestroy() {
-    console.log(this);
+  get age(): number {
+    return this.age_;
   }
 
   ngOnInit() {
-    this.prop$$$ = this.prop$.subscribe({
+    this.nameSubscription = this.name$.subscribe({
       next: (value: string) => {
-        console.log(`subscribe['prop']: `, value, this);
+        console.log(value);
       }
     });
-    this.inputPropSG$$$ = this.inputPropSG$.subscribe({
-      next: (value: string) => {
-        console.log(`subscribe['inputPropSG']: `, value, this);
-      }
-    });
-    this.inputProp$$$ = this.inputProp$.subscribe({
+
+    this.ageSubscription = this.age$.subscribe({
       next: (value: number) => {
-        console.log(`subscribe['inputProp']: `, value);
+        console.log(value);
       }
     });
+
+    this.age = 27;
+    this.name = `Brayan`;
   }
 
-  update(input: any) {
-    this[input['name']] = input['value'];
-  }
 }
-
 ```
 
-**Step 2.** With template file
-```html
-<!-- subscribe.component.html -->
-<h2>
-  Subscribe
-</h2>
-<h3>InputPropSG</h3>
-<p>
-  Property type <strong>`string`</strong> with <strong>@Input</strong> decorator and setter/getter defined.
-</p>
-<ng-content select="[slot1]"></ng-content>
-<div [innerHTML]="(inputPropSG$ | async) || inputPropSG"></div>
+What will be added.
 
-<h3>InputProp</h3>
-<p>
-  Property type <strong>`number`</strong>.
-</p>
-<ng-content select="[slot2]"></ng-content>
-<div [innerHTML]="(inputProp$ | async) || inputProp"></div>
+| Prefix | Suffix | Property | Value            |
+|--------|--------|----------|------------------|
+|        | $$     | name$$   | new Subject<T>() | 
+|        | $      | name$    | this['name$$'].asObservable() | 
+| _      |        | _name    | set name(value){ <br/> this['name$$'].next(value); this._name = value; <br />} <br /> get name() { this._name; } | 
+|        | $$     | age$$   | new Subject<T>() | 
+|        | $      | age$    | this['age$$'].asObservable() | 
+|        | _      | age_    | set age(value){ <br/> this['age$$'].next(value); this.age_ = value; <br />} <br /> get age() { this.age_; } | 
 
-<h3>prop</h3>
-<p>
-  Property type <strong>`string`</strong>.
-</p>
-<p>
-  <input #elprop type="text" name="prop" value="{{prop}}" (change)="update(elprop)" />
-</p>
-<div [innerHTML]="(prop$ | async) || prop"></div>
-```
 
 ## Style guide
 
