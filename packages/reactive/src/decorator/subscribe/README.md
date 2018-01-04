@@ -69,6 +69,7 @@ npm i @angular-package/reactive --save
 **Example** on `@angular/cli`, add the following component:
 
 ```typescript
+// subscribe.component.ts
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -147,6 +148,37 @@ export class SubscribeComponent implements OnDestroy, OnInit {
 }
 
 ```
+
+**Step 2.** With template file
+```html
+<!-- subscribe.component.html -->
+<h2>
+  Subscribe
+</h2>
+<h3>InputPropSG</h3>
+<p>
+  Property type <strong>`string`</strong> with <strong>@Input</strong> decorator and setter/getter defined.
+</p>
+<ng-content select="[slot1]"></ng-content>
+<div [innerHTML]="(inputPropSG$ | async) || inputPropSG"></div>
+
+<h3>InputProp</h3>
+<p>
+  Property type <strong>`number`</strong>.
+</p>
+<ng-content select="[slot2]"></ng-content>
+<div [innerHTML]="(inputProp$ | async) || inputProp"></div>
+
+<h3>prop</h3>
+<p>
+  Property type <strong>`string`</strong>.
+</p>
+<p>
+  <input #elprop type="text" name="prop" value="{{prop}}" (change)="update(elprop)" />
+</p>
+<div [innerHTML]="(prop$ | async) || prop"></div>
+```
+
 
 ## Style guide
 
