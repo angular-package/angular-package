@@ -33,27 +33,14 @@ Rxjs Angular 5+ Prism highlighter module.
 
 ## Demonstration
 
-If you want to see how **@ngx-prism/rxjs** works with **@angular/cli**, get simple example demonstration usage from github [repository](https://github.com/ngx-prism/demo) by opening your command line and do the following:
-
-```bash
-git clone https://github.com/ngx-prism/demo.git
-```
-
-Go to file `src/app/app.module.ts` line 3 comment it, and uncomment line 4.  
-Go to file `src/style.css` comment line 2 and uncomment line 3.
-
-```bash
-npm install && npm start
-```
-
-Open http://localhost:4200/ in your browser.
+Not available
 
 ## Installation
 
 To install, run:
 
 ```bash
-npm install @ngx-prism/rxjs --save
+npm install @angular-package/prism/rxjs --save
 ```
 
 ## Usage
@@ -175,7 +162,7 @@ If yes, set component property `change` to `true`.
 Unsubscribe Rxjs.Subject subscription in Object property `subscription.code` and `subscription.language`.
 
 **ngOnInit()**   
-Initiate subscribes to property `code` and `language` with `@ngx-reactive/decorator` decorator `Subscribe()`.
+Initiate subscribes to property `code` and `language` with `@angular-package/reactive/decorator/subscribe` decorator `Subscribe()`.
 
 ## Scripts
 
