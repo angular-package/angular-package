@@ -179,7 +179,6 @@ export class SubscribeComponent implements OnDestroy, OnInit {
 <div [innerHTML]="(prop$ | async) || prop"></div>
 ```
 
-
 ## Style guide
 
 [Angular style guide](https://angular.io/docs/ts/latest/guide/style-guide.html) 
