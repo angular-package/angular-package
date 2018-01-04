@@ -15,7 +15,7 @@ Decorator to automatize process of unsubscribe subscriptions in component.
 **Cons(-):**
 * It is searching only in first level of component properties like `this['property']`.
 * Need to addd `ngOnDestroy()` lifecycle hooks.
-
+* There are no test at the moment.
 
 ---- 
 
@@ -89,6 +89,10 @@ export class UnsubscribeComponent implements OnDestroy, OnInit {
   }
 }
 ```
+
+## Style guide
+
+[Angular style guide](https://angular.io/docs/ts/latest/guide/style-guide.html) 
 
 ## GIT
 
