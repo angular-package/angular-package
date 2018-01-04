@@ -46,6 +46,11 @@ To install, run:
 npm install @angular-package/prism/rxjs --save
 ```
 
+Add peer dependencies:
+```bash
+npm i --save @types/prismjs@1.9.0 prismjs@1.9.0
+```
+
 ## Usage
 
 **Step 1.** Import `ApPrismRxjsModule` into your module.
