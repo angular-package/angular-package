@@ -67,6 +67,7 @@ graphics
 fonts
 
 # Packages
+/packages/demo
 # /packages/change-detection
 /packages/chart
 # /packages/common
