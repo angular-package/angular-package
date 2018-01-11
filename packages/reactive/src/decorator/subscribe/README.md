@@ -7,6 +7,7 @@ Decorator to automatize process of creating observable properties in component.
 ```
 
 **Pros(+):**
+* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * Everything happens on `onInit` lifecycle hook, and there is no need to remember to implement it.
