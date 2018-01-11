@@ -15,7 +15,7 @@ Useful packages written on Angular framework.
 | markdown         | Angular 5+ markdown to html using marked a markdown <br/>parser and compiler.  | Not started   |   [Readme][6]  |
 | prism            | Simple Angular 5+ Prism highlighter module.    | **Ready**     |   [Readme][7] |
 | reactive         | Angular Reactive. | *In progress*   |   [Readme][8] |
-| ui               |                                                | Not started   |   [Readme][9] |
+| ui               | Angular Package user interface. | *In Progress*  |   [Readme][9] |
 
 
  [0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection#readme
