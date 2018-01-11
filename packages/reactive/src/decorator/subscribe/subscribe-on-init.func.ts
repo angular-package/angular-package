@@ -1,8 +1,6 @@
 // external
 import { Observable } from 'rxjs/Observable';
-// import { PartialObserver } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
-// import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash-es';
 
 // internal
@@ -25,7 +23,7 @@ export const subscribeOnInit = function <T>(target: any, observables: Observable
         // Define `Subject` in $$ suffix property name component.
         Object.defineProperty(this, `${property}$$`, { writable: false, value: new Subject<T>() });
         // Define poperty for subscribe to subject.
-        Object.defineProperty(this, `${property}$`, { writable: false, value: this[`${property}$$`].asObservable() })
+        Object.defineProperty(this, `${property}$`, { writable: false, value: this[`${property}$$`].asObservable() });
         // Add to Setter/Getter to subscribed property.
         Object.defineProperty(this, property, {
           set: function (value: T) {
@@ -40,7 +38,7 @@ export const subscribeOnInit = function <T>(target: any, observables: Observable
               this[`_${property}`] = value;
             }
           },
-          get: function(): T {
+          get: function (): T {
             if (lookup.getter[property] === undefined) {
               return this[`_${property}`];
             } else {
@@ -56,5 +54,10 @@ export const subscribeOnInit = function <T>(target: any, observables: Observable
     if (ngOnInit !== undefined) {
       ngOnInit.apply(this, arguments);
     }
+  };
+
+  // if method does not exist call it.
+  if (ngOnInit === undefined) {
+    target.prototype.ngOnInit();
   }
-}
+};
