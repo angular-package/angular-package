@@ -7,6 +7,7 @@ Decorator to automatize process of unsubscribe subscriptions in component.
 ```
 
 **Pros(+):**
+* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * Simple unsubscribe with argument as array of string or automatically search for active subscriptions in component when argument is undefined.
