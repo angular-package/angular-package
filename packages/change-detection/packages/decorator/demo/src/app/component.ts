@@ -1,14 +1,13 @@
 // external
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { ChangeDetection } from '@angular-package/change-detection';
-// import { ChangeDetection } from './src';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetection } from '@angular-package/change-detection/decorator';
 
 // internal
 import { AddressInterface } from './interface';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'changedetection-component',
+  selector: 'app-changedetection-component',
   templateUrl: './component.html',
   styleUrls: [ 'component.scss' ]
 })
@@ -16,12 +15,12 @@ import { AddressInterface } from './interface';
   name: true,
   surname: false
 })
-export class ChangeDetectionComponent implements OnInit, AfterViewInit {
+export class ChangeDetectionComponent implements OnInit, AfterContentInit {
 
   __detection: boolean;
   __properties: any;
 
-  public _address: AddressInterface
+  public _address: AddressInterface;
   @Input('address')
   set address(address: AddressInterface) {
     this._address = address;
@@ -30,7 +29,8 @@ export class ChangeDetectionComponent implements OnInit, AfterViewInit {
     return this._address;
   }
 
-  @Input('name') _name;
+  _name: string;
+  @Input('name')
   set name(name: string) {
     this._name = name;
   }
@@ -44,7 +44,6 @@ export class ChangeDetectionComponent implements OnInit, AfterViewInit {
 
   ngOnInit() { }
   ngAfterContentInit() { }
-  ngAfterViewInit() { }
   update($event) {
     this.__properties = this.__properties;
     console.log(`update`, $event, this);
