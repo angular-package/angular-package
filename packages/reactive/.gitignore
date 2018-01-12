@@ -69,5 +69,3 @@ Thumbs.db
 
 # Ignore ngc index files
 /index.*
-
-/packages/decorator/demo/*
