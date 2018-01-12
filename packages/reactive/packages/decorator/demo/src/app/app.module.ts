@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SubscribeComponent } from './subscribe.component';
 import { SubscribeHolderComponent } from './subscribe-holder.component';
 import { UnsubscribeComponent } from './unsubscribe.component';
+import { SubscribeService } from './subscribe.service';
 
 const routes: Routes = [
   { path: 'subscribe', component: SubscribeHolderComponent },
@@ -23,7 +24,7 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [SubscribeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

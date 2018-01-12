@@ -2,20 +2,47 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/cor
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subscribe } from '@angular-package/reactive/decorator/subscribe';
+import { Unsubscribe } from '@angular-package/reactive/decorator/unsubscribe';
+import { SubscribeService, ServiceInterface } from './subscribe.service';
 
+/**
+ * @export
+ * @class SubscribeComponent
+ * @implements {AfterViewInit}
+ * @implements {OnDestroy}
+ */
 @Component({
   selector: 'app-subscribe-component',
   templateUrl: './subscribe.component.html'
 })
 @Subscribe<string>(['prop', 'inputPropSG'])
 @Subscribe<number>(['inputProp'])
-export class SubscribeComponent implements AfterViewInit, OnDestroy {
+@Unsubscribe([
+  'service',
+  'serviceNext',
+  'serviceNumber',
+  'serviceNumberNext',
+  'serviceString',
+  'serviceStringNext'
+])
+export class SubscribeComponent implements AfterViewInit, OnDestroy, OnInit {
 
+  set service(value: ServiceInterface) {
+    this.subscribeService.service = value;
+  }
+  get service(): ServiceInterface {
+    return this.subscribeService.service;
+  }
+
+  // just string component property.
   prop = 'Because it is';
+
+  // input number property
   @Input('inputProp') inputProp: number;
 
   _inputPropSG: string;
-  @Input('inputPropSG') set inputPropSG(value: string) {
+  @Input('inputPropSG')
+  set inputPropSG(value: string) {
     this._inputPropSG = value;
   }
   get inputPropSG(): string {
@@ -45,14 +72,17 @@ export class SubscribeComponent implements AfterViewInit, OnDestroy {
   public prop$$$: Subscription;
   public inputProp$$$: Subscription;
   public inputPropSG$$$: Subscription;
+  public service$$$: Subscription;
 
-  constructor() { }
+  constructor(public subscribeService: SubscribeService) {}
 
   ngOnDestroy() {
     console.log(this);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() { }
+
+  ngOnInit() {
     this.prop$$$ = this.prop$.subscribe({
       next: (value: string) => {
         console.log(`subscribe['prop']: `, value, this);
@@ -68,9 +98,17 @@ export class SubscribeComponent implements AfterViewInit, OnDestroy {
         console.log(`subscribe['inputProp']: `, value);
       }
     });
+    this.service$$$ = this.subscribeService.service$.subscribe({
+      next: (value: ServiceInterface) => {
+        console.log(`service`, value);
+      }
+    });
+    this.service = {
+      age: 33,
+      firstname: 'Atomic',
+      surname: 'Kitchen'
+    };
   }
-
-  // ngOnInit() { }
 
   update(input: any) {
     this[input['name']] = input['value'];
