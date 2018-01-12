@@ -13,8 +13,3 @@ app-root {
 
   background: #ffffff;
 }
-app-root > img {
-  margin-top: 50px;
-  margin-left: 50px;
-  border-radius: 5px;
-}
