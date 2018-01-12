@@ -1,7 +1,7 @@
 {
   "name": "@angular-package/change-detection",
   "version": "0.1.2",
-  "description": "",
+  "description": "Package to improve application performance.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io)",
   "homepage": "https://github.com/angular-package/angular-package#readme",
   "main": "./bundle.umd.js",
