@@ -14,11 +14,12 @@ Decorator to automatize process of creating observable properties in component.
 * Automatically unsubscribe all subscribed properties on `onDestroy` lifecycle hook, and there is no need to remember to implement it.
 * It uses `setters` and `getters` but there is still possibility to define own.
 * It observes changes to specified property name, so you can still work on property as usual.
+* Can be used with `Injectable()` services.
 
 **Cons(-):**   
 * Possibility to use only `Subject<T>()`.
-* ~~Need to add `ngOnInit()`.~~ When `ngOnInit()` method is not undefined, it is automatically created and called.
-* Need to add `ngOnDestroy()` lifecycle hooks.
+* Need to add `ngOnInit` and `ngOnDestroy()` lifecycle hooks.
+* In services need to call `ngOnInit()` method in `constructor()`, and need to remember to `Unsubscribe()` all properties from injectable service (f.e. demo).
 * There are no typeguards.
 * There are no test at the moment.
 * It is needed to define properties in component.
@@ -52,7 +53,7 @@ Demonstration usage with `@angular/cli` available on github [repository](https:/
 
 ```bash
 git clone https://github.com/angular-package/angular-package.git
-cd angular-package/packages/reactive/demo
+cd angular-package/packages/reactive/decorator/demo
 npm i && npm start
 ```
 
