@@ -72,7 +72,7 @@ module.exports = function(config) {
 
     rollupPreprocessor: {
       // will help to prevent conflicts between different tests entries
-      name: 'angular-package.change-detection',
+      name: 'ap.change-detection',
       format: 'umd',
       sourcemap: 'inline',
       // rollup settings. See Rollup documentation
