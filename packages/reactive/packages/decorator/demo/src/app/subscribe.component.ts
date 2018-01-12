@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subscribe } from '@angular-package/reactive/decorator/subscribe';
@@ -9,7 +9,7 @@ import { Subscribe } from '@angular-package/reactive/decorator/subscribe';
 })
 @Subscribe<string>(['prop', 'inputPropSG'])
 @Subscribe<number>(['inputProp'])
-export class SubscribeComponent implements OnDestroy, OnInit {
+export class SubscribeComponent implements AfterViewInit, OnDestroy {
 
   prop = 'Because it is';
   @Input('inputProp') inputProp: number;
@@ -52,7 +52,7 @@ export class SubscribeComponent implements OnDestroy, OnInit {
     console.log(this);
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.prop$$$ = this.prop$.subscribe({
       next: (value: string) => {
         console.log(`subscribe['prop']: `, value, this);
@@ -69,6 +69,8 @@ export class SubscribeComponent implements OnDestroy, OnInit {
       }
     });
   }
+
+  // ngOnInit() { }
 
   update(input: any) {
     this[input['name']] = input['value'];
