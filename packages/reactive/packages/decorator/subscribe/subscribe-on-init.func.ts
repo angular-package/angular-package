@@ -55,9 +55,4 @@ export const subscribeOnInit = function <T>(target: any, observables: Observable
       ngOnInit.apply(this, arguments);
     }
   };
-
-  // if method does not exist call it.
-  if (ngOnInit === undefined) {
-    target.prototype.ngOnInit();
-  }
 };
