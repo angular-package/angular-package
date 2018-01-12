@@ -62,4 +62,12 @@ Thumbs.db
 /.vscode
 /build
 /dist
-# /demo
+
+# Ignore one of dist subpackage
+/decorator/*
+
+# Ignore rollup bundle files
+/bundle.*
+
+# Ignore ngc index files
+/index.*
