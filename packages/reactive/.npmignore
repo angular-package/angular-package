@@ -19,4 +19,4 @@ node_modules
 /test/*
 /coverage/*
 /graphics/*
-/src/*
+/packages/*
