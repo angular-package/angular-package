@@ -1,7 +1,7 @@
 # @angular-package/change-detection/decorator
 
 ```typescript
-@ChangeDetection(detached: boolean, { [property]: boolean })
+@ChangeDetection(detection = true, properties: {[index: string]: boolean})
 ```
 
 Package to improve application performance by setting initially change detection component state to `Detached` and detect changes on choosed properties when they are `set`.
@@ -62,32 +62,33 @@ npm i --save @angular-package/change-detection
 ```typescript
 // component.ts
 // external
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { ChangeDetection } from '@angular-package/change-detection';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetection } from '@angular-package/change-detection/decorator';
 
 // internal
 import { AddressInterface } from './interface';
 
-@Component({
-  changeDetection: ChangeDetectionStrategy.OnPush, // <--- Set detection strategy to `OnPush`.
-  selector: 'changedetection-component',
-  templateUrl: './component.html'
-})
-@ChangeDetection(
-  false,  // <--- Set change detection status to `Detached`.
-  {
-    name: true,  // <--- Detect changes on specific properties when true. [propertyName]: detection(true:false). It can be changed dynamically with `this.__properties` property.
-    surname: false
-  }
-)
-export class ChangeDetectionComponent
-  implements
-  OnInit,  // <--- Implement OnInit
-  AfterViewInit { // <--- Implement AfterViewInit
+export interface AddressInterface {
+  city: string;
+  street: string;
+}
 
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-changedetection-component',
+  templateUrl: './component.html',
+  styleUrls: [ 'component.scss' ]
+})
+@ChangeDetection(false, {
+  name: true,
+  surname: false
+})
+export class ChangeDetectionComponent implements OnInit, AfterContentInit {
+
+  __detection: boolean;
   __properties: any;
 
-  public _address: AddressInterface
+  public _address: AddressInterface;
   @Input('address')
   set address(address: AddressInterface) {
     this._address = address;
@@ -96,7 +97,8 @@ export class ChangeDetectionComponent
     return this._address;
   }
 
-  @Input('name') _name;
+  _name: string;
+  @Input('name')
   set name(name: string) {
     this._name = name;
   }
@@ -106,36 +108,48 @@ export class ChangeDetectionComponent
 
   @Input('surname') surname;
 
-  constructor(public changeDetector: ChangeDetectorRef) { }  // <--- Inject `ChangeDetectorRef`.
+  constructor(public changeDetector: ChangeDetectorRef) { }
 
-  ngOnInit() { } // <--- Add method ngOnInit.
-  ngAfterContentInit() { } // <--- Add method AfterContentInit.
-  ngAfterViewInit() { }
+  ngOnInit() { }
+  ngAfterContentInit() { }
   update($event) {
     this.__properties = this.__properties;
     console.log(`update`, $event, this);
   }
 }
-
 ```
 
 **2. Template file `component.html` of component above displays name and surname, and add some inputs to check how it works.**
 ```html
 <!-- component.html -->
 <div>
-  <input type="checkbox" name="detection" [value]="true" (change)="update($event)" [(ngModel)]="__detection" />
+  <mat-checkbox name="detection" [value]="true" (change)="update($event)" [(ngModel)]="__detection">
+    Component change detection
+    <small>Means Detached when false</small>
+  </mat-checkbox>
   <div>
-    <input type="text" placeholder="Name" name="name" [(ngModel)]="name" />
-    <input type="checkbox" (change)="update($event)" [(ngModel)]="__properties.name" *ngIf="__detection === false" />
+    <mat-form-field>
+      <input matInput placeholder="Name" name="name" [(ngModel)]="name" />
+    </mat-form-field>
+    <mat-checkbox (change)="update($event)" [(ngModel)]="__properties.name" *ngIf="__detection === false" >
+      Detect changes in property
+      <small>When component is detached</small>
+    </mat-checkbox>
   </div>
   <div>
-    <input type="text" placeholder="Surname" name="surname" [(ngModel)]="surname" />
-    <input type="checkbox" (change)="update($event)" [(ngModel)]="__properties.surname" *ngIf="__detection === false" />
+    <mat-form-field>
+      <input matInput placeholder="Surname" name="surname" [(ngModel)]="surname" />
+    </mat-form-field>
+    <mat-checkbox (change)="update($event)" [(ngModel)]="__properties.surname" *ngIf="__detection === false">
+      Detect changes in property.
+      <small>When component is detached</small>
+    </mat-checkbox>
   </div>
   <p>
     {{name}} {{surname}}
   </p>
 </div>
+
 ```
 
 **3. Add newly created component to `AppModule`.**
@@ -166,7 +180,7 @@ export class AppModule { }
 **4. Displays component with `ChangeDetection` decorator.**
 ```html
 <!-- app.component.html -->
-<changedetection-component [address]="{city: 'Web', street: 'HTML'}" [name]="'Chris'" [surname]="'Cyborg'"></changedetection-component>
+<app-changedetection-component [address]="{city: 'Web', street: 'HTML'}" [name]="'Chris'" [surname]="'Cyborg'"></app-changedetection-component>
 ```
 
 ## Arguments
