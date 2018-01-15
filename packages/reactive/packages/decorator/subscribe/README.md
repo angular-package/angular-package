@@ -12,25 +12,25 @@ Decorator to automatize process of creating observable properties in component.
 * **MIT** License: it can be used commercially.
 * Everything happens on `onInit` lifecycle hook, and there is no need to remember to implement it.
 * Automatically unsubscribe all subscribed properties on `onDestroy` lifecycle hook, and there is no need to remember to implement it.
-* It uses `setters` and `getters` but there is still possibility to define own.
+* It uses `set` and `get` but there is still possibility to define own.
 * It observes changes to specified property name, so you can still work on property as usual.
 * Can be used with `Injectable()` services.
 
 **Cons(-):**   
 * Possibility to use only `Subject<T>()`.
-* Need to add `ngOnInit` and `ngOnDestroy()` lifecycle hooks.
+* Need to add lifecycle hooks: `ngOnInit()` to initialize `Subject` and `ngOnDestroy()` to unsubscribe `Subscription`.
 * In services need to call `ngOnInit()` method in `constructor()`, and need to remember to `Unsubscribe()` all properties from injectable service (f.e. demo).
-* There are no typeguards.
-* There are no test at the moment.
+* There are no **typeguards**.
+* There are no **test** at the moment.
 * It is needed to define properties in component.
 
 **Important!**  
-* First, property with suffix $$ for example `property$$` is automatically set as `new Subject<T>()`.
-* Second, property with suffix $ for example `property$` is automatically set as `this['property$$'].asObservable()`.
+* Property with suffix $$ for example `property$$` is automatically set as `new Subject<T>()`.
+* Property with suffix $ for example `property$` is automatically set as `this['property$$'].asObservable()`.
 * Every property with name from observables will have added to setter `this['property$$'].next(value)`.
 * Define `public property$: Observable<any>;` to subscribe to this property changes.
 
----- 
+---
 
 * [Demonstration](#demonstration)
 * [Install](#install)
@@ -49,7 +49,7 @@ Decorator to automatize process of creating observable properties in component.
 
 [Live demonstration](http://angular-package.wwwdev.io/reactive/decorator)
 
-Demonstration usage with `@angular/cli` available on github [repository](https://github.com/angular-package/angular-package/tree/master/packages/reactive/demo):
+Demonstration usage with `@angular/cli` available on github [repository](https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/decorator/demo):
 
 ```bash
 git clone https://github.com/angular-package/angular-package.git
