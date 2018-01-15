@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/reactive",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Reactive Angular.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/reactive)",
   "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/reactive#readme",
