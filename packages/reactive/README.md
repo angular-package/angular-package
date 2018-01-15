@@ -1,5 +1,9 @@
 # @angular-package/reactive
 
+[![npm version](https://badge.fury.io/js/%40angular-package%2Freactive.svg)](https://badge.fury.io/js/%40angular-package%2Freactive)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@angular-package/reactive/badge.svg)](https://snyk.io/test/npm/@angular-package/reactive)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
+
 Angular Reactive.
 
 #### Available packages
