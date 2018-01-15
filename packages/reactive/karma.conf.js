@@ -1,5 +1,35 @@
 // Karma configuration
-module.exports = function(config) {
+
+const angular = require('rollup-plugin-angular');
+const commonjs = require('rollup-plugin-commonjs');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const typescript = require('rollup-plugin-typescript');
+
+// rollup-plugin-angular addons
+/*
+const sass = require('node-sass');
+const CleanCSS = require('clean-css');
+const htmlMinifier = require('html-minifier');
+
+const cssmin = new CleanCSS();
+const htmlminOpts = {
+  caseSensitive: true,
+  collapseWhitespace: true,
+  removeComments: true,
+};
+
+const rpaConfig = {
+  preprocessors: {
+    template: template => htmlMinifier.minify(template, htmlminOpts),
+    style: scss => {
+      const css = sass.renderSync({ data: scss }).css;
+      return cssmin.minify(css).styles;
+    },
+  }
+};
+*/
+
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -16,8 +46,8 @@ module.exports = function(config) {
       // Make sure to disable Karma’s file watcher
       // because the preprocessor will use its own.
       { pattern: 'test/*.ts', watched: false },
-      { pattern: 'src/*.spec.ts', watched: false },
-      { pattern: 'src/**/*.spec.ts', watched: false }
+      { pattern: 'packages/subscribe/**/*.spec.ts', watched: false },
+      { pattern: 'packages/unsubscribe/**/*.spec.ts', watched: false }
     ],
 
 
@@ -36,9 +66,9 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/*.ts': ['rollup'],
-      'src/*.spec.ts': ['rollup'],
-      'src/**/*.spec.ts': ['rollup']
+      'test/index.ts': ['rollup'],
+      'packages/subscribe/**/*.spec.ts': ['rollup'],
+      'packages/unsubscribe/**/*.spec.ts': ['rollup']
     },
 
     rollupPreprocessor: {

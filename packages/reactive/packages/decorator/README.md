@@ -1,6 +1,6 @@
 # @angular-package/reactive/decorator
 
-Additional Angular 5+ decorators to speed up development.	
+Additional Angular 5+ decorators to automatize some development processes.
 
 #### Available decorators
 
