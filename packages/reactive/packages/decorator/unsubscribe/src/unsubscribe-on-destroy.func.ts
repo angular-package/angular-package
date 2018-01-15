@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash-es';
 
 // internal
-import { ObservablesInterface } from './../reactive-decorator.interface';
+import { ObservablesInterface } from './../../reactive-decorator.interface';
 
 // unsubscribeOnDestroy
 export const unsubscribeOnDestroy = function (target: any, observables?: ObservablesInterface): void {

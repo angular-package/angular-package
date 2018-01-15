@@ -1,5 +1,5 @@
 
-import { ObservablesInterface } from './../reactive-decorator.interface';
+import { ObservablesInterface } from './../../reactive-decorator.interface';
 import { unsubscribeOnDestroy } from './unsubscribe-on-destroy.func';
 
 /**
