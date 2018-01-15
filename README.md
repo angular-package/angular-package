@@ -1,5 +1,10 @@
 # angular-package
 
+[![GitHub issues](https://img.shields.io/github/issues/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/issues)
+[![GitHub forks](https://img.shields.io/github/forks/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/network)
+[![GitHub stars](https://img.shields.io/github/stars/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/stargazers)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
+
 Useful packages written on Angular framework.
 
 #### Available packages
