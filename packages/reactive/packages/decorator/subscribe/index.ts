@@ -1,1 +1,1 @@
-export { Subscribe } from './reactive-decorator.subscribe.func';
+export { Subscribe } from './src';

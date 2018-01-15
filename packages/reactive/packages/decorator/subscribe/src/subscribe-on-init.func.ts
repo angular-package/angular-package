@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import * as _ from 'lodash-es';
 
 // internal
-import { ObservablesInterface } from './../reactive-decorator.interface';
+import { ObservablesInterface } from './../../reactive-decorator.interface';
 
 export const subscribeOnInit = function <T>(target: any, observables: ObservablesInterface): void {
   const ngOnInit = target.prototype.ngOnInit;
