@@ -1,9 +1,8 @@
-
 #### Available packages
 
 | Package          | Description                                    | Status      | Readme         |
 |------------------|------------------------------------------------|-------------|--------------|
-| change-detection | Initially change detection component state to `Detached`<br/> and detect changes on choosed properties on `set`. | **Ready**  |   [Readme][0] |
+| change-detection | Packages to improve application performance. | **Ready**  |   [Readme][0] |
 | chart            | Re-usable charts. Especially on nvd3.          | Not ready.              |   [Readme][1]  |
 | core             | Some core features used in other **angular-package** libraries. | **Ready**     |   [Readme][2]  |
 | common           |                                                | Not ready    |   [Readme][3]  |
@@ -12,7 +11,7 @@
 | markdown         | Angular 5+ markdown to html using marked a markdown <br/>parser and compiler.  | Not started   |   [Readme][6]  |
 | prism            | Simple Angular 5+ Prism highlighter module.    | **Ready**     |   [Readme][7] |
 | reactive         | Angular Reactive. | *In progress*   |   [Readme][8] |
-| ui               |                                                | Not started   |   [Readme][9] |
+| ui               | Angular Package user interface. | *In Progress*  |   [Readme][9] |
 
 
  [0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection#readme
