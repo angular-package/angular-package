@@ -35,42 +35,42 @@ Useful packages written on Angular framework.
 Most files that can be found in this repository.
 
 ```
- packages/                                * All packages files are placed here.
- ├──change-detection/                     * Example `@angular-package/change-detection` package.
- |   ├──demo/                             * Package change-detection demonstration, based mostly on `@angular/cli`.
- |   ├──packages/                         * Sub-packages of change-detection, it is the same folder like /dist or /build.
- |   |   ├──demo/                         * Package change-detection demonstration, based mostly on `@angular/cli`.
- |   |   ├──subject/                      * Sub-package subject `@angular-package/change-detection/subject`.
- |   |   |   ├──async/                    * Sub-package subject/async `@angular-package/change-detection/subject/async`.
+ packages/                                          * All packages files are placed here.
+ ├──change-detection/                               * Example `@angular-package/change-detection` package.
+ |   ├──demo/                                       * Package change-detection demonstration, based mostly on `@angular/cli`.
+ |   ├──packages/                                   * Sub-packages of change-detection, it is the same folder like /dist or /build.
+ |   |   ├──demo/                                   * Package change-detection demonstration, based mostly on `@angular/cli`.
+ |   |   ├──subject/                                * Sub-package subject `@angular-package/change-detection/subject`.
+ |   |   |   ├──async/                              * Sub-package subject/async `@angular-package/change-detection/subject/async`.
  |   |   |   |   ├──demo/
  |   |   |   |   ├──src/
  |   |   |   |   ├──test/
  |   |   |   |   └──index.ts
  |   |   |   ├──demo/
  |   |   |   ├──src/
- |   |   |   |   ├──async.component.html
- |   |   |   |   ├──async.component.ts
- |   |   |   |   ├──async.module.ts
- |   |   |   |   └──index.ts              * Export `ApAsyncModule`.
+ |   |   |   |   ├──subject-async.component.html
+ |   |   |   |   ├──subject-async.component.ts
+ |   |   |   |   ├──subject-async.module.ts
+ |   |   |   |   └──index.ts                        * Export `ApSubjectAsyncModule`.
  |   |   |   ├──test/
  |   |   |   ├──index.ts
  |   |   |   └──README.md
- |   |   ├──subscribe/                    * Sub-package subscribe `@angular-package/change-detection/subscribe`.
- |   |   |   ├──demo/                     * subscribe sub-package demonstration, based mostly on `@angular/cli`.
- |   |   |   ├──src/                      * Source files for sub-package subscribe.
- |   |   |   ├──test/                     * Test files for sub-package subscribe.
- |   |   |   ├──index.ts                  * Exports importants of subscribe sub-package.
- |   |   |   └──README.md                 * Subscribe sub-package documentation.
- |   |   ├──src/                          * Primary source `@angular-package/change-detection` folder.
- |   |   └──index.ts                      * Export sub-packages, then you can get all from `@angular-package/change-detection`.
- |   ├──subject/                          * Rollup compiled folder based on packages/subject.
- |   ├──subscribe/                        * Rollup compiled folder based on packages/subscribe.
- |   ├──test/                             * All tests, if we don't want to have in separate folders.
- |   ├──.gitignore                        * Ignore files in repository.
- |   ├──.npmignore                        * Ignore files in npm.
- |   ├──.travis.yml                       * Travis configuration.
- |   ├──bundle.umd.js                     * Rollup bundle.
- |   ├──bundle.umd.js.map                 * Rollup bundle.
+ |   |   ├──subscribe/                              * Sub-package subscribe `@angular-package/change-detection/subscribe`.
+ |   |   |   ├──demo/                               * subscribe sub-package demonstration, based mostly on `@angular/cli`.
+ |   |   |   ├──src/                                * Source files for sub-package subscribe.
+ |   |   |   ├──test/                               * Test files for sub-package subscribe.
+ |   |   |   ├──index.ts                            * Exports importants of subscribe sub-package.
+ |   |   |   └──README.md                           * Subscribe sub-package documentation.
+ |   |   ├──src/                                    * Primary source `@angular-package/change-detection` folder.
+ |   |   └──index.ts                                * Export sub-packages, then you can get all from `@angular-package/change-detection`.
+ |   ├──subject/                                    * Rollup compiled folder based on packages/subject.
+ |   ├──subscribe/                                  * Rollup compiled folder based on packages/subscribe.
+ |   ├──test/                                       * All tests, if we don't want to have in separate folders.
+ |   ├──.gitignore                                  * Ignore files in repository.
+ |   ├──.npmignore                                  * Ignore files in npm.
+ |   ├──.travis.yml                                 * Travis configuration.
+ |   ├──bundle.umd.js                               * Rollup bundle.
+ |   ├──bundle.umd.js.map                           * Rollup bundle.
  |   ├──index.d.ts
  |   ├──index.js
  |   ├──index.js.map
@@ -84,5 +84,5 @@ Most files that can be found in this repository.
  |   ├──tsconfig.json
  |   ├──tslint.json
  |   └──yarn.lock
- └──reactive/                             * Another example package.
+ └──reactive/                                       * Another example package.
 ```
