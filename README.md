@@ -32,7 +32,7 @@ Useful packages written on Angular framework.
 
 ## Folder and file structure
 
-Most files that can be found in this repository.
+Organization of most files that can be found in this repository.
 
 ```
  packages/                                          * All packages files are placed here.
