@@ -4,6 +4,8 @@ import * as _ from 'lodash-es';
 
 // internal
 import { PropertiesInterface } from '../../src/properties.interface';
+import { LookupInterface } from '../../src/lookup.interface';
+import { originalGetterSetter } from '../../src/store-lookup.func';
 
 /**
  * ApSubjectAsyncInit
@@ -14,13 +16,11 @@ import { PropertiesInterface } from '../../src/properties.interface';
  */
 export const ApSubjectAsyncInit = function <T>(target: Function, properties: PropertiesInterface<T>): void {
   if (properties instanceof Array) {
-    const ngOnInit = target.prototype.ngOnInit;
-    const lookup = { getter: {}, setter: {} };
+    const lookup: LookupInterface = { getter: {}, setter: {} };
 
-    // Set lookup getters / setters.
     _.each(properties, (property: string): void => {
-      lookup.getter[property] = target.prototype.__proto__.__lookupGetter__(property);
-      lookup.setter[property] = target.prototype.__proto__.__lookupSetter__(property);
+      // store original getters / setters.
+      originalGetterSetter(lookup, target, property);
 
       // Define `AsyncSubject` in $ suffix.
       Object.defineProperty(target.prototype, `_${property}$`, { writable: true });
