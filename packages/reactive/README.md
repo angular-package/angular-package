@@ -17,8 +17,7 @@ Packages that works with rxjs.
 | subject | Automatize process of creating observable properties in component or service.   | **Ready**  | [Readme][0] |
 | unsubscribe | Decorator to automatize process of unsubscribe subscriptions in component. | **Ready**  | [Readme][1] |
 
-
-#### subject
+#### Subject
 
 ```typescript
 import '@angular-package/reactive/subject';
