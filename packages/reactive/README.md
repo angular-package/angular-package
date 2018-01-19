@@ -4,7 +4,16 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/@angular-package/reactive/badge.svg)](https://snyk.io/test/npm/@angular-package/reactive)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
-Angular Reactive.
+Packages that works with rxjs.
+
+**Pros(+):**
+* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
+* **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
+* **MIT** License: it can be used commercially.
+
+**Cons(-):**   
+* There are no **tests** at the moment.
+
 
 #### Available reactive packages
 
@@ -19,10 +28,10 @@ Available reactive/subject packages
 
 | Package  | Module            | Description                                          | Status     | Readme      |
 |----------|-------------------|------------------------------------------------------|------------|-------------|
-| /        | ApSubject         | Automatize process of creating rxjs/Subject.         | **Ready**  | [Readme][2] |
-| /async   | ApSubjectAsync    | Automatize process of creating rxjs/AsyncSubject.    | **Ready**  | [Readme][3] |
-| /behavior| ApSubjectBehavior | Automatize process of creating rxjs/BehaviorSubject. | **Ready**  | [Readme][4] |
-| /replay  | ApSubjectReplay   | Automatize process of creating rxjs/ReplaySubject.   | **Ready**  | [Readme][5] |
+|         | ApSubject         | Automatize process of creating rxjs/Subject.         | **Ready**  | [Readme][2] |
+| async   | ApSubjectAsync    | Automatize process of creating rxjs/AsyncSubject.    | **Ready**  | [Readme][3] |
+| behavior| ApSubjectBehavior | Automatize process of creating rxjs/BehaviorSubject. | **Ready**  | [Readme][4] |
+| replay  | ApSubjectReplay   | Automatize process of creating rxjs/ReplaySubject.   | **Ready**  | [Readme][5] |
 
 
 [0]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject#readme
