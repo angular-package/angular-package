@@ -4,10 +4,11 @@ import { ApUnsubscribeOnDestroy } from '../../../unsubscribe/src/unsubscribe-ond
 import { PropertiesInterface } from '../../src/properties.interface';
 
 /**
- * ApSubjectReplay
  * @export
  * @template T
- * @param {...properties: string[]} properties
+ * @param {number} buffer
+ * @param {number} windowTime
+ * @param {...string[]} properties
  * @returns {Function}
  */
 export function ApSubjectReplay<T>(buffer: number, windowTime: number, ...properties: string[]): Function {
