@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-package/reactive": "file:angular-package-reactive-0.1.5.tgz",
+    "@angular-package/reactive": "^1.0.0-beta",
     "@angular/animations": "^5.1.2",
     "@angular/common": "^5.1.2",
     "@angular/compiler": "^5.1.2",
