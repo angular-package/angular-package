@@ -53,7 +53,7 @@ Demonstration usage with `@angular/cli` available on github [repository](https:/
 
 ```bash
 git clone https://github.com/angular-package/angular-package.git
-cd angular-package/packages/reactive/packages/decorator/demo
+cd angular-package/packages/reactive/packages/subject/demo
 npm i && npm start
 ```
 
