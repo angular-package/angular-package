@@ -15,6 +15,8 @@ import { LookupInterface } from '../../src/lookup.interface';
  * @template T
  * @param {Function} target
  * @param {string[]} properties
+ * @param {number} buffer
+ * @param {number} windowTime
  */
 export const ApSubjectReplayInit = function <T>(target: Function, properties: string[], buffer: number, windowTime: number): void {
   if (properties instanceof Array) {
