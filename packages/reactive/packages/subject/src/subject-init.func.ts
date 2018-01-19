@@ -6,6 +6,8 @@ import * as _ from 'lodash-es';
 import { completeFunction } from './complete.function';
 import { PropertiesInterface } from './properties.interface';
 import { subscribeFunction } from './subscribe.function';
+import { LookupInterface } from './lookup.interface';
+import { originalGetterSetter } from './store-lookup.func';
 
 /**
  * ApSubjectInit
@@ -14,17 +16,13 @@ import { subscribeFunction } from './subscribe.function';
  * @param {PropertiesInterface} properties
  */
 export const ApSubjectInit = function <T>(target: Function, properties: PropertiesInterface<T>): void {
-  const ngOnInit = target.prototype.ngOnInit;
-  const lookup = { getter: {}, setter: {} };
-
-  // Set lookup getters / setters.
-  _.each(properties, (property: string) => {
-    lookup.getter[property] = target.prototype.__proto__.__lookupGetter__(property);
-    lookup.setter[property] = target.prototype.__proto__.__lookupSetter__(property);
-  });
+  const lookup: LookupInterface = { getter: {}, setter: {} };
 
   if (properties instanceof Array) {
     _.each(properties, (property: string) => {
+      // store original getters / setters.
+      originalGetterSetter(lookup, target, property);
+
       // Define property to hold value.
       Object.defineProperty(target.prototype, `_${property}`, { writable: true });
 
@@ -55,7 +53,6 @@ export const ApSubjectInit = function <T>(target: Function, properties: Properti
           if (this[`${property}$`]) {
             this[`${property}$`].next(value);
           }
-
           // if setter is undefined then assign to property with suffix _.
           if (lookup.setter[property] === undefined) {
             this[`_${property}`] = value;
