@@ -31,6 +31,8 @@ Decorator to automatize process of creating `Subject` observable on indicated co
 * [Demonstration](#demonstration)
 * [Install](#install)
 * [Usage](#usage)
+  * [Common methods](#common-methods)
+  * [Example](#example)
 * [Properties](#properties)
 * [Style guide](#style-guide)
 * [Git](#git)
@@ -66,7 +68,7 @@ npm i @angular-package/reactive --save
 
 ## Usage
 
-#### Common methods
+### Common methods
 
 To complete observable:
 
@@ -130,7 +132,9 @@ export class ExampleComponent implements ApSubjectInterface {
 }
 ```
 
-**Example** on `@angular/cli`.
+### Example
+
+This example is using `@angular/cli`.
 
 Update your `app.component.ts` to the following.
 
