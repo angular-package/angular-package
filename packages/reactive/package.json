@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/reactive",
-  "version": "0.1.5",
+  "version": "1.0.0-beta",
   "description": "Reactive Angular.",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/reactive)",
   "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/reactive#readme",
@@ -18,7 +18,7 @@
   "scripts": {
     "build": "./node_modules/.bin/ngc -p tsconfig.json",
     "bundle": "rollup -c rollup.config.js",
-    "clean": "rimraf ./index.* ./bundle.umd.* ./decorator ./node_modules",
+    "clean": "rimraf ./coverage ./index.* ./bundle.umd.* ./subject ./unsubscribe ./node_modules",
     "prebuild": "npm install",
     "prepare": "",
     "start": "npm run build && npm run bundle",

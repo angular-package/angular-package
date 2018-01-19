@@ -1,0 +1,15 @@
+<div>
+  <h2>
+    @ApSubjectAsync()
+  </h2>
+  <p>
+    Firstname: {{firstname.value}}
+  </p>
+  <p>
+    Age: {{age.value}}
+    <small>
+      (After 2000 ms it will become 27.)
+    </small>
+  </p>
+</div>
+<app-logs [logs]="logs"></app-logs>
