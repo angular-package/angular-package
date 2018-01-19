@@ -6,6 +6,8 @@ import * as _ from 'lodash-es';
 import { completeFunction } from '../../src/complete.function';
 import { PropertiesInterface } from '../../src/properties.interface';
 import { subscribeFunction } from '../../src/subscribe.function';
+import { LookupInterface } from '../../src/lookup.interface';
+import { originalGetterSetter } from '../../src/store-lookup.func';
 
 /**
  * ApSubjectBehaviorInit
@@ -15,17 +17,13 @@ import { subscribeFunction } from '../../src/subscribe.function';
  * @param {string[]} properties
  */
 export const ApSubjectBehaviorInit = function <T>(target: Function, properties: string[]): void {
-  const ngOnInit = target.prototype.ngOnInit;
-  const lookup = { getter: {}, setter: {} };
-
-  // Set lookup getters / setters.
-  _.each(properties, (property: string) => {
-    lookup.getter[property] = target.prototype.__proto__.__lookupGetter__(property);
-    lookup.setter[property] = target.prototype.__proto__.__lookupSetter__(property);
-  });
-
   if (properties instanceof Array) {
+    const lookup: LookupInterface = { getter: {}, setter: {} };
+
     _.each(properties, (property: string) => {
+      // store original getters / setters.
+      originalGetterSetter(lookup, target, property);
+
       // Define property to hold value.
       Object.defineProperty(target.prototype, `_${property}`, { writable: true });
 
