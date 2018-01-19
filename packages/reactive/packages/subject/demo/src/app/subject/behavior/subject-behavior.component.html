@@ -1,0 +1,47 @@
+<div>
+  <h2>
+    @ApSubjectBehavior()
+  </h2>
+  <b>
+    Profile
+  </b>
+  <p>
+    Age <input type="text" [(ngModel)]="age" /> <button (click)="completed('age')" >Complete</button> <small>Subscribe is not activated.</small>
+  </p>
+  <p>
+    Firstname <input type="text" [(ngModel)]="firstname" /> <button (click)="completed('firstname')">Complete</button>
+  </p>
+  <p>
+    Lastname <input type="text" [(ngModel)]="lastname" /> <button (click)="completed('lastname')">Complete</button>
+  </p>
+
+  <b>
+    Address
+  </b>
+  <p>
+    Street <input type="text" name="street" #street [(ngModel)]="address.street" (change)="update(street)" />
+  </p>
+  <p>
+    Place <input type="text" name="place" #place [(ngModel)]="address.place" (change)="update(place)" />
+  </p>
+
+  <h3>
+    Profile
+  </h3>
+  {{firstname}} {{lastname}} ({{age}})
+
+  <h3>
+    Address
+  </h3>
+  {{address.street}} {{address.place}}
+</div>
+<div >
+  <h3>
+    Logs
+  </h3>
+  <div>
+    <p *ngFor="let log of logs">
+      {{log}}
+    </p>
+  </div>
+</div>
