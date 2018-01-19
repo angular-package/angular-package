@@ -7,15 +7,13 @@ Decorator to automatize process of creating `Subject` observable on indicated co
 ```
 
 **Pros(+):**
-* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
-* **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
-* **MIT** License: it can be used commercially.
 * ~~Everything happens on `onInit` lifecycle hook, and there is no need to remember to implement it.~~ (`OnInit` lifecycle hook is no longer in use).
 * `Subject` is instantiated on demand.
 * Automatically unsubscribe on `OnDestroy` lifecycle hook.
 * Possibility to define own `set` and `get`.
 * It observes changes on indicated properties, and we can still work on them as usual.
 * Can be used with `Injectable()` services.
+* Demo available inside repository.
 
 **Cons(-):**   
 * ~~Need to add lifecycle hooks: `ngOnInit()` to initialize `Subject` and `ngOnDestroy()` to unsubscribe `Subscription`.~~  (There is no need to add `OnInit` cycle hook anymore but there is need to add `OnDestroy` hook to unsubscribe on destroy moment)
