@@ -7,26 +7,24 @@ Decorator to automatize process of creating `Subject` observable on indicated co
 ```
 
 **Pros(+):**
-* ~~Everything happens on `onInit` lifecycle hook, and there is no need to remember to implement it.~~ (`OnInit` lifecycle hook is no longer in use).
-* `Subject` is instantiated on demand.
+* **Treeshake** bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
+* **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
+* **MIT** License: it can be used commercially.
+* **Demo** available inside repository.
+* It works without `OnInit` lifecycle hook.
+* Observable is instantiated on demand.
 * Automatically unsubscribe on `OnDestroy` lifecycle hook.
 * Possibility to define own `set` and `get`.
 * It observes changes on indicated properties, and we can still work on them as usual.
 * Can be used with `Injectable()` services.
-* Demo available inside repository.
 
 **Cons(-):**   
-* ~~Need to add lifecycle hooks: `ngOnInit()` to initialize `Subject` and `ngOnDestroy()` to unsubscribe `Subscription`.~~  (There is no need to add `OnInit` cycle hook anymore but there is need to add `OnDestroy` hook to unsubscribe on destroy moment)
-* ~~In services need to call `ngOnInit()` method in `constructor()`, and need to remember to `Unsubscribe()` all properties from injectable service (f.e. demo).~~
 * There are no **typeguards**.
 * There are no **tests** at the moment.
-* ~~It is needed to define properties in component.~~
 
 **Important!**  
+* There is need to add `OnDestroy` hook to unsubscribe subscriptions when component is destroyed.
 * It's possible to use `complete()` or `subscribe()` component method like `this.complete('property');` or `this.subscribe('property', { next: v => console.log(v) })`.
-* Property with suffix $ for example `property$` is set as `new Subject<T>()` on demand, it means when you write `this.property$.subscribe()`.
-* ~~Property with suffix $ for example `property$` is automatically set as `this['property$$'].asObservable()`.~~ 
-* ~~Define `public property$: Observable<any>;` to subscribe to this property changes.~~
 
 ---
 
@@ -67,6 +65,70 @@ npm i @angular-package/reactive --save
 ```
 
 ## Usage
+
+#### Common methods
+
+To complete observable:
+
+```typescript
+complete(propertyName: string | string[]) => void
+```
+How to implement:
+
+```typescript
+import { ApSubject } from '@angular-package/reactive/subject';
+import { ApSubjectInterface } from '@angular-package/reactive/subject/src/subject.interface'; // [1] implements in component
+import { ApCompleteType } from '@angular-package/reactive/subject/src/complete.type'; // [2] add to component with implement
+
+@Component({...})
+@ApSubject<number>('age')
+export class ExampleComponent implements ApSubjectInterface {
+  public complete: ApCompleteType;
+  age = 3;
+  age$: Subject<number>; // ------ or this way.
+  constructor() {
+    this.age = 6;
+    this.age$.complete(); // ------ or this way.
+    this.complete('age');
+  }
+}
+```
+
+To subscribe to observable:
+
+```typescript
+subscribe<T>(propertyName: string, observer: PartialObserver<T>) => void
+```
+
+How to implement:
+
+```typescript
+import { ApSubject } from '@angular-package/reactive/subject';
+import { ApSubjectInterface } from '@angular-package/reactive/subject/src/subject.interface'; // [1] implements in component
+import { ApSubscribeType } from '@angular-package/reactive/subject/src/subscribe.type'; // [3] add to component with implement
+
+@Component({...})
+@ApSubject<number>('age')
+export class ExampleComponent implements ApSubjectInterface {
+  public subscribe: ApSubscribeType;
+  age = 3;
+  age$: Subject<number>; // ------ or this way.
+  constructor() {
+    this.subscribe('age', {
+      next: v => console.log('success', v),
+      error: err => console.log('error', err),
+      complete: () => console.log('complete')
+    });
+
+    // --------------------------- or this way.
+    this.age$.subscribe({
+      next: v => console.log('success', v),
+      error: err => console.log('error', err),
+      complete: () => console.log('complete')
+    });
+  }
+}
+```
 
 **Example** on `@angular/cli`.
 
@@ -179,23 +241,6 @@ export class ExampleComponent {
 | _      |        | \_age    | 27 |
 |        |        | age      | this['_age']; <br /> this['age$'].next(); |
 
-And common methods inside `ExampleComponent`:
-
-To complete observable.
-
-```typescript
-complete(name: string)
-```
-
-To subscribe to observable.
-
-```typescript
-subscribe(name: string, observer: {
-  next: (v) => console.log('success', v),
-  error: (err) => console.log('error', err),
-  complete: () => console.log('complete')
-})
-```
 
 
 ## Style guide
