@@ -23,7 +23,7 @@ Packages that works with rxjs.
 import '@angular-package/reactive/subject';
 ```
 
-Available reactive/subject packages
+Available packages
 
 | Package  | Module            | Description                                          | Status     | Readme      |
 |----------|-------------------|------------------------------------------------------|------------|-------------|
