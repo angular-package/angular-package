@@ -6,23 +6,28 @@
 
 Angular Reactive.
 
-#### Available packages
+#### Available reactive packages
 
-| Package           | Description                                    | Status      | Readme       |
+| Packages         | Description                                    | Status      | Readme       |
 |------------------|------------------------------------------------|-------------|--------------|
-| decorator | Additional Angular 5+ decorators to automatize some development processes.	 | **Ready**  |   [Readme][0] |
+| subject | Automatize process of creating observable properties in component or service.   | **Ready**  | [Readme][0] |
+| unsubscribe | Decorator to automatize process of unsubscribe subscriptions in component. | **Ready**  | [Readme][1] |
 
----
+#### @angular-package/reactive/subject
 
-#### @angular-package/reactive/decorator
+Available reactive/subject packages
 
-| Decorator           | Description                                    | Status      | Readme       |
-|------------------|------------------------------------------------|-------------|--------------|
-| Subscribe | Decorator to automatize process of creating observable properties in component. | **Ready**  | [Readme][1] |
-| Unsubscribe | Decorator to automatize process of unsubscribe subscriptions in component. | **Ready**  | [Readme][2] |
+| Package  | Module            | Description                                          | Status     | Readme      |
+|----------|-------------------|------------------------------------------------------|------------|-------------|
+| /        | ApSubject         | Automatize process of creating rxjs/Subject.         | **Ready**  | [Readme][2] |
+| /async   | ApSubjectAsync    | Automatize process of creating rxjs/AsyncSubject.    | **Ready**  | [Readme][3] |
+| /behavior| ApSubjectBehavior | Automatize process of creating rxjs/BehaviorSubject. | **Ready**  | [Readme][4] |
+| /replay  | ApSubjectReplay   | Automatize process of creating rxjs/ReplaySubject.   | **Ready**  | [Readme][5] |
 
----
 
-[0]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/decorator#readme
-[1]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/decorator/subscribe#readme
-[2]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/decorator/unsubscribe#readme
+[0]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject#readme
+[1]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/unsubscribe#readme
+[2]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject/#readme
+[3]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject/async#readme
+[4]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject/behavior#readme
+[5]: https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject/replay#readme
