@@ -1,4 +1,3 @@
-
 import { ApUnsubscribeOnDestroy } from './unsubscribe-ondestroy.func';
 import { PropertiesInterface } from '../../subject/src/properties.interface';
 
