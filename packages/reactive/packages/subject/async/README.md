@@ -1,6 +1,6 @@
 # @angular-package/reactive/subject/async
 
-Decorator to automatize process of transform indicated properties in component to [`AsyncSubject`](http://reactivex.io/rxjs/manual/overview.html#asyncsubject) observables.
+Decorator to automatize process of transform indicated properties in component to [`AsyncSubject`](http://reactivex.io/rxjs/manual/overview.html#asyncsubject) observable.
 
 ```typescript
 @ApSubjectAsync<T>(...properties: string[])
