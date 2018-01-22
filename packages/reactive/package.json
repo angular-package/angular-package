@@ -1,7 +1,7 @@
 {
   "name": "@angular-package/reactive",
   "version": "1.0.0-beta",
-  "description": "Reactive Angular.",
+  "description": "Automatize process of creating some rxjs features",
   "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/reactive)",
   "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/reactive#readme",
   "main": "./bundle.umd.js",
@@ -72,8 +72,15 @@
     "zone.js": "^0.8.20"
   },
   "keywords": [
+    "Angular package",
     "Angular Reactive",
-    "Angular Rxjs"
+    "Angular ReactiveX",
+    "Angular Rxjs",
+    "Subscribe",
+    "Subject",
+    "AsyncSubject",
+    "BehaviorSubject",
+    "ReplaySubject"
   ],
   "repository": {
     "type": "git",
