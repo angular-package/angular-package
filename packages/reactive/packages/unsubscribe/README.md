@@ -3,20 +3,20 @@
 Decorator to automatize process of unsubscribe subscriptions in component.
 
 ```typescript
-@Unsubscribe<T>(observables?: string[])
+@Unsubscribe<T>(...properties: string[])
 ```
 
 **Pros(+):**
 * Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
-* Simple unsubscribe with argument as array of string or automatically search for active subscriptions in component when argument is undefined.
+* Simple unsubscribe with string arguments or automatically search for active subscriptions in component when argument is undefined.
 * Everything happens on `onDestroy` lifecycle hook, and there is no need to remember to implement it.
 
 **Cons(-):**
 * It is searching only in first level of component properties like `this['property']`.
-* Need to addd `ngOnDestroy()` lifecycle hooks.
-* There are no test at the moment.
+* Need to add `ngOnDestroy()` lifecycle hooks.
+* There are no **tests**.
 
 ---- 
 
@@ -34,16 +34,15 @@ Decorator to automatize process of unsubscribe subscriptions in component.
 
 ## Demonstration
 
-Demonstration usage with `@angular/cli` available on github [repository](https://github.com/angular-package/angular-package/tree/master/packages/reactive/demo):
+Demonstration usage with `@angular/cli` available on github [repository](https://github.com/angular-package/angular-package/tree/master/packages/reactive/packages/subject/demo):
 
 ```bash
 git clone https://github.com/angular-package/angular-package.git
-cd angular-package/packages/reactive/demo
+cd angular-package/packages/reactive/packages/subject/demo
 npm i && npm start
 ```
 
 Open [http://localhost:4200/](http://localhost:4200/) in your browser.
-
 
 ## Install
 
@@ -59,36 +58,38 @@ npm i @angular-package/reactive --save
 
 ```typescript
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Unsubscribe } from '@angular-package/reactive/decorator/unsubscribe';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
+import { ApUnsubscribe } from '@angular-package/reactive/unsubscribe';
+
 @Component({
-  selector: 'app-unsubscribe',
-  templateUrl: './unsubscribe.component.html'
+  selector: 'app-unsubscribe', 
+  templateUrl: './unsubscribe.component.html' // <-------------- Here can be nothing.
 })
-@Unsubscribe()
+@ApUnsubscribe('subscription') // <----------- Remove arguments to check if it is closing all subscriptions
 export class UnsubscribeComponent implements OnDestroy, OnInit {
 
   subject: Subject<string> = new Subject();
   observable: Observable<string> = this.subject.asObservable();
   subscription: Subscription = this.observable.subscribe({
     next: (value: string) => {
-      console.log(`subscribe`, value);
+      console.log(value);
     }
   });
 
   constructor() { }
 
   ngOnDestroy() {
-    console.log(this);
+    console.log(`subscription closed: `, this.subscription.closed);
   }
 
   ngOnInit() {
-    this.subject.next('aaaa');
+    this.subject.next('Subscribe to subject property of component');
   }
 }
+
 ```
 
 ## Style guide
