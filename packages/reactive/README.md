@@ -48,7 +48,7 @@ import { ApUnsubscribe } '@angular-package/reactive/unsubscribe';
 ```
 
 | Module   | Description                                          | Status     | Readme      |
-|----------|-------------------|------------------------------------------------------|------------|-------------|
+|----------|------------------------------------------------------|------------|-------------|
 | ApUnsubscribe | Decorator to automatize process of unsubscribe subscriptions in component. | **Ready**  | [Readme][6] |
 
 
