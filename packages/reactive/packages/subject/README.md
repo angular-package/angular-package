@@ -1,6 +1,6 @@
 # @angular-package/reactive/subject
 
-Decorator to automatize process of creating `Subject` observable on indicated component properties.
+Decorator to automatize process of creating [`Subject`](http://reactivex.io/rxjs/manual/overview.html#subject) observable on indicated properties in component or service.
 
 ```typescript
 @ApSubject<T>(...properties: string[])

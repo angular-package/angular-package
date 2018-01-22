@@ -1,6 +1,6 @@
 # @angular-package/reactive/subject/behavior
 
-Decorator to automatize process of creating `BehaviorSubject` observable on indicated component properties.
+Decorator to automatize process of creating [`BehaviorSubject`](http://reactivex.io/rxjs/manual/overview.html#behaviorsubject) observable on indicated properties in component or service.
 
 ```typescript
 @ApSubjectBehavior<T>(...properties: string[])
