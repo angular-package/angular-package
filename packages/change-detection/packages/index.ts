@@ -1,1 +1,1 @@
-export { ChangeDetection } from './decorator';
+export * from './core';
