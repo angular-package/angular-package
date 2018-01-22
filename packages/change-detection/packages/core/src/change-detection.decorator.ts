@@ -13,7 +13,7 @@ import { ChangeDetectorClass } from './change-detector.class';
  * @param {PropertiesInterface} properties
  * @returns {Function}
  */
-export function ChangeDetection(detection = true, properties: PropertiesInterface): Function {
+export function ApChangeDetection(detection = true, properties: PropertiesInterface): Function {
   return function (target: Function) {
     // Store original setters and getters provided `properties`.
     const setterGetterClass = new SetterGetterClass(target).store(properties);

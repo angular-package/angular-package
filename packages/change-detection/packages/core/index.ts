@@ -1,0 +1,1 @@
+export { ApChangeDetection } from './src';
