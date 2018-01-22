@@ -2,12 +2,10 @@
 
 Packages to improve application performance.
 
-#### Available packages
+#### Available features
 
-| Package           | Description                                    | Status      | Readme       |
-|------------------|------------------------------------------------|-------------|--------------|
-| decorator | Package to improve application performance.	 | **Ready**  |   [Readme][0] |
+| Package | Description                | Status     | Readme      |
+|---------|----------------------------|------------|-------------|
+| core    | Core features.             | **Ready**  | [Readme][0] |
 
-
-[0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection/packages/decorator#readme
- 
+[0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection/packages/core#readme
