@@ -36,10 +36,10 @@ import { ApSubjectReplay } '@angular-package/reactive/subject/replay';
 
 | Package  | Module            | Description                                          | Status     | Readme      |
 |----------|-------------------|------------------------------------------------------|------------|-------------|
-|          | ApSubject         | Automatize process of creating rxjs/Subject.         | **Ready**  | [Readme][2] |
-| async    | ApSubjectAsync    | Automatize process of creating rxjs/AsyncSubject.    | **Ready**  | [Readme][3] |
-| behavior | ApSubjectBehavior | Automatize process of creating rxjs/BehaviorSubject. | **Ready**  | [Readme][4] |
-| replay   | ApSubjectReplay   | Automatize process of creating rxjs/ReplaySubject.   | **Ready**  | [Readme][5] |
+|          | ApSubject         | Decorator to automatize process of creating `Subject` observable on indicated properties in component or service.         | **Ready**  | [Readme][2] |
+| async    | ApSubjectAsync    | Decorator to automatize process of transform indicated properties in component or service to `AsyncSubject` observables.    | **Ready**  | [Readme][3] |
+| behavior | ApSubjectBehavior | Decorator to automatize process of creating `BehaviorSubject` observable on indicated properties in component or service. | **Ready**  | [Readme][4] |
+| replay   | ApSubjectReplay   | Decorator to automatize process of creating `ReplaySubject` observable on indicated properties in component or service.   | **Ready**  | [Readme][5] |
 
 #### Unsubscribe
 
