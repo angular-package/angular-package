@@ -9,7 +9,7 @@ import { ApUnsubscribe } from '@angular-package/reactive/unsubscribe';
   selector: 'app-unsubscribe',
   templateUrl: './unsubscribe.component.html'
 })
-@ApUnsubscribe()
+@ApUnsubscribe('subscription') // <----------- Remove arguments to check if it is closing all subscriptions
 export class UnsubscribeComponent implements OnDestroy, OnInit {
 
   subject: Subject<string> = new Subject();
