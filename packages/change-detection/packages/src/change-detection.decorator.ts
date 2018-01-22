@@ -14,7 +14,7 @@ import { ChangeDetectorClass } from './change-detector.class';
  * @returns {Function}
  */
 export function ChangeDetection(detection = true, properties: PropertiesInterface): Function {
-  return function (target: any) {
+  return function (target: Function) {
     // Store original setters and getters provided `properties`.
     const setterGetterClass = new SetterGetterClass(target).store(properties);
     // Store original `ngAfterContentInit()` method.
