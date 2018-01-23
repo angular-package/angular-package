@@ -17,7 +17,7 @@ karma.conf.js
 npm-debug.log
 node_modules
 
-./coverage
-./packages
+/coverage
+/packages
 test
 demo
