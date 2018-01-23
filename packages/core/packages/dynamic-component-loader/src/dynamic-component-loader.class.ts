@@ -5,29 +5,29 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { component } from './core.type';
+import { ComponentType } from '../../src/type';
 
 /**
  * Angular 2+ abstract class extend for component with ability to dynamically create component that is available in entryComponents
  * to a specific container and destroy it. After create you can set properties instance.
  * @export
  * @abstract
- * @class DynamicComponentClass
+ * @class DynamicComponentLoaderClass
  */
-export abstract class DynamicComponentClass {
+export abstract class DynamicComponentLoaderClass {
 
   /**
    * Newly created dynamic component
    * @private
    * @type {*}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   private __component: any = null;
 
   /**
    * Resolver from entryComponents
    * @type {ComponentFactoryResolver}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   public componentFactoryResolver: ComponentFactoryResolver;
 
@@ -35,13 +35,13 @@ export abstract class DynamicComponentClass {
    * Container property where Dynamic Component will be put in
    * @protected
    * @type {*}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   @ViewChild('container', { read: ViewContainerRef }) public container: any;
 
   /**
    * @param {ComponentFactoryResolver} componentFactoryResolver
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   constructor(componentFactoryResolver: ComponentFactoryResolver) {
     this.componentFactoryResolver = componentFactoryResolver;
@@ -53,7 +53,7 @@ export abstract class DynamicComponentClass {
    * @template T
    * @param {string} key
    * @param {T} value
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   protected __assign<T>(key: string, value: T): void {
     if (this.__component !== null) {
@@ -68,9 +68,9 @@ export abstract class DynamicComponentClass {
    * @protected
    * @param {component} component
    * @returns {void}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
-  protected __create(component: component): void {
+  protected __create(component: ComponentType<any>): void {
     if (this.container && component) {
       this.__component = this.container.createComponent(this.__resolve(component));
     }
@@ -80,7 +80,7 @@ export abstract class DynamicComponentClass {
    * If property `component` is defined use destory method on it and set as null
    * @protected
    * @returns {null}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   protected __destroy(): null {
     if (this.__component) {
@@ -95,13 +95,13 @@ export abstract class DynamicComponentClass {
    * @protected
    * @param {string} property - property name
    * @returns {*}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   protected __get(property: string): any {
     if (property.length > 0) {
       return this[property];
     } else {
-      throw new Error(`DynamicComponentClass.__get(property ${property}) : property length is 0`);
+      throw new Error(`DynamicComponentLoaderClass.__get(property ${property}) : property length is 0`);
     }
   }
 
@@ -110,9 +110,9 @@ export abstract class DynamicComponentClass {
    * @private
    * @param {component} component - Angular component
    * @returns {*}
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
-  private __resolve(component: component): any {
+  private __resolve(component: ComponentType<any>): any {
     if (component) {
       return this.componentFactoryResolver.resolveComponentFactory(component);
     }
@@ -122,7 +122,7 @@ export abstract class DynamicComponentClass {
    * Set respectively properties values in property `__component` instance with values from extended class
    * @protected
    * @param {(string | Array<string>)} key - property name as string or properties as array of string
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   protected __set(property: string | Array<string>): void {
     if (this.__component) {
@@ -143,7 +143,7 @@ export abstract class DynamicComponentClass {
    * @protected
    * @param {string} property - property `component` instance property
    * @param {...any[]} args - args functions like complete, error
-   * @memberof DynamicComponentClass
+   * @memberof DynamicComponentLoaderClass
    */
   protected __subscribe(property: string, ...args: any[]): void {
     // if created component has got property to subscribe
