@@ -59,17 +59,17 @@ Thumbs.db
 .DS_Store
 
 # Ignored files
-./.vscode
-./build
-./dist
+/.vscode
+/build
+/dist
 
 # Ignore one of dist subpackage
-./dynamic-component-loader/*
-./src/*
-./target/*
+/dynamic-component-loader/*
+/src/*
+/target/*
 
 # Ignore rollup bundle files
-./bundle.*
+/bundle.*
 
 # Ignore ngc index files
-./index.*
+/index.*
