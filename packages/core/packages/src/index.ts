@@ -1,2 +1,2 @@
 export { CycleHookInterface } from './interface';
-export { CycleHookType } from './type';
+export { ComponentType, CycleHookType } from './type';
