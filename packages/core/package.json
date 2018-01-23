@@ -42,6 +42,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@types/jasmine": "^2.8.3",
     "@types/karma": "^1.7.3",
+    "@types/lodash-es": "^4.17.0",
     "@types/node": "^9.3.0",
     "codelyzer": "^4.0.2",
     "copyfiles": "^1.2.0",
