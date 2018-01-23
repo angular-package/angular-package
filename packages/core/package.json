@@ -56,6 +56,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-rollup-plugin": "^0.2.4",
     "karma-rollup-preprocessor": "^5.1.1",
+    "lodash-es": "^4.17.4",
     "node-sass": "^4.7.2",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^2.6.2",
