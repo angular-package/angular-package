@@ -1,2 +1,1 @@
-
-export { DynamicComponentClass } from './core.dynamic-component.class';
+export { DynamicComponentLoaderClass } from './dynamic-component-loader.class';
