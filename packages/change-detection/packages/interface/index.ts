@@ -1,0 +1,1 @@
+export { ApPropertiesInterface } from './interface';

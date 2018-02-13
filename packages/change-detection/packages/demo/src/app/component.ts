@@ -1,24 +1,27 @@
 // external
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { ChangeDetection } from '@angular-package/change-detection/decorator';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ApChangeDetection } from '@angular-package/change-detection';
+import { ApChangeDetectorAClass } from '@angular-package/change-detection/change-detector';
+import { ApPropertiesInterface } from '@angular-package/change-detection/interface';
 
 // internal
 import { AddressInterface } from './interface';
 
 @Component({
+  preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-changedetection-component',
   templateUrl: './component.html',
   styleUrls: [ 'component.scss' ]
 })
-@ChangeDetection(false, {
-  name: true,
-  surname: false
+@ApChangeDetection<ChangeDetectionComponent>({
+  name: false,
+  surname: true
 })
-export class ChangeDetectionComponent implements OnInit, AfterContentInit {
+export class ChangeDetectionComponent implements ApChangeDetectorAClass {
 
-  __detection: boolean;
-  __properties: any;
+  public _detection = false; // <--- Required.
+  public _properties: ApPropertiesInterface; // --- Not required.
 
   public _address: AddressInterface;
   @Input('address')
@@ -40,12 +43,14 @@ export class ChangeDetectionComponent implements OnInit, AfterContentInit {
 
   @Input('surname') surname;
 
-  constructor(public changeDetector: ChangeDetectorRef) { }
+  public _detach(): void { }
+  public _detect(): void { }
+  public _reattach(): void { }
 
-  ngOnInit() { }
-  ngAfterContentInit() { }
+  constructor(public changeDetectorRef: ChangeDetectorRef) { }
+
   update($event) {
-    this.__properties = this.__properties;
+    this._properties = this._properties;
     console.log(`update`, $event, this);
   }
 }
