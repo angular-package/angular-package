@@ -63,7 +63,13 @@ Demo available inside repository.
 Install `@angular-package/change-detection` package with command:
 
 ```bash
-npm i --save @angular-package/change-detection
+npm i --save @angular-package/change-detection@1.0.0
+```
+
+install `peerDependencies`
+
+```bash
+npm i --save @angular-package/core@0.1.5
 ```
 
 ## Usage
