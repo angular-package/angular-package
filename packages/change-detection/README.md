@@ -66,7 +66,7 @@ Install `@angular-package/change-detection` package with command:
 npm i --save @angular-package/change-detection@1.0.0
 ```
 
-install `peerDependencies`
+Install `peerDependencies`:
 
 ```bash
 npm i --save @angular-package/core@0.1.5
