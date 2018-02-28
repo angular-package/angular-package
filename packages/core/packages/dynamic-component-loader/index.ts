@@ -1,1 +1,0 @@
-export { DynamicComponentLoaderClass } from './src';
