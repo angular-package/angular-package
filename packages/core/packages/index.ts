@@ -1,3 +1,2 @@
-export { ComponentType, CycleHookInterface, CycleHookType, GetterSetterStoreInterface } from './src';
-export { DynamicComponentLoaderClass } from './dynamic-component-loader';
-export { OriginalStoreClass } from './target';
+export { ComponentLoader, ComponentLoaderClass, ComponentLoaderService } from './component-loader';
+export { StoreOriginalClass } from './store';
