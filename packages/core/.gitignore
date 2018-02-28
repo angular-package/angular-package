@@ -64,9 +64,11 @@ Thumbs.db
 /dist
 
 # Ignore one of dist subpackage
-/dynamic-component-loader/*
+/component-loader/*
+/interface/*
 /src/*
-/target/*
+/store/*
+/type/*
 
 # Ignore rollup bundle files
 /bundle.*
