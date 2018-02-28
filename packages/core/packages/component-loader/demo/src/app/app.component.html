@@ -1,0 +1,25 @@
+<h2>Default values:</h2>
+age: <input type="text" name="age" [(ngModel)]="age" [value]="age" />
+name: <input type="text" name="name" [(ngModel)]="name" [value]="name" />
+surname: <input type="text" name="surname" [(ngModel)]="surname" [value]="surname" />
+weight: <input type="text" name="weight" [(ngModel)]="weight" [value]="weight" />
+height: <input type="text" name="height" [(ngModel)]="height" [value]="height" />
+<br/>
+
+<app-loader-service
+  [age]="age"
+  [name]="name"
+  [surname]="surname"
+  [height]="'13'" [weight]="weight"></app-loader-service>
+
+<app-loader-service
+  [age]="age"
+  [name]="name"
+  [surname]="surname"
+  [height]="height" [weight]="weight"></app-loader-service>
+
+<app-loader-class
+  [age]="age"
+  [name]="name"
+  [surname]="surname"
+  [height]="height" [weight]="weight"></app-loader-class>
