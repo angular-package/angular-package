@@ -9,9 +9,6 @@ import 'zone.js/dist/jasmine-patch';
 import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
-// RxJS
-// import 'rxjs/Rx';
-
 import * as browser from '@angular/platform-browser-dynamic/testing';
 import * as testing from '@angular/core/testing';
 
