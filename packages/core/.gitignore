@@ -64,11 +64,12 @@ Thumbs.db
 /dist
 
 # Ignore one of dist subpackage
-/component-loader/*
-/interface/*
-/src/*
-/store/*
-/type/*
+/component-loader
+/connect
+/interface
+/src
+/store
+/type
 
 # Ignore rollup bundle files
 /bundle.*
