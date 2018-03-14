@@ -7,7 +7,7 @@ import { CycleHookInterface } from '../../interface';
 import { StoreGetterSetterInterface } from '../interface';
 
 /**
- * Class to store original `setter`, `getter` and cycle hooks for decorator.
+ * Class to store original `setter`, `getter` and cycle hooks.
  * @export
  * @class StoreOriginalClass
  * @implements {CycleHookInterface}
@@ -28,10 +28,8 @@ export class StoreOriginalClass implements CycleHookInterface, StoreGetterSetter
   ngOnChanges?: Function;
 
   /**
-   *
-   *
-   * @param {Function} t
-   * @param {CycleHookType[]} names
+   * @param {Function} t Function or component.
+   * @param {CycleHookType[]} names Name of cycleHook to store.
    * @returns {StoreOriginalClass}
    * @memberof StoreOriginalClass
    */
@@ -47,38 +45,44 @@ export class StoreOriginalClass implements CycleHookInterface, StoreGetterSetter
   }
 
   /**
-   *
-   *
-   * @param {Function} t
-   * @param {(string | string[])} p
+   * @param {Function} t Function or component.
+   * @param {(string | string[])} p Properties to store getter/setter.
    * @returns {StoreOriginalClass}
    * @memberof StoreOriginalClass
    */
-  public setterGetter(t: Function, p: string | string[]): StoreOriginalClass {
-    if (p instanceof Array) {
-      _.each(p, (property: string) => this.merge(t, property));
-    } else {
-      this.merge(t, p);
+  public setterGetter<T>(t: Function | T, p: string | string[]): StoreOriginalClass {
+    try {
+      if (p instanceof Array) {
+        if (t instanceof Function) {
+          _.each(p, (property: string) => this.merge(t, property));
+        }
+      } else {
+        this.merge(t, p);
+      }
+    } catch (e) {
     }
     return this;
   }
 
   /**
-   *
-   *
+   * Method to merge found setter/getter in this object.
    * @private
-   * @param {Function} t
-   * @param {string} p
+   * @param {Function} t Function or component.
+   * @param {string} p Properties to store getter/setter.
    * @memberof StoreOriginalClass
    */
-  private merge(t: Function, p: string): void {
-    _.merge(this, {
-      getter: {
-        [p]: t.prototype.__lookupGetter__(p)
-      },
-      setter: {
-        [p]: t.prototype.__lookupSetter__(p)
-      }
-    });
+  private merge<T>(t: Function | T, p: string): void {
+    if (t) {
+      _.merge(this, {
+        getter: {
+          [p]: (t instanceof Function) ? t.prototype.__lookupGetter__(p) : t['__proto__'].__lookupGetter__(p)
+        },
+        setter: {
+          [p]: (t instanceof Function) ? t.prototype.__lookupSetter__(p) : t['__proto__'].__lookupSetter__(p)
+        }
+      });
+    } else {
+      throw new Error(`StoreOriginalClass.merge argument \`t\` is undefined.`);
+    }
   }
 }
