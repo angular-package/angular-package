@@ -1,16 +1,23 @@
 import { ComponentLoaderService } from '../src/component-loader.service';
+import { ComponentRef, ComponentFactoryResolver, ElementRef } from '@angular/core';
+import { ComponentLoaderCommonInterface, ComponentLoaderConfigInterface } from '.';
 
-export interface ComponentLoaderServiceInterface<T> {
 
-  __component?: any;
-  __componentPropertyName?: string;
-  __properties?: string[];
+/**
+ * @export
+ * @interface ComponentLoaderServiceInterface
+ * @extends {ComponentLoaderCommonInterface<T>}
+ * @template T
+ */
+export interface ComponentLoaderServiceInterface<T> extends ComponentLoaderCommonInterface<T> {
 
-  __assign?: (p: string | Array<string>, prefix: any, suffix: any, source: any) => void;
-  __create?: () => ComponentLoaderService<T>;
-  __destroy?: () => void;
-  __get?: <N>(property: string) => N | undefined;
-  __subscribe?: (property: string, ...args: any[]) => void;
+  __connect?: <S>(properties: string[], source: S) => this;
 
-  componentLoaderService: ComponentLoaderService<T>;
+  componentFactoryResolver: ComponentFactoryResolver;
+  componentPropertyName: string;
+  elementRef: ElementRef;
+  prefix: string;
+  suffix: string;
+
+  init: <S>(config: ComponentLoaderConfigInterface<T>, source?: S) => this;
 }
