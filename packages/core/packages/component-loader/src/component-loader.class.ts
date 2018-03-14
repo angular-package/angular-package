@@ -1,25 +1,22 @@
 // external
-import {
-  ComponentFactoryResolver,
-  Injectable,
-  Inject,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
+import { Inject, ViewChild, ViewContainerRef, Type} from '@angular/core';
 
 // internal
-import { ComponentType } from '../../type';
 import { ComponentLoaderCommonAClass } from './component-loader-common.aclass';
 import { ComponentLoaderClassInterface } from '../interface';
+import { CallbackSetterType } from '../../connect/type/callback-setter.type';
+import { CallbackGetterType } from '../../connect/type/callback-getter.type';
 
 /**
- * Angular 2+ class extend for component with ability to handle loading dynamic component that is available in entryComponents.
+ * Class to handle loading dynamic component.
  * @export
  * @abstract
  * @class ComponentLoaderClass
  */
-@Injectable()
-export class ComponentLoaderClass extends ComponentLoaderCommonAClass implements ComponentLoaderClassInterface {
+export
+  class ComponentLoaderClass<T>
+  extends ComponentLoaderCommonAClass<T>
+  implements ComponentLoaderClassInterface<T> {
 
   /**
    * Container property where Dynamic Component will be put in.
@@ -27,25 +24,35 @@ export class ComponentLoaderClass extends ComponentLoaderCommonAClass implements
    * @type {*}
    * @memberof ComponentLoaderClass
    */
-  @ViewChild('container', { read: ViewContainerRef }) public container: any;
+  @ViewChild('container', { read: ViewContainerRef }) public container?: ViewContainerRef;
 
   /**
-   * Creates an instance of ComponentLoaderClass.
-   * @param {ComponentFactoryResolver} componentFactoryResolver
+   * Connect source(extended) component properties with dynamic component instance by using setters and getters.
+   * Because of this you can set dynamic component properties values by providing values in extended component.
+   * @param {string[]} [p=this.__properties] Properties to be connected from source component to dynamic component.
    * @memberof ComponentLoaderClass
    */
-  constructor(public componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
+  public __connect(p: string[] = this.__properties): void {
+    this.__wrap(p, this,
+      <PT>(property: string, sourcePropertyName: string) => {
+        if (this.__set instanceof Function) {
+          this.__set<PT>(property, this[sourcePropertyName]);
+        }
+      },
+      <PT>(property: string): any => {
+        if (this.__get instanceof Function) {
+          return this.__get<PT>(property);
+        }
+      });
   }
 
   /**
    * Create in html `#container` resolved component.
-   * @public
-   * @param {component} component
+   * @param {Type<D>} component Component that will be created.
    * @returns {this}
    * @memberof ComponentLoaderClass
    */
-  public __create(component: ComponentType<any>): this {
+  public __create<D = T>(component: Type<D>): this {
     if (this.container && component) {
       if (!this.__component) {
         this.__component = this.container.createComponent(this.__resolve(component));
@@ -56,15 +63,14 @@ export class ComponentLoaderClass extends ComponentLoaderCommonAClass implements
 
   /**
    * Destroy component.
-   * @public
-   * @returns {null}
+   * @returns {*}
    * @memberof ComponentLoaderClass
    */
-  public __destroy(): null {
-    if (this.__component) {
+  public __destroy(): any {
+    if (this.__component.instance && this.container) {
       this.__component.destroy();
-      this.__component = null;
+      this.container.clear();
     }
-    return this.__component;
+    return this.__component.instance;
   }
 }
