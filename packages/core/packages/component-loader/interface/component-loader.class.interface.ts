@@ -1,8 +1,14 @@
-// internal
-import { ComponentType } from '../../type';
+import { Type, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { ComponentLoaderCommonInterface } from '.';
 
-export interface ComponentLoaderClassInterface {
-  container: any;
-  __create: (component: ComponentType<any>) => this;
-  __destroy: () => null;
+/**
+ * @export
+ * @interface ComponentLoaderClassInterface
+ * @extends {ComponentLoaderCommonAClass<T>}
+ * @template T
+ */
+export interface ComponentLoaderClassInterface<T> extends ComponentLoaderCommonInterface<T> {
+  componentFactoryResolver: ComponentFactoryResolver;
+  container?: ViewContainerRef;
+  __connect?: (p: string[]) => void;
 }
