@@ -2,15 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DynamicComponent } from './dynamic.component';
-import { ComponentLoaderComponent } from './component-loader.component';
-import { LoaderTestComponent } from './loader-decorator.component';
+import { ComponentLoaderClassComponent } from './component-loader-class.component';
+import { ComponentLoaderDecoratorComponent } from './component-loader-decorator.component';
+import { ComponentLoaderServiceComponent } from './component-loader-service.component';
+
 
 @NgModule({
   imports: [CommonModule],
   declarations: [
     DynamicComponent,
-    ComponentLoaderComponent,
-    LoaderTestComponent
+    ComponentLoaderClassComponent,
+    ComponentLoaderDecoratorComponent,
+    ComponentLoaderServiceComponent
   ],
   entryComponents: [DynamicComponent]
 })
