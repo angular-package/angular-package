@@ -14,7 +14,7 @@ import '@angular-package/core';
 * Store setters/getters and cycle hooks.
 
 **Cons(-):**
-* Not all is tested with jasmine.
+* Not everything is tested with jasmine.
 
 
 ----
@@ -28,7 +28,7 @@ import '@angular-package/core';
 ----
 
 
-#### Available packages
+## Available packages
 
 | Package                   | Description                                             | Status     | Readme      |
 |---------------------------|---------------------------------------------------------|------------|-------------|
