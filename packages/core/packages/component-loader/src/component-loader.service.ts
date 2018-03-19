@@ -161,12 +161,11 @@ export
 
   /**
    * Append HTMLElement of dynamic component to specified container.
-   * @private
    * @param {string} container Name of place for querySelector that dynamic component will be placed.
    * @returns {this}
    * @memberof ComponentLoaderService
    */
-  private appendChild(container: string): this {
+  public appendChild(container: string): this {
     if (container && this.__component) {
       this
         .elementRef
@@ -179,11 +178,10 @@ export
 
   /**
    * Attach dynamic component view.
-   * @private
    * @returns {this}
    * @memberof ComponentLoaderService
    */
-  private attachView(): this {
+  public attachView(): this {
     if (this.attached === false && this.__component) {
       this.appRef.attachView(this.__component.hostView);
       this.attached = true;
@@ -193,11 +191,10 @@ export
 
   /**
    * Detach dynamic component view.
-   * @private
    * @returns {this}
    * @memberof ComponentLoaderService
    */
-  private detachView(): this {
+  public detachView(): this {
     if (this.__component && this.attached === true) {
       this.appRef.detachView(this.__component.hostView);
       this.attached = false;
