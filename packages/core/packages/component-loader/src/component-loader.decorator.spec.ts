@@ -93,7 +93,6 @@ describe('ComponentLoader (Decorator)', () => {
   it('this.__component should be destroyed', async(() => {
     comp.__create();
     comp.__destroy();
-    console.log(comp.__component.instance);
-    // expect(comp.__component).toBeNull();
+    expect(comp.__component).toBeUndefined();
   }));
 });
