@@ -53,10 +53,8 @@ export
    * @memberof ComponentLoaderClass
    */
   public __create<D = T>(component: Type<D>): this {
-    if (this.container && component) {
-      if (!this.__component) {
-        this.__component = this.container.createComponent(this.__resolve(component));
-      }
+    if (!this.__component && this.container && component) {
+      this.__component = this.container.createComponent(this.__resolve(component));
     }
     return this;
   }
@@ -66,11 +64,14 @@ export
    * @returns {*}
    * @memberof ComponentLoaderClass
    */
-  public __destroy(): any {
-    if (this.__component.instance && this.container) {
-      this.__component.destroy();
-      this.container.clear();
+  public __destroy(): undefined {
+    if (this.__component) {
+      if (this.container) {
+        this.__component.destroy();
+        this.__component = undefined;
+        this.container.clear();
+        return this.__component;
+      }
     }
-    return this.__component.instance;
   }
 }
