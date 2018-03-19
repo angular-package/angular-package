@@ -11,7 +11,7 @@ import { ComponentLoaderCommonInterface, ComponentLoaderConfigInterface } from '
  */
 export interface ComponentLoaderServiceInterface<T> extends ComponentLoaderCommonInterface<T> {
 
-  __connect?: <S>(properties: string[], source: S) => this;
+  __link?: <S>(properties: string[], source: S) => this;
 
   componentFactoryResolver: ComponentFactoryResolver;
   componentPropertyName: string;
