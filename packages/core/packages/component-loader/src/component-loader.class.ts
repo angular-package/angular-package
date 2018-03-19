@@ -41,7 +41,7 @@ export
 
   /**
    * Destroy component.
-   * @returns {*}
+   * @returns {undefined}
    * @memberof ComponentLoaderClass
    */
   public __destroy(): undefined {
