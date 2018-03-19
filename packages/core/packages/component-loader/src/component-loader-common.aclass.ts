@@ -151,8 +151,7 @@ export
    * @memberof ComponentLoaderCommonAClass
    */
   protected __wrap<S>(p: string[] = this.__properties, source: S, setter: CallbackSetterType<S>, getter: CallbackGetterType<S>): this {
-    this.connectClass = new ConnectClass(this.__prefix, this.__suffix);
-
+    this.connectClass = (this.connectClass) ? this.connectClass : new ConnectClass(this.__prefix, this.__suffix);
     if (this.connectClass instanceof ConnectClass) {
       // Wrap properties with specified setter and getter.
       this.connectClass.wrap<S>(source, p, setter, getter);
