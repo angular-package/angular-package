@@ -13,8 +13,9 @@ import { ComponentLoaderClass } from '@angular-package/core/component-loader';
 * Easy way to create and destroy specified component.
 * `assign` method to set specific property value from source component to dynamic component.
 * `set` method to set specific property value in dynamic component or `get` to get property value from dynamic component.
-* `connect` method to make properties from source component connected with dynamic component.
-* Everything is well tested with jasmine.
+* `link` method to make properties from source component linked with dynamic component.
+* Possibility to change component holder property name.
+* Tested with jasmine.
 
 **Cons(-):**
 
@@ -39,29 +40,48 @@ It seems to haven't any.
 
 ----
 
-### Demonstration
+## Demonstration
 
+<!--
+[Live demonstration](http://angular-package.wwwdev.io/core/component-loader)
+-->
 
-### Installation
+Demo available inside repository.
+
+Clone repository:
+
+```bash
+git clone https://github.com/angular-package/angular-package.git
+```
+
+Go to core package with example demo:
+```bash
+cd angular-package/packages/core/packages/component-loader/demo
+```
+
+Install dependencies and start:
+```bash
+npm i && npm start
+```
+
+## Installation
 
 ```bash
 npm i @angular-package/core@latest --save
 ```
 
-### Properties
-
+## Properties
 
  Properties             | Default value                      | Description                                    |
 ------------------------|------------------------------------|------------------------------------------------|
 __component             | this[this.__componentPropertyName] | Place where dynamic component will be created. |
 __componentPropertyName | '__componentRef'                   | Name of the place where dynamic component will be created. |
-__prefix                | '_'                                | Prefix to create property that will be wrapped. It is used only in `__connect` method. |
+__prefix                | '_'                                | Prefix to create property that will be wrapped. It is used only in `__link` method. |
 __properties            | []                                 | Name of properties from source component that will be connected with dynamic component.  |
-__suffix                | ''                                 | Suffix to create property that will be wrapped. It is used only in `__connect` method. |
+__suffix                | ''                                 | Suffix to create property that will be wrapped. It is used only in `__link` method. |
 container               | #container                         | `@ViewChild()` container where created component will be applied. |
 
-
-### Methods
+## Methods
 
 Assign values of property or list of properties from source component to dynamic component instance.
 
@@ -103,10 +123,10 @@ Destroy component.
 ```typescript
 /**
  * Destroy component.
- * @returns {null}
+ * @returns {undefined}
  * @memberof ComponentLoaderClass
  */
-__destroy(): null
+__destroy(): undefined
 ```
 
 Get specified property value from dynamic component instance.
@@ -180,7 +200,7 @@ property | string | Property name of dynamic component instance we want to subsc
 public __subscribe(property: string, ...args: any[]): void
 ```
 
-### Usage
+## Usage
 
 Usage example below based on angular-cli **1.6.8** starts from scratch.
 
@@ -192,7 +212,6 @@ ng new demo
 ```
 
 **Step 2.** Change `tsconfig.json` target from `es5` to `es6`.
-
 ```json
 {
   "compilerOptions": {
@@ -201,10 +220,21 @@ ng new demo
     ...
   }
 }
-
 ```
 
-**Step 3.** Add component that will be dynamically handled.
+**Step 3.** Add `--aot` to `ng-serve` in `package.json`.
+```json
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --aot",  // <------------ Here.
+    "build": "ng build --prod",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+```
+
+**Step 4.** Add component that will be dynamically handled.
 
 ```typescript
 // dynamic.component.ts
@@ -228,7 +258,7 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 export class DynamicComponent {
   @Input() public age;
   @Input() public firstname;
-  identify = {};
+  identify;
   surname;
 
   @Output() event: EventEmitter<any> = new EventEmitter();
@@ -240,7 +270,7 @@ export class DynamicComponent {
 
 ```
 
-**Step 4.** Add component that will handle `DynamicComponent`.
+**Step 5.** Add component that will handle `DynamicComponent`.
 ```typescript
 // default.component.ts
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
@@ -302,7 +332,7 @@ export
 }
 ```
 
-**Step 5.** Add `DynamicComponent` and `DefaultComponent` to `AppModule`.
+**Step 6.** Add `DynamicComponent` and `DefaultComponent` to `AppModule`.
 ```typescript
 // app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
@@ -332,6 +362,11 @@ export class AppModule { }
 
 ```
 
+**Step 7.** Display `DefaultComponent` in `AppComponent` by using tag.
+```html
+// app.component.html
+<app-default-component></app-default-component>
+```
 
 ## Scripts
 
