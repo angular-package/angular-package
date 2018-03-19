@@ -4,8 +4,8 @@ import { Inject, ViewChild, ViewContainerRef, Type} from '@angular/core';
 // internal
 import { ComponentLoaderCommonAClass } from './component-loader-common.aclass';
 import { ComponentLoaderClassInterface } from '../interface';
-import { CallbackSetterType } from '../../connect/type/callback-setter.type';
-import { CallbackGetterType } from '../../connect/type/callback-getter.type';
+import { CallbackSetterType } from '../../property-wrapper/type/callback-setter.type';
+import { CallbackGetterType } from '../../property-wrapper/type/callback-getter.type';
 
 /**
  * Class to handle loading dynamic component.
@@ -25,26 +25,6 @@ export
    * @memberof ComponentLoaderClass
    */
   @ViewChild('container', { read: ViewContainerRef }) public container?: ViewContainerRef;
-
-  /**
-   * Connect source(extended) component properties with dynamic component instance by using setters and getters.
-   * Because of this you can set dynamic component properties values by providing values in extended component.
-   * @param {string[]} [p=this.__properties] Properties to be connected from source component to dynamic component.
-   * @memberof ComponentLoaderClass
-   */
-  public __connect(p: string[] = this.__properties): void {
-    this.__wrap(p, this,
-      <PT>(property: string, sourcePropertyName: string) => {
-        if (this.__set instanceof Function) {
-          this.__set<PT>(property, this[sourcePropertyName]);
-        }
-      },
-      <PT>(property: string): any => {
-        if (this.__get instanceof Function) {
-          return this.__get<PT>(property);
-        }
-      });
-  }
 
   /**
    * Create in html `#container` resolved component.
@@ -73,5 +53,24 @@ export
         return this.__component;
       }
     }
+  }
+
+  /**
+   * Link source(extended) component properties with dynamic component instance by using setters and getters.
+   * @param {string[]} [p=this.__properties] Properties to be linked in source component with dynamic component.
+   * @memberof ComponentLoaderClass
+   */
+  public __link(p: string[] = this.__properties): void {
+    this.__wrap(p, this,
+      <PT>(property: string, sourcePropertyName: string) => {
+        if (this.__set instanceof Function) {
+          this.__set<PT>(property, this[sourcePropertyName]);
+        }
+      },
+      <PT>(property: string): any => {
+        if (this.__get instanceof Function) {
+          return this.__get<PT>(property);
+        }
+      });
   }
 }
