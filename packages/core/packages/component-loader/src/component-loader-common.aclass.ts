@@ -3,9 +3,9 @@ import { ComponentFactoryResolver, ComponentRef, Type } from '@angular/core';
 
 // internal
 import { ComponentLoaderCommonInterface } from '../interface';
-import { ConnectClass } from '../../connect';
-import { CallbackGetterType } from '../../connect/type/callback-getter.type';
-import { CallbackSetterType } from '../../connect/type/callback-setter.type';
+import { PropertyWrapperClass } from '../../property-wrapper';
+import { CallbackGetterType } from '../../property-wrapper/type/callback-getter.type';
+import { CallbackSetterType } from '../../property-wrapper/type/callback-setter.type';
 
 /**
  * Some useful methods to handle dynamic component.
@@ -20,7 +20,7 @@ export
   public __prefix = '_';
   public __suffix = '';
 
-  protected connectClass?: ConnectClass;
+  protected wrapper?: PropertyWrapperClass;
 
   /**
    * Property name where dynamic component will be placed.
@@ -151,15 +151,15 @@ export
    * @memberof ComponentLoaderCommonAClass
    */
   protected __wrap<S>(p: string[] = this.__properties, source: S, setter: CallbackSetterType<S>, getter: CallbackGetterType<S>): this {
-    this.connectClass = (this.connectClass) ? this.connectClass : new ConnectClass(this.__prefix, this.__suffix);
-    if (this.connectClass instanceof ConnectClass) {
+    this.wrapper = (this.wrapper) ? this.wrapper : new PropertyWrapperClass(this.__prefix, this.__suffix);
+    if (this.wrapper instanceof PropertyWrapperClass) {
       // Wrap properties with specified setter and getter.
-      this.connectClass.wrap<S>(source, p, setter, getter);
+      this.wrapper.wrap<S>(source, p, setter, getter);
 
       // Assign initial values to dynamic component.
       p.forEach((property: string): void => {
-        if (this.connectClass) {
-          this.__set<any>(property, source[this.connectClass.propertyName(property)]);
+        if (this.wrapper) {
+          this.__set<any>(property, source[this.wrapper.propertyName(property)]);
         }
       });
     }
