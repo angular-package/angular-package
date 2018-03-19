@@ -156,8 +156,7 @@ describe('ComponentLoaderClass', () => {
   it('this.__component should be destroyed', async(() => {
     comp.__create(DynamicComponent);
     comp.__destroy();
-    console.log(comp.__component.instance);
-    // expect(comp.__component).toBeNull();
+    expect(comp.__component).toBeUndefined();
   }));
 
   /*
