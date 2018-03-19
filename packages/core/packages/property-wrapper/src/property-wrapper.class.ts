@@ -81,7 +81,8 @@ export class PropertyWrapperClass extends PrefixSuffixClass {
               }
               // Use new getter.
               if (getter instanceof Function) {
-                return getter(property, this);
+                // return (getter(property, this)) ? getter(property, this) : this[sourcePropertyName];
+                return getter(property, this) || this[sourcePropertyName];
               }
             },
             set: function (value) {
