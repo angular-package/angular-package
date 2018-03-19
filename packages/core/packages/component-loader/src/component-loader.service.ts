@@ -128,13 +128,13 @@ export
    * @returns {this}
    * @memberof ComponentLoaderService
    */
-  public __destroy(): this {
+  public __destroy(): undefined {
     this.detachView();
     if (this.__component) {
       this.__component.destroy();
-      this.attached = false;
+      this.__component = undefined;
     }
-    return this;
+    return this.__component;
   }
 
   /**
@@ -168,10 +168,12 @@ export
    * @memberof ComponentLoaderService
    */
   private appendChild(container: string): this {
-    if (container) {
-      this.elementRef.nativeElement
-      .querySelector(container)
-      .appendChild((this.__component.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement);
+    if (container && this.__component) {
+      this
+        .elementRef
+        .nativeElement
+        .querySelector(container)
+        .appendChild((this.__component.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement);
     }
     return this;
   }
@@ -183,7 +185,7 @@ export
    * @memberof ComponentLoaderService
    */
   private attachView(): this {
-    if (this.attached === false) {
+    if (this.attached === false && this.__component) {
       this.appRef.attachView(this.__component.hostView);
       this.attached = true;
     }
@@ -197,8 +199,9 @@ export
    * @memberof ComponentLoaderService
    */
   private detachView(): this {
-    if (this.__component) {
+    if (this.__component && this.attached === true) {
       this.appRef.detachView(this.__component.hostView);
+      this.attached = false;
     }
     return this;
   }
