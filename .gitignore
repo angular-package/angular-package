@@ -71,7 +71,7 @@ fonts
 # /packages/change-detection
 /packages/chart
 # /packages/common
-/packages/core
+# /packages/core
 # /packages/docs
 /packages/form
 /packages/markdown
