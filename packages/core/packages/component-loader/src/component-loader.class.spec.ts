@@ -175,8 +175,8 @@ describe('ComponentLoaderClass', () => {
     expect(comp.__component.instance.key).toBe('notdefined');
     expect(comp.key).toBe('defined');
 
-    // Connect indicated properties the same component to target component.
-    comp.__connect(['key', 'model']);
+    // Link indicated properties the same component to target component.
+    comp.__link(['key', 'model']);
 
     // Assign prepared values to component.
     Object.assign(comp, {
@@ -190,7 +190,7 @@ describe('ComponentLoaderClass', () => {
   }));
   it('property `wrapped` set and get from component should be working.', async(() => {
     comp.__create(DynamicComponent);
-    comp.__connect(['wrapped']);
+    comp.__link(['wrapped']);
     comp.wrapped = true;
 
     const x = comp.wrapped;
@@ -218,14 +218,14 @@ describe('ComponentLoaderClass', () => {
   */
   it('should have __prefix and __sufix from source component.', async(() => {
     comp.__create(DynamicComponent);
-    comp.__connect(['key']);
+    comp.__link(['key']);
     expect(comp['_key_']).toBe('defined');
   }));
   it('should have changed __prefix and __suffix in source component.', async(() => {
     comp.__prefix = '__';
     comp.__suffix = '__';
     comp.__create(DynamicComponent);
-    comp.__connect(['key']);
+    comp.__link(['key']);
     expect(comp['__key__']).toBe('defined');
   }));
 });
