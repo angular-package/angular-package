@@ -32,7 +32,7 @@ export
    * Wrapper `set` for `__componentPropertyName`.
    * @memberof ComponentLoaderCommonAClass
    */
-  set __component(value: ComponentRef<T>) {
+  set __component(value: ComponentRef<T> | undefined) {
     if (this.__componentPropertyName) {
       this[this.__componentPropertyName] = value;
     }
@@ -43,7 +43,7 @@ export
    * @type {*}
    * @memberof ComponentLoaderCommonAClass
    */
-  get __component(): ComponentRef<T> {
+  get __component(): ComponentRef<T> | undefined {
     return this[this.__componentPropertyName];
   }
 
@@ -119,7 +119,7 @@ export
    * @memberof ComponentLoaderCommonAClass
    */
   public __subscribe(property: string, ...args: any[]): void {
-    if (this.__component.instance.hasOwnProperty(property)) {
+    if (this.__component && this.__component.instance.hasOwnProperty(property)) {
       this.__get<any>(property).subscribe(...args);
     } else {
       throw new Error(`this.component.instance does not have property ${property}`);
