@@ -93,7 +93,7 @@ describe('ComponentLoaderService', () => {
   it('this.__component should be destroyed', async(() => {
     comp.__create();
     comp.__destroy();
-    expect(comp.__component).toBeNull();
+    expect(comp.__component).toBeUndefined();
   }));
   it('property `key`, `model` should be connected with dynamic instance component.', async(() => {
     const model = { defined: false };
