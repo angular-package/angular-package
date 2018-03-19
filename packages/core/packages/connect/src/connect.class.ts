@@ -11,6 +11,7 @@ import { CallbackSetterType } from '../type/callback-setter.type';
 export class ConnectClass extends PrefixSuffixClass {
 
   private store: StoreOriginalClass = new StoreOriginalClass();
+  private wrapped: string[] = [];
 
   /**
    * Creates an instance of ConnectClass.
@@ -53,51 +54,55 @@ export class ConnectClass extends PrefixSuffixClass {
   }
 
   private wrapProperty<S>(source: Function | S, property: string, setter: CallbackSetterType<S>, getter: CallbackGetterType<S>): void {
-    const t = this;
+    // Check if property is already wrapped.
+    if (this.wrapped.includes(property) === false) {
+      const t = this;
 
-    // Store original Setter/Getter.
-    const store = this.store.setterGetter(source, property);
+      // Store original Setter/Getter.
+      const store = this.store.setterGetter(source, property);
 
-    // Property with prefix and suffix.
-    const sourcePropertyName = this.propertyName(property);
+      // Property with prefix and suffix.
+      const sourcePropertyName = this.propertyName(property);
 
-    // Wrap property.
-    if (sourcePropertyName) {
-      // Create property with prefix and suffix to be wrapped by original name.
-      Object.defineProperty(
-        (source instanceof Function) ? source.prototype : source,
-        sourcePropertyName,
-        { writable: true, value: (source[property]) ? source[property] : undefined }
-      );
+      // Wrap property.
+      if (sourcePropertyName) {
+        // Create property with prefix and suffix to be wrapped by original name.
+        Object.defineProperty(
+          (source instanceof Function) ? source.prototype : source,
+          sourcePropertyName,
+          { writable: true, value: (source[property]) ? source[property] : source[sourcePropertyName] }
+        );
 
-      Object.defineProperties((source instanceof Function) ? source.prototype : source, {
-        [property]: {
-          get: function () {
-            if (store.getter[property]) {
-              return store.getter[property].apply(this, arguments);
-            }
-            // Use new getter.
-            if (getter instanceof Function) {
-              return getter(property, this);
-            }
-          },
-          set: function (value) {
-            // Remember input value.
-            this[sourcePropertyName] = value;
+        Object.defineProperties((source instanceof Function) ? source.prototype : source, {
+          [property]: {
+            get: function () {
+              if (store.getter[property]) {
+                return store.getter[property].apply(this, arguments);
+              }
+              // Use new getter.
+              if (getter instanceof Function) {
+                return getter(property, this);
+              }
+            },
+            set: function (value) {
+              // Remember input value.
+              this[sourcePropertyName] = value;
 
-            // Use old setter.
-            if (store.setter[property]) {
-              store.setter[property].apply(this, arguments);
-            }
-            // connect source with
-            if (setter instanceof Function) {
-              setter(property, sourcePropertyName, this);
+              // Use old setter.
+              if (store.setter[property]) {
+                store.setter[property].apply(this, arguments);
+              }
+              // connect source with
+              if (setter instanceof Function) {
+                setter(property, sourcePropertyName, this);
+              }
             }
           }
-        }
-      });
-    } else {
-      throw new Error(`sourcePropertyName is not generated.`);
+        });
+        this.wrapped.push(property);
+      } else {
+        throw new Error(`sourcePropertyName is not generated.`);
+      }
     }
   }
 }
