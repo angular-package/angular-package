@@ -27,8 +27,8 @@ export class ComponentLoaderServiceComponent
   __assign(p) {
     this.componentLoaderService.__assign(p, this);
   }
-  __connect(properties?: string[]): this {
-    this.componentLoaderService.__connect(properties, this);
+  __link(properties?: string[]): this {
+    this.componentLoaderService.__link(properties, this);
     return this;
   }
 
