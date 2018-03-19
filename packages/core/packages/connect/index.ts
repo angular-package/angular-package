@@ -1,1 +1,0 @@
-export { ConnectClass } from './src';
