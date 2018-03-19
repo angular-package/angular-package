@@ -12,7 +12,6 @@ import {
 // internal
 import { ComponentLoaderCommonAClass } from './component-loader-common.aclass';
 import { ComponentLoaderConfigInterface, ComponentLoaderServiceInterface } from '../interface';
-import { ConnectClass } from '../../connect';
 
 /**
  * Service to make easier handle loading dynamic component.
@@ -83,14 +82,14 @@ export
   }
 
   /**
-   * Connect properties of source component to dynamic component.
+   * Link properties of source component to dynamic component.
    * @template S Source component.
    * @param {string[]} [properties=this.properties] Properties from component source.
-   * @param {S} source Source component which properties are connected to dynamic component.
+   * @param {S} source Source component which properties are linked to dynamic component.
    * @returns {this}
    * @memberof ComponentLoaderService
    */
-  public __connect<S>(properties: string[] = this.properties, source: S): this {
+  public __link<S>(properties: string[] = this.properties, source: S): this {
     if (properties instanceof Array) {
       this.__wrap<S>(properties, source,
         (property: string, sourcePropertyName: string, s?: S) => {
@@ -140,7 +139,7 @@ export
   /**
    * @template S
    * @param {ComponentLoaderConfigInterface<T>} config
-   * @param {S} [source] Component which its properties are connected to dynamic component.
+   * @param {S} [source] Component which its properties are linked to dynamic component.
    * @returns {this}
    * @memberof ComponentLoaderService
    */
@@ -152,9 +151,9 @@ export
       .attachView()
       .appendChild(config.container);
 
-    // Connect properties on initialization when source is provided.
+    // Link properties on initialization when source is provided.
     if (source && config.properties) {
-      this.__connect(config.properties, source);
+      this.__link(config.properties, source);
     }
 
     return this;
