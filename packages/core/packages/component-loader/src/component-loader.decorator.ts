@@ -1,18 +1,18 @@
 import { ComponentLoaderConfigInterface } from '../interface';
 import { ComponentLoaderService } from './component-loader.service';
-import { ConnectClass } from '../../connect';
+import { PropertyWrapperClass } from '../../property-wrapper';
 
 /**
- * Decorator to wrap `ComponentLoaderService` methods and to connect properties to dynamic component.
+ * Decorator to wrap `ComponentLoaderService` methods and link properties to dynamic component.
  * @export
  * @param {ComponentLoaderConfigInterface} config
  * @returns {Function}
  */
 export function ComponentLoader<T>(config: ComponentLoaderConfigInterface<T>): Function {
   return function (source: Function): void {
-    const connectClass: ConnectClass = new ConnectClass(config.prefix, config.suffix);
+    const wrapper: PropertyWrapperClass = new PropertyWrapperClass(config.prefix, config.suffix);
 
-    // Connect component methods with loaderService methods.
+    // Wrap component methods with loaderService methods.
     Object.defineProperties(source.prototype, {
 
       __assign: {
@@ -100,7 +100,7 @@ export function ComponentLoader<T>(config: ComponentLoaderConfigInterface<T>): F
     });
 
     if (config.properties) {
-      connectClass.wrap<T>(source, config.properties,
+      wrapper.wrap<T>(source, config.properties,
         (targetPropertyName: string, sourcePropertyName: string, s?: T): void => {
           if (s) {
             if (s['__set'] instanceof Function) {
