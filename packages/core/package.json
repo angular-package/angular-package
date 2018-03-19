@@ -60,7 +60,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-rollup-plugin": "^0.2.4",
     "karma-rollup-preprocessor": "^5.1.1",
-    "lodash-es": "^4.17.5",
+    "lodash-es": "^4.17.7",
     "node-sass": "^4.7.2",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
@@ -77,6 +77,9 @@
     "typescript": "^2.7.2",
     "uglify-es": "^3.3.9",
     "zone.js": "^0.8.20"
+  },
+  "peerDependencies": {
+    "lodash-es": "^4.17.7"
   },
   "keywords": [],
   "repository": {
