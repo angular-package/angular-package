@@ -65,11 +65,11 @@ Thumbs.db
 
 # Ignore one of dist subpackage
 /component-loader
-/connect
 /interface
 /src
 /store
 /type
+/property-wrapper
 
 # Ignore rollup bundle files
 /bundle.*
