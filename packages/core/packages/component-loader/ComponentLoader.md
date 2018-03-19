@@ -74,6 +74,13 @@ npm i && npm start
 npm i @angular-package/core@latest --save
 ```
 
+Install peer dependencies:
+
+```bash
+npm i lodash-es@4.17.7 --save
+```
+
+
 ## Config
 ```typescript
 interface ComponentLoaderConfigInterface<T> {

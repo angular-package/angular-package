@@ -67,7 +67,13 @@ npm i && npm start
 ## Installation
 
 ```bash
-npm i @angular-package/core@latest --save
+npm i @angular-package/core@1.0.0 --save
+```
+
+Install peer dependencies:
+
+```bash
+npm i lodash-es@4.17.7 --save
 ```
 
 ## Properties
