@@ -1,28 +1,44 @@
-# @angular-package/core
+# core
 
-Some core features used in other **angular-package** libraries.
+Some features used in other **angular-package** libraries.
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [Versioning](#versioning)
+```typescript
+import '@angular-package/core';
+```
+
+**Pros(+):**
+* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
+* **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
+* **MIT** License: it can be used commercially.
+* Features to make handle dynamic component easier.
+* Store setters/getters and cycle hooks.
+
+**Cons(-):**
+* Not everything is tested with jasmine.
+
+
+----
+
+* [Available packages](#available-packages)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
 * [License](#license)
-* [Donate](#donate)
+
+----
 
 
-## Installation
+## Available packages
 
-To install, run:
+| Package                   | Description                                             | Status     | Readme      |
+|---------------------------|---------------------------------------------------------|------------|-------------|
+| component-loader          | Features to make handle dynamic component easier.       | **Ready**  | [Readme][0] |
+| interface                 | Common **angular-package** typescript interfaces.       | **Ready**  | -           |
+| store                     | Stores target setters/getters and cycle-hooks.          | **Ready**  | -           |
+| type                      | Common **angular-package** typesscript types.           | **Ready**  | -           |
 
-```bash
-npm i @angular-package/core --save
-```
-
-## Usage
-
-[DynamicComponentClass](https://github.com/angular-package/angular-package/wiki/ChangeDetection)
+[0]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/component-loader#readme
+[1]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/store#readme
 
 ## GIT
 
@@ -54,6 +70,3 @@ How do I know when to release 1.0.0?
 
 MIT © angular-package ([license](https://github.com/angular-package/angular-package/blob/master/LICENSE))
 
-## Donate
-
-[Click to donate](https://donorbox.org/help-creating-open-source-software)
