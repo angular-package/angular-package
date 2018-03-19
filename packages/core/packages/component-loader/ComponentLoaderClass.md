@@ -82,23 +82,6 @@ source   | S                |                   | Source component means compone
 __assign<PT, S>(p: string | string[] = this.__properties, source: S): void;
 ```
 
-Connect source(extended) component properties with dynamic component instance by using setters and getters.
-
-Property | Type             | Default value     | Description               |
----------|------------------|-------------------|---------------------------|
-p        | string\|string[] | this.__properties | Properties to be connected from source component to dynamic component. |
-
-
-```typescript
-/**
- * Connect source(extended) component properties with dynamic component instance by using setters and getters.
- * Because of this you can set dynamic component properties values by providing values in extended component.
- * @param {string[]} [p=this.__properties] Properties to be connected from source component to dynamic component.
- * @memberof ComponentLoaderClass
- */
-__connect(p: string[] = this.__properties): void
-```
-
 Create in html `#container` resolved component.
 
 Property  | Type             | Description |
@@ -142,6 +125,22 @@ property  | string | Name of property that will be get from dynamic component in
  * @memberof ComponentLoaderCommonAClass
  */
 __get<T>(property: string): T | undefined
+```
+
+Link source(extended) component properties with dynamic component instance by using setters and getters.
+
+Property | Type             | Default value     | Description               |
+---------|------------------|-------------------|---------------------------|
+p        | string\|string[] | this.__properties | Properties to be connected from source component to dynamic component. |
+
+
+```typescript
+/**
+ * Link source(extended) component properties with dynamic component instance by using setters and getters.
+ * @param {string[]} [p=this.__properties] Properties to be linked in source component with dynamic component.
+ * @memberof ComponentLoaderClass
+ */
+__link(p: string[] = this.__properties): void
 ```
 
 Set specified property value to dynamic component instance.
