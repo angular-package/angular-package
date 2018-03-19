@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, Type } from '@angular/core';
 import { DynamicComponent } from '../dynamic/dynamic.component';
 
 import { ComponentLoaderService, ComponentLoader } from '@angular-package/core/component-loader';
-import { ComponentLoaderServiceInterface } from '@angular-package/core/component-loader/interface';
+import { ComponentLoaderCommonInterface } from '@angular-package/core/component-loader/interface';
 
 @Component({
   selector: 'app-loader-service',
@@ -12,23 +12,20 @@ import { ComponentLoaderServiceInterface } from '@angular-package/core/component
     ComponentLoaderService
   ]
 })
-@ComponentLoader<DynamicComponent>({
-  component: DynamicComponent,
-  componentPropertyName: '__component_',
-  container: '.container',
-  sourceProperty: { prefix: `_`, suffix: `_`},
-  properties: [
-    'emit',
-    'height',
-    'surname'
-  ]
-})
-export class LoaderServiceComponent implements ComponentLoaderServiceInterface<DynamicComponent>, OnInit {
+export class LoaderServiceComponent implements OnInit {
 
-  _create: Function;
-  _destroy: Function;
-  _properties: string[];
-  _subscribe: any;
+  // __component: any;
+  // __componentPropertyName: string;
+  // __properties: string[];
+
+  __create?: () => this;
+  __destroy?: () => any;
+
+  // __assign: (p: string | Array<string>, prefix: any, suffix: any, source: any) => void;
+  // __create: () => ComponentLoaderService<DynamicComponent>;
+  // __destroy: () => void;
+  // __get: <N>(property: string) => N | undefined;
+  // __subscribe: (property: string, ...args: any[]) => void;
 
   @Input() public age: number;
   @Input() public name: string;
@@ -43,30 +40,43 @@ export class LoaderServiceComponent implements ComponentLoaderServiceInterface<D
   set weight(value: number) {
     this._weight = value;
     if (this.componentLoaderService) {
-      this.componentLoaderService.set('weight', this._weight);
+      this.componentLoaderService.__set('weight', this._weight);
     }
   }
   get weight(): number {
     if (this.componentLoaderService) {
-      return this.componentLoaderService.get<number>('weight');
+      return this.componentLoaderService.__get<number>('weight') || this._weight;
     }
   }
 
   constructor(public componentLoaderService: ComponentLoaderService<DynamicComponent>) { }
 
   create() {
-    this._create();
+    this.componentLoaderService.init({
+      component: DynamicComponent,
+      componentPropertyName: '__component_',
+      container: '.container',
+      prefix: '_',
+      properties: [
+        'name',
+        'height',
+        'weight',
+        'surname'
+      ],
+      suffix: '_'
+    }, this);
+    this.componentLoaderService.__subscribe(
+      'confirm', (v) => console.log('SUCCESS', v), () => console.log('ERROR'), () => console.log('COMPLETED'));
   }
 
-
   confirm() {
-    this._subscribe('confirm', (v) => console.log('SUCCESS', v), () => console.log('ERROR'), () =>  console.log('COMPLETED'));
     this['emit'] = 'Emit and get';
   }
 
   destroy() {
-    this._destroy();
+    this.componentLoaderService.__destroy();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 }

@@ -6,20 +6,14 @@ weight: <input type="text" name="weight" [(ngModel)]="weight" [value]="weight" /
 height: <input type="text" name="height" [(ngModel)]="height" [value]="height" />
 <br/>
 
-<app-loader-service
+<app-loader-class
   [age]="age"
   [name]="name"
   [surname]="surname"
-  [height]="'13'" [weight]="weight"></app-loader-service>
+  [height]="height" [weight]="weight"></app-loader-class>
 
 <app-loader-service
   [age]="age"
   [name]="name"
   [surname]="surname"
   [height]="height" [weight]="weight"></app-loader-service>
-
-<app-loader-class
-  [age]="age"
-  [name]="name"
-  [surname]="surname"
-  [height]="height" [weight]="weight"></app-loader-class>
