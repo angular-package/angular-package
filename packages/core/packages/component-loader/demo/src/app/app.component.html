@@ -1,19 +1,41 @@
-<h2>Default values:</h2>
-age: <input type="text" name="age" [(ngModel)]="age" [value]="age" />
-name: <input type="text" name="name" [(ngModel)]="name" [value]="name" />
-surname: <input type="text" name="surname" [(ngModel)]="surname" [value]="surname" />
-weight: <input type="text" name="weight" [(ngModel)]="weight" [value]="weight" />
-height: <input type="text" name="height" [(ngModel)]="height" [value]="height" />
-<br/>
+<app-layout [title]="title">
+  <div menu></div>
+  <div class="body" body>
+    <h2>Default values:</h2>
 
-<app-loader-class
-  [age]="age"
-  [name]="name"
-  [surname]="surname"
-  [height]="height" [weight]="weight"></app-loader-class>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Age" name="age" [(ngModel)]="age" [value]="age" />
+    </mat-form-field>
 
-<app-loader-service
-  [age]="age"
-  [name]="name"
-  [surname]="surname"
-  [height]="height" [weight]="weight"></app-loader-service>
+    <mat-form-field>
+        <input type="text" matInput placeholder="Name" name="name" [(ngModel)]="name" [value]="name" />
+      </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="Surame" name="surname" [(ngModel)]="surname" [value]="surname" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="number" matInput placeholder="Weight" name="weight" [(ngModel)]="weight" [value]="weight" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="number" matInput placeholder="Height" name="height" [(ngModel)]="height" [value]="height" />
+    </mat-form-field>
+
+    <app-loader-class
+      [age]="age"
+      [name]="name"
+      [surname]="surname"
+      [height]="height" [weight]="weight"></app-loader-class>
+
+    <app-loader-service
+      [age]="age"
+      [name]="name"
+      [surname]="surname"
+      [height]="height" [weight]="weight"></app-loader-service>
+  </div>
+  <div sidenav="end">
+    sidenav end
+  </div>
+</app-layout>

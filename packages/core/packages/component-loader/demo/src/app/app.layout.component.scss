@@ -1,0 +1,25 @@
+
+span {
+  $size: 1.5rem;
+  position: relative;
+  font-size: $size;
+  text-shadow: 0px 0px 8px #ffffff;
+  font-family: 'Titillium Web', sans-serif;
+  color: #cc2e3e;
+
+  > span {
+    font-size: 0.55em;
+    position: absolute;
+    right: 0rem;
+    top: $size;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.sidenav-end {
+  min-width: 150px;
+  box-shadow: -20px 0 50px -20px rgba(0, 0, 0, 0.1);
+}

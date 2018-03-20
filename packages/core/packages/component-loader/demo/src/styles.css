@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+  background: #ef473a;
+}
+app-root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 100%;
+
+  background: #ffffff;
+}
