@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="submit(form, '')">
+  <h3>Properties or methods</h3>
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+  </mat-form-field>
+</form>
+
+
+<form [formGroup]="formHeader" (ngSubmit)="submit(formHeader, 'header')">
+  Array: [{{header | json}}]
+  <div formArrayName="header">
+    <h3>Header</h3>
+    <mat-form-field *ngFor="let h of formHeader.get('header')?.controls; index as i">
+      <input matInput placeholder="Name" [formControlName]="i">
+    </mat-form-field>
+  </div>
+  <button type="submit" color="primary" mat-raised-button>
+    Submit
+  </button>
+</form>
+<form [formGroup]="formBody" (ngSubmit)="submit(formBody, 'body')">
+  <div formArrayName="body">
+    <h3>Body</h3>
+    <div *ngFor="let b of body; index as i">
+      <div [formGroupName]="i">
+        {{header | json}}
+        <ng-container *ngFor="let h of header; index as j">
+          <mat-form-field *ngIf="h.toLowerCase()" >
+            <input matInput placeholder="{{h}}" [formControlName]="h.toLowerCase()">
+          </mat-form-field>
+        </ng-container>
+        <!--
+        <ng-container *ngFor="let header of formHeader.get('header')?.controls; index as j">
+          <mat-form-field *ngIf="header.value.toLowerCase() !== ''" >
+            <input matInput placeholder="{{header.value}}" [formControlName]="header.value.toLowerCase()">
+          </mat-form-field>
+        </ng-container>
+      -->
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" color="primary" mat-raised-button>Submit</button>
+</form>

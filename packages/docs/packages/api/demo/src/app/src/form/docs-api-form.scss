@@ -1,0 +1,11 @@
+ngx-docs-api-form {
+  > form {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+
+    mat-form-field {
+      margin-right: 8px;
+    }
+  }
+}
