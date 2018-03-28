@@ -7,7 +7,8 @@ import { MarkdownModule } from '@ngx-markdown/core';
 
 // internal
 import { AppComponent } from './app.component';
-import { DocsApiModule, DocsApiFormModule } from './src';
+// import { DocsApiModule, DocsApiFormModule } from './src';
+import { ApDocsApiTableFormModule } from './table/form/src/table-form.module';
 
 /**
  * @export
@@ -20,8 +21,9 @@ import { DocsApiModule, DocsApiFormModule } from './src';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    DocsApiModule,
-    DocsApiFormModule,
+    // DocsApiModule,
+    // DocsApiFormModule,
+    ApDocsApiTableFormModule,
     MarkdownModule.forRoot({
       // this options are defaults when use forChild().
       options: {
