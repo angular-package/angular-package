@@ -1,5 +1,5 @@
 // @angular-package
-import { OriginalStoreClass } from '@angular-package/core/target';
+import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
 import { ApPropertiesInterface } from '../../interface';
@@ -8,12 +8,17 @@ import { ApChangeDetectorClass } from '../../change-detector';
 /**
  * @export
  * @template T
- * @param {Function} t
- * @param {ApPropertiesInterface} p
+ * @param {Function} component
+ * @param {ApPropertiesInterface} properties
+ * @param {string} propertiesHolderName
  * @returns {void}
  */
-export const configureDetectorFunction = function <T>(t: Function, p: ApPropertiesInterface): void {
-  Object.defineProperties(t.prototype, {
+export const configureDetectorFunction = function<T>(
+  component: Function,
+  properties: ApPropertiesInterface,
+  propertiesStoreName: string
+): void {
+  Object.defineProperties(component.prototype, {
 
     __changeDetector: { writable: true },
     _changeDetector: {
@@ -29,6 +34,7 @@ export const configureDetectorFunction = function <T>(t: Function, p: ApProperti
     },
 
     _detach: {
+      configurable: false,
       writable: false,
       value: function (): void {
         this._changeDetector.detach(this);
@@ -36,6 +42,7 @@ export const configureDetectorFunction = function <T>(t: Function, p: ApProperti
     },
 
     _detect: {
+      configurable: false,
       writable: false,
       value: function (): void {
         this._changeDetector.detect(this);
@@ -58,14 +65,14 @@ export const configureDetectorFunction = function <T>(t: Function, p: ApProperti
       }
     },
 
-    __properties: { writable: true, value: p },
-    _properties: {
+    [`__${propertiesStoreName}`]: { writable: true, value: properties },
+    [`_${propertiesStoreName}`]: {
       set: function (value: ApPropertiesInterface) {
         this._detect();
-        this.__properties = value;
+        this[`__${propertiesStoreName}`] = value;
       },
       get: function (): ApPropertiesInterface {
-        return this.__properties;
+        return this[`__${propertiesStoreName}`];
       }
     },
 
