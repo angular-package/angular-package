@@ -2,40 +2,45 @@
 import * as _ from 'lodash-es';
 
 // @angular-package
-import { OriginalStoreClass } from '@angular-package/core/target';
+import { StoreOriginalClass } from '@angular-package/core/store';
 import { ApPropertiesInterface } from '..';
 
 /**
  * @template T
- * @param {OriginalStoreClass} o
- * @param {Function} t
- * @param {ApPropertiesInterface} p
+ * @param {StoreOriginalClass} store
+ * @param {Function} component
+ * @param {ApPropertiesInterface} properties
  */
-export const detectToSetterFunction = function <T>(o: OriginalStoreClass, t: Function, p: ApPropertiesInterface): void {
+export const detectToSetterFunction = function<T>(
+  store: StoreOriginalClass,
+  component: Function,
+  properties: ApPropertiesInterface,
+  propertiesStoreName: string
+): void {
   // Store target.prototype original setter and getter properties.
-  o.setterGetter(t, Object.keys(p));
+  store.setterGetter(component, Object.keys(properties));
 
   // Detect changes on indicated properties by using setter.
-  _.each(Object.keys(p), (property: string): void => {
-    Object.defineProperty(t.prototype, property, {
+  _.each(Object.keys(properties), (property: string): void => {
+    Object.defineProperty(component.prototype, property, {
 
       // Update setter.
       set: function (value: any) {
-        if (o.setter[property] !== undefined) {
-          o.setter[property].apply(this, arguments);
+        if (store.setter[property] !== undefined) {
+          store.setter[property].apply(this, arguments);
         } else {
           this[`_${property}`] = value;
         }
         // Detect changes if indicated property is set to true.
-        if (this['_properties'][property] === true) {
+        if (this[`_${propertiesStoreName}`][property] === true) {
           this['_detect']();
         }
       },
 
       // Update getter.
       get: function () {
-        if (o.getter[property]) {
-          return o.getter[property].apply(this, arguments);
+        if (store.getter[property]) {
+          return store.getter[property].apply(this, arguments);
         } else {
           return this[`_${property}`];
         }
