@@ -8,7 +8,7 @@ import { CycleHookInterface } from '@angular-package/core/interface';
 import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
-import { configureDetectorFunction, detectToSetterFunction } from './helper';
+import { configureDetectorFunction, detectToSetterFunction } from './core';
 import { ApPropertiesInterface } from '.';
 
 /**
