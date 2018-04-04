@@ -38,13 +38,13 @@
     "lodash-es": "^4.17.4"
   },
   "devDependencies": {
+    "@angular-package/core": "^1.0.1",
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/core": "^5.2.0",
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
-    "@angular-package/core": "^0.1.5",
     "@types/angular": "^1.6.40",
     "@types/jasmine": "^2.8.3",
     "@types/karma": "^1.7.3",
