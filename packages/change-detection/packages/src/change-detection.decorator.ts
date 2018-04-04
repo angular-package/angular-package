@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash-es';
 
 // @angular-package
-import { CycleHookType } from '@angular-package/core/src/type';
-import { CycleHookInterface } from '@angular-package/core/src/interface';
-import { OriginalStoreClass } from '@angular-package/core/target';
+import { CycleHookType } from '@angular-package/core/type';
+import { CycleHookInterface } from '@angular-package/core/interface';
+import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
 import { configureDetectorFunction, detectToSetterFunction } from './helper';
@@ -16,13 +16,14 @@ import { ApPropertiesInterface } from '.';
  * @export
  * @template T
  * @param {ApPropertiesInterface} properties
+ * @param {string} [propertiesStoreName='properties']
  * @returns {Function}
  */
-export function ApChangeDetection<T>(properties: ApPropertiesInterface): Function {
-  return function (target: Function): void {
-    const store = new OriginalStoreClass();
-    configureDetectorFunction<T>(target, properties);
-    detectToSetterFunction<T>(store, target, properties);
+export function ApChangeDetection<T>(properties: ApPropertiesInterface, propertiesStoreName: string = 'properties'): Function {
+  return function (component: Function): void {
+    const store = new StoreOriginalClass();
+    configureDetectorFunction<T>(component, properties, propertiesStoreName);
+    detectToSetterFunction<T>(store, component, properties, propertiesStoreName);
   };
 }
 
