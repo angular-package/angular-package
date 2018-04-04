@@ -6,14 +6,20 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'dynamic-component',
+  // selector: 'dynamic-component',
   template: 'Dynamic component created succesfully'
 })
 export class DynamicComponent {
-  key = 'defined';
+  __prefix: string;
+  __suffix: string;
+  key = 'notdefined';
+  public assign = 'notassigned';
   public model = {
     defined: true
   };
+  age = 27;
+
+  wrapped = false;
 
   @Output() event: EventEmitter<any> = new EventEmitter();
 

@@ -107,7 +107,6 @@
         "variable-declaration": "nospace"
       }
     ],
-    "typeof-compare": true,
     "unified-signatures": true,
     "variable-name": false,
     "whitespace": [
@@ -120,10 +119,14 @@
     ],
     "directive-selector": [
       true,
+      "",
+      "attribute",
       "camelCase"
     ],
     "component-selector": [
       true,
+      "",
+      "",
       "kebab-case"
     ],
     "no-output-on-prefix": true,

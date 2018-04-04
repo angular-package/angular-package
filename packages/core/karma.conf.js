@@ -23,8 +23,7 @@ module.exports = function(config) {
       // because the preprocessor will use its own.
       { pattern: 'test/index.ts', watched: false },
       { pattern: 'test/*.spec.ts', watched: false },
-      { pattern: 'src/*.spec.ts', watched: false },
-      { pattern: 'src/**/*.spec.ts', watched: false }
+      { pattern: 'packages/component-loader/src/*.spec.ts', watched: false }
     ],
 
 
@@ -43,9 +42,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/*.ts': ['rollup'],
-      'src/*.spec.ts': ['rollup'],
-      'src/**/*.spec.ts': ['rollup']
+      'test/index.ts': ['rollup'],
+      'packages/component-loader/src/*.spec.ts': ['rollup']
     },
 
     rollupPreprocessor: {
