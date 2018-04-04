@@ -1,8 +1,5 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Type } from '@angular/core';
 import * as _ from 'lodash-es';
-
-// @angular-package
-import { ComponentType } from '@angular-package/core';
 
 // internal
 import { instanceOf } from '../src/instance-of.func';
@@ -23,16 +20,16 @@ export class ApChangeDetectorClass<T> {
 
   /**
    * Creates an instance of ApChangeDetectorClass.
-   * @param {ComponentType<T>} component
+   * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  constructor(public component: ComponentType<T>) {}
+  constructor(public component: Type<T>) {}
 
   /**
-   * @param {ComponentType<T>} component
+   * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  detach(component: ComponentType<T>): void {
+  detach(component: Type<T>): void {
     this.component = component;
     setTimeout(() => {
       if (this.cd) {
@@ -43,10 +40,10 @@ export class ApChangeDetectorClass<T> {
 
   /**
    * Detect changes in component.
-   * @param {ComponentType<T>} component
+   * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  detect(component: ComponentType<T>): void {
+  detect(component: Type<T>): void {
     this.component = component;
     if (this.cd) {
       component[this.cd].detectChanges();
@@ -55,10 +52,10 @@ export class ApChangeDetectorClass<T> {
 
   /**
    * Reattach component to detection.
-   * @param {ComponentType<T>} component
+   * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  reattach(component: ComponentType<T>): void {
+  reattach(component: Type<T>): void {
     this.component = component;
     setTimeout(() => {
       if (this.cd) {
@@ -70,11 +67,11 @@ export class ApChangeDetectorClass<T> {
   /**
    * Search for change detector instance in specified component and return its key.
    * @private
-   * @param {ComponentType<T>} component
+   * @param {Type<T>} component
    * @returns {string}
    * @memberof ApChangeDetectorClass
    */
-  private find(component: ComponentType<T>): string {
+  private find(component: Type<T>): string {
     if (this._cd === undefined) {
       _.each(component, (ChangeDetectorRefInstance: ChangeDetectorRef, key: string) => {
         if (component[key] instanceof Object) {
@@ -88,8 +85,8 @@ export class ApChangeDetectorClass<T> {
       });
       if (this._cd === undefined) {
         throw new Error(`
-        ApChangeDetectorClass: couldn't find ChangeDetectorRef instance.
-        Add to constructor "public changeDetectorRef: ChangeDetectorRef".
+          ApChangeDetectorClass: couldn't find ChangeDetectorRef instance.
+          Add to constructor "public changeDetectorRef: ChangeDetectorRef".
         `);
       }
     }
