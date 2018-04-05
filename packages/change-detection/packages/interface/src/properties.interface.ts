@@ -2,8 +2,8 @@
  * Structure of `_properties` component variable.
  * @example { signed: false, completed: true, z: true }
  * @export
- * @interface ApPropertiesInterface
+ * @interface ApChangeDetectionProperties
  */
-export interface ApPropertiesInterface {
+export interface ApChangeDetectionProperties {
   [index: string]: boolean;
 }

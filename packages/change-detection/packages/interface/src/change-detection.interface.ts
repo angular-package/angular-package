@@ -1,4 +1,4 @@
-import { ApPropertiesInterface } from './properties.interface';
+import { ApChangeDetectionProperties } from './properties.interface';
 
 /**
  * Available possibilites when extends component.
@@ -6,9 +6,9 @@ import { ApPropertiesInterface } from './properties.interface';
  * @abstract
  * @class ApChangeDetectionInterface
  */
-export interface ApChangeDetectionInterface {
+export interface ApChangeDetection {
   _detection: boolean;
-  _properties?: ApPropertiesInterface;
+  _properties?: ApChangeDetectionProperties;
 
   _detach?: Function;
   _detect?: Function;
