@@ -83,7 +83,7 @@
     "zone.js": "^0.8.20"
   },
   "peerDependencies": {
-    "@angular-package/core": "^0.1.5"
+    "@angular-package/core": "^1.0.1"
   },
   "keywords": [
     "angular-package change detection",
