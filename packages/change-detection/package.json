@@ -34,9 +34,7 @@
     "tslint": "./node_modules/tslint/bin/tslint -p tsconfig.json --force --type-check"
   },
   "license": "MIT",
-  "dependencies": {
-    "lodash-es": "^4.17.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular-package/core": "^1.0.1",
     "@angular/common": "^5.2.0",
@@ -53,7 +51,6 @@
     "clean-css": "^4.1.9",
     "codelyzer": "^4.0.2",
     "copyfiles": "^1.2.0",
-    "dts-gen": "^0.5.7",
     "html-minifier": "^3.5.8",
     "jasmine": "^2.8.0",
     "jasmine-core": "^2.8.0",
@@ -64,7 +61,7 @@
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-rollup-preprocessor": "^5.1.1",
-    "lodash-decorators": "^4.5.0",
+    "lodash-es": "^4.17.8",
     "node-sass": "^4.7.2",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^2.6.2",
@@ -83,7 +80,8 @@
     "zone.js": "^0.8.20"
   },
   "peerDependencies": {
-    "@angular-package/core": "^1.0.1"
+    "@angular-package/core": "^1.0.1",
+    "lodash-es": "^4.17.8"
   },
   "keywords": [
     "angular-package change detection",
