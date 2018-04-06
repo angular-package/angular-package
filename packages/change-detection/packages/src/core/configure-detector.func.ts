@@ -1,86 +1,141 @@
+import * as _ from 'lodash-es';
+
 // @angular-package
 import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
-import { ApPropertiesInterface } from '../../interface';
+import { ApChangeDetectionProperties, ApChangeDetectionConfig } from '../../interface';
 import { ApChangeDetectorClass } from '../../change-detector';
+import { WRAP_DEFAULT } from './wrap';
 
 /**
  * @export
  * @template T
  * @param {Function} component
- * @param {ApPropertiesInterface} properties
- * @param {string} propertiesHolderName
+ * @param {ApChangeDetectionConfig} config
  * @returns {void}
  */
-export const configureDetectorFunction = function<T>(
+export function configureDetector<T>(
   component: Function,
-  properties: ApPropertiesInterface,
-  propertiesStoreName: string
+  properties: ApChangeDetectionProperties,
+  config?: ApChangeDetectionConfig
 ): void {
+
+  if (config) {
+    config.wrap = _.merge(WRAP_DEFAULT, config.wrap);
+  } else {
+    config = {
+      wrap: WRAP_DEFAULT
+    };
+  }
+
+  // Add to component - must be.
   Object.defineProperties(component.prototype, {
 
-    __changeDetector: { writable: true },
     _changeDetector: {
+      configurable: false,
+      writable: true
+    },
+    changeDetector: {
       set: function (value: ApChangeDetectorClass<T>) {
-        this.__changeDetector = value;
+        this._changeDetector = value;
       },
       get: function (): ApChangeDetectorClass<T> {
-        if (this.__changeDetector === undefined) {
-          this.__changeDetector = new ApChangeDetectorClass<T>(this);
+        if (this._changeDetector === undefined) {
+          this._changeDetector = new ApChangeDetectorClass<T>(this);
+          Object.assign(this._changeDetector, {
+            properties: Object.assign({}, properties)
+          });
         }
-        return this.__changeDetector;
+        return this._changeDetector as ApChangeDetectorClass<T>;
       }
     },
 
-    _detach: {
-      configurable: false,
-      writable: false,
-      value: function (): void {
-        this._changeDetector.detach(this);
-      }
-    },
-
-    _detect: {
-      configurable: false,
-      writable: false,
-      value: function (): void {
-        this._changeDetector.detect(this);
-      }
-    },
-
-    // Whether component changes are going to be detected or not.
-    __detection: { writable: true },
-    _detection: {
-      set(value: boolean) {
-        this.__detection = value;
-        if (value === false) {
-          this._detach();
-        } else if (value === true) {
-          this._reattach();
+    detection: {
+      set(detection: boolean) {
+        this.changeDetector.detection = detection;
+        if (detection === false) {
+          this.changeDetector.detach(this);
+        } else if (detection === true) {
+          this.changeDetector.reattach(this);
         }
       },
       get(): boolean {
-        return this.__detection;
+        return this.changeDetector.detection;
       }
     },
 
-    [`__${propertiesStoreName}`]: { writable: true, value: properties },
-    [`_${propertiesStoreName}`]: {
-      set: function (value: ApPropertiesInterface) {
-        this._detect();
-        this[`__${propertiesStoreName}`] = value;
-      },
-      get: function (): ApPropertiesInterface {
-        return this[`__${propertiesStoreName}`];
-      }
-    },
-
-    _reattach: {
-      writable: false,
-      value: function (): void {
-        this._changeDetector.reattach(this);
-      }
-    }
   });
-};
+
+  if (config.wrap) {
+    // Detach.
+    if (config.wrap.detach && config.wrap.detach.active === true) {
+      Object.defineProperties(component.prototype, {
+        [`${config.wrap.detach.name}`]: {
+          configurable: false,
+          writable: false,
+          value: function (): void {
+            this.changeDetector.detach(this);
+          }
+        }
+      });
+    }
+
+    // Detect.
+    if (config.wrap.detect && config.wrap.detect.active === true) {
+      Object.defineProperties(component.prototype, {
+        [`${config.wrap.detect.name}`]: {
+          configurable: false,
+          writable: false,
+          value: function (property?: string): void {
+            this.changeDetector.detect(this, property);
+          }
+        }
+      });
+    }
+
+    // Detect.
+    if (config.wrap.detect && config.wrap.detect.active === true) {
+      Object.defineProperties(component.prototype, {
+        [`${config.wrap.detect.name}`]: {
+          configurable: false,
+          writable: false,
+          value: function (property?: string): void {
+            this.changeDetector.detect(this, property);
+          }
+        }
+      });
+    }
+
+    // Properties.
+    if (config.wrap.properties && config.wrap.properties.active === true) {
+      Object.defineProperties(component.prototype, {
+        [`${config.wrap.properties.name}`]: {
+          set: function (value: ApChangeDetectionProperties) {
+            this._detect();
+            Object.assign(this.changeDetector, {
+              properties: value
+            });
+          },
+          get: function (): ApChangeDetectionProperties {
+            return this.changeDetector.properties;
+          }
+        }
+      });
+    }
+
+    // Reattach.
+    if (config.wrap.reattach && config.wrap.reattach.active === true) {
+      Object.defineProperties(component.prototype, {
+        [`${config.wrap.reattach.name}`]: {
+          configurable: false,
+          writable: false,
+          value: function (): void {
+            this.changeDetector.reattach(this);
+          }
+        }
+      });
+    }
+
+  }
+}
