@@ -40,7 +40,7 @@ export class ApChangeDetectorClass<T> {
   }
 
    /**
-   * Detect changes in component.
+    * Detect changes in component.
     * @param {Type<T>} component
     * @param {string} [property]
     * @memberof ApChangeDetectorClass
