@@ -3,6 +3,7 @@ import * as _ from 'lodash-es';
 
 // internal
 import { instanceOf } from '../src/instance-of.func';
+import { ApChangeDetectionProperties } from '../interface';
 
 /**
  * Find `ChangeDetectorRef` component instance and simply use it.
@@ -13,24 +14,24 @@ import { instanceOf } from '../src/instance-of.func';
 export class ApChangeDetectorClass<T> {
 
   // Change detector instance property name.
-  private _cd?: string;
-  get cd() {
-    return this.find(this.component);
-  }
+  private cd?: string;
+  public detection = false;
+  public properties?: ApChangeDetectionProperties;
 
   /**
    * Creates an instance of ApChangeDetectorClass.
    * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  constructor(public component: Type<T>) {}
+  constructor(component: Type<T>) {
+    this.find(component);
+  }
 
   /**
    * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  detach(component: Type<T>): void {
-    this.component = component;
+ detach(component: Type<T>): void {
     setTimeout(() => {
       if (this.cd) {
         component[this.cd].detach();
@@ -38,15 +39,21 @@ export class ApChangeDetectorClass<T> {
     }, 0);
   }
 
-  /**
+   /**
    * Detect changes in component.
-   * @param {Type<T>} component
-   * @memberof ApChangeDetectorClass
-   */
-  detect(component: Type<T>): void {
-    this.component = component;
+    * @param {Type<T>} component
+    * @param {string} [property]
+    * @memberof ApChangeDetectorClass
+    */
+   detect(component: Type<T>, property?: string): void {
     if (this.cd) {
-      component[this.cd].detectChanges();
+      if (property) {
+        if (this.properties && this.properties[property] === true) {
+          component[this.cd].detectChanges();
+        }
+      } else {
+        component[this.cd].detectChanges();
+      }
     }
   }
 
@@ -56,7 +63,6 @@ export class ApChangeDetectorClass<T> {
    * @memberof ApChangeDetectorClass
    */
   reattach(component: Type<T>): void {
-    this.component = component;
     setTimeout(() => {
       if (this.cd) {
         component[this.cd].reattach();
@@ -72,24 +78,24 @@ export class ApChangeDetectorClass<T> {
    * @memberof ApChangeDetectorClass
    */
   private find(component: Type<T>): string {
-    if (this._cd === undefined) {
+    if (this.cd === undefined) {
       _.each(component, (ChangeDetectorRefInstance: ChangeDetectorRef, key: string) => {
         if (component[key] instanceof Object) {
           if (instanceOf<ChangeDetectorRef>(component[key], 'detectChanges')) {
             if (component[key].detectChanges instanceof Function) {
-              this._cd = key;
+              this.cd = key;
               return false;
             }
           }
         }
       });
-      if (this._cd === undefined) {
+      if (this.cd === undefined) {
         throw new Error(`
           ApChangeDetectorClass: couldn't find ChangeDetectorRef instance.
           Add to constructor "public changeDetectorRef: ChangeDetectorRef".
         `);
       }
     }
-    return this._cd;
+    return this.cd;
   }
 }
