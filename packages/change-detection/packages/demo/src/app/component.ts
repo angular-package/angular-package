@@ -1,11 +1,16 @@
 // external
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { ApChangeDetection } from '@angular-package/change-detection';
-import { ApChangeDetectorAClass } from '@angular-package/change-detection/change-detector';
-import { ApPropertiesInterface } from '@angular-package/change-detection/interface';
+import { ApChangeDetectorAClass, ApChangeDetectorClass } from '@angular-package/change-detection/change-detector';
+import {
+  ApChangeDetector,
+  ApChangeDetectionProperties
+} from '@angular-package/change-detection/interface';
 
 // internal
 import { AddressInterface } from './interface';
+import { PROPERTIES } from './properties';
+import { CONFIG } from './config';
 
 @Component({
   preserveWhitespaces: false,
@@ -14,14 +19,14 @@ import { AddressInterface } from './interface';
   templateUrl: './component.html',
   styleUrls: [ 'component.scss' ]
 })
-@ApChangeDetection<ChangeDetectionComponent>({
-  name: false,
-  surname: true
-})
-export class ChangeDetectionComponent implements ApChangeDetectorAClass {
+@ApChangeDetection<ChangeDetectionComponent>(PROPERTIES, CONFIG)
+export
+  class ChangeDetectionComponent
+  implements ApChangeDetector<ChangeDetectionComponent> {
 
-  public _detection = false; // <--- Required.
-  public _properties: ApPropertiesInterface; // --- Not required.
+  public detection = false; // <--- Required.
+  public changeDetector: ApChangeDetectorClass<ChangeDetectionComponent>;
+  public properties: ApChangeDetectionProperties; // --- Not required.
 
   public _address: AddressInterface;
   @Input('address')
@@ -47,10 +52,11 @@ export class ChangeDetectionComponent implements ApChangeDetectorAClass {
   public _detect(): void { }
   public _reattach(): void { }
 
-  constructor(public changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public c: ChangeDetectorRef) {
+    console.log(this);
+  }
 
   update($event) {
-    this._properties = this._properties;
-    console.log(`update`, $event, this);
+    this._detect();
   }
 }
