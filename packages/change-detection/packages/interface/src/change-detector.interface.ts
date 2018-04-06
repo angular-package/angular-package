@@ -1,3 +1,4 @@
+import { ApChangeDetectorClass } from '../../change-detector';
 import { ApChangeDetectionProperties } from './properties.interface';
 
 /**
@@ -6,10 +7,11 @@ import { ApChangeDetectionProperties } from './properties.interface';
  * @abstract
  * @class ApChangeDetectionInterface
  */
-export interface ApChangeDetection {
-  _detection: boolean;
-  _properties?: ApChangeDetectionProperties;
+export interface ApChangeDetector<T> {
+  detection: boolean;
+  changeDetector?: ApChangeDetectorClass<T>;
 
+  _properties?: ApChangeDetectionProperties;
   _detach?: Function;
   _detect?: Function;
   _reattach?: Function;
