@@ -1,6 +1,6 @@
 import { ApChangeDetectionProperties } from './properties.interface';
+import { ApChangeDetectionWrap } from './wrap.interface';
 
 export interface ApChangeDetectionConfig {
-  properties: ApChangeDetectionProperties;
-  propertiesStoreName: string;
+  wrap?: ApChangeDetectionWrap;
 }
