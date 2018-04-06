@@ -8,22 +8,22 @@ import { CycleHookInterface } from '@angular-package/core/interface';
 import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
-import { configureDetectorFunction, detectToSetterFunction } from './core';
-import { ApPropertiesInterface } from '.';
+import { configureDetector, detectToSetter } from './core';
+import { ApChangeDetectionConfig, ApChangeDetectionProperties } from '../interface';
 
 /**
  * Indicate component properties by name whether to detect or not changes on them.
  * @export
  * @template T
- * @param {ApPropertiesInterface} properties
- * @param {string} [propertiesStoreName='properties']
+ * @param {ApChangeDetectionProperties} properties
+ * @param {ApChangeDetectionConfig} [config]
  * @returns {Function}
  */
-export function ApChangeDetection<T>(properties: ApPropertiesInterface, propertiesStoreName: string = 'properties'): Function {
+export function ApChangeDetection<T>(properties: ApChangeDetectionProperties, config?: ApChangeDetectionConfig): Function {
   return function (component: Function): void {
     const store = new StoreOriginalClass();
-    configureDetectorFunction<T>(component, properties, propertiesStoreName);
-    detectToSetterFunction<T>(store, component, properties, propertiesStoreName);
+    configureDetector<T>(component, properties, config);
+    detectToSetter<T>(store, component, properties);
   };
 }
 
