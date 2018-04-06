@@ -1,4 +1,4 @@
-import { ApChangeDetectionProperties } from '../src';
+import { ApChangeDetectionProperties } from '../../src';
 import { ApChangeDetectorClass } from './change-detector.class';
 
 /**

@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Type } from '@angular/core';
 import * as _ from 'lodash-es';
 
 // internal
-import { instanceOf } from '../src/instance-of.func';
-import { ApChangeDetectionProperties } from '../interface';
+import { instanceOf } from '../../src/instance-of.func';
+import { ApChangeDetectionProperties } from '../../interface';
 
 /**
  * Find `ChangeDetectorRef` component instance and simply use it.
