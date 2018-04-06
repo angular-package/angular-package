@@ -1,2 +1,2 @@
-export { configureDetectorFunction } from './configure-detector.func';
-export { detectToSetterFunction } from './detect-to-setter.func';
+export { configureDetector } from './configure-detector.func';
+export { detectToSetter } from './detect-to-setter.func';
