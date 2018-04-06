@@ -28,10 +28,11 @@ export class ApChangeDetectorClass<T> {
   }
 
   /**
+   * Detach component from detection tree.
    * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
- detach(component: Type<T>): void {
+  public detach(component: Type<T>): void {
     setTimeout(() => {
       if (this.cd) {
         component[this.cd].detach();
@@ -39,13 +40,13 @@ export class ApChangeDetectorClass<T> {
     }, 0);
   }
 
-   /**
-    * Detect changes in component.
-    * @param {Type<T>} component
-    * @param {string} [property]
-    * @memberof ApChangeDetectorClass
-    */
-   detect(component: Type<T>, property?: string): void {
+  /**
+   * Detect changes in specified component, and when provided property is true in properties.
+   * @param {Type<T>} component
+   * @param {string} [property]
+   * @memberof ApChangeDetectorClass
+   */
+  public detect(component: Type<T>, property?: string): void {
     if (this.cd) {
       if (property) {
         if (this.properties && this.properties[property] === true) {
@@ -62,7 +63,7 @@ export class ApChangeDetectorClass<T> {
    * @param {Type<T>} component
    * @memberof ApChangeDetectorClass
    */
-  reattach(component: Type<T>): void {
+  public reattach(component: Type<T>): void {
     setTimeout(() => {
       if (this.cd) {
         component[this.cd].reattach();
