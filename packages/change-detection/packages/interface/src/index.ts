@@ -1,4 +1,3 @@
 export { ApChangeDetector } from './change-detector.interface';
-export { ApChangeDetectionConfig } from './config.interface';
+export { ApChangeDetectionOptions } from './options.interface';
 export { ApChangeDetectionProperties } from './properties.interface';
-export { ApChangeDetectionWrap } from './wrap.interface';
