@@ -2,7 +2,7 @@ import { ApChangeDetectorClass } from '../../change-detector';
 import { ApChangeDetectionProperties } from './properties.interface';
 
 /**
- * Available possibilites when extends component.
+ * Available default possibilites when extends component.
  * @export
  * @abstract
  * @class ApChangeDetectionInterface
