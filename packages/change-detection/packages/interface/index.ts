@@ -1,6 +1,5 @@
 export {
   ApChangeDetector,
-  ApChangeDetectionConfig,
-  ApChangeDetectionProperties,
-  ApChangeDetectionWrap
+  ApChangeDetectionOptions,
+  ApChangeDetectionProperties
 } from './src';
