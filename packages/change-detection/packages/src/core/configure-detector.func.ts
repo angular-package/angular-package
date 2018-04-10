@@ -1,32 +1,31 @@
-import * as _ from 'lodash-es';
+// external
+import { merge } from 'lodash-es';
 
 // @angular-package
 import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
-import { ApChangeDetectionProperties, ApChangeDetectionConfig } from '../../interface';
-import { ApChangeDetectorClass } from '../../change-detector';
-import { WRAP_DEFAULT } from './wrap';
+import { ApChangeDetectionProperties, ApChangeDetectionOptions } from '../../interface';
+import { ApChangeDetectorClass } from '../../change-detector/src/change-detector.class';
+import { DEFAULT_OPTIONS } from '../default_options';
 
 /**
  * @export
  * @template T
  * @param {Function} component
- * @param {ApChangeDetectionConfig} config
+ * @param {ApChangeDetectionOptions} options
  * @returns {void}
  */
 export function configureDetector<T>(
   component: Function,
   properties: ApChangeDetectionProperties,
-  config?: ApChangeDetectionConfig
+  options?: ApChangeDetectionOptions
 ): void {
 
-  if (config) {
-    config.wrap = _.merge(WRAP_DEFAULT, config.wrap);
+  if (options) {
+    options = merge(DEFAULT_OPTIONS, options);
   } else {
-    config = {
-      wrap: WRAP_DEFAULT
-    };
+    options = DEFAULT_OPTIONS;
   }
 
   // Add to component - must be.
@@ -54,11 +53,7 @@ export function configureDetector<T>(
     detection: {
       set(detection: boolean) {
         this.changeDetector.detection = detection;
-        if (detection === false) {
-          this.changeDetector.detach(this);
-        } else if (detection === true) {
-          this.changeDetector.reattach(this);
-        }
+        this.changeDetector.setDetection(this);
       },
       get(): boolean {
         return this.changeDetector.detection;
@@ -67,11 +62,11 @@ export function configureDetector<T>(
 
   });
 
-  if (config.wrap) {
+  if (options) {
     // Detach.
-    if (config.wrap.detach && config.wrap.detach.active === true) {
+    if (options.detach) {
       Object.defineProperties(component.prototype, {
-        [`${config.wrap.detach.name}`]: {
+        [`${options.detach}`]: {
           configurable: false,
           writable: false,
           value: function (): void {
@@ -82,22 +77,9 @@ export function configureDetector<T>(
     }
 
     // Detect.
-    if (config.wrap.detect && config.wrap.detect.active === true) {
+    if (options.detect) {
       Object.defineProperties(component.prototype, {
-        [`${config.wrap.detect.name}`]: {
-          configurable: false,
-          writable: false,
-          value: function (property?: string): void {
-            this.changeDetector.detect(this, property);
-          }
-        }
-      });
-    }
-
-    // Detect.
-    if (config.wrap.detect && config.wrap.detect.active === true) {
-      Object.defineProperties(component.prototype, {
-        [`${config.wrap.detect.name}`]: {
+        [`${options.detect}`]: {
           configurable: false,
           writable: false,
           value: function (property?: string): void {
@@ -108,14 +90,15 @@ export function configureDetector<T>(
     }
 
     // Properties.
-    if (config.wrap.properties && config.wrap.properties.active === true) {
+    if (options.properties) {
       Object.defineProperties(component.prototype, {
-        [`${config.wrap.properties.name}`]: {
+        [`${options.properties}`]: {
           set: function (value: ApChangeDetectionProperties) {
-            this._detect();
+            this.changeDetector.detect(this);
             Object.assign(this.changeDetector, {
               properties: value
             });
+            this.changeDetector.setDetection(this);
           },
           get: function (): ApChangeDetectionProperties {
             return this.changeDetector.properties;
@@ -125,9 +108,9 @@ export function configureDetector<T>(
     }
 
     // Reattach.
-    if (config.wrap.reattach && config.wrap.reattach.active === true) {
+    if (options.reattach) {
       Object.defineProperties(component.prototype, {
-        [`${config.wrap.reattach.name}`]: {
+        [`${options.reattach}`]: {
           configurable: false,
           writable: false,
           value: function (): void {
