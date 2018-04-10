@@ -1,12 +1,11 @@
 // external
-import * as _ from 'lodash-es';
+import { each } from 'lodash-es';
 
 // @angular-package
 import { StoreOriginalClass } from '@angular-package/core/store';
 
 // internal
 import { ApChangeDetectionProperties } from '../../interface';
-import { ApChangeDetectorClass } from '../../change-detector';
 
 /**
  * @export
@@ -17,7 +16,7 @@ import { ApChangeDetectorClass } from '../../change-detector';
  */
 export function detectToSetter<T>(
   store: StoreOriginalClass,
-  component: Function,
+  component: Function | Object,
   properties: ApChangeDetectionProperties
 ): void {
   if (properties) {
@@ -28,15 +27,21 @@ export function detectToSetter<T>(
     store.setterGetter(component, propertiesKeys);
 
     // Detect changes on indicated properties by using setter.
-    _.each(propertiesKeys, (property: string): void => {
+    each(propertiesKeys, (property: string): void => {
 
       // Create wrapped property if getter is not set.
       if (store.getter[property] === undefined) {
-        Object.defineProperty(component.prototype, `_${property}`, { writable: true });
+        Object.defineProperty(
+          (component instanceof Function) ? component.prototype : component,
+          `_${property}`,
+          { writable: true, value: component[property] }
+        );
       }
 
       // Update setter and getter.
-      Object.defineProperty(component.prototype, property, {
+      Object.defineProperty(
+        (component instanceof Function) ? component.prototype : component,
+        property, {
 
         // Update setter.
         set: function (value: any) {
