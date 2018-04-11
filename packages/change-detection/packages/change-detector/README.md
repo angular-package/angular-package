@@ -69,30 +69,34 @@ npm i --save @angular-package/core@1.0.1 lodash-es@4.17.8
 
 ## Properties
 
-| Access modifier | name        | Type                        | Description                                          |
-|-----------------|-------------|-----------------------------|------------------------------------------------------|
-| private         | cd?         | string                      | Property name of found `ChangeDetectorRef` instance. |
-| public          | detection   | boolean = false             | Whether detection is **on** or **off**.              |
-| public          | properties? | ApChangeDetectionProperties | Detect changes when specified property is **true**.  |
+| Access modifier | name            | Type                                                  | Description                                           |
+|-----------------|-----------------|-------------------------------------------------------|-------------------------------------------------------|
+| public          | cd?             | string                                                | Property name of found `ChangeDetectorRef` instance.  |
+| public          | detection       | boolean = **false**                                   | Whether detection is **on (true)** or **off(false)**. |
+| public          | properties?     | ApChangeDetectionProperties                           | Detect changes when specified property is **true**.   |
+| public          | propertyWrapper | PropertyWrapperClass = **new PropertyWrapperClass()** | Class to wrap indicated properties.                   |
 
 
 ## Methods
 
 ### detach
 Detaches component change detector from the change detector tree. The detached change detector will not be checked until it is reattached.
+This method sets property `detection` to false, nad invoke also method `detectToSetter()`.
 
 | Parameter | Type      | Default value | Description                                                                                 |
 |-----------|-----------|---------------|---------------------------------------------------------------------------------------------|
-| component | Type\<T\> | -             | Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detach()`. |
+| component | T         | -             | Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detach()`. |
 
 ```typescript
 /**
  * Detaches component change detector from the change detector tree.
  * The detached change detector will not be checked until it is reattached.
- * @param {Type<T>} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detach()`.
+ * This method sets property `detection` to `false`, and also invoke method `detectToSetter()`.
+ * @param {T} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detach()`.
+ * @returns {this} ApChangeDetectorClass.
  * @memberof ApChangeDetectorClass
  */
-public detach(component: Type<T>): void
+public detach(component: T): this 
 ```
 
 ### detect
@@ -100,22 +104,40 @@ Detect changes in specified component, and conditionally by providing property n
 
 | Parameter | Type      | Default value | Description                                                                                        |
 |-----------|-----------|---------------|----------------------------------------------------------------------------------------------------|
-| component | Type\<T\> | -             | Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detectChanges()`. |
+| component | T         | -             | Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detectChanges()`. |
 | property? | string    | -             | Name of property found in `properties` as true to invoke `detectChanges()`.                        |
 
 
 ```typescript
 /**
- * Detect changes in specified component, and conditionally by providing property name.
- * @param {Type<T>} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detectChanges()`.
+ * Detect changes in specified component, and also conditionally by providing property name.
+ * @param {T} component Object to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detectChanges()`.
  * @param {string} [property] Name of property found in `properties` as true to invoke `detectChanges()`.
+ * @returns {this} ApChangeDetectorClass.
  * @memberof ApChangeDetectorClass
  */
-public detect(component: Type<T>, property?: string): void
+public detect(component: T, property?: string): this
+```
+
+### detectToSetter
+All indicated properties will have added method `detect()` to setter.
+
+| Parameter | Type      | Default value | Description                                   |
+|-----------|-----------|---------------|-----------------------------------------------|
+| component | T         | -             | Object where properties are gonna be wrapped. |
+
+```typescript
+/**
+ * All indicated properties will have added method `detect()` to setter.
+ * @param {T} component Object where properties are gonna be wrapped.
+ * @returns {this}
+ * @memberof ApChangeDetectorClass
+ */
+public detectToSetter(component: T): 
 ```
 
 ### reattach
-Reattach component change detector to the change detector tree.
+Reattach component change detector to the change detector tree and sets property `detection` to `true`.
 
 | Parameter | Type      | Default value | Description                                                                                        |
 |-----------|-----------|---------------|----------------------------------------------------------------------------------------------------|
@@ -124,29 +146,48 @@ Reattach component change detector to the change detector tree.
 
 ```typescript
 /**
- * Reattach component change detector to the change detector tree.
- * @param {Type<T>} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `reattach()`.
+ * Reattach component change detector to the change detector tree and sets property `detection` to `true`.
+ * @param {T} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `reattach()`.
+ * @returns {this} ApChangeDetectorClass.
  * @memberof ApChangeDetectorClass
  */
-public reattach(component: Type<T>): void
+public reattach(component: T): this
+```
+
+### setDetection
+Detach or reattach component depends on `detection` property.
+
+| Parameter | Type      | Default value | Description                                                                                        |
+|-----------|-----------|---------------|----------------------------------------------------------------------------------------------------|
+| component | Type\<T\> | -             | Component in which change detector tree will be modified.      |
+
+```typescript
+/**
+ * Detach or reattach component depends on `detection` property.
+ * @param {T} component Component in which change detector tree will be modified.
+ * @returns {this}
+ * @memberof ApChangeDetectorClass
+ */
+public setDetection(component: T): this
 ```
 
 ### find
-Private method invoked in constructor, once. Search for change detector instance in specified component and return its key.
+Private method invoked in constructor, once.
+Search for change detector instance in specified component and return its key.
 
 | Parameter | Type      | Default value | Description                           |
 |-----------|-----------|---------------|---------------------------------------|
-| component | Type\<T\> | -             | To find `ChangeDetectorRef` instance. |
+| component | T         | -             | To find `ChangeDetectorRef` instance. |
 
 ```typescript
 /**
  * Search for change detector instance in specified component and return its key.
  * @private
- * @param {Type<T>} component To find `ChangeDetectorRef` instance.
- * @returns {string}
+ * @param {T} component To find `ChangeDetectorRef` instance.
+ * @returns {this}
  * @memberof ApChangeDetectorClass
  */
-private find(component: Type<T>): string
+private find(component: T): this
 ```
 
 ## Usage
