@@ -9,12 +9,12 @@ import {
 } from '@angular-package/change-detection/change-detector';
 ```
 ```typescript
-ApChangeDetectorClass<T>(component: Type<T>)
+ApChangeDetectorClass<T>(component: T)
 ```
 
-| Parameter | Type      | Description                            |
-|-----------|-----------|----------------------------------------|
-| component | Type\<T\> | Component to find `ChangeDetectorRef`. |
+| Parameter | Type  | Description                            |
+|-----------|-------|----------------------------------------|
+| component | T     | Component to find `ChangeDetectorRef`. |
 
 
 **Pros(+):**
