@@ -50,6 +50,7 @@ describe('ApChangeDetectorClass', () => {
     expect(comp.changeDetector.detection).toBeFalsy();
   }));
   it('should be changed when surname change.', async(() => {
+    comp.properties = {};
     comp.detection = false;
     comp.properties = {
       firstname: false,
@@ -60,6 +61,7 @@ describe('ApChangeDetectorClass', () => {
     expect(debugElement.nativeElement.textContent).toContain(comp.surname);
   }));
   it('should not be changed when surname change.', async(() => {
+    comp.properties = {};
     comp.detection = false;
     comp.properties = {
       firstname: false,
@@ -69,14 +71,36 @@ describe('ApChangeDetectorClass', () => {
     comp.surname = 'Changed';
     expect(debugElement.nativeElement.textContent).not.toContain(comp.surname);
   }));
-  it('should not be changed when surname change.', async(() => {
+  it('should add new property name to properties.', async(() => {
     comp.detection = false;
+    comp.properties = {};
     comp.properties = {
-      firstname: false,
-      surname: false,
-      age: true
+      firstname: false
     };
-    comp.surname = 'Changed';
-    expect(debugElement.nativeElement.textContent).not.toContain(comp.surname);
+    comp.firstname = 'firstname_changed';
+    expect(debugElement.nativeElement.textContent).not.toContain(comp.firstname);
+    comp.properties = {
+      ...comp.properties,
+      surname: true
+    };
+    comp.surname = 'surname_changed';
+    expect(debugElement.nativeElement.textContent).toContain(comp.surname);
+    console.log(comp.changeDetector.properties, debugElement.nativeElement.textContent);
+  }));
+  it('should remove property name from properties and setter.', async(() => {
+    comp.detection = false;
+    comp.properties = {};
+    comp.properties = {
+      firstname: true,
+      surname: true
+    };
+    comp.firstname = 'firstname_changed';
+    expect(debugElement.nativeElement.textContent).toContain(comp.firstname);
+    comp.properties = {
+      surname: true
+    };
+    comp.firstname = 'Martin';
+    expect(debugElement.nativeElement.textContent).not.toContain(comp.firstname);
+    console.log(comp.changeDetector.properties, debugElement.nativeElement.textContent);
   }));
 });
