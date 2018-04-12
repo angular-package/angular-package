@@ -7,11 +7,9 @@ import { ApChangeDetector, ApChangeDetectionProperties } from '../../interface';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-  <div class="firstname">
-    {{firstname}}
-    {{surname}}
-    {{age}}
-  </div>
+    <div class="firstname">{{firstname}}</div>
+    <div class="surname">{{surname}}</div>
+    <div class="age">{{age}}</div>
   `
 })
 export class TestComponent {
