@@ -24,14 +24,14 @@ export class ApChangeDetectorClass<T> {
   public cd?: string;
 
   /**
-   * Whether detection is on or off.
+   * Whether detection is on (true) or off(false).
    * @type {boolean}
    * @memberof ApChangeDetectorClass
    */
   public detection?: boolean;
 
   /**
-   * Add `detect()` method to all properties.
+   * Class to wrap indicated properties.
    * @type {PropertyWrapperClass}
    * @memberof ApChangeDetectorClass
    */
@@ -129,7 +129,7 @@ export class ApChangeDetectorClass<T> {
   }
 
   /**
-   * Detach or reattach component depends on `detection` property.
+   * Detach or reattach component depends on `detection` property value
    * @param {T} component Component in which change detector tree will be modified.
    * @returns {this}
    * @memberof ApChangeDetectorClass
@@ -146,7 +146,7 @@ export class ApChangeDetectorClass<T> {
   }
 
   /**
-   * Search for change detector instance in specified component and return its key.
+   * Search for change detector instance in specified component and assign its property key name to property `cd`.
    * @private
    * @param {T} component To find `ChangeDetectorRef` instance.
    * @returns {this}
