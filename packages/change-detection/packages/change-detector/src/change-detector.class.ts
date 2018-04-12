@@ -31,13 +31,6 @@ export class ApChangeDetectorClass<T> {
   public detection?: boolean;
 
   /**
-   * Detect changes when specified property is true.
-   * @type {ApChangeDetectionProperties}
-   * @memberof ApChangeDetectorClass
-   */
-  public properties?: ApChangeDetectionProperties;
-
-  /**
    * Add `detect()` method to all properties.
    * @type {PropertyWrapperClass}
    * @memberof ApChangeDetectorClass
@@ -47,16 +40,21 @@ export class ApChangeDetectorClass<T> {
   /**
    * Creates an instance of ApChangeDetectorClass.
    * @param {T} component It is used to find `ChangeDetectorRef` instance.
+   * @param {ApChangeDetectionProperties} [properties] Detect changes when specified property is true.
    * @memberof ApChangeDetectorClass
    */
-  constructor(component: T) {
-    this.find(component).setDetection(component);
+  constructor(component: T, public properties?: ApChangeDetectionProperties) {
+    this
+      .find(component)
+      .setDetection(component);
+
     return this;
   }
 
   /**
    * Detaches component change detector from the change detector tree.
    * The detached change detector will not be checked until it is reattached.
+   * This method sets property `detection` to `false`, and also invoke method `detectToSetter()`.
    * @param {T} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detach()`.
    * @returns {this} ApChangeDetectorClass.
    * @memberof ApChangeDetectorClass
@@ -73,7 +71,7 @@ export class ApChangeDetectorClass<T> {
   }
 
   /**
-   * Detect changes in specified component, and conditionally by providing property name.
+   * Detect changes in specified component, and also conditionally by providing property name.
    * @param {T} component Object to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `detectChanges()`.
    * @param {string} [property] Name of property found in `properties` as true to invoke `detectChanges()`.
    * @returns {this} ApChangeDetectorClass.
@@ -94,7 +92,7 @@ export class ApChangeDetectorClass<T> {
 
   /**
    * All indicated properties will have added method `detect()` to setter.
-   * @param {T} component Object where properties are gonna be changed.
+   * @param {T} component Object where properties are gonna be wrapped.
    * @returns {this}
    * @memberof ApChangeDetectorClass
    */
@@ -115,7 +113,7 @@ export class ApChangeDetectorClass<T> {
   }
 
   /**
-   * Reattach component change detector to the change detector tree.
+   * Reattach component change detector to the change detector tree and sets property `detection` to `true`.
    * @param {T} component Used to invoke `ChangeDetectorRef` methods by using `cd` property, in this case `reattach()`.
    * @returns {this} ApChangeDetectorClass.
    * @memberof ApChangeDetectorClass
