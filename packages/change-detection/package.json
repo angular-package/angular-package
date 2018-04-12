@@ -47,7 +47,7 @@
     "@types/jasmine": "^2.8.6",
     "@types/karma": "^1.7.3",
     "@types/lodash-es": "^4.17.0",
-    "@types/node": "^9.6.2",
+    "@types/node": "^9.6.4",
     "clean-css": "^4.1.11",
     "codelyzer": "^4.2.1",
     "copyfiles": "^2.0.0",
@@ -73,15 +73,14 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript": "^0.8.1",
     "rollup-plugin-uglify": "^3.0.0",
-    "rxjs": "^5.5.8",
+    "rxjs": "^5.5.9",
     "tslint": "^5.9.1",
     "typescript": "^2.8.1",
     "uglify-es": "^3.3.9",
     "zone.js": "^0.8.26"
   },
   "peerDependencies": {
-    "@angular-package/core": "^1.0.1",
-    "lodash-es": "^4.17.8"
+    "@angular-package/core": "^1.0.1"
   },
   "keywords": [
     "angular-package change detection",
