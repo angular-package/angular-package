@@ -8,11 +8,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // internal.
 import { AppComponent } from './app.component';
 import { ChangeDetectionComponent } from './component';
+import { ClassComponent } from './class/class.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChangeDetectionComponent
+    ChangeDetectionComponent,
+    ClassComponent
   ],
   imports: [
     BrowserAnimationsModule,
