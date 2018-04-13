@@ -18,10 +18,14 @@ export class ApChangeDetectorClass<T> {
 
   /**
    * Property name of found `ChangeDetectorRef` instance.
+   * @private
    * @type {string}
    * @memberof ApChangeDetectorClass
    */
-  public cd?: string;
+  private _cd?: string;
+  get cd(): string | undefined {
+    return this._cd;
+  }
 
   /**
    * Whether detection is on (true) or off(false).
@@ -158,7 +162,7 @@ export class ApChangeDetectorClass<T> {
         if (component[key] instanceof Object) {
           if (instanceOf<ChangeDetectorRef>(component[key], 'detectChanges')) {
             if (component[key].detectChanges instanceof Function) {
-              this.cd = key;
+              this._cd = key;
               return false;
             }
           }
