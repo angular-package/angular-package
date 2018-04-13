@@ -10,8 +10,8 @@ import { ApChangeDetectorClass } from '../change-detector/src/change-detector.cl
  * Indicate component properties by name whether to detect or not changes on them.
  * @export
  * @template T
- * @param {ApChangeDetectionProperties} properties
- * @param {ApChangeDetectionOptions} [options]
+ * @param {ApChangeDetectionProperties} properties Name of component property with value true is sensitive for detection.
+ * @param {ApChangeDetectionOptions} [options] Method or property name that is accessible directly in component under this name.
  * @returns {Function}
  */
 export function ApChangeDetection<T>(properties: ApChangeDetectionProperties, options?: ApChangeDetectionOptions): Function {
