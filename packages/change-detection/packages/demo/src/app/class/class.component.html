@@ -1,0 +1,31 @@
+<h1>ClassComponent</h1>
+{{changeDetector.detection}}
+<button type="button" (click)="detect()">Detect changes</button>
+<div>
+  <!-- [value]="true" (change)="update($event)"  -->
+  <mat-checkbox name="changeDetector.detection" [(ngModel)]="changeDetector.detection">
+    Component change detection
+    <small>Means Detached when false</small>
+  </mat-checkbox>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Firstname" name="firstname" [(ngModel)]="firstname" />
+    </mat-form-field>
+    <mat-checkbox (change)="update($event)" [(ngModel)]="changeDetector.properties.firstname" *ngIf="changeDetector.detection === false" >
+      Detect changes in property
+      <small>When component is detached</small>
+    </mat-checkbox>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Surname" name="surname" [(ngModel)]="surname" />
+    </mat-form-field>
+    <mat-checkbox (change)="update($event)" [(ngModel)]="changeDetector.properties.surname" *ngIf="changeDetector.detection === false">
+      Detect changes in property.
+      <small>When component is detached</small>
+    </mat-checkbox>
+  </div>
+  <p>
+    {{firstname}} {{surname}} {{age}}
+  </p>
+</div>
