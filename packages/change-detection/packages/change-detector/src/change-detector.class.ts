@@ -1,5 +1,5 @@
 // external
-import { ChangeDetectorRef, } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { each } from 'lodash-es';
 import { StoreOriginalClass } from '@angular-package/core/store';
 
@@ -32,7 +32,7 @@ export class ApChangeDetectorClass<T> {
    * @type {boolean}
    * @memberof ApChangeDetectorClass
    */
-  public detection?: boolean;
+  public detection = false;
 
   /**
    * Class to wrap indicated properties.
@@ -43,15 +43,14 @@ export class ApChangeDetectorClass<T> {
 
   /**
    * Creates an instance of ApChangeDetectorClass.
-   * @param {T} component It is used to find `ChangeDetectorRef` instance.
+   * @param {T} [component] It is used to find `ChangeDetectorRef` instance.
    * @param {ApChangeDetectionProperties} [properties] Detect changes when specified property is true.
    * @memberof ApChangeDetectorClass
    */
-  constructor(component: T, public properties?: ApChangeDetectionProperties) {
-    this
-      .find(component)
-      .setDetection(component);
-
+  constructor(component?: T, public properties: ApChangeDetectionProperties = {}) {
+    if (component) {
+      this.find(component).setDetection(component).detectToSetter(component);
+    }
     return this;
   }
 
@@ -69,7 +68,6 @@ export class ApChangeDetectorClass<T> {
         component[this.cd].detach();
       }
     }, 0);
-    this.detectToSetter(component);
     this.detection = false;
     return this;
   }
@@ -85,7 +83,10 @@ export class ApChangeDetectorClass<T> {
     if (this.cd) {
       if (property) {
         if (this.properties && this.properties[property] === true) {
-          component[this.cd].detectChanges();
+          // TODO: try catch used because of decorator error.
+          try {
+            component[this.cd].detectChanges();
+          } catch (e) { }
         }
       } else {
         component[this.cd].detectChanges();
@@ -107,10 +108,10 @@ export class ApChangeDetectorClass<T> {
         Object.keys(this.properties),
         (property: string, sourcePropertyName: string, source?: T): void => {
           if (source) {
-            source['changeDetector'].detect(component, property);
+            source['changeDetector'].detect(source, property);
           }
         },
-        property => undefined
+        (property: string, source?: T) => undefined
       );
     }
     return this;
@@ -150,13 +151,12 @@ export class ApChangeDetectorClass<T> {
   }
 
   /**
-   * Search for change detector instance in specified component and assign its property key name to property `cd`.
-   * @private
+   * Search for `ChangeDetectorRef` instance in specified component to store its property name.
    * @param {T} component To find `ChangeDetectorRef` instance.
    * @returns {this}
    * @memberof ApChangeDetectorClass
    */
-  private find(component: T): this {
+  public find(component: T): this {
     if (this.cd === undefined) {
       each(component, (ChangeDetectorRefInstance: ChangeDetectorRef, key: string) => {
         if (component[key] instanceof Object) {
