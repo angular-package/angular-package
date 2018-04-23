@@ -1,5 +1,11 @@
 # change-detection
 
+[![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection)
+[![Known Vulnerabilities](https://snyk.io/test/github/angular-package/angular-package/master/packages/change-detection/badge.svg)](https://snyk.io/test/github/angular-package/angular-package/master/packages/change-detection)
+[![GitHub issues](https://img.shields.io/github/issues/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/issues)
+[![GitHub stars](https://img.shields.io/github/stars/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/stargazers)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
+
 Decorator to improve application performance by setting initially change detection component state to `Detached` and detect changes on indicated properties on `set`.
 
 ```typescript
