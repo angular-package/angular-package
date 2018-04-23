@@ -23,7 +23,8 @@ module.exports = function(config) {
       // because the preprocessor will use its own.
       { pattern: 'test/index.ts', watched: false },
       { pattern: 'test/*.spec.ts', watched: false },
-      { pattern: 'packages/change-detector/src/*.spec.ts', watched: false }
+      { pattern: 'packages/change-detector/src/*.spec.ts', watched: false },
+      { pattern: 'packages/src/*.spec.ts', watched: false }
     ],
 
 
@@ -43,7 +44,8 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/index.ts': ['rollup'],
-      'packages/change-detector/src/*.spec.ts': ['rollup']
+      'packages/change-detector/src/*.spec.ts': ['rollup'],
+      'packages/src/*.spec.ts': ['rollup']
     },
 
     rollupPreprocessor: {
