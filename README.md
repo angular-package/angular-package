@@ -6,7 +6,7 @@ Useful packages written on Angular framework.
 
 | Package          | Description                                                                              | Status        | Readme      |
 |------------------|------------------------------------------------------------------------------------------|---------------|-------------|
-| change-detection | Improve application performance.                                                         | **Ready**     | [Readme][0] |
+| change-detection | Improve application performance.                                                         | [![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection) | [Readme][0] |
 | chart            | Re-usable charts - especially on nvd3.                                                   | Not ready     | [Readme][1] |
 | core             | Some core features used in other **angular-package** libraries.                          | *In progress* | [Readme][2] |
 | common           |                                                                                          | Not ready     | [Readme][3] |
