@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { ApChangeDetectorClass } from '@angular-package/change-detection/change-detector';
-import { ApChangeDetector } from '@angular-package/change-detection/interface';
 
 @Component({
   preserveWhitespaces: false,
@@ -24,8 +23,8 @@ export class ClassComponent implements OnInit {
       surname: false,
       age: false
     });
-    this.changeDetector.detection = false;
-    this.changeDetector.setDetection(this);
+    // this.changeDetector.detection = false;
+    // this.changeDetector.setDetection(this);
   }
   detect() {
     this.changeDetector.detect(this);
