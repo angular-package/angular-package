@@ -1,6 +1,6 @@
 // external
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Type, OnInit } from '@angular/core';
-import { ApChangeDetectorAClass, ApChangeDetectorClass } from '../';
+import { ApChangeDetectorClass } from '../';
 import { ApChangeDetector, ApChangeDetectionProperties } from '../../interface';
 
 @Component({
@@ -12,8 +12,8 @@ import { ApChangeDetector, ApChangeDetectionProperties } from '../../interface';
     <div class="age">{{age}}</div>
   `
 })
-export class TestComponent {
-  public changeDetector: ApChangeDetectorClass<TestComponent>;
+export class ClassTestComponent {
+  public changeDetector: ApChangeDetectorClass<ClassTestComponent>;
   public firstname = 'Martin';
   public surname = 'Greg';
   public age = 27;
@@ -28,13 +28,14 @@ export class TestComponent {
 
   set properties(properties: any) {
     this.changeDetector.properties = properties;
-    this.changeDetector.setDetection(this);
+    this.changeDetector.detectToSetter(this);
   }
   get properties(): any {
     return this.changeDetector.properties;
   }
 
   constructor(public c: ChangeDetectorRef) {
-    this.changeDetector = new ApChangeDetectorClass<TestComponent>(this) as ApChangeDetectorClass<TestComponent>;
+    this.changeDetector = new ApChangeDetectorClass<ClassTestComponent>(this) as ApChangeDetectorClass<ClassTestComponent>;
+    this.detection = false;
   }
 }
