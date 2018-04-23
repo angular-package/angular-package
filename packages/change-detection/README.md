@@ -328,8 +328,8 @@ How do I know when to release 1.0.0?
 MIT © angular-package ([license](https://github.com/angular-package/angular-package/blob/master/LICENSE))
 
 
-[0]: https://github.com/angular-package/angular-package/tree/change-detection/packages/change-detection/packages/change-detector#readme
-[1]: https://github.com/angular-package/angular-package/blob/change-detection/packages/change-detection/packages/interface/src/properties.interface.ts
-[2]: https://github.com/angular-package/angular-package/blob/change-detection/packages/change-detection/packages/interface/src/options.interface.ts
-[3]: https://github.com/angular-package/angular-package/tree/change-detection/packages/change-detection/packages/change-detector#readme
+[0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection/packages/change-detector#readme
+[1]: https://github.com/angular-package/angular-package/blob/master/packages/change-detection/packages/interface/src/properties.interface.ts
+[2]: https://github.com/angular-package/angular-package/blob/master/packages/change-detection/packages/interface/src/options.interface.ts
+[3]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection/packages/change-detector#readme
 [4]: https://angular.io/api/core/ChangeDetectorRef
