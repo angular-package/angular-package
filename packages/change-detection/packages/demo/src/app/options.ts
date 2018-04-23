@@ -1,5 +1,5 @@
 import { ApChangeDetectionOptions } from '@angular-package/change-detection/interface';
 
-export const CONFIG: ApChangeDetectionOptions = {
-  properties: 'properties'
+export const OPTIONS: ApChangeDetectionOptions = {
+  properties: '_properties'
 };
