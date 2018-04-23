@@ -83,7 +83,7 @@ Properties added directly to component.
  Name / Linked  | Type / Default value | Description
 ----------------|----------------------|-------------
 _changeDetector | *ApChangeDetectorClass\<T\>* |   [ApChangeDetectorClass][0] instance.
-changeDetector **[_changeDetector]** | ApChangeDetectorClass\<T\> / **ApChangeDetectorClass\<T\>(this, Object.assign({}, properties))** | Wrapper for `_changeDetector` property. Property is linked to `_changeDetector`.
+changeDetector **[_changeDetector]** | *ApChangeDetectorClass*\<T\> / **ApChangeDetectorClass\<T\>(this, Object.assign({}, properties))** | Wrapper for `_changeDetector` property. Property is linked to `_changeDetector`.
 detection **[changeDetector.detection]** | *boolean* / **false** |  Whether detection is on `true` or off `false`. Property is linked to `changeDetector.detection`.
 _properties **[changeDetector.properties]** | [*ApChangeDetectionProperties*][1] / **{}** | Detect changes when specified property name is `true` e.g. `{ firstname: true }`. Property is linked to `changeDetector.properties`.
 
