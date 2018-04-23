@@ -1,7 +1,7 @@
 // external.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // added
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { MatButtonModule, MatCheckboxModule, MatInputModule, MatRadioModule, MatSidenavModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,6 +9,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ChangeDetectionComponent } from './component';
 import { ClassComponent } from './class/class.component';
+
+@Injectable()
+export class APErrorHandler implements ErrorHandler {
+
+  constructor() { }
+
+  handleError(error: any): void {
+    // console.log(`aaaa`, error);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +38,9 @@ import { ClassComponent } from './class/class.component';
     MatInputModule, // added
     MatRadioModule // added
   ],
-  providers: [],
+  providers: [
+    {provide: ErrorHandler, useClass: APErrorHandler}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
