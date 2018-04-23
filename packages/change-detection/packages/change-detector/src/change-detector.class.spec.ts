@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { TestBed, async, inject, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
 
 // internal
-import { TestComponent } from '../test/class.component';
+import { ClassTestComponent } from '../test/class.component';
 
 beforeAll(() => {
   TestBed.resetTestEnvironment();
@@ -17,24 +17,24 @@ beforeAll(() => {
 
 describe('ApChangeDetectorClass', () => {
 
-  let comp: TestComponent;
-  let fixture: ComponentFixture<TestComponent>;
+  let comp: ClassTestComponent;
+  let fixture: ComponentFixture<ClassTestComponent>;
   let debugElement: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        TestComponent
+        ClassTestComponent
       ],
       providers: [
-        { provide: ComponentFixtureAutoDetect, useValue: true} // detectChanges.
+        // { provide: ComponentFixtureAutoDetect, useValue: true} // detectChanges.
       ]
     }).compileComponents();
   }));
 
   // synchronous beforeEach
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponent);
+    fixture = TestBed.createComponent(ClassTestComponent);
     debugElement = fixture.debugElement;
     comp = fixture.componentInstance;
   });
@@ -50,8 +50,6 @@ describe('ApChangeDetectorClass', () => {
     expect(comp.changeDetector.detection).toBeFalsy();
   }));
   it('should be changed when surname change.', async(() => {
-    comp.properties = {};
-    comp.detection = false;
     comp.properties = {
       firstname: false,
       surname: true,
@@ -61,8 +59,6 @@ describe('ApChangeDetectorClass', () => {
     expect(debugElement.nativeElement.textContent).toContain(comp.surname);
   }));
   it('should not be changed when surname change.', async(() => {
-    comp.properties = {};
-    comp.detection = false;
     comp.properties = {
       firstname: false,
       surname: false,
@@ -72,8 +68,6 @@ describe('ApChangeDetectorClass', () => {
     expect(debugElement.nativeElement.textContent).not.toContain(comp.surname);
   }));
   it('should add new property name to properties.', async(() => {
-    comp.detection = false;
-    comp.properties = {};
     comp.properties = {
       firstname: false
     };
@@ -85,11 +79,8 @@ describe('ApChangeDetectorClass', () => {
     };
     comp.surname = 'surname_changed';
     expect(debugElement.nativeElement.textContent).toContain(comp.surname);
-    console.log(comp.changeDetector.properties, debugElement.nativeElement.textContent);
   }));
   it('should remove property name from properties and setter.', async(() => {
-    comp.detection = false;
-    comp.properties = {};
     comp.properties = {
       firstname: true,
       surname: true
@@ -101,6 +92,5 @@ describe('ApChangeDetectorClass', () => {
     };
     comp.firstname = 'Martin';
     expect(debugElement.nativeElement.textContent).not.toContain(comp.firstname);
-    console.log(comp.changeDetector.properties, debugElement.nativeElement.textContent);
   }));
 });
