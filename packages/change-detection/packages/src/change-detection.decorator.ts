@@ -5,6 +5,7 @@ import { merge } from 'lodash-es';
 import { ApChangeDetectionOptions, ApChangeDetectionProperties } from '../interface';
 import { DEFAULT_OPTIONS } from './default_options';
 import { ApChangeDetectorClass } from '../change-detector/src/change-detector.class';
+import { PropertyWrapperClass } from '@angular-package/core/property-wrapper';
 
 /**
  * Indicate component properties by name whether to detect or not changes on them.
@@ -55,7 +56,7 @@ export function ApChangeDetection<T>(properties: ApChangeDetectionProperties, op
         Object.defineProperties(component.prototype, {
           [`${options.detach}`]: {
             configurable: false,
-            writable: false,
+            writable: true,
             value: function (): void {
               this.changeDetector.detach(this);
             }
@@ -68,7 +69,7 @@ export function ApChangeDetection<T>(properties: ApChangeDetectionProperties, op
         Object.defineProperties(component.prototype, {
           [`${options.detect}`]: {
             configurable: false,
-            writable: false,
+            writable: true,
             value: function (property?: string): void {
               this.changeDetector.detect(this, property);
             }
@@ -81,11 +82,9 @@ export function ApChangeDetection<T>(properties: ApChangeDetectionProperties, op
         Object.defineProperties(component.prototype, {
           [`${options.properties}`]: {
             set: function (value: ApChangeDetectionProperties) {
+              this.changeDetector.properties = value;
               this.changeDetector.detect(this);
-              Object.assign(this.changeDetector, {
-                properties: value
-              });
-              this.changeDetector.setDetection(this);
+              this.changeDetector.detectToSetter(this);
             },
             get: function (): ApChangeDetectionProperties {
               return this.changeDetector.properties;
@@ -99,7 +98,7 @@ export function ApChangeDetection<T>(properties: ApChangeDetectionProperties, op
         Object.defineProperties(component.prototype, {
           [`${options.reattach}`]: {
             configurable: false,
-            writable: false,
+            writable: true,
             value: function (): void {
               this.changeDetector.reattach(this);
             }
