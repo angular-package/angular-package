@@ -10,7 +10,7 @@
     <mat-form-field>
       <input matInput placeholder="Name" name="name" [(ngModel)]="name" />
     </mat-form-field>
-    <mat-checkbox (change)="update($event)" [(ngModel)]="properties.name" *ngIf="detection === false" >
+    <mat-checkbox (change)="update($event)" [(ngModel)]="_properties.name" *ngIf="detection === false" >
       Detect changes in property
       <small>When component is detached</small>
     </mat-checkbox>
@@ -19,7 +19,7 @@
     <mat-form-field>
       <input matInput placeholder="Surname" name="surname" [(ngModel)]="surname" />
     </mat-form-field>
-    <mat-checkbox (change)="update($event)" [(ngModel)]="properties.surname" *ngIf="detection === false">
+    <mat-checkbox (change)="update($event)" [(ngModel)]="_properties.surname" *ngIf="detection === false">
       Detect changes in property.
       <small>When component is detached</small>
     </mat-checkbox>
