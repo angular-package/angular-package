@@ -1,1 +1,1 @@
-export { ApChangeDetectorClass, ApChangeDetectorAClass } from './src';
+export { ApChangeDetectorClass } from './src';
