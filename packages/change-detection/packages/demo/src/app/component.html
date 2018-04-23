@@ -1,7 +1,8 @@
-{{_detection}}
+<h1>ChangeDetectionComponent</h1>
+{{detection}}
 <div>
   <!-- [value]="true" (change)="update($event)"  -->
-  <mat-checkbox name="detection" [(ngModel)]="_detection">
+  <mat-checkbox name="detection" [(ngModel)]="detection">
     Component change detection
     <small>Means Detached when false</small>
   </mat-checkbox>
@@ -9,7 +10,7 @@
     <mat-form-field>
       <input matInput placeholder="Name" name="name" [(ngModel)]="name" />
     </mat-form-field>
-    <mat-checkbox (change)="update($event)" [(ngModel)]="_properties.name" *ngIf="_detection === false" >
+    <mat-checkbox (change)="update($event)" [(ngModel)]="_properties.name" *ngIf="detection === false" >
       Detect changes in property
       <small>When component is detached</small>
     </mat-checkbox>
@@ -18,7 +19,7 @@
     <mat-form-field>
       <input matInput placeholder="Surname" name="surname" [(ngModel)]="surname" />
     </mat-form-field>
-    <mat-checkbox (change)="update($event)" [(ngModel)]="_properties.surname" *ngIf="_detection === false">
+    <mat-checkbox (change)="update($event)" [(ngModel)]="_properties.surname" *ngIf="detection === false">
       Detect changes in property.
       <small>When component is detached</small>
     </mat-checkbox>

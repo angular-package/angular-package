@@ -1,1 +1,5 @@
-export { ApPropertiesInterface } from './interface';
+export {
+  ApChangeDetector,
+  ApChangeDetectionOptions,
+  ApChangeDetectionProperties
+} from './src';
