@@ -1,16 +1,15 @@
 // external
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+
+// @angular-package
 import { ApChangeDetection } from '@angular-package/change-detection';
-import { ApChangeDetectorAClass, ApChangeDetectorClass } from '@angular-package/change-detection/change-detector';
-import {
-  ApChangeDetector,
-  ApChangeDetectionProperties
-} from '@angular-package/change-detection/interface';
+import { ApChangeDetectorClass } from '@angular-package/change-detection/change-detector';
+import { ApChangeDetector, ApChangeDetectionProperties } from '@angular-package/change-detection/interface';
 
 // internal
 import { AddressInterface } from './interface';
 import { PROPERTIES } from './properties';
-import { CONFIG } from './config';
+import { OPTIONS } from './options';
 
 @Component({
   preserveWhitespaces: false,
@@ -19,14 +18,16 @@ import { CONFIG } from './config';
   templateUrl: './component.html',
   styleUrls: [ 'component.scss' ]
 })
-@ApChangeDetection<ChangeDetectionComponent>(PROPERTIES, CONFIG)
+@ApChangeDetection<ChangeDetectionComponent>(PROPERTIES, OPTIONS)
 export
   class ChangeDetectionComponent
   implements ApChangeDetector<ChangeDetectionComponent> {
 
-  public detection = false; // <--- Required.
-  public changeDetector: ApChangeDetectorClass<ChangeDetectionComponent>;
-  public properties: ApChangeDetectionProperties; // --- Not required.
+  // Whether change detection is active or not. If false, change detection status is set to `Detached`.
+  // If true, change detection status is set to `CheckOnce` because of OnPush.
+  public detection = false; // <--- Required, initialize detection with specified value true or false.
+  public changeDetector: ApChangeDetectorClass<ChangeDetectionComponent>; // ChangeDetector instance.
+  public _properties: ApChangeDetectionProperties; // --- Not required. Properties that will be detected when true.
 
   public _address: AddressInterface;
   @Input('address')
@@ -52,9 +53,7 @@ export
   public _detect(): void { }
   public _reattach(): void { }
 
-  constructor(public c: ChangeDetectorRef) {
-    console.log(this);
-  }
+  constructor(public c: ChangeDetectorRef) { }
 
   update($event) {
     this._detect();
