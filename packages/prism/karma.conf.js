@@ -53,7 +53,7 @@ module.exports = function(config) {
       // will help to prevent conflicts between different tests entries
       output: {
         format: 'umd',
-        name: 'ap.prismCore',
+        name: 'ap.prism',
         sourcemap: 'inline'  
       },
       // rollup settings. See Rollup documentation
