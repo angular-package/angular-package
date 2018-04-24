@@ -7,7 +7,25 @@
   "contributors": [
     "Angular Package <angular-package@wwwdev.io>"
   ],
+  "scripts": {
+    "demo:change-detection": "cd packages/change-detection/demo && npm start",
+    "build:change-detection": "cd packages/change-detection && npm run clean:start",
+    "build:prism": "cd packages/prism && npm start",
+    "build": "concurrently \"npm run build:change-detection\" \"npm run build:prism\"",
+    "bundle": "",
+    "postbuild": "",
+    "prebuild": "",
+    "prepare": "",
+    "start": "npm run build",
+    "test": ""
+  },
   "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "copyfiles": "^1.2.0"
+  },
+  "peerDependencies": {},
   "keywords": [],
   "repository": {
     "type": "git",
