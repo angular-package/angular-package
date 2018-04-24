@@ -7,10 +7,6 @@
   "contributors": [
     "Angular Package <angular-package@wwwdev.io>"
   ],
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
-  },
   "scripts": {
     "demo:change-detection": "cd packages/change-detection/demo && npm start",
     "build:change-detection": "cd packages/change-detection && npm run clean:start",

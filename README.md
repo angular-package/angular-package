@@ -1,5 +1,6 @@
 # angular-package
 
+[![Build Status](https://travis-ci.org/angular-package/angular-package.svg?branch=master)](https://travis-ci.org/angular-package/angular-package)
 [![GitHub issues](https://img.shields.io/github/issues/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/issues)
 [![GitHub stars](https://img.shields.io/github/stars/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/stargazers)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)

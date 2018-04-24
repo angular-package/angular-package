@@ -2,6 +2,10 @@ addons:
   chrome: stable
 language: node_js
 node_js: '6'
+env:
+  - TEST_DIR=packages/change-detection
+  - TEST_DIR=packages/core
+script: cd $TEST_DIR && npm start
 before_install:
   - npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
 before_script:
@@ -18,5 +22,7 @@ deploy:
   on:
     tags: true
     all_branches: false
-    branch: change-detection
+    branches:
+      only:
+      - master
     repo: angular-package/angular-package
