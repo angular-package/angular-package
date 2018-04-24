@@ -5,28 +5,6 @@ const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const typescript = require('rollup-plugin-typescript');
 
-// rollup-plugin-angular addons
-const sass = require('node-sass');
-const CleanCSS = require('clean-css');
-const htmlMinifier = require('html-minifier');
-
-const cssmin = new CleanCSS();
-const htmlminOpts = {
-  caseSensitive: true,
-  collapseWhitespace: true,
-  removeComments: true,
-};
-
-const rpaConfig = {
-  preprocessors: {
-    template: template => htmlMinifier.minify(template, htmlminOpts),
-    style: scss => {
-      const css = sass.renderSync({ data: scss }).css;
-      return cssmin.minify(css).styles;
-    },
-  }
-};
-
 module.exports = function(config) {
   config.set({
 
@@ -45,8 +23,8 @@ module.exports = function(config) {
       // because the preprocessor will use its own.
       { pattern: 'test/index.ts', watched: false },
       { pattern: 'test/*.spec.ts', watched: false },
-      { pattern: 'src/*.spec.ts', watched: false },
-      { pattern: 'src/**/*.spec.ts', watched: false }
+      { pattern: 'packages/change-detector/src/*.spec.ts', watched: false },
+      { pattern: 'packages/src/*.spec.ts', watched: false }
     ],
 
 
@@ -65,19 +43,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/*.ts': ['rollup'],
-      'src/*.spec.ts': ['rollup'],
-      'src/**/*.spec.ts': ['rollup']
+      'test/index.ts': ['rollup'],
+      'packages/change-detector/src/*.spec.ts': ['rollup'],
+      'packages/src/*.spec.ts': ['rollup']
     },
 
     rollupPreprocessor: {
-      // will help to prevent conflicts between different tests entries
-      name: 'ap.change-detection',
-      format: 'umd',
-      sourcemap: 'inline',
-      // rollup settings. See Rollup documentation
+      output: {
+        format: 'umd',
+        sourcemap: 'inline',
+        name: 'ap.change-detection'
+      },
       plugins: [
-        angular({}),
+        angular(),
         commonjs(),
         nodeResolve({
           // use "module" field for ES6 module if possible

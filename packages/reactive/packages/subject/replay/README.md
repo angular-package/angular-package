@@ -1,6 +1,6 @@
 # @angular-package/reactive/subject/replay
 
-Decorator to automatize process of creating `ReplaySubject` observable on indicated component properties.
+Decorator to automatize process of creating [`ReplaySubject`](http://reactivex.io/rxjs/manual/overview.html#replaysubject) observable on indicated properties in component or service.
 
 ```typescript
 @ApSubjectReplay<T>(buffer: number, windowTime: number, ...properties: string[])

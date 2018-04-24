@@ -64,7 +64,9 @@ Thumbs.db
 /dist
 
 # Ignore one of dist subpackage
-/decorator/*
+/change-detector
+/interface
+/src
 
 # Ignore rollup bundle files
 /bundle.*

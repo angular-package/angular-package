@@ -1,0 +1,1 @@
+export { PropertyWrapperClass } from './src';

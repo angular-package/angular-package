@@ -19,7 +19,9 @@
     "import-blacklist": [
       true,
       "rxjs",
-      "rxjs/Rx"
+      "rxjs/Rx",
+      "@angular-package",
+      "@angular-package/reactive"
     ],
     "import-spacing": true,
     "indent": [

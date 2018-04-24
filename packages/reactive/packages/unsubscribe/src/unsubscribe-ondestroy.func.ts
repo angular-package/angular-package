@@ -9,10 +9,10 @@ import { PropertiesInterface } from '../../subject/src/properties.interface';
  * ApUnsubscribeOnDestroy
  * @export
  * @template T
- * @param {*} target
+ * @param {Function} target
  * @param {PropertiesInterface} [properties]
  */
-export const ApUnsubscribeOnDestroy = function<T>(target: any, properties?: PropertiesInterface<T>): void {
+export const ApUnsubscribeOnDestroy = function<T>(target: Function, properties?: PropertiesInterface<T>): void {
   if (target.prototype.ngOnDestroy !== undefined) {
     // Original ngOnDestroy
     const ngOnDestroy = target.prototype.ngOnDestroy;
