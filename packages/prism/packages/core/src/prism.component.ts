@@ -28,7 +28,7 @@ import { PrismService } from './prism.service';
   exportAs: 'apPrism',
   preserveWhitespaces: false,
   providers: [ PrismService ],
-  selector: 'ngx-prism',
+  selector: 'ap-prism',
   templateUrl: './prism.component.html'
 })
 @ChangeDetection(false, {

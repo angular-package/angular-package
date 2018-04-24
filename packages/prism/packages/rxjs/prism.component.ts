@@ -38,7 +38,7 @@ import { SanitizedType } from './prism.type';
   exportAs: 'apPrismRxjs',
   preserveWhitespaces: false,
   providers: [ PrismService ],
-  selector: 'ngx-prism',
+  selector: 'ap-prism',
   templateUrl: './prism.component.html'
 })
 @Subscribe<SanitizedType>(['code', 'language'])
