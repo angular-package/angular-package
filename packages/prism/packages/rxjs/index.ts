@@ -1,2 +1,1 @@
-export { ApPrismRxjsModule } from './prism.module';
-
+export { ApPrismRxjsModule } from './src';
