@@ -120,10 +120,12 @@
     ],
     "directive-selector": [
       true,
+      "apPrism",
       "camelCase"
     ],
     "component-selector": [
       true,
+      "ap-prism",
       "kebab-case"
     ],
     "no-output-on-prefix": true,
