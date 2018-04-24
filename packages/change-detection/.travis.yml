@@ -17,5 +17,6 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    all_branches: true
-    repo: angular-package/change-detection
+    all_branches: false
+    branch: change-detection
+    repo: angular-package/angular-package
