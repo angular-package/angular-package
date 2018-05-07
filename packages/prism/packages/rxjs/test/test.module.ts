@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ApPrismRxjsModule } from './../../src/rxjs/prism.module';
+import { ApPrismRxjsModule } from '..';
 import { TestComponent } from './test.component';
 
 export const declarations = [
