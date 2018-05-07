@@ -1,8 +1,8 @@
 // external
-import { DebugElement, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
+// import { DebugElement, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { By } from '@angular/platform-browser';
-import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
+// import { By } from '@angular/platform-browser';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 
 // internal
 import { TestComponent } from './test.component';
@@ -16,7 +16,7 @@ beforeAll(() => {
 describe('TestComponent', () => {
 
   let comp: TestComponent;
-  let debugElement: DebugElement;
+  // let debugElement: DebugElement;
   let fixture: ComponentFixture<TestComponent>;
   let nativeElement: any;
 
@@ -33,7 +33,7 @@ describe('TestComponent', () => {
     // get from fixture
     comp = fixture.componentInstance;
     nativeElement = fixture.nativeElement;
-    debugElement = fixture.debugElement;
+    // debugElement = fixture.debugElement;
   });
 
   it('should be defined', async(() => {
