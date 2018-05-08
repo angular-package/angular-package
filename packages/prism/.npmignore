@@ -16,7 +16,7 @@ CVS
 karma.conf.js
 npm-debug.log
 node_modules
-src
+/packages
 test
 demo
 coverage
