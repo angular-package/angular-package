@@ -4,6 +4,7 @@ const globals = {
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular-package/change-detection': 'ap.changeDetection',
+  '@angular-package/core': 'ap.core',
   '@angular/platform-browser': 'ng.platformBrowser',
   'lodash-es': '_',
   'prismjs': 'Prism'
