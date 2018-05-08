@@ -45,8 +45,8 @@ describe('TestComponent', () => {
     expect(comp).toBeTruthy();
   }));
 
-  it('should have `ngx-prism` html tag', async(() => {
-    expect(nativeElement.querySelector('ngx-prism')).toBeTruthy();
+  it('should have `ap-prism` html tag', async(() => {
+    expect(nativeElement.querySelector('ap-prism')).toBeTruthy();
   }));
   it('should have `language` property defined', async(() => {
     expect(comp.language).toBe('html');
