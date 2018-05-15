@@ -1,1 +1,1 @@
-export { ApPrismModule } from './src';
+export { ApPrismComponent, ApPrismModule } from './src';
