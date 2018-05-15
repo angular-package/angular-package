@@ -1,13 +1,20 @@
 # @angular-package/prism/core
 
+[![npm version](https://badge.fury.io/js/%40angular-package%2Fprism.svg)](https://badge.fury.io/js/%40angular-package%2Fprism)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
+
 Core Angular 5+ Prism highlighter module.
+
+```typescript
+import { ApPrismModule } from '@angular-package/prism/core';
+```
+
+## Table of contents
 
 * [Demonstration](#demonstration)
 * [Installation](#installation)
-* [Usage](#usage)
 * [Inputs](#inputs)
-* [Lifecycle Hooks](#lifecycle-hooks)
-* [Change detection](#change-detection)
+* [Usage](#usage)
 * [Scripts](#scripts)
 * [Style guide](#style-guide)
 * [Git](#git)
@@ -16,32 +23,30 @@ Core Angular 5+ Prism highlighter module.
 * [License](#license)
 * [Donate](#donate)
 
----
+### Pros(+)
 
-**Pros(+)**
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
-* Component `changeDetectionStrategy` is set to `OnPush`, It gives better overall __performance__. 
-* **[New]** Change detector status is initially `Detached` and `detectChanges()` is used in every component property declared in its own property `__properties`. This is because of using [@angular-package/change-detection](https://github.com/angular-package/angular-package/tree/master/packages/change-detection). 
-* **Setters** instead of **ngOnChanges()** method to detect changes.
-* Dynamically changes highlight string with `code` input property, and dynamically changes properties for change detection by setting them `true` or `false` with input `cd`.
+* Added [@angular-package/change-detection](https://github.com/angular-package/angular-package/tree/master/packages/change-detection) feature with all its **pros** and **cons**.
+* Dynamically changes highlight string with `code` input property.
 * It uses prismjs `highlightElement(element, async, callback)` to higlight, so `async` and `hooks` internal prism features can be used.
 * Interpolates string to highlight with `interpolation` object.
-* Performs highlight depending on whether property change detection is active or is not (by checking `cd` property).
-* Live `@angular/cli` usage demonstration and inside repository.
-* No known vulnerabilities found by **snyk.io**.
+* Performs highlight depending on whether property change detection is active or unactive.
+* `@angular/cli` usage [**demonstration**](https://github.com/angular-package/angular-package/tree/master/packages/prism/demo) inside repository.
+* No known vulnerabilities found by [**snyk.io**](https://snyk.io/test/npm/@angular-package/prism).
 
-**Cons(-)**
-* Hooks are defined globally.
-* You cannot use both `ng-content` and property `code` the same time.
-* Need to provide new instance of objects to get them changed.
+### Cons(-)
 
-**Important!**
+* Globally defined hooks.
+* Cannot use both `ng-content` and property `code` the same time.
+
+### Important
+
 * By default all properties are sensitive to detection.
-* Instead of using `ngOnChanges` angular cycle hook, now, it base only on **setters** and **getters**. 
+* Instead of using `ngOnChanges` angular cycle hook, now, it base only on **setters** and **getters**.
 * It is designed to use `ng-content` and property `code` separately. You should **NOT** use both the same time.
 * In `@angular/cli` add `--aot` to `ng serve` in scripts to have script `"start": "ng serve --aot"`.
-* Selector `prism-highlight` is changed to `ngx-prism`.
+* Component selector has changed from `ngx-prism` to `ap-prism`.
 
 ---
 
@@ -63,8 +68,6 @@ npm i && npm start
 
 Open [http://localhost:4200/](http://localhost:4200/) in your browser.
 
-
-
 ## Installation
 
 First, install `@angular-package/prism` package with command:
@@ -74,9 +77,31 @@ npm i --save @angular-package/prism
 ```
 
 Add peer dependencies:
+
 ```bash
-npm i --save @types/prismjs@1.9.0 prismjs@1.9.0
+npm i --save
+  @angular-package/change-detection@1.0.0
+  @angular-package/core@1.0.1
+  @angular-package/reactive@2.0.1-beta
+  @types/prismjs@1.9.0
+  prismjs@1.14.0
+
 ```
+
+## Inputs parameters
+
+| Name | Type | Description |
+|----------|---------------|--|
+| async | boolean = false | *"Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting very large chunks of code."* - prismjs |
+| attribute | [ApPrismTemplate][6]\<[ApHTMLElementAttributes][7]\<string\>\> | To add or remove the specified list of attributes with `string` value to `pre`, `code` [HTMLElement][433].  |
+| callback? | [CallbackType][5] | *"An optional callback to be invoked after the highlighting is done. Mostly useful when async is true, since in that case, the highlighting is done asynchronously."* - prismjs  |
+| class | [ApPrismTemplate][6]\<string\> | To add or remove the specified list of class to `pre`, `code` [HTMLElement][433].  |
+| code? | string | *"A string with the code to be highlighted."* - prismjs |
+| detection | boolean = false | Whether detection is on(true) or off(false). |
+| **hooks?** | Object | Callback with specific execute time and name: `before-sanity-check`, `before-highlight`, `after-highlight`, `complete`, `before-insert`. |
+| **interpolation?** | Object | Data property values to inject.  |
+| language? | string | *"Valid language identifier, for example 'javascript', 'css'."* - prismjs |
+| properties? | [ApChangeDetectionProperties][4] | Properties provided with `index` as name and value `true` will be sensitive for changes. |
 
 ## Usage
 
@@ -101,7 +126,7 @@ import { ExampleComponent } from './example.component'; // your component
 export class ExampleModule { }
 ```
 
-**Step 2.** Use `<ngx-prism></ngx-prism>` tag with content inside and specify its content with property `[language]` to highlight it:
+**Step 2.** Use `<ap-prism></ap-prism>` tag with content inside and specify its content with property `[language]` to highlight it:
 
 ```typescript
 // example.component.ts
@@ -110,9 +135,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'example-component',
   template: `
-    <ngx-prism [language]="language">
+    <ap-prism [language]="language">
       {{content}}
-    </ngx-prism>
+    </ap-prism>
   `
 })
 export class ExampleComponent {
@@ -122,7 +147,7 @@ export class ExampleComponent {
 }
 ```
 
-or use `<ngx-prism></ngx-prism>` tag with `[code]` and `[interpolation]` attribute like in `ExampleComponent` below:
+or use `<ap-prism></ap-prism>` tag with `[code]` and `[interpolation]` attribute like in `ExampleComponent` below:
 
 ```typescript
 // example.component.ts
@@ -131,12 +156,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'example-component',
   template: `
-    <ngx-prism
+    <ap-prism
       [language] = "language"
       [hooks] = "hooks"
       [code] = "content"
       [interpolation] = "interpolate"
-    ></ngx-prism>`
+    ></ap-prism>`
 })
 export class ExampleComponent {
   content = '<p>test {{language}}</p>';
@@ -168,44 +193,12 @@ export class ExampleComponent {
 @import '~prismjs/themes/prism.css';
 ```
 
-### Inputs
-
-| name | Type | Description |
-|----------|---------------|--|
-| async | boolean | *"Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting very large chunks of code."* - prismjs |
-| callback | (element: Element) => void \| undefined = undefined | *"An optional callback to be invoked after the highlighting is done. Mostly useful when async is true, since in that case, the highlighting is done asynchronously."* - prismjs  |
-| cd <br /> *(ChangeDetection)* | PropertiesInterface<br /> **{[index:string]:boolean}** | Properties provided with `index` as name and value `true` will be sensitive for changes. |
-| code | string | *"A string with the code to be highlighted."* - prismjs |
-| **hooks** | Object | Callback with specific execute time and name: `before-sanity-check`, `before-highlight`, `after-highlight`, `complete`, `before-insert`. |
-| **interpolation** | Object \| undefined | Data property values to inject.  |
-| language | string | *"Valid language identifier, for example 'javascript', 'css'."* - prismjs |
-
-
-### Lifecycle Hooks 
-
-[Angular Lifecycle Hooks](https://angular.io/guide/lifecycle-hooks)
-
-#### PrismComponent
-
-**ngAfterViewInit()**: 
-- Sets property `ready` to `true` which by default is `false`. 
-- Property `ready` is used in `highlightElement(result: { code: string, language: string }): void` method to performs when `ready` is set to `true` - `prismService.highlight()` method to highlight code.
-
-**ngAfterContentInit()**: 
-- Update `__properties` for change detection with inputted property `cd`.
-
-
-## Change detection
-
-[Angular source](https://github.com/angular/angular/blob/02394d2d8021c26c4ab80d89efcbba436120d96f/packages/core/src/change_detection/constants.ts)
-
-Component `changeDetectionStrategy` is set to `OnPush` means that the change detector's mode will be initially set to `CheckOnce`, and status `CheckOnce` means that after calling detectChanges the status of the change detector will become `Checked`. Status `Checked` means that the change detector should be skipped until its mode changes to `CheckOnce`.
-
-Change detector status is now manually set to `Detached` by default and it means that its sub tree is not a part of the main tree and should be skipped. However it will call `detectChanges()` in **Setters** with indicated properties.
-
 ## Style guide
 
-[Angular style guide](https://angular.io/docs/ts/latest/guide/style-guide.html) 
+* [Angular style guide][0]
+* [Angular 5 TSLint configuration (best practices)][1]
+* [Angular v5 Snippets][2]
+* [Angular 6 Snippets - TypeScript, Html, Angular Material, ngRx, RxJS & Flex Layout][3]
 
 ## Scripts
 
@@ -221,7 +214,7 @@ Go to just created folder:
 cd angular-package/packages/prism
 ```
 
-To build a clean package, means before that script removes node_modules, dist folder and install dependencies:
+To build a clean package, that means script before build removes `./coverage` `./index.*` `./bundle.umd.*` `./core` `./rxjs` `./node_modules`:
 
 ```bash
 npm run clean:start
@@ -233,7 +226,19 @@ To build a package:
 npm start
 ```
 
-To run karma tests:
+To clean all build directories `./coverage` `./index.*` `./bundle.umd.*` `./core` `./rxjs` `./node_modules`:
+
+```bash
+npm run clean:all
+```
+
+To run **tslint** check:
+
+```bash
+npm run tslint
+```
+
+To run karma **tests**:
 
 ```bash
 npm test
@@ -243,19 +248,20 @@ npm test
 
 ### Commit
 
-- [AngularJS Git Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)   
-- [Karma Git Commit Msg](http://karma-runner.github.io/0.10/dev/git-commit-msg.html)
+* [AngularJS Git Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
+* [Karma Git Commit Msg](http://karma-runner.github.io/0.10/dev/git-commit-msg.html)
 
 ### Versioning
 
 [Semantic Versioning 2.0.0](http://semver.org/)
 
-**Given a version number MAJOR.MINOR.PATCH, increment the:**  
-MAJOR version when you make incompatible API changes,  
-MINOR version when you add functionality in a backwards-compatible manner, and  
-PATCH version when you make backwards-compatible bug fixes.
+**Given a version number MAJOR.MINOR.PATCH, increment the:**
 
-Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.   
+* MAJOR version when you make incompatible API changes,
+* MINOR version when you add functionality in a backwards-compatible manner, and
+* PATCH version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
 
 **FAQ**
 How should I deal with revisions in the 0.y.z initial development phase?
@@ -267,8 +273,21 @@ How do I know when to release 1.0.0?
 
 ## License
 
-MIT © angular-package
+MIT © angular-package ([license][432])
 
 ## Donate
 
-[Click to donate](https://donorbox.org/help-creating-open-source-software)
+[Click to donate][27]
+
+[0]: https://angular.io/docs/ts/latest/guide/style-guide.html
+[1]: https://gist.github.com/stas-kh/2fc80c11c6db0fc4c64354400e29a2b8
+[2]: https://marketplace.visualstudio.com/items?itemName=Mikael.Angular-BeastCode
+[3]: https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2
+[4]: https://github.com/angular-package/angular-package/blob/master/packages/change-detection/packages/interface/src/properties.interface.ts
+[5]: https://github.com/angular-package/angular-package/tree/master/packages/prism/packages/core
+[6]: https://github.com/angular-package/angular-package/tree/master/packages/prism/packages/core
+[7]: https://github.com/angular-package/angular-package/tree/master/packages/prism/packages/core
+[27]: https://donorbox.org/help-creating-open-source-software
+[432]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+[433]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
+[434]: https://angular.io/api/core/ChangeDetectorRef
