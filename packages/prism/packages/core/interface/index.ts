@@ -1,1 +1,1 @@
-export { ApPrismAttributes, ApPrismTemplate } from './src';
+export { ApPrismTemplate } from './src';
