@@ -1,76 +1,65 @@
 // external
 import {
-  AfterContentInit,
   AfterViewInit,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { ChangeDetection } from '@angular-package/change-detection';
+
+// @angular-package
+import { ApChangeDetection } from '@angular-package/change-detection';
+import { ComponentLoader, ComponentLoaderService } from '@angular-package/core/component-loader';
+import { ApAttributeHandlerService } from '../../src/attribute-handler.service';
+import { ApClassnameHandlerService } from '../../src/classname-handler.service';
+import { ApLinkProperyWithService } from '../../src/property.decorator';
 
 // internal
-import { PrismHoodClass } from './prism.class';
+import { PROPERTIES_CHANGE_DETECTION } from './properties.change-detection';
+import { PROPERTIES_LINK } from './properties.link';
+import { PrismAClass } from './prism.class';
 import { PrismService } from './prism.service';
+import { PrismContainerComponent } from './prism-container.component';
 
 /**
  * @export
- * @class PrismComponent
- * @extends {PrismHoodClass}
- * @implements {AfterContentInit}
+ * @class ApPrismComponent
+ * @extends {PrismAClass}
  * @implements {AfterViewInit}
- * @implements {OnInit}
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'apPrism',
   preserveWhitespaces: false,
-  providers: [ PrismService ],
+  providers: [
+    ApAttributeHandlerService,
+    ApClassnameHandlerService,
+    ComponentLoaderService,
+    PrismService
+  ],
   selector: 'ap-prism',
   templateUrl: './prism.component.html'
 })
-@ChangeDetection(false, {
-  async: true,
-  callback: true,
-  code: true,
-  hooks: true,
-  language: true,
-  interpolation: true
-})
-export class PrismComponent extends PrismHoodClass implements AfterContentInit, AfterViewInit, OnInit {
-  /**
-   * Creates an instance of PrismComponent.
-   * @param {ChangeDetectorRef} changeDetectorRef
-   * @param {PrismService} prismService
-   * @memberof PrismComponent
-   */
-  constructor(
-    public changeDetectorRef: ChangeDetectorRef,
-    public prismService: PrismService
-  ) {
-    super(changeDetectorRef, prismService);
-  }
-
-  ngAfterContentInit() {
-    if (this.cd) {
-      this.__properties = this.cd;
-    }
-  }
-
-  /**
-   * @memberof PrismComponent
-   */
+@ComponentLoader<PrismContainerComponent>({
+  component: PrismContainerComponent,
+  container: '.container',
+  properties: PROPERTIES_LINK
+})  
+@ApLinkProperyWithService<ApPrismComponent>(PROPERTIES_LINK, 'prismService')
+@ApChangeDetection<ApPrismComponent>(PROPERTIES_CHANGE_DETECTION)
+//#region "component"  
+export
+  class ApPrismComponent
+  extends PrismAClass
+  implements AfterViewInit {
+  
   ngAfterViewInit() {
+    /*
+    if (this.__create instanceof Function) {
+      this.__create(PrismContainerComponent);
+    }
+    */
     this.ready = true;
-    this.highlightElement({
-      code: this.code,
-      language: this.language
-    });
   }
-
-  ngOnInit() {}
-
 }
-//#endregion
+//#endregion component
