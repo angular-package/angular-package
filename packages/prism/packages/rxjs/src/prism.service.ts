@@ -1,11 +1,11 @@
 
 // external
 import { ElementRef, Injectable, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { PartialObserver } from 'rxjs/Observer';
+import {
+  DomSanitizer,
+  // SafeHtml
+} from '@angular/platform-browser';
+import { Observable, Subject } from 'rxjs';
 import Prism from 'prismjs';
 import * as _ from 'lodash-es';
 
@@ -19,21 +19,15 @@ import { CallbackType, SanitizedType } from './prism.type';
 @Injectable()
 export class PrismService {
 
-  // Define Subject
-  private subject = {
-    code: new Subject<SanitizedType>(),
-    language: new Subject<SanitizedType>()
-  };
-
   /**
    * @type {boolean}
    * @memberof PrismService
    */
-  public _async: boolean;
-  set async(value: boolean) {
+  _async?: boolean;
+  set async(value: boolean | undefined) {
     this._async = value;
   }
-  get async(): boolean {
+  get async(): boolean | undefined {
     return this._async;
   }
 
@@ -41,7 +35,7 @@ export class PrismService {
    * @type {(CallbackType | undefined)}
    * @memberof PrismService
    */
-  public _callback: CallbackType | undefined;
+  _callback: CallbackType | undefined;
   set callback(value: CallbackType | undefined) {
     this._callback = value;
   }
@@ -49,20 +43,12 @@ export class PrismService {
     return this._callback;
   }
 
-  /**
-   * Interpolate with specific template options.
-   * @private
-   * @memberof PrismService
-   */
-  private templateOptions = { interpolate: /{{([\s\S]+?)}}/g };
-
-
-  /**
+    /**
    * code
    * @type {string}
    * @memberof PrismService
    */
-  public _code: SanitizedType | undefined;
+  _code: SanitizedType | undefined;
   set code(value: SanitizedType | undefined) {
     this._code = value;
     if (value) {
@@ -77,8 +63,8 @@ export class PrismService {
    * @type {Object}
    * @memberof PrismService
    */
-  public _hooks: Object;
-  set hooks(value: Object) {
+  _hooks?: Object;
+  set hooks(value: Object | undefined) {
     this._hooks = value;
     if (value instanceof Object) {
       _.forEach(value, (element, key) => {
@@ -86,14 +72,14 @@ export class PrismService {
       });
     }
   }
-  get hooks(): Object {
+  get hooks(): Object | undefined {
     return this._hooks;
   }
 
-  public code$: Observable<SanitizedType> = this.subject.code.asObservable();
-  public language$: Observable<SanitizedType> = this.subject.language.asObservable();
+  code$: Observable<SanitizedType>;
+  language$: Observable<SanitizedType>;
 
-  public _interpolation?: Object | undefined;
+  _interpolation?: Object;
   set interpolation(value: Object | undefined) {
     this._interpolation = value;
   }
@@ -106,37 +92,57 @@ export class PrismService {
    * @type {string}
    * @memberof PrismService
    */
-  public _language: string;
-  set language(value: string) {
+  _language?: string;
+  set language(value: string | undefined) {
     this._language = value;
   }
-  get language(): string {
+  get language(): string | undefined {
     return this._language;
   }
 
   // privates
   private prism = Prism;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  // Define Subject
+  private subject$ = {
+    code: new Subject<SanitizedType>(),
+    language: new Subject<SanitizedType>()
+  };
+
+  /**
+   * Interpolate with specific template options.
+   * @private
+   * @memberof PrismService
+   */
+  private templateOptions = { interpolate: /{{([\s\S]+?)}}/g };
+
+  /**
+   * Creates an instance of PrismService.
+   * @param {DomSanitizer} sanitizer 
+   * @memberof PrismService
+   */
+  constructor(private sanitizer: DomSanitizer) {
+    this.code$ = this.subject$.code.asObservable();
+    this.language$ = this.subject$.language.asObservable();
+  }
 
   /**
    * @param {ElementRef} codeElementRef
    * @memberof PrismService
    */
-  public highlightElement(codeElementRef: ElementRef): void {
+  highlightElement(codeElementRef: ElementRef): void {
     if (codeElementRef instanceof ElementRef) {
       this.interpolate(codeElementRef);
       this.prism.highlightElement(codeElementRef.nativeElement, this.async, this.callback);
     }
   }
 
-
   /**
    * @param {string} string
    * @returns {string}
    * @memberof PrismService
    */
-  public interpolate(codeElementRef: ElementRef): ElementRef {
+  interpolate(codeElementRef: ElementRef): ElementRef {
     if (this.interpolation && codeElementRef instanceof ElementRef) {
       codeElementRef.nativeElement.innerHTML = _.template(codeElementRef.nativeElement.innerHTML, this.templateOptions)(this.interpolation);
     }
