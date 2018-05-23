@@ -1,4 +1,4 @@
-/// <reference path="./../../typings/index.d.ts" />
+/// <reference path="./../../../typings/index.d.ts" />
 // external
 import {
   ElementRef,
@@ -7,7 +7,6 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import Prism from 'prismjs';
 import * as _ from 'lodash-es';
 
 // internal
@@ -24,16 +23,14 @@ import { PrismService } from './prism.service';
 @Injectable()
 export abstract class PrismClass implements PrismInterface {
 
-  protected change = false;
-
   /**
    * Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting very large chunks of code.
    * False by default (why? - http://prismjs.com/faq.html#why-is-asynchronous-highlighting-disabled-by-default).
    */
-  @Input('async') set async(value: boolean) {
+  @Input('async') set async(value: boolean | undefined) {
     this.prismService.async = value;
   }
-  get async(): boolean {
+  get async(): boolean | undefined {
     return this.prismService.async;
   }
 
@@ -54,16 +51,8 @@ export abstract class PrismClass implements PrismInterface {
    * @type {string}
    * @memberof PrismClass
    */
-  @Input('code') set code(value: SanitizedType | undefined) {
-    if (value) {
-      if (typeof (value) === 'string') {
-        this.prismService.code = value;
-      } else {
-        throw new Error(`Property \`code\` should be \`string\` instead of provided \`${typeof (value)}\``);
-      }
-    } else {
-      this.prismService.code = value;
-    }
+  @Input('code') set code(code: SanitizedType | undefined) {
+    this.prismService.code = code;
   }
   get code(): SanitizedType | undefined {
     return this.prismService.code;
@@ -73,10 +62,10 @@ export abstract class PrismClass implements PrismInterface {
    * @type {Object}
    * @memberof PrismClass
    */
-  @Input('hooks') set hooks(value: Object) {
-    this.prismService.hooks = value;
+  @Input('hooks') set hooks(hooks: Object | undefined) {
+    this.prismService.hooks = hooks;
   }
-  get hooks(): Object {
+  get hooks(): Object | undefined {
     return this.prismService.hooks;
   }
 
@@ -85,18 +74,14 @@ export abstract class PrismClass implements PrismInterface {
    * @type {string}
    * @memberof PrismClass
    */
-  @Input('language') set language(value: string) {
-    if (value) {
-      if (typeof (value) === 'string') {
-        this.prismService.language = value;
-      } else {
-        throw new Error(`Property \`language\` should be \`string\` instead of provided \`${typeof (value)}\``);
-      }
+  @Input('language') set language(language: string | undefined) {
+    if (language) {
+      this.prismService.language = language;
     } else {
       throw new Error('Missing property `language`.');
     }
-  };
-  get language(): string {
+  }
+  get language(): string | undefined {
     return this.prismService.language;
   }
 
@@ -117,7 +102,9 @@ export abstract class PrismClass implements PrismInterface {
    * @type {ElementRef}
    * @memberof PrismClass
    */
-  @ViewChild('codeElementRef') public codeElementRef: ElementRef;
+  @ViewChild('codeElementRef') codeElementRef?: ElementRef;
+
+  protected change = false;
 
   /**
    * Creates an instance of PrismClass.
@@ -136,22 +123,14 @@ export abstract class PrismClass implements PrismInterface {
   protected onChanges(prop: string | string[], changes: SimpleChanges): void {
     if (changes) {
       _.each(changes, (value: any, key: string) => {
-        if (prop instanceof Array) {
+        if (value && prop instanceof Array) {
           _.each(prop, (propName) => {
-            if (key === propName) {
-              if (changes[key].currentValue !== changes[key].previousValue && changes[key].firstChange === false) {
-                this.change = true; // changes have been found, set property `change` to `true`.
-              }
+            if (key === propName && (changes[key].currentValue !== changes[key].previousValue && changes[key].firstChange === false)) {
+              this.change = true; // changes have been found, set property `change` to `true`.
             }
           });
-        } else {
-          switch (key) {
-            case prop:
-              if (changes[key].currentValue !== changes[key].previousValue && changes[key].firstChange === false) {
-                this.change = true; // changes have been found, set property `change` to `true`.
-              }
-            break;
-          }
+        } else if (changes[key].currentValue !== changes[key].previousValue && changes[key].firstChange === false) {
+          this.change = true; // changes have been found, set property `change` to `true`.
         }
       });
     }
