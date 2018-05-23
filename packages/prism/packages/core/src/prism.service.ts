@@ -3,15 +3,90 @@
 // external
 import { ElementRef, Injectable, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { template, templateSettings } from 'lodash-es';
 import Prism from 'prismjs';
-import * as _ from 'lodash-es';
+
+// @angular-package
+import { ApChangeDetectionProperties } from '@angular-package/change-detection';
 
 // internal
-import { PrismInterface, OptionsInterface } from './prism.interface';
-import { CallbackType } from './prism.type';
+import { PrismOptions } from '../interface/src/options.interface';
+import { CallbackType } from '../type';
 
+/**
+ * @export
+ * @class PrismService
+ */
 @Injectable()
 export class PrismService {
+  
+  async = false;
+  callback?: CallbackType;
+  codeElement?: ElementRef;
+
+  /**
+   * @type {string}
+   * @memberof PrismService
+   */
+  _code?: string;
+  set code(code: string | undefined) {
+    this._code = (code) ? code : undefined;
+    if (this.ready && this.properties && this.properties.code === true) {
+      this.highlightElement(code);
+    }
+  }
+  get code(): string | undefined {
+    return this._code;
+  }
+
+  /**
+   * @memberof PrismService
+   */
+  set hooks(hooks: Object | undefined) {
+    if (hooks instanceof Object) {
+      for (const name in hooks) {
+        if (name) {
+          Prism.add(name, hooks[name]);
+        }
+      }
+    }
+    if (hooks) {
+      this.highlightElement(this.code);
+    }
+  }
+  get hooks() {
+    return Prism.hooks.all;
+  }
+
+  interpolation?: Object;
+
+  /**
+   * 
+   * 
+   * @memberof PrismService
+   */
+  _language?: string;
+  set language(language: string | undefined) {
+    this._language = language;
+    if (language) {
+      this.highlightElement(this.code);
+    } else {
+      throw new Error('Missing property `language`.');
+    }
+  }
+  get language(): string | undefined {
+    return this._language;
+  }
+
+  properties?: ApChangeDetectionProperties;
+  _ready = false;
+  set ready(ready: boolean) {
+    this._ready = ready;
+    this.highlightElement(this.code);
+  }
+  get ready(): boolean {
+    return this._ready;
+  }
 
   /**
    * Creates an instance of PrismService.
@@ -21,31 +96,17 @@ export class PrismService {
   constructor(private sanitizer: DomSanitizer) { }
 
   /**
-   * @param {ElementRef} el
-   * @param {OptionsInterface} options
+   * @tested
+   * @param {string} [code] 
    * @memberof PrismService
    */
-  public highlight(el: ElementRef, options: OptionsInterface): void {
-    // Always need to have el.
-    if (el instanceof ElementRef) {
-      if (options.code) {
-        el.nativeElement.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML, this.escapeHtml(options.code));
-      }
-      // Perform interpolate.
-      if (options.interpolation) {
-        el.nativeElement.innerHTML = this.interpolate(el.nativeElement.innerHTML, options.interpolation);
-      }
-      // Perform prism highlight code.
-      Prism.highlightElement(el.nativeElement, options.async, options.callback);
-    }
-  }
-
-  /**
-   * @returns
-   * @memberof PrismService
-   */
-  public hooks() {
-    return Prism.hooks;
+  highlightElement(code?: string): void {
+    this.highlight(this.codeElement, {
+      async: this.async,
+      callback: this.callback,
+      code,
+      interpolation: this.interpolation
+    });
   }
 
   /**
@@ -64,6 +125,29 @@ export class PrismService {
   }
 
   /**
+   * 
+   * 
+   * @private
+   * @param {ElementRef} [el] 
+   * @param {PrismOptions} [options] 
+   * @memberof PrismService
+   */
+  private highlight(el?: ElementRef, options?: PrismOptions): void {
+    // Always need to have el.
+    if (this.ready === true && el instanceof ElementRef && options) {
+      if (options.code) {
+        el.nativeElement.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML, this.escapeHtml(options.code));
+      }
+      // Perform interpolate.
+      if (options.interpolation) {
+        el.nativeElement.innerHTML = this.interpolate(el.nativeElement.innerHTML, options.interpolation);
+      }
+      // Perform prism highlight code.
+      Prism.highlightElement(el.nativeElement, options.async, options.callback);
+    }
+  }
+
+  /**
    * @private
    * @param {string} string
    * @param {Object} interpolation
@@ -71,12 +155,12 @@ export class PrismService {
    * @memberof PrismService
    */
   private interpolate(string: string, interpolation: Object): string {
-    if (interpolation && typeof interpolation === 'object') {
+    if (interpolation && interpolation instanceof Object) {
 
       // Use custom template delimiters.
-      _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+      templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
-      return _.template(string)(interpolation);
+      return template(string)(interpolation);
     }
     return string;
   }
