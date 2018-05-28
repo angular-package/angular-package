@@ -3,15 +3,15 @@
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fprism.svg)](https://badge.fury.io/js/%40angular-package%2Fprism)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
-Angular Prism highlighter module. *(version 5)*
+Angular version 5 Prism highlighter module.
 
 ```typescript
-// How to import.
+// Import module.
 import { ApPrismModule } from '@angular-package/prism/core';
 ```
 
 ```html
-<!-- How to use in template. -->
+<!-- Component template selector. -->
 <ap-prism [attribute] [async] [class] [callback] [code]
   [detection] [hooks] [interpolation] [language] [properties] ></ap-prism>
 ```
