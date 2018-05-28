@@ -2,22 +2,14 @@
 import {
   AfterViewInit,
   Component,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
-  ElementRef,
-  EventEmitter,
-  Output,
-  OnDestroy,
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Subscribe } from '@angular-package/reactive/decorator/subscribe';
-import * as _ from 'lodash-es';
+import { Observable, Subscription } from 'rxjs';
+import { ApSubject } from '@angular-package/reactive/subject';
 
 // internal
 import { PrismClass } from './prism.class';
@@ -41,40 +33,13 @@ import { SanitizedType } from './prism.type';
   selector: 'ap-prism',
   templateUrl: './prism.component.html'
 })
-@Subscribe<SanitizedType>(['code', 'language'])
+@ApSubject<SanitizedType>('code', 'language')
 export class PrismComponent extends PrismClass implements AfterViewInit, OnChanges, OnInit {
 
-  code$: Observable<SanitizedType>;
-  code$$$: Subscription;
-  language$: Observable<SanitizedType>;
-  language$$$: Subscription;
-
-  /**
-   * @memberof PrismComponent
-   */
-  ngOnInit() {
-    this.code$$$ = this.code$.subscribe({
-      next: (code: SanitizedType) => {
-        if (this.codeElementRef) {
-          if (this.change === true) {
-            this.codeElementRef.nativeElement.innerHTML = code;
-            this.prismService.highlightElement(this.codeElementRef);
-            this.change = false;
-          }
-        }
-      }
-    });
-    this.language$$$ = this.language$.subscribe({
-      next: (language: SanitizedType) => {
-        if (this.codeElementRef) {
-          if (this.change === true) {
-            this.prismService.highlightElement(this.codeElementRef);
-            this.change = false;
-          }
-        }
-      }
-    });
-  }
+  code$?: Observable<SanitizedType>;
+  code$$$?: Subscription;
+  language$?: Observable<SanitizedType>;
+  language$$$?: Subscription;
 
   /**
    * Creates an instance of PrismComponent.
@@ -88,8 +53,37 @@ export class PrismComponent extends PrismClass implements AfterViewInit, OnChang
   /**
    * @memberof PrismComponent
    */
+  ngOnInit() {
+    if (this.code$) {
+      this.code$$$ = this.code$.subscribe({
+        next: (code: SanitizedType) => {
+          if (this.codeElementRef && this.change === true) {
+            this.codeElementRef.nativeElement.innerHTML = code;
+            this.prismService.highlightElement(this.codeElementRef);
+            this.change = false;
+          }
+        }
+      });  
+    }
+    if (this.language$) {
+      this.language$$$ = this.language$.subscribe({
+        next: () => {
+          if (this.codeElementRef && this.change === true) {
+            this.prismService.highlightElement(this.codeElementRef);
+            this.change = false;
+          }
+        }
+      });        
+    }
+  }
+
+  /**
+   * @memberof PrismComponent
+   */
   ngAfterViewInit() {
-    this.prismService.highlightElement(this.codeElementRef);
+    if (this.codeElementRef) {
+      this.prismService.highlightElement(this.codeElementRef);
+    }
   }
 
   /**
