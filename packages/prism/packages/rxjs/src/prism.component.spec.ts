@@ -1,13 +1,20 @@
 // external
-import { NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
+import {  
+} from 'jasmine';
+
+// import { NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { By } from '@angular/platform-browser';
-import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
+// import { By } from '@angular/platform-browser';
+import {
+  async,
+  ComponentFixture,
+  // inject,
+  TestBed
+} from '@angular/core/testing';
 
 // internal
 import { PrismComponent } from './prism.component';
 import { ApPrismRxjsModule } from './prism.module';
-import { PrismService } from './prism.service';
 
 beforeAll(() => {
   TestBed.resetTestEnvironment();
@@ -17,7 +24,7 @@ beforeAll(() => {
 describe('PrismComponent', () => {
 
   let comp: PrismComponent;
-  let debugElement: any;
+  // let debugElement: any;
   let fixture: ComponentFixture<PrismComponent>;
   let nativeElement: any;
 
@@ -34,7 +41,7 @@ describe('PrismComponent', () => {
     // get from fixture
     comp = fixture.componentInstance;
     nativeElement = fixture.nativeElement;
-    debugElement = fixture.debugElement;
+    // debugElement = fixture.debugElement;
   });
   it('should be defined.', async(() => {
     expect(fixture).toBeDefined();
@@ -55,7 +62,7 @@ describe('PrismComponent', () => {
     comp.ngAfterViewInit();
     fixture.detectChanges();
     comp.code$.subscribe({
-      next: code => expect(nativeElement.querySelector('span[class*="token tag"]')).toBeTruthy()
+      next: () => expect(nativeElement.querySelector('span[class*="token tag"]')).toBeTruthy(ode)
     });
     expect(nativeElement.querySelector('code[class*="language-html"]')).toBeTruthy();
     expect(nativeElement.querySelector('code[class*="language-html"]').innerHTML)
@@ -70,7 +77,7 @@ describe('PrismComponent', () => {
     comp.ngAfterViewInit();
     fixture.detectChanges();
     comp.code$.subscribe({
-      next: code => expect(nativeElement.querySelector('code[class*="language-html"]').innerHTML)
+      next: () => expect(nativeElement.querySelector('code[class*="language-html"]').innerHTML)
         .toContain(comp.interpolation['interpolated'])
     });
     expect(nativeElement.querySelector('code[class*="language-html"]')).toBeTruthy();
