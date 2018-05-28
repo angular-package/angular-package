@@ -1,4 +1,14 @@
-<ap-prism id="ng-content" [detection]="true" [interpolation]="this" [language]="language">{{code.content}}</ap-prism>
-<ap-prism id="code-css" [language]="'css'" [code]="code.css"></ap-prism>
-<ap-prism id="code-html" [language]="'html'" [code]="code.html"></ap-prism>
-<ap-prism id="code-interpolation" [interpolation]="this" [language]="language" [code]="code.html"></ap-prism>
+<ap-prism *ngIf="id.async" id="async" [async]="async" [language]="language">{{code.content}}</ap-prism>
+<ap-prism *ngIf="id.attribute" id="attribute" [attribute]="attribute" [language]="language">{{code.content}}</ap-prism>
+<ap-prism *ngIf="id.class" id="class" [class]="className" [language]="language">{{code.content}}</ap-prism>
+
+<ap-prism *ngIf="id.code_detection" id="code-detection" [detection]="detection" [language]="language" [code]="code.html"></ap-prism>
+<ap-prism *ngIf="id.code_properties" id="code-properties" [properties]="properties" [language]="language" [code]="code.html"></ap-prism>
+
+<!-- tested -->
+<ap-prism *ngIf="id.ng_content" id="ng-content" [interpolation]="this" [language]="language">{{code.content}}</ap-prism>
+
+<ap-prism *ngIf="id.code_css" id="code-css" [language]="'css'" [code]="code.css"></ap-prism>
+<ap-prism *ngIf="id.code_html" id="code-html" [language]="'html'" [code]="code.html"></ap-prism>
+<ap-prism *ngIf="id.code_interpolation" id="code-interpolation" [interpolation]="this" [language]="language" [code]="code.html"></ap-prism>
+
