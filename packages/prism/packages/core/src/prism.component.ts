@@ -24,6 +24,7 @@ import { PrismService } from './prism.service';
 // import { PrismContainerComponent } from './prism-container.component';
 
 /**
+ * Angular Component for Prism highlighter.
  * @export
  * @class ApPrismComponent
  * @extends {PrismClass}
