@@ -8,7 +8,10 @@ import {
 
 // @angular-package
 import { ApChangeDetection } from '@angular-package/change-detection';
-import { ComponentLoader, ComponentLoaderService } from '@angular-package/core/component-loader';
+import {
+  // ComponentLoader,
+  ComponentLoaderService
+} from '@angular-package/core/component-loader';
 import { ApAttributeHandlerService } from '../../src/attribute-handler.service';
 import { ApClassnameHandlerService } from '../../src/classname-handler.service';
 import { ApLinkProperyWithService } from '../../src/property.decorator';
@@ -16,14 +19,14 @@ import { ApLinkProperyWithService } from '../../src/property.decorator';
 // internal
 import { PROPERTIES_CHANGE_DETECTION } from './properties.change-detection';
 import { PROPERTIES_LINK } from './properties.link';
-import { PrismAClass } from './prism.class';
+import { PrismClass } from './prism.class';
 import { PrismService } from './prism.service';
-import { PrismContainerComponent } from './prism-container.component';
+// import { PrismContainerComponent } from './prism-container.component';
 
 /**
  * @export
  * @class ApPrismComponent
- * @extends {PrismAClass}
+ * @extends {PrismClass}
  * @implements {AfterViewInit}
  */
 @Component({
@@ -40,17 +43,19 @@ import { PrismContainerComponent } from './prism-container.component';
   selector: 'ap-prism',
   templateUrl: './prism.component.html'
 })
+/*  
 @ComponentLoader<PrismContainerComponent>({
   component: PrismContainerComponent,
   container: '.container',
   properties: PROPERTIES_LINK
 })  
-@ApLinkProperyWithService<ApPrismComponent>(PROPERTIES_LINK, 'prismService')
+*/
+@ApLinkProperyWithService<ApPrismComponent>(PROPERTIES_LINK, 'prismService', true)
 @ApChangeDetection<ApPrismComponent>(PROPERTIES_CHANGE_DETECTION)
 //#region "component"  
 export
   class ApPrismComponent
-  extends PrismAClass
+  extends PrismClass
   implements AfterViewInit {
   
   ngAfterViewInit() {
