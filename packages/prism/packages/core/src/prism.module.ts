@@ -4,12 +4,12 @@ import { NgModule } from '@angular/core';
 
 // internal
 import { ApPrismComponent } from './prism.component';
-import { PrismContainerComponent } from './prism-container.component';
+// import { PrismContainerComponent } from './prism-container.component';
 
 // common
 const COMMON_DECLARATIONS_EXPORTS = [ 
   ApPrismComponent,
-  PrismContainerComponent
+  // PrismContainerComponent
 ];
 
 /**
@@ -19,7 +19,7 @@ const COMMON_DECLARATIONS_EXPORTS = [
  */
 @NgModule({
   declarations: COMMON_DECLARATIONS_EXPORTS,
-  entryComponents: [ PrismContainerComponent ],
+  // entryComponents: [ PrismContainerComponent ],
   exports: COMMON_DECLARATIONS_EXPORTS,
   imports: [ CommonModule ]
 })
