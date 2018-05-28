@@ -114,7 +114,7 @@ npm i --save
 
 ## Usage
 
-### Example on `@angular/cli` version **5**.
+### Example on `@angular/cli` version **5**
 
 **Step 1.** Go to `styles.css` and import prism css.
 
@@ -224,7 +224,24 @@ export class AppComponent {
 
 ### Add plugin `line-numbers`
 
-**Step 1.** Import `line-numbers` plugin from prism in `app.component.ts`.
+**Step 1.** Go to `styles.css` and import prism-line-numbers styles.
+
+```css
+/* You can add global styles to this file, and also import other style files */
+/*
+@import '~prismjs/themes/prism-coy.css';
+@import '~prismjs/themes/prism-dark.css';
+@import '~prismjs/themes/prism-funky.css';
+@import '~prismjs/themes/prism-okaidia.css';
+@import '~prismjs/themes/prism-solarizedlight.css';
+@import '~prismjs/themes/prism-tomorrow.css';
+@import '~prismjs/themes/prism-twilight.css';
+*/
+@import '~prismjs/themes/prism.css';
+@import '~prismjs/plugins/line-numbers/prism-line-numbers.css'; /* <--- Add plugin line-numbers styles. */
+```
+
+**Step 2.** Import `line-numbers` plugin from prism in `app.component.ts`.
 
 ```typescript
 // app.component.ts
@@ -248,7 +265,7 @@ export class AppComponent {
 }
 ```
 
-**Step 2.** Add attribute `data-start` and class to `<pre>` tag.
+**Step 3.** Add attribute `data-start` and class to `<pre>` tag.
 
 ```typescript
 // app.component.ts
@@ -282,7 +299,7 @@ export class AppComponent {
 }
 ```
 
-**Step 3.** Add new `<ap-prism>` tag with specified `[attribute]` and `[class]`.
+**Step 4.** Add new `<ap-prism>` tag with specified `[attribute]` and `[class]`.
 
 ```html
 <!-- app.component.html -->
