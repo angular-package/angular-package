@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { PrismComponent } from './prism.component';
 
 /**
- * Angular Module for Prism
+ * Angular Module for Prism.
  * @export
  * @class PrismModule
  */
