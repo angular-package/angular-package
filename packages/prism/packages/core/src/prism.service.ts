@@ -12,6 +12,10 @@ import { ApChangeDetectionProperties } from '@angular-package/change-detection';
 // internal
 import { PrismOptions } from '../interface/src/options.interface';
 import { CallbackType } from '../type';
+import { ApPrismTemplate } from '../interface';
+import { ApObject } from '../interface/src/object.interface';
+import { ApAttributeHandlerService } from '../../src/attribute-handler.service';
+import { ApClassnameHandlerService } from '../../src/classname-handler.service';
 
 /**
  * @export
@@ -19,9 +23,95 @@ import { CallbackType } from '../type';
  */
 @Injectable()
 export class PrismService {
-  
+
+  /**
+   * @memberof PrismService
+   */
   async = false;
+
+  /**
+   * @type {ApAttributeHandlerService}
+   * @memberof PrismService
+   */
+  attributeHandlerService?: ApAttributeHandlerService;
+
+  /**
+   * @type {ApClassnameHandlerService}
+   * @memberof PrismService
+   */
+  classNameHandlerService?: ApClassnameHandlerService;
+
+  /**
+   * Store attribute value.
+   * @tested
+   * @type {(ApPrismTemplate<ApObject<string>> | null)}
+   * @memberof PrismInputClass
+   */
+  _attribute: ApPrismTemplate<ApObject<string>> | null = null;
+  set attribute(attribute: ApPrismTemplate<ApObject<string>> | null) {
+    if (attribute) {
+
+       // <pre> attributes.
+      if (this.preElement && attribute.pre && this.attributeHandlerService) {
+        this.attributeHandlerService.set(
+          this.preElement,
+          attribute.pre,
+          (this._attribute && this._attribute.pre) ? this._attribute.pre : undefined
+        );
+      }
+
+      // <code> attributes.
+      if (this.codeElement && attribute.code && this.attributeHandlerService) {  
+        this.attributeHandlerService.set(
+          this.codeElement,
+          attribute.code,
+          (this._attribute && this._attribute.code) ? this._attribute.code : undefined
+        );
+      }  
+
+      this._attribute = Object.assign({}, attribute);
+    }
+  }
+
+  /**
+   * @type {CallbackType}
+   * @memberof PrismService
+   */
   callback?: CallbackType;
+
+  /**
+   * @type {(ApPrismTemplate<string[]> | null)}
+   * @memberof PrismService
+   */
+  _class: ApPrismTemplate<string[]> | null = null;
+  set class(value: ApPrismTemplate<string[]> | null) {
+    if (value) {
+
+      // <pre> class.
+      if (this.preElement && value.pre && this.classNameHandlerService) {
+        this.classNameHandlerService.set(
+          this.preElement,
+          value.pre,
+          (this._class && this._class.pre) ? this._class.pre : undefined
+        );
+      }
+
+      // <code> class.
+      if (this.codeElement && value.code && this.classNameHandlerService) {
+        this.classNameHandlerService.set(
+          this.codeElement,
+          value.code,
+          (this._class && this._class.code) ? this._class.code : undefined
+        );
+      }
+      this._class = Object.assign({}, value);
+    }
+  }
+
+  /**
+   * @type {ElementRef}
+   * @memberof PrismService
+   */
   codeElement?: ElementRef;
 
   /**
@@ -45,7 +135,7 @@ export class PrismService {
   set hooks(hooks: Object | undefined) {
     if (hooks instanceof Object) {
       for (const name in hooks) {
-        if (name) {
+        if (name && hooks[name] instanceof Function) {
           Prism.add(name, hooks[name]);
         }
       }
@@ -54,15 +144,17 @@ export class PrismService {
       this.highlightElement(this.code);
     }
   }
-  get hooks() {
+  get hooks(): Object | undefined {
     return Prism.hooks.all;
   }
 
+  /**
+   * @type {Object}
+   * @memberof PrismService
+   */
   interpolation?: Object;
 
   /**
-   * 
-   * 
    * @memberof PrismService
    */
   _language?: string;
@@ -78,10 +170,26 @@ export class PrismService {
     return this._language;
   }
 
+  /**
+   * @type {ElementRef}
+   * @memberof PrismService
+   */
+  preElement?: ElementRef;
+
+  /**
+   * @type {ApChangeDetectionProperties}
+   * @memberof PrismService
+   */
   properties?: ApChangeDetectionProperties;
+
+  /**
+   * @memberof PrismService
+   */
   _ready = false;
   set ready(ready: boolean) {
     this._ready = ready;
+    this.attribute = this._attribute;
+    this.class = this._class;
     this.highlightElement(this.code);
   }
   get ready(): boolean {
