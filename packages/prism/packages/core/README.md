@@ -3,17 +3,24 @@
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fprism.svg)](https://badge.fury.io/js/%40angular-package%2Fprism)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
-Core Angular 5+ Prism highlighter module.
+Angular Prism highlighter module. *(version 5)*
 
 ```typescript
+// How to import.
 import { ApPrismModule } from '@angular-package/prism/core';
+```
+
+```html
+<!-- How to use in template. -->
+<ap-prism [attribute] [async] [class] [callback] [code]
+  [detection] [hooks] [interpolation] [language] [properties] ></ap-prism>
 ```
 
 ## Table of contents
 
 * [Demonstration](#demonstration)
 * [Installation](#installation)
-* [Inputs](#inputs)
+* [Input](#input)
 * [Usage](#usage)
 * [Scripts](#scripts)
 * [Style guide](#style-guide)
@@ -27,13 +34,15 @@ import { ApPrismModule } from '@angular-package/prism/core';
 
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
-* Added [@angular-package/change-detection](https://github.com/angular-package/angular-package/tree/master/packages/change-detection) feature with all its **pros** and **cons**.
+* Uses [@angular-package/change-detection](https://github.com/angular-package/angular-package/tree/master/packages/change-detection) feature with all its **pros** and **cons**.
 * Dynamically changes highlight string with `code` input property.
 * It uses prismjs `highlightElement(element, async, callback)` to higlight, so `async` and `hooks` internal prism features can be used.
 * Interpolates string to highlight with `interpolation` object.
 * Performs highlight depending on whether property change detection is active or unactive.
 * `@angular/cli` usage [**demonstration**](https://github.com/angular-package/angular-package/tree/master/packages/prism/demo) inside repository.
 * No known vulnerabilities found by [**snyk.io**](https://snyk.io/test/npm/@angular-package/prism).
+* Logic in `PrismService`.
+* ~~Stateless component.~~
 
 ### Cons(-)
 
@@ -79,16 +88,16 @@ npm i --save @angular-package/prism
 Add peer dependencies:
 
 ```bash
+
 npm i --save
   @angular-package/change-detection@1.0.0
   @angular-package/core@1.0.1
   @angular-package/reactive@2.0.1-beta
   @types/prismjs@1.9.0
   prismjs@1.14.0
-
 ```
 
-## Inputs parameters
+## @Input
 
 | Name | Type | Description |
 |----------|---------------|--|
@@ -98,91 +107,21 @@ npm i --save
 | class | [ApPrismTemplate][6]\<string\> | To add or remove the specified list of class to `pre`, `code` [HTMLElement][433].  |
 | code? | string | *"A string with the code to be highlighted."* - prismjs |
 | detection | boolean = false | Whether detection is on(true) or off(false). |
-| **hooks?** | Object | Callback with specific execute time and name: `before-sanity-check`, `before-highlight`, `after-highlight`, `complete`, `before-insert`. |
-| **interpolation?** | Object | Data property values to inject.  |
+| hooks? | Object | Callback with specific execute time and name: `before-sanity-check`, `before-highlight`, `after-highlight`, `complete`, `before-insert`. |
+| interpolation? | Object | Data property values to inject.  |
 | language? | string | *"Valid language identifier, for example 'javascript', 'css'."* - prismjs |
 | properties? | [ApChangeDetectionProperties][4] | Properties provided with `index` as name and value `true` will be sensitive for changes. |
 
 ## Usage
 
-**Step 1.** Import `ApPrismModule` into your module:
+### Example on `@angular/cli` version **5**.
 
-```typescript
-// example.module.ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { ApPrismModule } from '@angular-package/prism'; // <----- Here
-import { ExampleComponent } from './example.component'; // your component
-
-@NgModule({
-  declarations: [ ExampleComponent ],
-  imports: [
-    CommonModule,
-    ApPrismModule // <----- Here
-  ],
-  exports: [ ExampleComponent ]
-})
-export class ExampleModule { }
-```
-
-**Step 2.** Use `<ap-prism></ap-prism>` tag with content inside and specify its content with property `[language]` to highlight it:
-
-```typescript
-// example.component.ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'example-component',
-  template: `
-    <ap-prism [language]="language">
-      {{content}}
-    </ap-prism>
-  `
-})
-export class ExampleComponent {
-  language = 'html';
-  content = '<p>test</p>';
-  constructor() { }
-}
-```
-
-or use `<ap-prism></ap-prism>` tag with `[code]` and `[interpolation]` attribute like in `ExampleComponent` below:
-
-```typescript
-// example.component.ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'example-component',
-  template: `
-    <ap-prism
-      [language] = "language"
-      [hooks] = "hooks"
-      [code] = "content"
-      [interpolation] = "interpolate"
-    ></ap-prism>`
-})
-export class ExampleComponent {
-  content = '<p>test {{language}}</p>';
-  hooks = {
-    'before-sanity-check': (env) => { console.log(`before-sanity-check`, env); },
-    'before-highlight': (env) => { console.log(`before-highlight`, env); },
-    'after-highlight': (env) => { console.log(`after-highlight`, env); },
-    'complete': (env) => { console.log(`complete`, env); },
-    'before-insert': (env) => { console.log(`before-insert`, env); }
-  };
-  interpolate = {
-    language: 'language interpolated'
-  };
-  language = 'html';
-  constructor() { }
-}
-```
-
-**Step 3.** Import themes files in `@angular/cli`:
+**Step 1.** Go to `styles.css` and import prism css.
 
 ```css
+/* styles.css */
+/* You can add global styles to this file, and also import other style files */
+/*
 @import '~prismjs/themes/prism-coy.css';
 @import '~prismjs/themes/prism-dark.css';
 @import '~prismjs/themes/prism-funky.css';
@@ -190,7 +129,181 @@ export class ExampleComponent {
 @import '~prismjs/themes/prism-solarizedlight.css';
 @import '~prismjs/themes/prism-tomorrow.css';
 @import '~prismjs/themes/prism-twilight.css';
+*/
 @import '~prismjs/themes/prism.css';
+
+```
+
+**Step 2.** Import `ApPrismModule` from `@angular-package/prism` and add to `NgModule` imports:
+
+```typescript
+// app.module.ts
+// @angular
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+// @angular-package/prism
+import { ApPrismModule } from '@angular-package/prism/core'; // <----- Import module.
+
+// internal
+import { AppComponent } from './app.component';
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    ApPrismModule                             // <----- Add to NgModule imports.
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
+**Step 3.** Use `<ap-prism></ap-prism>` tag with content inside and specify its language:
+
+```html
+<!-- app.component.html -->
+<!-- Highlight using ng-content -->
+<ap-prism [language]="language">{{content}}</ap-prism>
+```
+
+```typescript
+// app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+  language = 'html';                          // <----- Add property with language.
+  content = '<p>test</p>';                    // <----- HTML content to be highlighted by prism.
+}
+```
+
+or add `<ap-prism></ap-prism>` tag with `[code]` and `[interpolation]` attribute like below:
+
+```html
+<!-- app.component.html -->
+<!-- Highlight using ng-content -->
+<ap-prism [language]="language">{{content}}</ap-prism>
+
+<!-- Highlight using [code] attribute -->
+<ap-prism
+  [language] = "language"
+  [code] = "content"
+  [interpolation] = "interpolate"
+></ap-prism>`
+```
+
+```typescript
+// app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+  language = 'html';                          // <----- Add property with language.
+  content = '<p>test {{language}}</p>';       // <----- HTML content to be highlighted by prism.
+  interpolate = {
+    language: this.language                   // <----- Interpolate property `language` in `content`.
+  };
+}
+```
+
+### Add plugin `line-numbers`
+
+**Step 1.** Import `line-numbers` plugin from prism in `app.component.ts`.
+
+```typescript
+// app.component.ts
+import { Component } from '@angular/core';
+
+// Import line-numbers prism plugin.
+import 'prismjs/plugins/line-numbers/prism-line-numbers.js';  // <----- Import plugin.
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+  language = 'html';                              // <----- Add property with language.
+  content = '<p>test {{language}}</p>';           // <----- HTML content to be highlighted by prism.
+  interpolate = {
+    language: this.language                       // <----- Interpolate property `language` in `content`.
+  };
+}
+```
+
+**Step 2.** Add attribute `data-start` and class to `<pre>` tag.
+
+```typescript
+// app.component.ts
+import { Component } from '@angular/core';
+import { ApPrismTemplate } from '@angular-package/prism/core/interface';  // <----- Import interface to configure code or pre tag.
+import { ApObject } from '@angular-package/prism/core/interface/src/object.interface';  // <----- Import interface for objects.
+
+// Import line-numbers prism plugin.
+import 'prismjs/plugins/line-numbers/prism-line-numbers.js';  // <----- Import `line-numbers` plugin.
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  attribute: ApPrismTemplate<ApObject<string>> = {  // <----- Add `data-start` attribue to `<pre>` tag.
+    pre: {
+      'data-start': '-5'
+    }
+  };
+  class: ApPrismTemplate<string[]> = {              // <----- `class` property to add class to `<pre`> tag.
+    pre: ['line-numbers']
+  };
+  title = 'app';
+  language = 'html';                                // <----- Add property with language.
+  content = '<p>test {{language}}</p>';             // <----- HTML content to be highlighted by prism.
+  interpolate = {
+    language: this.language                         // <----- Interpolate property `language` in `content`.
+  };
+}
+```
+
+**Step 3.** Add new `<ap-prism>` tag with specified `[attribute]` and `[class]`.
+
+```html
+<!-- app.component.html -->
+<!-- Highlight using ng-content -->
+<ap-prism [language]="language">{{content}}</ap-prism>
+
+<!-- Highlight using [code] attribute -->
+<ap-prism
+  [language] = "language"
+  [code] = "content"
+  [interpolation] = "interpolate"
+></ap-prism>
+
+<!-- Highlight using [attribute] and [code] attribute -->
+<ap-prism
+  [attribute] = "attribute"
+  [class] = "class"
+  [language] = "language"
+  [code] = "content"
+  [interpolation] = "interpolate"
+></ap-prism>
 ```
 
 ## Style guide
