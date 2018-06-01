@@ -6,7 +6,6 @@ import { ComponentLoaderClassComponent } from './component-loader-class.componen
 import { ComponentLoaderDecoratorComponent } from './component-loader-decorator.component';
 import { ComponentLoaderServiceComponent } from './component-loader-service.component';
 
-
 @NgModule({
   imports: [CommonModule],
   declarations: [
