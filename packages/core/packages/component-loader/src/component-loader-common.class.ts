@@ -49,9 +49,14 @@ export
   __properties: Array<string> = [];
 
   /**
-   * 
+   * Handle property bind or wrap.
    */
-  protected propertyClass?: PropertyClass;
+  protected _propertyClass?: PropertyClass;
+  get propertyClass(): PropertyClass | undefined {
+    this._propertyClass = (this._propertyClass) ? this._propertyClass : new PropertyClass(this.__prefix, this.__suffix);
+
+    return this._propertyClass;
+  }
 
   /**
    * Creates an instance of ComponentLoaderCommonAClass.
@@ -139,17 +144,19 @@ export
    * @param getter Callback function performed on get.
    */
   protected __wrap<S>(p: Array<string> = this.__properties, source: S, setter: Setter<S>, getter: Getter<S>): this {
-    this.propertyClass = (this.propertyClass) ? this.propertyClass : new PropertyClass(this.__prefix, this.__suffix);
+    
     if (this.propertyClass instanceof PropertyClass) {
       // Wrap properties with specified setter and getter.
       this.propertyClass.wrap<S>(source, p, setter, getter);
 
       // Assign initial values to dynamic component.
+      /*
       p.forEach((property: string): void => {
         if (this.propertyClass) {
           this.__set<any>(property, source[this.propertyClass.propertyName(property)]);
         }
       });
+      */
     }
     
     return this;
