@@ -12,7 +12,7 @@ export class PropertyClass extends PrefixSuffixClass {
   /**
    * Instance of store.
    */
-  private store: StoreOriginalClass = new StoreOriginalClass();
+  private stored: StoreOriginalClass = new StoreOriginalClass();
 
   /**
    * List of properties that were being binded.
@@ -63,6 +63,8 @@ export class PropertyClass extends PrefixSuffixClass {
           properties.forEach((property: string) => {
             if (typeof target === 'string') {
               this._bind(source, property, target);
+            } else {
+              this._bind(source, property, target);
             }
           });
         } else if (typeof target === 'string') {
@@ -107,7 +109,7 @@ export class PropertyClass extends PrefixSuffixClass {
   /**
    * Define new property in source object.
    * @template S Component source type.
-   * @param source Component as Function or as json object to define property.
+   * @param source Component as `Function` or `Object` to define property.
    * @param property Name of defined property.
    * @param descriptor Configuration of defining property.
    */
@@ -150,18 +152,19 @@ export class PropertyClass extends PrefixSuffixClass {
   }
 
   /**
-   * Bind property from component one to one to service in the same component with targetName.
+   * Bind property from source component one to one to the target.
    * @template S Component source type.
    * @param source Component as Function or as json object to bind its property to the target.
    * @param property Name of property to bind to target.
-   * @param target Target to have property binded to source property.
+   * @param target Name of object in source component or another object.
    */
   private _bind<S, T, R = any>(source: Function | S, property: string, target: T | string): void {
     // Check if property is already used.
     if (this.binded instanceof Array && this.binded.includes(property) === false) {
+      console.info(target);
 
       // Store original Setter/Getter.
-      const store = this.store.setterGetter(source, property);
+      const store = this.stored.setterGetter(source, property);
 
       // Create `get()` method.
       const get = (): R => {
@@ -234,7 +237,7 @@ export class PropertyClass extends PrefixSuffixClass {
     if (this.wrapped.includes(property) === false) {
 
       // Store original Setter/Getter.
-      const store = this.store.setterGetter(source, property);
+      const store = this.stored.setterGetter(source, property);
 
       // Property with prefix and suffix.
       const sourcePropertyName = this.propertyName(property);
