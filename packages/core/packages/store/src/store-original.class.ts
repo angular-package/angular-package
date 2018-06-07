@@ -2,18 +2,18 @@
 import * as _ from 'lodash-es';
 
 // internal
-import { CycleHookType } from '../../type';
-import { CycleHookInterface } from '../../interface';
+import { CycleHook } from '../../type';
+import { CycleHookMethods } from '../../interface';
 import { StoreGetterSetterInterface } from '../interface';
 
 /**
  * Class to store original `setter`, `getter` and cycle hooks.
  * @export
  * @class StoreOriginalClass
- * @implements {CycleHookInterface}
+ * @implements {CycleHookMethods}
  * @implements {StoreGetterSetterInterface}
  */
-export class StoreOriginalClass implements CycleHookInterface, StoreGetterSetterInterface {
+export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterInterface {
 
   getter = {};
   setter = {};
@@ -29,11 +29,11 @@ export class StoreOriginalClass implements CycleHookInterface, StoreGetterSetter
 
   /**
    * @param {Function} t Function or component.
-   * @param {CycleHookType[]} names Name of cycleHook to store.
+   * @param {CycleHook[]} names Name of cycleHook to store.
    * @returns {StoreOriginalClass}
    * @memberof StoreOriginalClass
    */
-  public cycleHook(t: Function, names: CycleHookType[]): StoreOriginalClass {
+  public cycleHook(t: Function, names: CycleHook[]): StoreOriginalClass {
     if (names instanceof Array) {
       _.each(names, (name: string) => {
         if (name) {
