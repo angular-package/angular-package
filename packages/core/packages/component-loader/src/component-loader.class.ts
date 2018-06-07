@@ -24,11 +24,20 @@ export
   @ViewChild('container', { read: ViewContainerRef }) container?: ViewContainerRef;
 
   /**
+   * Bind source component properties with dynamic component instance by using setters and getters.
+   * @param [p=this.__properties] Properties to be linked in source component with dynamic component.
+   */
+  __bind(p: Array<string> = this.__properties): void {
+    if (this.propertyClass && this.__component) {
+      this.propertyClass.bind(this, p, this.__component.instance);
+    }
+  }
+
+  /**
    * Create in html `#container` resolved component.
    * @param component Component that will be created.
    */
   __create(component: Type<T>): this {
-    console.info(component);
     if (!this.__component && this.container && component) {
       this.__component = this.container.createComponent(this.__resolve(component));
     }
@@ -50,7 +59,7 @@ export
   }
 
   /**
-   * Link source(extended) component properties with dynamic component instance by using setters and getters.
+   * Link source component properties with dynamic component instance by using setters and getters.
    * @param [p=this.__properties] Properties to be linked in source component with dynamic component.
    */
   __link(p: Array<string> = this.__properties): void {
