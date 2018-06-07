@@ -6,7 +6,7 @@ List of features to help handle dynamic component.
 import { ComponentLoader, ComponentLoaderClass, ComponentLoaderService } from '@angular-package/core/component-loader';
 ```
 
-#### Available features
+## Available features
 
 | Feature                   | Description                                             | Status     | Readme       |
 |---------------------------|---------------------------------------------------------|------------|--------------|
