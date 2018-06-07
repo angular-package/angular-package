@@ -22,7 +22,6 @@ module.exports = function(config) {
       // Make sure to disable Karma’s file watcher
       // because the preprocessor will use its own.
       { pattern: 'test/index.ts', watched: false },
-      { pattern: 'test/*.spec.ts', watched: false },
       { pattern: 'packages/component-loader/src/*.spec.ts', watched: false }
     ],
 
