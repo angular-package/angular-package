@@ -25,7 +25,7 @@ beforeAll(() => {
   TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 });
 
-describe('ComponentLoader (Decorator)', () => {
+describe('ComponentLoader (Decorator) ', () => {
 
   let comp: ComponentLoaderDecoratorComponent;
   let fixture: ComponentFixture<ComponentLoaderDecoratorComponent>;
@@ -49,21 +49,24 @@ describe('ComponentLoader (Decorator)', () => {
     };
     spyOn(f, 'complete');
   });
-  it('should create test component', async(() => {
+
+  it('#1. Should create test component', async(() => {
     expect(fixture)
       .toBeDefined();
     expect(comp)
       .toBeTruthy();
   }));
-  it('should have div', async(() => {
+  it('#2. Should have div', async(() => {
     expect(nativeElement.querySelector('div'))
       .toBeTruthy();
   }));
-  it('should have __component undefined', async(() => {
+
+  it('#3. Should have __component undefined', async(() => {
     expect(comp.__component)
       .toBeUndefined();
   }));
-  it('this.__component should be created', async(() => {
+
+  it('#4. this.__component should be created', async(() => {
     comp.__create();
     expect(comp.__component)
       .toBeDefined();
