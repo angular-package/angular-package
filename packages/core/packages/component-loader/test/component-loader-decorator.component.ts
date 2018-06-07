@@ -24,9 +24,9 @@ const config = {
 @ComponentLoader<DynamicComponent>(config)
 export class ComponentLoaderDecoratorComponent implements ComponentLoaderCommonInterface<DynamicComponent> {
 
-  public model = {};
-  public key = 'notdefined';
-  public surname = 'MySurname';
+  model = {};
+  key = 'notdefined';
+  surname = 'MySurname';
 
   // LoaderService.
   __component: any;
