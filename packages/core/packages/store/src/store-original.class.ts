@@ -9,9 +9,6 @@ import { StoreGetterSetterInterface } from '../interface';
 /**
  * Class to store original `setter`, `getter` and cycle hooks.
  * @export
- * @class StoreOriginalClass
- * @implements {CycleHookMethods}
- * @implements {StoreGetterSetterInterface}
  */
 export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterInterface {
 
@@ -28,12 +25,10 @@ export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterIn
   ngOnChanges?: Function;
 
   /**
-   * @param {Function} t Function or component.
-   * @param {CycleHook[]} names Name of cycleHook to store.
-   * @returns {StoreOriginalClass}
-   * @memberof StoreOriginalClass
+   * @param t Function or component.
+   * @param names Name of cycleHook to store.
    */
-  public cycleHook(t: Function, names: CycleHook[]): StoreOriginalClass {
+  cycleHook(t: Function, names: Array<CycleHook>): StoreOriginalClass {
     if (names instanceof Array) {
       _.each(names, (name: string) => {
         if (name) {
@@ -41,16 +36,15 @@ export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterIn
         }
       });
     }
+
     return this;
   }
 
   /**
-   * @param {Function} t Function or component.
-   * @param {(string | string[])} p Properties to store getter/setter.
-   * @returns {StoreOriginalClass}
-   * @memberof StoreOriginalClass
+   * @param t Function or component.
+   * @param p Properties to store getter/setter.
    */
-  public setterGetter<T>(t: Function | T, p: string | string[]): StoreOriginalClass {
+  setterGetter<T>(t: Function | T, p: string | Array<string>): StoreOriginalClass {
     try {
       if (p instanceof Array) {
         if (t instanceof Function) {
@@ -61,15 +55,14 @@ export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterIn
       }
     } catch (e) {
     }
+
     return this;
   }
 
   /**
    * Method to merge found setter/getter in this object.
-   * @private
-   * @param {Function} t Function or component.
-   * @param {string} p Properties to store getter/setter.
-   * @memberof StoreOriginalClass
+   * @param t Function or component.
+   * @param p Properties to store getter/setter.
    */
   private merge<T>(t: Function | T, p: string): void {
     if (t) {
