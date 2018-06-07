@@ -12,5 +12,5 @@ import { ComponentLoaderCommonInterface } from '.';
 export interface ComponentLoaderClassInterface<T> extends ComponentLoaderCommonInterface<T> {
   componentFactoryResolver: ComponentFactoryResolver;
   container?: ViewContainerRef;
-  __link: ((p: Array<string>) => void) | undefined;
+  __bind: ((p: Array<string>) => void) | undefined;
 }
