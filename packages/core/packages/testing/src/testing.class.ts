@@ -19,25 +19,22 @@ export class TestingClass<T> extends SelectorClass<T> {
   }
 
   eachIt(...args: Array<{ [index: string]: { true: Function } }>): void {
-    let tests = {};
-    args.forEach(set => {
-      tests = { ...tests, ...set };
-    });
+    const tests = Object.assign({}, ...args);
     let i = 1;
     for (const name in tests) {
       if (tests.hasOwnProperty(name) && tests[name].hasOwnProperty('true')) {
-        let run = true;
-        if (this.options.run.length > 0 && this.options.run.includes(i)) {
-          run = false;
-        }
 
         // Information console.
-        if (this.options.info === true) {
-          console.info(`#${i}. ${name}`);
+        if (this.options.console === true && this.options.execute.length > 0 && !this.options.execute.includes(i)) {
+          console.info(`[Not executed] #${i}. ${name}`);
         }
 
         // Do test.
-        if (run === true) {
+        if (this.options.execute.length === 0 || (this.options.execute.length > 0 && this.options.execute.includes(i))) {
+          console.info((this.options.execute.length > 0 && this.options.execute.includes(i)));
+          if (this.options.console === true) {
+            console.info(`#${i}. ${name}`);
+          }
           it(name, async(() => {
             tests[name].true();
           }));  
@@ -46,7 +43,7 @@ export class TestingClass<T> extends SelectorClass<T> {
       }
     }
   }
-
+ 
   property<PT>(property?: string): PT {
     return (property) ? get(this.comp, property) : this.comp;
   }
