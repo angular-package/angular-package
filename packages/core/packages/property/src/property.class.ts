@@ -64,7 +64,7 @@ export class PropertyClass extends PrefixSuffixClass {
             if (typeof target === 'string') {
               this._bind(source, property, target);
             } else {
-              this._bind(source, property, target);
+              // this._bind(source, property, target);
             }
           });
         } else if (typeof target === 'string') {
@@ -161,13 +161,12 @@ export class PropertyClass extends PrefixSuffixClass {
   private _bind<S, T, R = any>(source: Function | S, property: string, target: T | string): void {
     // Check if property is already used.
     if (this.binded instanceof Array && this.binded.includes(property) === false) {
-      console.info(target);
 
       // Store original Setter/Getter.
       const store = this.stored.setterGetter(source, property);
 
       // Create `get()` method.
-      const get = (): R => {
+      const get = function(this: S): R {
         // Use old getter.
         if (store.getter[property]) {
           store.getter[property].apply(source, arguments);
@@ -180,7 +179,7 @@ export class PropertyClass extends PrefixSuffixClass {
       };
 
       // Create `set()` method.
-      const set = (value: R): void => {
+      const set = function(this: S, value: R): void {
         // Use old setter.
         if (store.setter[property]) {
           store.setter[property].apply(source, arguments);
@@ -245,7 +244,7 @@ export class PropertyClass extends PrefixSuffixClass {
       // Wrap property.
       if (sourcePropertyName) {
 
-        const get = (): R | undefined => {
+        const get = function(this: S): R | undefined {
           if (store.getter[property]) {
             return store.getter[property].apply(this, arguments);
           }
@@ -256,7 +255,7 @@ export class PropertyClass extends PrefixSuffixClass {
           }
         };
 
-        const set = (value: R | undefined) => {
+        const set = function(this: S, value: R | undefined): void {
           // Remember input value.
           this[sourcePropertyName] = value;
 
