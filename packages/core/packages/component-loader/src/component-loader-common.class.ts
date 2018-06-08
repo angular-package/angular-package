@@ -138,25 +138,15 @@ export
 
   /**
    * @template S Source component type.
-   * @param [p=this.__properties] Properties to be wrapped.
+   * @param [properties=this.__properties] Properties to be wrapped.
    * @param source Source component.
    * @param setter Callback function performed on set.
    * @param getter Callback function performed on get.
    */
-  protected __wrap<S>(p: Array<string> = this.__properties, source: S, setter: Setter<S>, getter: Getter<S>): this {
-    
+  protected __wrap<S>(properties: Array<string> = this.__properties, source: S, setter: Setter<S>, getter: Getter<S>): this {
     if (this.propertyClass instanceof PropertyClass) {
       // Wrap properties with specified setter and getter.
-      this.propertyClass.wrap<S>(source, p, setter, getter);
-
-      // Assign initial values to dynamic component.
-      /*
-      p.forEach((property: string): void => {
-        if (this.propertyClass) {
-          this.__set<any>(property, source[this.propertyClass.propertyName(property)]);
-        }
-      });
-      */
+      this.propertyClass.wrap<S>(source, properties, setter, getter);
     }
     
     return this;
