@@ -60,10 +60,10 @@ export
 
   /**
    * Link source component properties with dynamic component instance by using setters and getters.
-   * @param [p=this.__properties] Properties to be linked in source component with dynamic component.
+   * @param [properties=this.__properties] Properties to be linked in source component with dynamic component.
    */
-  __link(p: Array<string> = this.__properties): void {
-    this.__wrap(p, this,
+  __link(properties: Array<string> = this.__properties): this {
+    this.__wrap(properties, this,
       <PT>(property: string, sourcePropertyName: string) => {
         if (this.__set instanceof Function) {
           this.__set<PT>(property, this[sourcePropertyName]);
@@ -74,5 +74,7 @@ export
           return this.__get<PT>(property);
         }
       });
+
+    return this;
   }
 }
