@@ -33,8 +33,8 @@ beforeAll(() => {
 describe('ComponentLoaderClass', () => {
 
   const testingClass: TestingClass<ComponentLoaderClassComponent> = new TestingClass<ComponentLoaderClassComponent>(undefined, {
-    info: true,
-    run: []
+    console: true,
+    execute: []
   });
 
   beforeEach(async(() => {
@@ -136,42 +136,35 @@ describe('ComponentLoaderClass', () => {
             Object.assign(component, {
               key, model
             });
-            console.info(component.key, component.model);
           })
           .be({
             '__component.instance.key': key,
             '__component.instance.model': model
           });
+      }
+    },
+    'Property `wrapped` set and get from component should be working': {
+      true: () => {
+        testingClass
+          .before(component => {
+            component
+              // Create component.
+              .__create(DynamicComponent)
+              .__link(['wrapped']);
+            component.wrapped = true;
+          })
+          .truthy([
+            '_wrapped_',
+            '_wrappedGet',
+            '_wrappedSet',
+            'wrapped',
+            '_wrapped',
+            '__component.instance.wrapped'
+          ]);
 
-          /*
-          // Check if they were changed too.
-          */
       }
     }
   };
-
-  /*
-
-  it('property `wrapped` set and get from component should be working.', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__link(['wrapped']);
-    comp.wrapped = true;
-
-    expect(comp._wrappedGet)
-      .toBeTruthy();
-    expect(comp._wrappedSet)
-      .toBeTruthy();
-    expect(comp.wrapped)
-      .toBeTruthy();
-    expect(comp._wrapped)
-      .toBeTruthy();
-    expect(comp['_wrapped_'])
-      .toBeTruthy();
-    expect(comp.__component.instance.wrapped)
-      .toBeTruthy();
-  }));
-
-  */
 
   const DESTROY_TESTS = {
     '`__component` should be destroyed': {
@@ -328,213 +321,6 @@ describe('ComponentLoaderClass', () => {
     SET_TESTS,
     SUBSCRIBE_TESTS
   );
-
-    /*
-  it(, async(() => {
-    
-      expect(this.fixture)
-        .toBeDefined();
-      expect(this.fixture.componentInstance)
-        .toBeTruthy();
-  }));
-      */
-
-  /*
-  it('#2. Should have `<div>`.', async(() => {
-    testingClass.selector('div');
-  }));
-
-  it('should have __component undefined', async(() => {
-    expect(comp.__component)
-      .toBeUndefined();
-  }));
-  it('this.__component should be created', async(() => {
-    comp.__create(DynamicComponent);
-    expect(comp.__component)
-      .toBeDefined();
-  }));
-  it('dynamic component model should be defined.', async(() => {
-    comp.__create(DynamicComponent);
-    expect(comp.__component.instance.model)
-      .toBeDefined();
-  }));
-
-  /*
-    __assign
-  it('should have method `__assign` with specified type.', async(() => {
-    comp.__create(DynamicComponent);
-    comp.model = { defined: false };
-    comp.__assign<{ defined: boolean }, ComponentLoaderClassComponent>('model', comp);
-    expect(comp.__component.instance.model)
-      .toEqual({ defined: false });
-  }));
-  it('should have method `__assign` with specified type and list of properties.', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__assign<string, ComponentLoaderClassComponent>(['__prefix', '__suffix'], comp);
-    expect(comp.__prefix)
-      .toBe('_');
-    expect(comp.__component.instance.__prefix)
-      .toBe('_');
-    expect(comp.__suffix)
-      .toBe('_');
-    expect(comp.__component.instance.__suffix)
-      .toBe('_');
-  }));
-
-  it('__component instance model and key with array argument should be changed.', async(() => {
-    comp.__create(DynamicComponent);
-    comp.model = { defined: false };
-    comp.__assign([ 'key', 'model'], comp);
-    expect(comp.__component.instance.key)
-      .toBe('defined');
-    expect(comp.__component.instance.model)
-      .toEqual({ defined: false });
-  }));
-  */
-
-  /*
-    __set
-  it('should have method `__set`.', async(() => {
-    const value = 'assigned';
-    comp.__create(DynamicComponent);
-    comp.__set('assign', value);
-    expect(comp.__component.instance.assign)
-      .toEqual(value);
-  }));
-  it('should have method `__set` with specified type `string` working properly.', async(() => {
-    const value = 'assigned';
-    comp.__create(DynamicComponent);
-    comp.__set<string>('assign', value);
-    expect(comp.__component.instance.assign)
-      .toEqual(value);
-  }));
-  it('should have method `__set` with specified type `boolean` working properly.', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__set<boolean>('wrapped', true);
-    expect(comp.__component.instance.wrapped)
-      .toBeTruthy();
-  }));
-  it('should have method `__set` with specified type `object` working properly.', async(() => {
-    const value = { defined: false };
-    comp.__create(DynamicComponent);
-    comp.__set<{ defined: boolean }>('model', value);
-    expect(comp.__component.instance.model)
-      .toEqual(value);
-  }));
-  */
-
-  /*
-    __get
-  it('should have method `__get` with specified type `boolean` working properly.', async(() => {
-    comp.__create(DynamicComponent);
-    expect(comp.__get<boolean>('wrapped'))
-      .toBeFalsy();
-  }));
-  it('should have method `__get` with specified type `number` working properly.', async(() => {
-    comp.__create(DynamicComponent);
-    expect(comp.__get<number>('age'))
-      .toEqual(27);
-  }));
-  it('should have method `__get` with specified type `string` working properly.', async(() => {
-    comp.__create(DynamicComponent);
-    expect(comp.__get<string>('key'))
-      .toEqual('notdefined');
-  }));
-  it('should have method `__get` with specified type `object` working properly.', async(() => {
-    comp.__create(DynamicComponent);
-    expect(comp.__get<{ defined: boolean }>('model'))
-      .toEqual({ defined: true });
-  }));
-  */
-
-  /*
-    __subscribe
-  it('__component instance subscribe to event EventEmitter', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__subscribe('event',
-      (generatorOrNext: any) => {
-        expect(generatorOrNext)
-          .toBe('event');
-      },
-      (error: any) => error,
-      (complete: any) => complete
-    );
-    comp.__component.instance.emit();
-  }));
-  it('__component instance subscribe to event EventEmitter and emit complete', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__subscribe('event',
-      (result: any) => result,
-      (error: any) => error,
-      (complete: any) => complete
-    );
-    comp.__component.instance.emitComplete();
-  }));
-  */
-
-  /*
-    __destroy
-  it('this.__component should be destroyed', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__destroy();
-    expect(comp.__component)
-      .toBeUndefined();
-  }));
-  */
-
-  /*
-    __connect
-    __wrap
-  it('property `key` and `model should be connected with dynamic instance component.', async(() => {
-    // Prepare values to assign.
-    const key = 'connected';
-    const model = { defined: false };
-
-    // Create component.
-    comp.__create(DynamicComponent);
-
-    // Check properties after creation.
-    expect(comp.__component.instance.key)
-      .toBe('notdefined');
-    expect(comp.key)
-      .toBe('defined');
-
-    // Link indicated properties the same component to target component.
-    comp.__link(['key', 'model']);
-
-    // Assign prepared values to component.
-    Object.assign(comp, {
-      key, model
-    });
-
-    // Check if they were changed too.
-    expect(comp.__component.instance.key)
-      .toBe(key);
-    expect(comp['_key_'])
-      .toBe(key);
-    expect(comp.__component.instance.model)
-      .toBe(model);
-  }));
-
-  it('property `wrapped` set and get from component should be working.', async(() => {
-    comp.__create(DynamicComponent);
-    comp.__link(['wrapped']);
-    comp.wrapped = true;
-
-    expect(comp._wrappedGet)
-      .toBeTruthy();
-    expect(comp._wrappedSet)
-      .toBeTruthy();
-    expect(comp.wrapped)
-      .toBeTruthy();
-    expect(comp._wrapped)
-      .toBeTruthy();
-    expect(comp['_wrapped_'])
-      .toBeTruthy();
-    expect(comp.__component.instance.wrapped)
-      .toBeTruthy();
-  }));
-  */
 
   /*
     __componentPropertyName
