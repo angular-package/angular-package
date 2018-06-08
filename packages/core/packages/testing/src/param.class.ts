@@ -6,8 +6,8 @@ import { ComponentFixture } from '@angular/core/testing';
 import { ArgumentHandlerClass } from '../../handler';
 
 export interface TestingOptions {
-  info: boolean;
-  run: Array<number>;
+  console: boolean;
+  execute: Array<number>;
 }
 
 export class ParamClass<T> extends ArgumentHandlerClass {
@@ -25,11 +25,9 @@ export class ParamClass<T> extends ArgumentHandlerClass {
     return this._fixture;
   }
 
-  info = false;
   beforeResult: any;
   lastDebugElement: DebugElement;
   nativeElement: HTMLElement | ElementRef;
-  run: Array<number>;
 
   private _debugElement: DebugElement;
   set debugElement(debugElement: DebugElement) {
