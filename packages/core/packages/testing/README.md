@@ -4,10 +4,19 @@
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/testing)
 
-Control the execution of jasmine tests, automatize some jasmine features, little less to coding, maybe even simplier.
+Control the execution of jasmine tests, automatize some jasmine features, little less to code, maybe even simplier.
 
 ```typescript
 import { TestingClass } from '@angular-package/core/testing';
+```
+
+```typescript
+new TestingClass<T>(                        // T - type of component.
+  protected description: string,            // Main description of describe(description, () => {})
+  protected moduleDef: TestModuleMetadata,  // Configure of TestBed.configureTestingModule(moduleDef)
+  public component: Type<T>,                // Component to create with TestBed.createComponent(component);
+  protected options?: TestingOptions        // Control of execution and display console info.
+);
 ```
 
 **Pros(+):**
@@ -32,7 +41,7 @@ import { TestingClass } from '@angular-package/core/testing';
 * Not well jsdocumented.
 * Not tested :)
 
-If you found any cons or pros just give feedback.
+*Give us feedback about any found cons and pros.*
 
 ----
 
@@ -63,14 +72,28 @@ npm i --save lodash-es@4.17.10
 
 ## Usage
 
-### Step 1. asdasd
+### Step 1. Import `TestingClass`
 
 ```typescript
+import { TestingClass } from '@angular-package/core/testing';
 ```
 
-### Step 2. asdasdsa
+### Step 2. Create const `testing` with crucial settings
 
 ```typescript
+const testing: TestingClass<ComponentLoaderClassComponent> =
+  new TestingClass<ComponentLoaderClassComponent>('ComponentLoaderClass', {
+    imports: [TestModule]
+  }, ComponentLoaderClassComponent, {
+  console: true,
+  execute: [ ]
+});
+```
+
+### Step 3. Add and execute some tests
+
+```typescript
+
 ```
 
 ## Style guide
