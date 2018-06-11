@@ -64,7 +64,7 @@ export class PropertyClass extends PrefixSuffixClass {
             if (typeof target === 'string') {
               this._bind(source, property, target);
             } else {
-              // this._bind(source, property, target);
+              this._bind(source, property, target);
             }
           });
         } else if (typeof target === 'string') {
