@@ -7,7 +7,8 @@ import { DynamicComponent } from './dynamic.component';
   template: '<div #newcontainer></div>'
 })
 export class ComponentLoaderClassComponent extends ComponentLoaderClass<DynamicComponent> {
-  @ViewChild('newcontainer', { read: ViewContainerRef }) public container: any;
+
+  @ViewChild('newcontainer', { read: ViewContainerRef }) container: any;
 
   __prefix = '_';
   __suffix = '_';
