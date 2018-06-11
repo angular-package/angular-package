@@ -25,11 +25,11 @@ export
 
   /**
    * Bind source component properties with dynamic component instance by using setters and getters.
-   * @param [p=this.__properties] Properties to be linked in source component with dynamic component.
+   * @param [properties=this.__properties] Properties to be linked in source component with dynamic component.
    */
-  __bind(p: Array<string> = this.__properties): void {
+  __bind(properties: Array<string> = this.__properties): void {
     if (this.propertyClass && this.__component) {
-      this.propertyClass.bind(this, p, this.__component.instance);
+      this.propertyClass.bind(this, properties, this.__component.instance);
     }
   }
 
