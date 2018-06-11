@@ -30,20 +30,26 @@ export class TestingClass<T> extends SelectorClass<T> {
         }
 
         // Do test.
-        if (this.options.execute.length === 0 || (this.options.execute.length > 0 && this.options.execute.includes(i))) {
-          console.info((this.options.execute.length > 0 && this.options.execute.includes(i)));
-          if (this.options.console === true) {
-            console.info(`#${i}. ${name}`);
-          }
-          it(name, async(() => {
-            tests[name].true();
-          }));  
+        if ((this.options.execute.length === 0 ||
+          (this.options.execute.length > 0 && this.options.execute.includes(i))) && tests[name].hasOwnProperty('true')) {
+            if (this.options.console === true) {
+              console.info(`#${i}. ${name}`);
+            }
+            it(name, async(() => {
+              tests[name].true();
+            }));
         }
         i++;
       }
     }
   }
- 
+
+  execute(...tests: Array<{ [index: string]: { true: Function } }>): void {
+    this.configure(undefined, undefined, () => {
+      this.eachIt(...tests);
+    });
+  }
+
   property<PT>(property?: string): PT {
     return (property) ? get(this.comp, property) : this.comp;
   }
