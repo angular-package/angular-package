@@ -4,13 +4,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { get } from 'lodash-es';
 
-import { ParamClass } from './param.class';
+import { MainClass } from './main.class';
 import { Data } from '../../handler/src/argument.handler.class';
 
 /**
  * @export
  */
-export class MatchersClass<T> extends ParamClass<T> {
+export class MatchersClass<T> extends MainClass<T> {
 
   be<V>(properties: Data<V>, value?: V): this {
     this.toArray(properties)
