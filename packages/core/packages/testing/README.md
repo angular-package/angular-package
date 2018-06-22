@@ -12,12 +12,20 @@ import { TestingClass } from '@angular-package/core/testing';
 
 ```typescript
 new TestingClass<T>(                        // T - component to create type.
-  protected description: string,            // Main description of describe(description, () => {})
-  protected moduleDef: TestModuleMetadata,  // Configure of TestBed.configureTestingModule(moduleDef)
+  protected description: string,            // Main description of describe(description, () => {}).
+  protected moduleDef: TestModuleMetadata,  // Configure of TestBed.configureTestingModule(moduleDef).
   public component: Type<T>,                // Component to create with TestBed.createComponent(component);
-  protected options?: TestingOptions        // Control of execution and display console info.
+  options?: Options                         // Control of execution and display `console.log()`.
 );
 ```
+
+ Parameter | Type | Description
+-----------|------|-------------
+ description | string | Main description of `describe(description, () => {})`
+ moduleDef | [TestModuleMetadata][435] | Configure of `TestBed.configureTestingModule(moduleDef)`
+ component | [Type][436]\<T\> | Component to create with `TestBed.createComponent(component)`
+ options? | [Options][0] | Control of execution and display `console.log()`.
+
 
 **Pros(+):**
 
@@ -374,7 +382,7 @@ testing.execute({
 
 ## Usage
 
-For this usage example `TestComponent` below will be used.
+`TestComponent` below will be used for usage example.
 
 ```typescript
 // test.component.ts
@@ -401,7 +409,7 @@ export class TestComponent implements OnInit {
 ```typescript
 // test.component.spec.ts
 // Step 1. Create `test.component.spec.ts` file and import `TestingClass`, `TestComponent`
-import { TestingClass } from '@angular-package/core/testing';
+import { TestingClass } from '../../testing';
 import { TestComponent } from './test.component';
 // End Step
 ```
@@ -411,9 +419,9 @@ import { TestComponent } from './test.component';
 ```typescript
 // test.component.spec.ts
 // Step 1. Create `test.component.spec.ts` file and import `TestingClass`, `TestComponent`
-import { TestingClass } from '@angular-package/core/testing';
+import { TestingClass } from '../../testing';
 import { TestComponent } from './test.component';
-// End Step
+// End Step 1.
 
 // Step 2. Create new `TestingClass` instance with `TestComponent` declaration
 const testing: TestingClass<TestComponent> =
@@ -423,8 +431,7 @@ const testing: TestingClass<TestComponent> =
     ]
   }, TestComponent, {
   console: true,
-  execute: [ ]
-});
+  execute: [ ] });
 // End Step 2.
 ```
 
@@ -433,11 +440,11 @@ const testing: TestingClass<TestComponent> =
 ```typescript
 // test.component.spec.ts
 // Step 1. Create `test.component.spec.ts` file and import `TestingClass`, `TestComponent`
-import { TestingClass } from '@angular-package/core/testing';
+import { TestingClass } from '../../testing';
 import { TestComponent } from './test.component';
-// End Step
+// End Step 1.
 
-// Step 2. Crate new `TestingClass` instance with `TestComponent` declaration
+// Step 2. Create new `TestingClass` instance with `TestComponent` declaration
 const testing: TestingClass<TestComponent> =
   new TestingClass<TestComponent>('TestComponent', {
     declarations: [
@@ -445,17 +452,15 @@ const testing: TestingClass<TestComponent> =
     ]
   }, TestComponent, {
   console: true,
-  execute: [ ]
-});
-// End Step.
+  execute: [ ] });
+// End Step 2.
 
 // Step 3. Add and execute some tests
-// Step 3. Add and execute some tests
 /**
- * Matchers
+ * Matchers `be()`.
  */
-const MATCHERS = {
-  BE: {
+testing
+  .spec({
     /**
      * Actual Or Expected.
      */
@@ -480,7 +485,7 @@ const MATCHERS = {
         .clear() // Clear last result.
     },
 
-     // boolean.
+    // boolean.
     '`be()` method with passed `actualOrExpected` json where expected value type is boolean': {
       false: () => testing
         .be<boolean>({ active: false }) // Checking component to have property `active` `false`.
@@ -557,9 +562,13 @@ const MATCHERS = {
           'surname'     // Component property surname to test against expected `Eve`.
         ], 'Eve')       // Expected value.
     }
-  },
+  })
+  .execute()
 
-  EQUAL: {
+  /**
+   * Matchers `equal`.
+   */
+  .spec({
     /**
      * Actual Or Expected.
      */
@@ -645,56 +654,50 @@ const MATCHERS = {
     '`equal()` method with passed component property name and expected value type `Object`': {
       false: () => testing
         .equal<{ firstname: string, surname: string, age: number, active: boolean }>('data',
-          { firstname: 'Eve', surname: 'Eve', age: 127, active: false }) 
+          { firstname: 'Eve', surname: 'Eve', age: 127, active: false })
         .not
         .equal<{ firstname: string, surname: string, age: number, active: boolean }>('data',
           { firstname: 'Eve', surname: 'Eve', age: 121, active: false }, 'Fail output')
     }
-  }
-};
+  })
+  .execute()
 
-/**
- * Selectors
- */
-const SELECTORS = {
-  'should have h1 tag': {
-    // Find tag h1.
-    false: () => testing
-      .selector('h1')
-      .contain('TestComponent')
-  },
-  // Find attribute `data-src` with specified value and expect it exists.
-  'should have div with attribute data-src with specified value': {
-    false: () => testing
-      .attribute('data-src', 'http://getattribute')
-      .contain('Attribute')
-      .not
-      .contain('Attribute1')
-      .clear()
-  },
-  // Find attribute `data-src` with specified value and expect it exists.
-  'should have div with attribute data-src without specyfing value': {
-    false: () => testing
-      .attribute('data-src')
-      .contain('Attribute')
-      .not
-      .contain('Attribute1')
-      .clear()
-  },
-
-  // Find classname and expect that it exists.
-  'should have class': {
-    false: () => testing.class('getclass')
-  }
-};
-
-// Execute tests.
-testing.execute(
-  MATCHERS.BE,
-  MATCHERS.EQUAL,
-  SELECTORS
-);
-// End Step.
+  /**
+   * Selectors.
+   */
+  .spec({
+    'should have h1 tag': {
+      // Find tag h1.
+      false: () => testing
+        .selector('h1')
+        .contain('TestComponent')
+    },
+    // Find attribute `data-src` with specified value and expect it exists.
+    'should have div with attribute data-src with specified value': {
+      false: () => testing
+        .attribute('data-src', 'http://getattribute')
+        .contain('Attribute')
+        .not
+        .contain('Attribute1')
+        .clear()
+    },
+    // Find attribute `data-src` with specified value and expect it exists.
+    'should have div with attribute data-src without specyfing value': {
+      false: () => testing
+        .attribute('data-src')
+        .contain('Attribute')
+        .not
+        .contain('Attribute1')
+        .clear()
+    },
+  
+    // Find classname and expect that it exists.
+    'should have class': {
+      false: () => testing.class('getclass')
+    }
+  })
+  .execute();
+// End Step 3.
 ```
 
 ## Style guide
@@ -743,7 +746,7 @@ MIT © angular-package ([license][432])
 
 [![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6)
 
-[0]: x
+[0]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/interface/options.interface.ts
 [1]: x
 [2]: x
 [27]: https://donorbox.org/help-creating-open-source-software
@@ -757,3 +760,5 @@ MIT © angular-package ([license][432])
 [432]: https://github.com/angular-package/angular-package/blob/master/LICENSE
 [433]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
 [434]: https://angular.io/api/core/ChangeDetectorRef
+[435]: https://angular.io/api/core/testing/TestModuleMetadata
+[436]: https://angular.io/api/core/Type
