@@ -73,7 +73,7 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript": "^0.8.1",
     "rollup-plugin-uglify": "^3.0.0",
-    "rxjs": "^5.5.6",
+    "rxjs": "^5.5.11",
     "rxjs-tslint-rules": "^4.3.0",
     "tslint": "^5.10.0",
     "tslint-angular": "^1.1.2",
@@ -86,7 +86,7 @@
     "zone.js": "^0.8.20"
   },
   "peerDependencies": {
-    "lodash-es": "^4.17.7"
+    "lodash-es": "^4.17.10"
   },
   "keywords": [],
   "repository": {
