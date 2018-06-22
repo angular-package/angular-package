@@ -76,7 +76,6 @@
     "no-consecutive-blank-lines": true,
     "no-console": [
       true,
-      "log",
       "debug",
       "time",
       "timeEnd",
