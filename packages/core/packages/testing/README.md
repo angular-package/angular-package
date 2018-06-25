@@ -4,7 +4,7 @@
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
 
-Wrapper class to control the execution of jasmine tests, automatize some its features to help reduce code to write, or maybe even simplify writing some simple tests.
+Wrapper class to control the execution of jasmine spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec.
 
 ```typescript
 import { TestingClass } from '@angular-package/core/testing';
@@ -21,11 +21,10 @@ new TestingClass<T>(                        // T - component to create type.
 
  Parameter | Type | Description
 -----------|------|-------------
- description | string | Main description of `describe(description, () => {})`
- moduleDef | [TestModuleMetadata][435] | Configure of `TestBed.configureTestingModule(moduleDef)`
- component | [Type][436]\<T\> | Component to create with `TestBed.createComponent(component)`
- options? | [Options][0] | Control of execution and display `console.log()`.
-
+ description | string | Main description of `describe(description, () => {})`.
+ moduleDef | [TestModuleMetadata][435] | Configure testing module `TestBed.configureTestingModule(moduleDef)`.
+ component | [Type][436]\<T\> | Component to create with `TestBed.createComponent(component)`.
+ options? | [Options][0] | Execution and log display control.
 
 **Pros(+):**
 
@@ -33,29 +32,29 @@ new TestingClass<T>(                        // T - component to create type.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * **Less code to write**
-  * Pass tests as json object.
-  * Configuring environment with `beforeAll()` function.
-  * Every selector is tested with `expect()`.
+  * Automatized configuring environment with `beforeAll()` function.
+  * Every selector is tested to not to be `null`.
+  * Pass spec as json object.
   * Chaining methods.
-* Autodetection type of passed arguments when using matchers.
-* Easy to make custom test.
-* Choose which test to execute with its unique number given by class.
-* Split tests depending on what is tested by using spread operator.
+  * Fast component testing.
+* Autodetect type of passed arguments when using matchers.
+* Easy to make custom spec.
+* Control spec execution with its unique automatically given number.
+* Group spec depending on what is going to be tested by using spread operator or method `spec()`.
 
 **Cons(-):**
 
 * Need to learn how it works.
 * Some jasmine matchers are not available at the moment.
-* Not well jsdocumented.
-* Not tested :)
 
-*Give feedback about any found cons and pros.*
+*Please, give feedback about any found cons and pros.*
 
 ----
 
 * [Installation](#installation)
 * [Methods](#methods)
   * [Matchers](#matchers)
+    * [Passing arguments](#passing-arguments)
   * [Selectors](#selectors)
 * [Usage](#usage)
 * [Style guide](#style-guide)
@@ -111,12 +110,72 @@ Example:
   true: () => testing
     .before(() => 27) // `before()` returns number 27 value.
     .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
- };
+  };
+```
+
+### clear()
+
+Uses jasmine function `it()` to execute tests.
+
+ Parameter | Type | Description
+-----------|------|-------------
+ name?  | [ResultName][2] | Name of result to set `undefined`.
+
+```typescript
+/**
+ * Clear result `before` or `query`.
+ * @param name Name of result to set `undefined`.
+ */
+clear(name?: ResultName): this
+```
+
+Example:
+
+```typescript
+'How to use `before()` method': {
+  true: () => testing
+    .before(() => 27) // `before()` returns number 27 value.
+    .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
+    .clear('before')  // Clear last result before(). Chaining method won't use it anymore.
+  };
+```
+
+### describe()
+
+Uses jasmine function `it()` to execute tests.
+
+ Parameter | Type | Description
+-----------|------|-------------
+ name?  | [ResultName][2] | Name of result to set `undefined`.
+
+```typescript
+/**
+ * Primary describe with environment and module definition.
+ * @param specToExecute Spec to execute.
+ * @param [description=this.description] Jasmine textual description of the main group.
+ * @param [moduleDef=this.moduleDef] Angular module definition.
+ */
+describe(
+  specToExecute: Function,
+  description: string = this.description,
+  moduleDef: TestModuleMetadata = this.moduleDef
+): this
+```
+
+Example:
+
+```typescript
+'How to use `before()` method': {
+  true: () => testing
+    .before(() => 27) // `before()` returns number 27 value.
+    .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
+    .clear('before')  // Clear last result before(). Chaining method won't use it anymore.
+  };
 ```
 
 ### eachIt()
 
-Uses jasmine function `it()` to execute tests.
+Uses jasmine function `it()` to execute spec.
 
  Parameter | Type | Description
 -----------|------|-------------
@@ -137,21 +196,21 @@ Example:
 
 ### execute()
 
-Execute tests as spread json objects. Every spec has `true` or `false` key name and when
+Execute spec as spread json objects. Every spec has `true` or `false` key name and when
 its value is `true` spec will be executed.
 
  Parameter | Type | Description
 -----------|------|-------------
- ...tests  | Array\<Spec\> | Spread json object with tests to execute.
+ execute  | Array\<number\> | Select spec to execute.
+ ...specs  | Array\<Spec\> | Spread json object with spec to execute.
 
 ```typescript
 /**
- * Execute tests as spread json objects.
- * @param tests Spread json object with tests to execute.
+ * Execute specs as spread json objects.
+ * @param execute Select spec to execute.
+ * @param specs Spread json objects to execute.
  */
-execute(...tests: Array<Spec>): void {
-  this.configure(() => this.eachIt(...tests), undefined, undefined);
-}
+execute(execute: Array<number> = [], ...specs: Array<Spec>): this
 ```
 
 Example:
@@ -171,7 +230,128 @@ testing.execute({
 });
 ```
 
+### spec()
+
+Add spec to execute. Each spec has `'true'` or `'false'` key name and only with value `'true'` spec is executed.
+
+ Parameter | Type | Description
+-----------|------|-------------
+ spec  | [Spec][1] | List of spec to execute, where `index` is spec name and its value is json object with key name `'false'` or `'true'` and its value is just a `Function`.
+
+```typescript
+/**
+  * Add spec to list of specs to execute.
+  * @param spec Spec to execute.
+  * @param [reset=true] Reset specs list to execute, when resseting it is execute group of spec.
+  */
+spec(spec: Spec, reset = true): this
+```
+
+Example:
+
+```typescript
+testing.spec({
+    'Spec name [index: string]': {
+      true: () => testing // Test will be executed because of 'true' key value.
+        .selector('div')
+        .clear()
+    });
+```
+
+### property()
+
+Get component property value by using lodash `get()` function.
+
+ Parameter | Type | Description
+-----------|------|-------------
+ actualOrPropertyName  | string | x
+
+```typescript
+/**
+ * Get component property value by using lodash `get()` function.
+ * @template PT Returned component property value type.
+ * @param [actualOrPropertyName] Component property name (key).
+ */
+property<PT>(actualOrPropertyName: string): PT | null
+```
+
+Example:
+
+```typescript
+```
+
 ### Matchers
+
+#### Passing arguments
+
+Each matcher can accept specific type of [Argument][3]\<T\>. Examples below explain this.
+
+How to check component `firstname` property value:
+
+```typescript
+testing
+  .spec({
+    'firstname should be `Eve`': {
+      true: () => testing
+        .be<string>('firstname', 'Eve')   // One property check.
+        .be<string>({ firstname: 'Eve' }) // Possible many properties check. with different values
+        .be<string>(['firstname'], 'Eve') // Possible many properties check with one value.
+    }
+  })
+  .execute();
+```
+
+How to check component `removed` property value is set to `true`:
+
+```typescript
+testing
+  .spec({
+    'component property `removed` should be `true`': {
+      true: () => testing
+        .equal<boolean>('removed', true)
+        .equal<boolean>({ removed: true })
+        .equal<boolean>(['removed'], true)
+        .truthy('removed') // component property `removed` is set to `true`.
+    }
+  })
+  .execute();
+```
+
+How to check component many properties with the same and different values:
+
+```typescript
+testing
+  .spec({
+    'component property `removed` should be `true`': {
+      true: () => testing
+        .equal<any>({ firstname: 'Eve', removed: true })  // Different value types, many properties.
+        .equal<string>(['firstname', 'surname'], 'Eve')   // The same value type, many properties.
+    }
+  })
+  .execute();
+```
+
+How to test component `Observable` property:
+
+```typescript
+testing
+  .spec({
+    'subscribe to component property `observable$` ': {
+      true: () => testing
+        .before(component => {
+          component.observable$ = new Observable<number>(observer => {
+            observer.next(127);
+            observer.next(27);
+            observer.next(7);
+            observer.complete();
+          });
+        })
+        .equal<Array<number>>('observable$', [127, 27, 7])
+    }
+  })
+  .execute();
+
+```
 
 #### be()
 
@@ -179,7 +359,7 @@ Actual value to be the expected value.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrExpected  | Argument\<V\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ actualOrExpected  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
  expected? | V | "The actual value to be equal to the expected, using deep equality comparison".
  expectationFailOutput? | any | Fail output.
 
@@ -201,7 +381,7 @@ Expect the actual value to contain a specific value.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrContain  | Argument\<V\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ actualOrContain  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
  contain? | V | *"The value to look for."*
  expectationFailOutput? | any | Fail output.
 
@@ -223,7 +403,7 @@ Expect the actual value to be defined. (Not undefined)
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrExpected  | Argument\<V\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ actualOrExpected  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
  expectationFailOutput? | any | Fail output.
 
 ```typescript
@@ -243,7 +423,7 @@ Expect the actual value to be defined. (Not undefined)
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrExpected  | Argument\<V\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ actualOrExpected  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
  expected? | V | "The actual value to be equal to the expected, using deep equality comparison".
  expectationFailOutput? | any | Fail output.
 
@@ -265,7 +445,7 @@ Expect the actual value to be falsy.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrPropertyName  | Argument\<V\> | Actual computed values or as component properties keys values to test expectations against false.
+ actualOrPropertyName  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against false.
  expectationFailOutput? | any | Fail output.
 
 ```typescript
@@ -284,7 +464,7 @@ Expect the actual value to be truthy.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrPropertyName  | Argument\<V\> | Actual computed values or as component properties keys values to test expectations against undefined.
+ actualOrPropertyName  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against undefined.
  expectationFailOutput? | any | Fail output.
 
 ```typescript
@@ -302,7 +482,7 @@ Expect the actual value to be undefined.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrPropertyName  | Argument\<V\> | Actual computed values or as component properties keys values to test expectations against undefined.
+ actualOrPropertyName  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against undefined.
  expectationFailOutput? | any | Fail output.
 
 ```typescript
@@ -465,7 +645,7 @@ testing
      * Actual Or Expected.
      */
     '`before()` method returned value number should `be()` the same': {
-      false: () => testing
+      true: () => testing
         .before(() => 27)
         .be<number>(27)
         .clear() // Clear last result.
@@ -475,7 +655,7 @@ testing
      * Actual Or Expected.
      */
     '`before()` method returned value string should `be()` the same': {
-      false: () => testing
+      true: () => testing
         .before(() => {
           const x = 27;
 
@@ -487,7 +667,7 @@ testing
 
     // boolean.
     '`be()` method with passed `actualOrExpected` json where expected value type is boolean': {
-      false: () => testing
+      true: () => testing
         .be<boolean>({ active: false }) // Checking component to have property `active` `false`.
         .not
         .be<boolean>({ active: true })  // Checking component to NOT have property `active` `true`.
@@ -495,7 +675,7 @@ testing
 
     // boolean
     '`be()` method with passed json with many keys where expected type is boolean ': {
-      false: () => testing
+      true: () => testing
         .be<boolean>({
           active: false,  // Checking component to have property `active` `false`.
           removed: true   // Checking component to have property `removed` `true`.
@@ -504,7 +684,7 @@ testing
 
     // Number.
     '`be()` method with passed `actualOrExpected` json where expected value type is number': {
-      false: () => testing
+      true: () => testing
         .be<number>({ age: 127 }) // Checking component to have property age with value 127.
         .not
         .be<number>({ age: 121 }) // Checking component to NOT have property age with value 121.
@@ -512,7 +692,7 @@ testing
 
     // String.
     '`be()` method with passed `actualOrExpected` json where expected value type is string': {
-      false: () => testing
+      true: () => testing
         .be<string>({ firstname: 'Eve' })   // Checking component to have property `firstname` value 'Eve'.
         .not
         .be<string>({ surname: 'Eveline' }) // Checking component to NOT have property `surname` value 'Eveline'.
@@ -520,7 +700,7 @@ testing
 
     // any.
     '`be()` method with passed json with many keys where expected type is any': {
-      false: () => testing
+      true: () => testing
         .be<any>({
           active: false,
           firstname: 'Eve',
@@ -533,7 +713,7 @@ testing
      */
     // Boolean.
     '`be()` method with passed actual and type boolean expected argument': {
-      false: () => testing
+      true: () => testing
         .be<boolean>('active', false) // Checking component to have property `active` value `false`.
         .not
         .be<boolean>('active', true)  // Checking component to NOT have property `active` value `true`.
@@ -541,7 +721,7 @@ testing
 
     // Number.
     '`be()` method with passed actual and type number expected argument': {
-      false: () => testing
+      true: () => testing
         .be<number>('age', 127) // Checking component to have property `age` value `127`.
         .not
         .be<number>('age', 121) // Checking component to NOT have property `age` value `121`.
@@ -549,14 +729,14 @@ testing
 
     // String.
     '`be()` method with passed actual and type string expected argument': {
-      false: () => testing
+      true: () => testing
         .be<string>('firstname', 'Eve')   // Checking component to have property `firstname` value 'Eve'.
         .not
         .be<string>('surname', 'Eveline') // Checking component to NOT have property `surname` value 'Eveline'.
     },
 
     '`be()` method with passed list of component property names and their expected value type `string`': {
-      false: () => testing
+      true: () => testing
         .be<string>([
           'firstname',  // Component property firstname to test against expected `Eve`.
           'surname'     // Component property surname to test against expected `Eve`.
@@ -574,7 +754,7 @@ testing
      */
     // boolean.
     '`equal()` method with passed `actualOrExpected` json where expected value type is boolean': {
-      false: () => testing
+      true: () => testing
         .equal<boolean>({ active: false }) // Checking component to have property `active` `false`.
         .not
         .equal<boolean>({ active: true })  // Checking component to NOT have property `active` `true`.
@@ -582,7 +762,7 @@ testing
 
     // boolean
     '`equal()` method with passed json with many keys where expected type is boolean ': {
-      false: () => testing
+      true: () => testing
         .equal<boolean>({
           active: false,  // Checking component to have property `active` `false`.
           removed: true   // Checking component to have property `removed` `true`.
@@ -591,7 +771,7 @@ testing
 
     // Number.
     '`equal()` method with passed `actualOrExpected` json where expected value type is number': {
-      false: () => testing
+      true: () => testing
         .equal<number>({ age: 127 }) // Checking component to have property age with value 127.
         .not
         .equal<number>({ age: 121 }) // Checking component to NOT have property age with value 121.
@@ -599,7 +779,7 @@ testing
 
     // String.
     '`equal()` method with passed `actualOrExpected` json where expected value type is string': {
-      false: () => testing
+      true: () => testing
         .equal<string>({ firstname: 'Eve' })   // Checking component to have property `firstname` value 'Eve'.
         .not
         .equal<string>({ surname: 'Eveline' }) // Checking component to NOT have property `surname` value 'Eveline'.
@@ -607,20 +787,20 @@ testing
 
     // any.
     '`equal()` method with passed json with many keys where expected type is any': {
-      false: () => testing
+      true: () => testing
         .equal<any>({
           active: false,
           firstname: 'Eve',
           age: 127
         })
     },
-    
+
     /**
      * Actual & expected.
      */
     // Boolean.
     '`equal()` method with passed actual and type boolean expected argument': {
-      false: () => testing
+      true: () => testing
         .equal<boolean>('active', false) // Checking component to have property `active` value `false`.
         .not
         .equal<boolean>('active', true)  // Checking component to NOT have property `active` value `true`.
@@ -628,7 +808,7 @@ testing
 
     // Number.
     '`equal()` method with passed actual and type number expected argument': {
-      false: () => testing
+      true: () => testing
         .equal<number>('age', 127) // Checking component to have property `age` value `127`.
         .not
         .equal<number>('age', 121) // Checking component to NOT have property `age` value `121`.
@@ -636,14 +816,14 @@ testing
 
     // String.
     '`equal()` method with passed actual and type string expected argument': {
-      false: () => testing
+      true: () => testing
         .equal<string>('firstname', 'Eve')   // Checking component to have property `firstname` value 'Eve'.
         .not
         .equal<string>('surname', 'Eveline') // Checking component to NOT have property `surname` value 'Eveline'.
     },
 
     '`equal()` method with passed list of component property names and their expected value type `string`': {
-      false: () => testing
+      true: () => testing
         .equal<string>([
           'firstname',  // Component property firstname to test against expected `Eve`.
           'surname'     // Component property surname to test against expected `Eve`.
@@ -652,7 +832,7 @@ testing
 
     // Object.
     '`equal()` method with passed component property name and expected value type `Object`': {
-      false: () => testing
+      true: () => testing
         .equal<{ firstname: string, surname: string, age: number, active: boolean }>('data',
           { firstname: 'Eve', surname: 'Eve', age: 127, active: false })
         .not
@@ -668,13 +848,13 @@ testing
   .spec({
     'should have h1 tag': {
       // Find tag h1.
-      false: () => testing
+      true: () => testing
         .selector('h1')
         .contain('TestComponent')
     },
     // Find attribute `data-src` with specified value and expect it exists.
     'should have div with attribute data-src with specified value': {
-      false: () => testing
+      true: () => testing
         .attribute('data-src', 'http://getattribute')
         .contain('Attribute')
         .not
@@ -683,7 +863,7 @@ testing
     },
     // Find attribute `data-src` with specified value and expect it exists.
     'should have div with attribute data-src without specyfing value': {
-      false: () => testing
+      true: () => testing
         .attribute('data-src')
         .contain('Attribute')
         .not
@@ -693,7 +873,7 @@ testing
   
     // Find classname and expect that it exists.
     'should have class': {
-      false: () => testing.class('getclass')
+      true: () => testing.class('getclass')
     }
   })
   .execute();
@@ -747,8 +927,9 @@ MIT © angular-package ([license][432])
 [![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6)
 
 [0]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/interface/options.interface.ts
-[1]: x
-[2]: x
+[1]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/interface/spec.interface.ts
+[2]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/type/result-name.type.ts
+[3]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/type/argument.type.ts
 [27]: https://donorbox.org/help-creating-open-source-software
 [425]: https://gist.github.com/stephenparish/9941e89d80e2bc58a153
 [426]: http://karma-runner.github.io/0.10/dev/git-commit-msg.html
