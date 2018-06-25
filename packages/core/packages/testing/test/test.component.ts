@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'test-component',
@@ -11,6 +12,8 @@ export class TestComponent implements OnInit {
   active = false;
   removed = true;
 
+  observable$: Observable<number>;
+ 
   data: {
     firstname: string,
     surname: string,
