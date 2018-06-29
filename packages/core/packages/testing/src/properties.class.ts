@@ -75,7 +75,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   }
 
   protected setOptions(options: Options, type: 'default' | 'spec'): void {
-    if (options && options.console) {
+    if (options && typeof options.console === 'object') {
       this.options.console[type] = { ...this.options.console[type], ...options.console };
     }
     if (options && options.execute) {
