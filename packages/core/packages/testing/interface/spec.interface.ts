@@ -1,6 +1,3 @@
 export interface Spec {
-  [index: string]: {
-    false?: Function;
-    true?: Function;
-  };
+  [index: string]: () => any;
 }
