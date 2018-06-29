@@ -1,4 +1,7 @@
+import { ConsoleLog } from './console-log.interface';
+import { Execute } from '../type';
+
 export interface Options {
-  console?: boolean;
-  execute?: Array<number>;
+  console?: ConsoleLog;
+  execute?: Execute;
 }
