@@ -1,10 +1,12 @@
+import { ConsoleLog } from './console-log.interface';
+import { Execute } from '../type';
 export interface TestingOptions {
   console?: {
-    executed: boolean;
-    notExecuted: boolean;
+    default?: ConsoleLog;
+    spec: ConsoleLog;
   };
-  execute?: {
-    default?: Array<number>;
-    spec?: Array<number>;
+  execute: {
+    default: Execute;
+    spec: Execute;
   };
 }
