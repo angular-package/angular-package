@@ -11,14 +11,20 @@ import { ResultName } from '../type';
 
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
 
-  comp: T;
-
+  componentInstance: T;
+  debugElement: DebugElement;
   nativeElement: HTMLElement | ElementRef;
 
   protected options?: TestingOptions = {
     console: {
-      executed: false,
-      notExecuted: false
+      default: {
+        executed: false,
+        notExecuted: false
+      },
+      spec: {
+        executed: false,
+        notExecuted: false
+      }
     },
     execute: {
       default: [],
@@ -30,29 +36,14 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     query?: DebugElement,
     name: ResultName
   } = { name: undefined };
-
-  /**
-   * All specs.
-   */
   protected specs: Spec = {};
-
-  /**
-   * Conditional debugElement.
-   */
-  private _debugElement: DebugElement;
-  set debugElement(debugElement: DebugElement) {
-    this._debugElement = debugElement;
-  }
-  get debugElement(): DebugElement {
-    return this._debugElement;
-  }
 
   private _fixture: ComponentFixture<T>;
   set fixture(fixture: ComponentFixture<T>) {
     this._fixture = fixture;
     this.debugElement = (fixture) ? fixture.debugElement : undefined;
     this.nativeElement = (fixture) ? fixture.debugElement.nativeElement : undefined;
-    this.comp = (fixture) ? fixture.componentInstance : undefined;
+    this.componentInstance = (fixture) ? fixture.componentInstance : undefined;
   }
   get fixture(): ComponentFixture<T> {
     return this._fixture;
@@ -61,29 +52,34 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * @param description Jasmine textual description of the main group.
    * @param moduleDef Angular module definition.
-   * @param component Fixture component.
+   * @param componentTest Component to test.
    * @param [options] Console information and execute control.
    */
   constructor(
     protected description: string,
     protected moduleDef: TestModuleMetadata,
-    public component: Type<T>,
+    public componentTest: Type<T>,
     options?: Options
   ) {
     super();
-
-    if (options && options.console) {
-      this.options.console = {
-        executed: options.console,
-        notExecuted: options.console
-      };
-    }
-    if (options && options.execute) {
-      this.options.execute = {
-        default: options.execute
-      };
-    }
+    this.setOptions(options, 'default');
 
     return this;
+  }
+
+  protected setDefaultOptions(): void {
+    this.setOptions({
+      console: this.options.console.default,
+      execute: this.options.execute.default
+    }, 'spec');
+  }
+
+  protected setOptions(options: Options, type: 'default' | 'spec'): void {
+    if (options && options.console) {
+      this.options.console[type] = { ...this.options.console[type], ...options.console };
+    }
+    if (options && options.execute) {
+      this.options.execute[type] = options.execute;
+    }
   }
 }
