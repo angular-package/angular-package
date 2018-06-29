@@ -1,7 +1,7 @@
 // external
 import { async, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { get } from 'lodash-es';
+import { get, set } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 // internal
@@ -58,16 +58,16 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
 
       // Create component fixture.
       beforeEach(() => {
-        this.fixture = TestBed.createComponent(this.component);
+        this.fixture = TestBed.createComponent(this.componentTest);
       });
 
       // Default spec to check fixture and comp is defined.
-      if (this.component !== undefined) {
+      if (this.componentTest !== undefined) {
         it('should have fixture and comp defined.', async(() => {
           console.log(`[Internal spec]: Should have fixture and comp defined.`);
           expect(this.fixture)
             .toBeDefined();
-          expect(this.comp)
+          expect(this.componentInstance)
             .toBeTruthy();
         }));  
       }
@@ -82,12 +82,44 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
   }
 
   /**
+   * @param [number] Number of spec to execute.
+   */
+  execution(number?: number): boolean {
+    if (typeof this.options.execute.spec === 'boolean') {
+      return this.options.execute.spec;
+    }
+
+    return (
+      this.options.execute.spec instanceof Array &&
+      (
+        this.options.execute.spec.length === 0
+        ||
+        (this.options.execute.spec.length > 0 && number > 0 && this.options.execute.spec.includes(number))
+      )
+    );
+}
+
+  /**
    * Get component property value by using lodash `get()` function.
    * @template PT Returned component property value type.
    * @param [actualOrPropertyName] Component property name (key).
    */
-  property<PT>(actualOrPropertyName: string): PT | null {
-    return get(this.comp, actualOrPropertyName);
+  get<PT>(actualOrPropertyName: string): PT {
+    return get(this.componentInstance, actualOrPropertyName);
+  }
+
+  /**
+   * Set component property value by using lodash `get()` function.
+   * @template PT Returned component property value type.
+   * @param [actualOrPropertyName] Component property name (key).
+   * @param [value] Component property value.
+   */
+  set<PT>(actualOrPropertyName: string, value?: PT): this {
+    if (value) {
+      set<Object>(this.componentInstance, actualOrPropertyName, value);
+
+      return this;
+    }
   }
 
   /**
@@ -106,7 +138,7 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
   }
 
   subscribe<PT>(propertyName: string, callback: Function): this {
-    const observable: Observable<PT> = get(this.comp, propertyName);
+    const observable: Observable<PT> = get(this.componentInstance, propertyName);
     let i = 0;
     if (typeGuard<Observable<PT>>(observable)) {
       observable.subscribe(
@@ -126,10 +158,10 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
 
   /**
    * Actual value from method `before()` returned result, last debguElement query or from component property.
-   * @template AT Returned value type.
+   * @template PT Returned value type.
    * @param actualOrPropertyName Component property name.
    */
-  protected actual<AT>(actualOrPropertyName?: Argument<AT>): AT {
+  protected actual<PT>(actualOrPropertyName?: Argument<PT>): PT {
     // Get actual from `before()` method or debugElement query result.
     if (this.result[this.result.name] !== undefined) {
       if (this.result.name === 'query') {
@@ -139,11 +171,14 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
       return this.result[this.result.name];
     }
     // Get actual value from component property by using `propertyName`.
-    if (typeof actualOrPropertyName === 'string' && this.property<AT>(actualOrPropertyName) !== null) {
-      return this.property<AT>(actualOrPropertyName);
+    if (typeof actualOrPropertyName === 'string' && this.get<PT>(actualOrPropertyName) !== undefined) {
+      const propertyValue = this.get<PT>(actualOrPropertyName);
+      if (typeGuard<PT>(propertyValue)) {
+        return propertyValue;
+      }
     }
 
-    if (typeGuard<AT>(actualOrPropertyName)) {
+    if (typeGuard<PT>(actualOrPropertyName)) {
       return actualOrPropertyName;
     }
   }
