@@ -76,13 +76,13 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
 
   protected setOptions(options: Options): this {
     // Set console.
-    if (typeof options.console === 'string') {
+    if (typeof options.log === 'string') {
       this.options.console = { executed: false, notExecuted: false };
-      this.options.console[options.console] = true ;
-    } else if (typeof options.console === 'boolean') {
+      this.options.console[options.log] = true ;
+    } else if (typeof options.log === 'boolean') {
       this.options.console = {
-        executed: options.console,
-        notExecuted: options.console
+        executed: options.log,
+        notExecuted: options.log
       };
     }
     // Set execute `false` or `Array<number>`.
