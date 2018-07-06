@@ -1,5 +1,6 @@
 
 import { Argument } from '../../type';
+import { typeGuard } from '../../src';
 
 export class ArgumentHandlerClass {
 
@@ -19,7 +20,7 @@ export class ArgumentHandlerClass {
    * @template T Argument type.
    */
   toArray<T>(result: Argument<T>): Array<T> {
-    if (Array.isArray(result)) {
+    if (typeGuard<T>(result) && Array.isArray(result)) {
       return result;
     }
     if (result instanceof Object) {
