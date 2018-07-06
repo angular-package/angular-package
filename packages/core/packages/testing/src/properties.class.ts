@@ -28,7 +28,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     execute: []
   };
 
-  protected propertyClass: PropertyClass;
+  protected propertyClass: PropertyClass = new PropertyClass();
 
   protected result: {
     before?: any,
@@ -62,7 +62,6 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     options?: Options
   ) {
     super();
-    this.propertyClass = new PropertyClass();
     this.setOptions(options);
     this.originalOptions = { ...{}, ...this.options };
 
