@@ -1,3 +1,7 @@
+// external
+import { get, has, set } from 'lodash-es';
+
+// internal
 import { StoreOriginalClass } from '../../store';
 import { PrefixSuffixClass } from '../../src/prefixsuffix.class';
 import { Getter } from '../type/getter.type';
@@ -121,6 +125,36 @@ export class PropertyClass extends PrefixSuffixClass {
     );
   }
 
+  has(source: Object, path: any): boolean {
+    return has(source, path);
+  }
+
+  /**
+   * Get component property value by using lodash `get()` function.
+   * @template PT Returned object property value type.
+   * @param source The object to get path value from.
+   * @param path The path of the property to get.
+   */
+  get<PT>(source: Object, path: string): PT {
+    return get(source, path);
+  }
+
+  /**
+   * Set component property value by using lodash `set()` function.
+   * @template PT The path of the property value type.
+   * @param source The object to modify.
+   * @param path The path of the property to set.
+   * @param value The value to set.
+   */
+  set<PT>(source: Object, path: string, value: PT): Object {
+    // CHECK HAS()
+    return set<Object>(source, path, value);
+  }
+
+  string(object: any): object is string {
+    return object;
+  }
+
   /**
    * Method to wrap specified properties with setter and getter callback method.
    * @template S Component source type.
@@ -151,6 +185,14 @@ export class PropertyClass extends PrefixSuffixClass {
     }
   }
 
+  protected type(path: string, source?: Object): any {
+    if (source) {
+      return typeof get(source, path);
+    }
+
+    return path;
+  }
+
   /**
    * Bind property from source component one to one to the target.
    * @template S Component source type.
@@ -166,7 +208,7 @@ export class PropertyClass extends PrefixSuffixClass {
       const store = this.stored.setterGetter(source, property);
 
       // Create `get()` method.
-      const get = function(this: S): R {
+      const _get = function(this: S): R {
         // Use old getter.
         if (store.getter[property]) {
           store.getter[property].apply(source, arguments);
@@ -179,7 +221,7 @@ export class PropertyClass extends PrefixSuffixClass {
       };
 
       // Create `set()` method.
-      const set = function(this: S, value: R): void {
+      const _set = function(this: S, value: R): void {
         // Use old setter.
         if (store.setter[property]) {
           store.setter[property].apply(source, arguments);
@@ -193,7 +235,7 @@ export class PropertyClass extends PrefixSuffixClass {
       };
 
       // Bind property to source.
-      Object.defineProperties((source instanceof Function) ? source.prototype : source, { [property]: { get, set } });
+      Object.defineProperties((source instanceof Function) ? source.prototype : source, { [property]: { get: _get, set: _set } });
 
       // Property is used.
       this.binded = property;
@@ -244,7 +286,7 @@ export class PropertyClass extends PrefixSuffixClass {
       // Wrap property.
       if (sourcePropertyName) {
 
-        const get = function(this: S): R | undefined {
+        const _get = function(this: S): R | undefined {
           if (store.getter[property]) {
             return store.getter[property].apply(this, arguments);
           }
@@ -253,9 +295,11 @@ export class PropertyClass extends PrefixSuffixClass {
             // return (getter(property, this)) ? getter(property, this) : this[sourcePropertyName];
             return getter(property, source) || this[sourcePropertyName];
           }
+
+          return;
         };
 
-        const set = function(this: S, value: R | undefined): void {
+        const _set = function(this: S, value: R | undefined): void {
           // Remember input value.
           this[sourcePropertyName] = value;
 
@@ -277,7 +321,7 @@ export class PropertyClass extends PrefixSuffixClass {
           { writable: true, value: (source[property]) ? source[property] : source[sourcePropertyName] }
         );
 
-        Object.defineProperties((source instanceof Function) ? source.prototype : source, { [property]: { get, set } });
+        Object.defineProperties((source instanceof Function) ? source.prototype : source, { [property]: { get: _get, set: _set } });
         this.wrapped.push(property);
       } else {
         throw new Error(`sourcePropertyName is not generated.`);
