@@ -1,5 +1,6 @@
 // external
 import {
+  ComponentRef,
   Type,
   ViewChild,
   ViewContainerRef
@@ -48,14 +49,14 @@ export
   /**
    * Destroy component.
    */
-  __destroy(): undefined {
+  __destroy(): ComponentRef<T> | undefined {
     if (this.__component && this.container) {
       this.__component.destroy();
       this.__component = undefined;
       this.container.clear();
-
-      return this.__component;
     }
+
+    return this.__component;
   }
 
   /**
