@@ -8,36 +8,36 @@ import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
 import { ArgumentHandlerClass } from '../../handler';
 import { Options, Spec, TestingOptions } from '../interface';
 import { ResultName } from '../type';
+import { PropertyClass } from '../../property';
+import { ConsoleClass } from '../../src';
 
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
 
   componentInstance: T;
   debugElement: DebugElement;
+
   nativeElement: HTMLElement | ElementRef;
 
+  protected consoleClass = new ConsoleClass();
+  protected originalOptions: TestingOptions;
   protected options?: TestingOptions = {
     console: {
-      default: {
-        executed: false,
-        notExecuted: false
-      },
-      spec: {
-        executed: false,
-        notExecuted: false
-      }
+      executed: false,
+      notExecuted: false
     },
-    execute: {
-      default: [],
-      spec: []
-    }
+    execute: []
   };
+
+  protected propertyClass: PropertyClass;
+
   protected result: {
     before?: any,
     query?: DebugElement,
     name: ResultName
   } = { name: undefined };
-  protected specs: Spec = {};
 
+  protected specs: Spec = {};
+  
   private _fixture: ComponentFixture<T>;
   set fixture(fixture: ComponentFixture<T>) {
     this._fixture = fixture;
@@ -62,24 +62,35 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     options?: Options
   ) {
     super();
-    this.setOptions(options, 'default');
+    this.propertyClass = new PropertyClass();
+    this.setOptions(options);
+    this.originalOptions = { ...{}, ...this.options };
 
     return this;
   }
 
-  protected setDefaultOptions(): void {
-    this.setOptions({
-      console: this.options.console.default,
-      execute: this.options.execute.default
-    }, 'spec');
+  protected restoreOriginalOptions(): this {
+    this.options = { ...{}, ...this.options, ...this.originalOptions };
+
+    return this;
   }
 
-  protected setOptions(options: Options, type: 'default' | 'spec'): void {
-    if (options && typeof options.console === 'object') {
-      this.options.console[type] = { ...this.options.console[type], ...options.console };
+  protected setOptions(options: Options): this {
+    // Set console.
+    if (typeof options.console === 'string') {
+      this.options.console = { executed: false, notExecuted: false };
+      this.options.console[options.console] = true ;
+    } else if (typeof options.console === 'boolean') {
+      this.options.console = {
+        executed: options.console,
+        notExecuted: options.console
+      };
     }
-    if (options && options.execute) {
-      this.options.execute[type] = options.execute;
+    // Set execute `false` or `Array<number>`.
+    if (options.execute !== undefined) {
+      this.options.execute = options.execute;
     }
+
+    return this;
   }
 }
