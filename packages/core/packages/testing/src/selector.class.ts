@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { MatchersClass } from './matchers.class';
 
 /**
+ * Chained query methods to use in `before()` method.
  * @export
  */
 export abstract class SelectorClass<T> extends MatchersClass<T> {
@@ -40,11 +41,17 @@ export abstract class SelectorClass<T> extends MatchersClass<T> {
   }
 
   /**
+   * Use debugElement query to find HTMLElement.
    * @param selector Find HTMLElement by selector.
    */
   private query(selector: string): void {
+    // Clear stored query result value.
     this.clear('query');
+
+    // Store new query result.
     this.result.query = this.debugElement.query(By.css(selector));
+
+    // Add last result store name.
     this.result.name = 'query';
     expect(this.result.query)
       .not
