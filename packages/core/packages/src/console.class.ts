@@ -56,8 +56,8 @@ export class ConsoleClass {
   log(display: boolean = true): this {
     if (display === true) {
       console.log(`${this.styles.reset} ${ this._text } ${this.styles.reset}`);
-      this._text = '';
     }
+    this._text = '';
 
     return this;
   }
