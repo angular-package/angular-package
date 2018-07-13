@@ -6,11 +6,8 @@ import { TestingClass } from '../../testing';
 import { Options } from '../../testing/interface';
 
 const TESTING_OPTIONS: Options = {
-  console: {
-    executed: true,
-    notExecuted: true
-  },
-  execute: []
+  log: false,
+  execute: true
 };
 
 const testing: TestingClass<TestPropertyComponent> =
@@ -23,17 +20,17 @@ const testing: TestingClass<TestPropertyComponent> =
     TESTING_OPTIONS);
 
 testing
-  .spec({
-    'should have `propertyClass` instance.': () => testing
+  .spec('should have', {
+    '`propertyClass` instance.': () => testing
       .before(comp => comp.propertyClass instanceof PropertyClass)
       .truthy(),
-    'should have bind working when properties is string.': () => testing
+    'bind working when properties is string.': () => testing
       .before(comp => {
         comp.propertyClass.bind(comp, 'firstname', 'target');
         comp.firstname = 'Lucas';
       })
       .equal('target.firstname', 'Lucas'),
-    'should have bind working when properties is array of string.': () => {
+    'bind working when properties is array of string.': () => {
       testing
         .before(comp => {
           comp.propertyClass.bind(comp, ['firstname', 'surname'], 'target');
@@ -41,9 +38,9 @@ testing
           comp.surname = 'Tramp';
         })
         .equal(['firstname', 'target.firstname'], 'Lucas')
-        .equal(['surname', 'target.surname'], 'Tramp')
+        .equal(['surname', 'target.surname'], 'Tramp');
     },
-    'should have firstname changed after bind with array of string.': () => {
+    'firstname changed after bind with array of string.': () => {
       const firstname = 'Lucas';
       const surname = 'Tramp';
       testing
@@ -58,10 +55,10 @@ testing
         .equal(['firstname', 'target.firstname'], 'Donald');
     }
   })
-  .execute([], );
+  .execute(true, true);
 
 testing
-  .spec({
+  .spec('', {
     'Remove binded.': () => testing
       .before(comp => {
         comp.propertyClass.bind(comp, ['firstname', 'surname'], 'target');
