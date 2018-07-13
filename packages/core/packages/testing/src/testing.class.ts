@@ -14,7 +14,7 @@ import { Spec } from '../interface';
  * @extends {SelectorClass<T>}
  * @template T Component type to test.
  */
-export class SpecClass<T> extends SelectorClass<T> {
+export class TestingClass<T> extends SelectorClass<T> {
   /**
    * Execute specs list declared before by using `spec()` method.
    * It also restores original settings before each execute and use settings from arguments.
