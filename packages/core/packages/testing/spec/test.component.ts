@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'test-component',
+  selector: 'ap-core-test-component',
   templateUrl: './test.component.html'
 })
 export class TestComponent implements OnInit {
