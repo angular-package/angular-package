@@ -12,7 +12,8 @@ const testing: TestingClass<TestComponent> =
       TestComponent
     ]
   }, TestComponent, {
-      console: {}
+      log: true,
+      execute: true
   });
 // End Step 2.
 
@@ -21,7 +22,7 @@ const testing: TestingClass<TestComponent> =
  * Matchers `be()`.
  */
 testing
-  .spec({
+  .spec('', {
     'component property `firstname` should be `Eve`': () => testing
       .be<string>('firstname', 'Eve')   // One property check.
       .be<string>({ firstname: 'Eve' }) // Possible many properties check. with different values
@@ -130,7 +131,7 @@ testing
   /**
    * Matchers `equal`.
    */
-  .spec({
+  .spec('', {
     /**
      * Actual Or Expected.
      */
@@ -207,7 +208,7 @@ testing
   /**
    * Selectors.
    */
-  .spec({
+  .spec('', {
     'should have h1 tag': () => testing
       // Find tag h1.
       .selector('h1')
