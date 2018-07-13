@@ -1,17 +1,28 @@
 // external
 import { async, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { get, set } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 // internal
 import { Argument } from '../../type';
 import { typeGuard } from '../../src';
-import { Spec } from '../interface';
+import { Settings } from '../interface';
 import { ResultName } from '../type';
 import { PropertiesClass } from './properties.class';
 
 export abstract class MainClass<T> extends PropertiesClass<T> {
+
+  /**
+   * Do some operations on component before expectation.
+   * @param callback Function with injected component and `this` object.
+   */
+  before(callback: (component: T, testingClass?: MainClass<T>) => any): this {
+    this.clear('before');
+    this.result.before = callback(this.componentInstance, this);
+    this.result.name = 'before';
+
+    return this;
+  }
 
   /**
    * Clear result `before` or `query`.
@@ -54,23 +65,23 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
         TestBed
           .configureTestingModule(moduleDef)
           .compileComponents();
+
+        this.fixture = TestBed.createComponent(this.componentTest);
       }));
 
       // Create component fixture.
-      beforeEach(() => {
-        this.fixture = TestBed.createComponent(this.componentTest);
-      });
+      // beforeEach(async(() => { });
 
-      // Default spec to check fixture and comp is defined.
+      /* Default spec to check fixture and comp is defined.
       if (this.componentTest !== undefined) {
         it('should have fixture and comp defined.', async(() => {
-          console.log(`[Internal spec]: Should have fixture and comp defined.`);
           expect(this.fixture)
             .toBeDefined();
           expect(this.componentInstance)
             .toBeTruthy();
         }));  
       }
+      */
 
       // Execute tests.
       if (specToExecute) {
@@ -81,64 +92,38 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
     return this;
   }
 
-  /**
-   * @param [number] Number of spec to execute.
-   */
-  execution(number?: number): boolean {
-    if (typeof this.options.execute.spec === 'boolean') {
-      return this.options.execute.spec;
-    }
+  /*
+  has(path: any): boolean {
+    // console.info(this.componentInstance['__component'].instance.model);
+    console.info(has(this.componentInstance, '__component.instance.model'));
 
-    return (
-      this.options.execute.spec instanceof Array &&
-      (
-        this.options.execute.spec.length === 0
-        ||
-        (this.options.execute.spec.length > 0 && number > 0 && this.options.execute.spec.includes(number))
-      )
-    );
-}
+    return this.propertyClass.has(this.componentInstance, path);
+  }
+  */
 
   /**
    * Get component property value by using lodash `get()` function.
    * @template PT Returned component property value type.
-   * @param [actualOrPropertyName] Component property name (key).
+   * @param [path] Component property name (key).
    */
-  get<PT>(actualOrPropertyName: string): PT {
-    return get(this.componentInstance, actualOrPropertyName);
+  get<PT>(path: string): PT {
+    return this.propertyClass.get<PT>(this.componentInstance, path);
   }
 
   /**
    * Set component property value by using lodash `get()` function.
    * @template PT Returned component property value type.
-   * @param [actualOrPropertyName] Component property name (key).
+   * @param [path] Component property name (key).
    * @param [value] Component property value.
    */
-  set<PT>(actualOrPropertyName: string, value?: PT): this {
-    if (value) {
-      set<Object>(this.componentInstance, actualOrPropertyName, value);
-
-      return this;
-    }
-  }
-
-  /**
-   * Add spec to list of specs to execute.
-   * @param spec Spec to execute.
-   * @param [reset=true] Reset specs list to execute.
-   */
-  spec(spec: Spec, reset = true): this {
-    // Reset specs.
-    if (reset === true) {
-      this.specs = {};
-    }
-    this.specs = { ...this.specs, ...spec };
+  set<PT>(path: string, value: PT): this {
+    this.propertyClass.set<PT>(this.componentInstance, path, value);
 
     return this;
   }
 
   subscribe<PT>(propertyName: string, callback: Function): this {
-    const observable: Observable<PT> = get(this.componentInstance, propertyName);
+    const observable: Observable<PT> = this.get<Observable<PT>>(propertyName);
     let i = 0;
     if (typeGuard<Observable<PT>>(observable)) {
       observable.subscribe(
@@ -171,15 +156,40 @@ export abstract class MainClass<T> extends PropertiesClass<T> {
       return this.result[this.result.name];
     }
     // Get actual value from component property by using `propertyName`.
-    if (typeof actualOrPropertyName === 'string' && this.get<PT>(actualOrPropertyName) !== undefined) {
-      const propertyValue = this.get<PT>(actualOrPropertyName);
-      if (typeGuard<PT>(propertyValue)) {
-        return propertyValue;
+    if (this.propertyClass.string(actualOrPropertyName)) {
+      if (this.get<PT>(actualOrPropertyName)) {
+        const propertyValue = this.get<PT>(actualOrPropertyName);
+        if (typeGuard<PT>(propertyValue)) {
+          return propertyValue;
+        }
       }
+
+      return;
     }
 
+    /*
     if (typeGuard<PT>(actualOrPropertyName)) {
       return actualOrPropertyName;
     }
+    */
+  }
+
+  /**
+   * @param options ts
+   * @param [number] Number of spec to execute.
+   */
+  protected execution(settings: Settings, number?: number): boolean {
+    if (typeof settings.execute === 'boolean') {
+      return settings.execute;
+    }
+
+    return (
+      settings.execute instanceof Array &&
+      (
+        settings.execute.length === 0
+        ||
+        (settings.execute.length > 0 && number > 0 && settings.execute.includes(number))
+      )
+    );
   }
 }
