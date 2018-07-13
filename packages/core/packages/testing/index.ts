@@ -1,1 +1,1 @@
-export { SpecClass } from './src';
+export { TestingClass } from './src';
