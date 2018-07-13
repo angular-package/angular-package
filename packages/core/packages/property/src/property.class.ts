@@ -1,5 +1,9 @@
 // external
-import { get, has, set } from 'lodash-es';
+import {
+  get,
+  // has,
+  set
+} from 'lodash-es';
 
 // internal
 import { StoreOriginalClass } from '../../store';
@@ -125,9 +129,13 @@ export class PropertyClass extends PrefixSuffixClass {
     );
   }
 
+  /*
   has(source: Object, path: any): boolean {
-    return has(source, path);
+    console.info('1', source['__component'].instance.model, has(source, '__component.instance.model'));
+
+    return has(source, '__component.instance.model');
   }
+  */
 
   /**
    * Get component property value by using lodash `get()` function.
