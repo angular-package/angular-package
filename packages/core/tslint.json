@@ -15,8 +15,8 @@
   "rules": {
     "no-invalid-this": false, // Because of using `this` in setters/getters.
     "no-implicit-dependencies": [true, "dev"],
-    "rxjs-add": { "severity": "error" },
-    "rxjs-no-unused-add": { "severity": "error" },
+    // "rxjs-add": { "severity": "error" },
+    // "rxjs-no-unused-add": { "severity": "error" },
     "rx-subject-restrictions": true,
     "no-unused": true,
     "no-return-undefined": true,
@@ -178,10 +178,6 @@
     "object-curly-spacing": [
       true,
       "always"
-    ],
-    "pipe-naming": [
-      true,
-      "camelCase"
     ]
   }
 }
