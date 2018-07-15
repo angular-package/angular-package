@@ -1,20 +1,20 @@
 // external
-import { ElementRef, Injectable, Renderer } from '@angular/core';
+import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import { difference } from 'lodash-es';
 
 // internal
-// import { ApPrismTemplate } from '../core/interface';
+import { GenericObject } from '../../interface';
 
 @Injectable()
-export class AttributeHandlerService<T> {
+export class AttributeHandlerService {
 
-  constructor(public renderer: Renderer) { }
+  constructor(public renderer: Renderer2) { }
 
   get(element: ElementRef, name: string): string {
     return element.nativeElement.getAttribute(name);
   }
 
-  remove(element: ElementRef, attributes: T, compareAttributes?: T): this {
+  remove(element: ElementRef, attributes: GenericObject<string>, compareAttributes?: GenericObject<string>): this {
     if (compareAttributes) {
       const diff = difference(Object.keys(compareAttributes), Object.keys(attributes));
       if (diff instanceof Array) {
@@ -33,13 +33,13 @@ export class AttributeHandlerService<T> {
     return this;
   }
 
-  set(element: ElementRef, attributes: ApPrismTemplate<string>, compareAttributes?: ApPrismTemplate<string>): this {
+  set(element: ElementRef, attributes: GenericObject<string>, compareAttributes?: GenericObject<string>): this {
     if (compareAttributes) {
       this.remove(element, attributes, compareAttributes);
     }
     for (const name in attributes) {
       if (name) {
-        this.renderer.setElementAttribute(element.nativeElement, name, attributes[name]);
+        this.renderer.setAttribute(element.nativeElement, name, attributes[name]);
       }
     }
     
