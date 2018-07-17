@@ -90,7 +90,7 @@ export class TestingClass<T> extends SelectorClass<T> {
                 .log(settings.console.executed);
 
               // Run spec.
-              specs[name]();
+              specs[name](settings);
             } else if (execution(number) === false) {
               this.consoleClass
                 .text(`Skipped #${number}. ${name}`, undefined, ['faint'])
