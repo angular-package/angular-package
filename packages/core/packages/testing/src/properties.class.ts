@@ -11,21 +11,27 @@ import { ResultName } from '../type';
 import { PropertyClass } from '../../property';
 import { ConsoleClass } from '../../src';
 
+export interface Result {
+  before?: any;
+  query?: DebugElement;
+  name?: ResultName;
+}
+
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
-   * Angular `componentInstance` fixture.
+   * Angular `componentInstance` fixture. It can be `undefined`.
    */
-  componentInstance: T;
+  componentInstance?: T;
 
   /**
-   * Angular `debugElement` fixture.
+   * Angular `debugElement` fixture. It can be `undefined`.
    */
-  debugElement: DebugElement;
+  debugElement?: DebugElement;
 
   /**
-   * Angular `nativeElement` fixture.
+   * Angular `nativeElement` fixture. It can be `undefined`.
    */
-  nativeElement: HTMLElement | ElementRef;
+  nativeElement?: HTMLElement | ElementRef;
 
   /**
    * Object to display logs with specific colors.
@@ -40,16 +46,18 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * Stored result of `before()` `query` method with last name.
    */
-  protected result: {
-    before?: any,
-    query?: DebugElement,
-    name: ResultName
-  } = { name: undefined };
+  protected _result: Result = {};
+  set result(result: Result) {
+    this._result = result;
+  }
+  get result(): Result {
+    return this._result;
+  }
 
   /**
    * Settings that the chosen options are in.
    */
-  protected settings?: Settings = {
+  protected settings: Settings = {
     console: {
       executed: false,
       skipped: false
@@ -75,14 +83,16 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * Get and set all needed element from fixture to specific properties in object.
    */
-  private _fixture: ComponentFixture<T>;
-  set fixture(fixture: ComponentFixture<T>) {
+  private _fixture?: ComponentFixture<T>;
+  set fixture(fixture: ComponentFixture<T> | undefined) {
     this._fixture = fixture;
-    this.debugElement = (fixture) ? fixture.debugElement : undefined;
-    this.nativeElement = (fixture) ? fixture.debugElement.nativeElement : undefined;
-    this.componentInstance = (fixture) ? fixture.componentInstance : undefined;
+    if (fixture) {
+      this.debugElement = fixture.debugElement;
+      this.nativeElement = fixture.debugElement.nativeElement;
+      this.componentInstance = fixture.componentInstance;
+    }
   }
-  get fixture(): ComponentFixture<T> {
+  get fixture(): ComponentFixture<T> | undefined {
     return this._fixture;
   }
 
@@ -99,8 +109,13 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     options?: Options
   ) {
     super();
-    this.setSettings(options);
-    this.storedSettings = { ...{}, ...this.settings };
+    if (options) {
+      this.setSettings(options);
+    }
+    this.storedSettings = {
+      ...{},
+      ...this.settings
+    };
 
     return this;
   }
@@ -109,7 +124,11 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
    * Restores settings to default, or to settings that was set on instantiation.
    */
   protected restoreSettings(): this {
-    this.settings = { ...{}, ...this.settings, ...this.storedSettings };
+    this.settings = {
+      ...{},
+      ...this.settings,
+      ...this.storedSettings
+    };  
 
     return this;
   }
@@ -122,12 +141,13 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     // Set console.
     if (typeof options.log === 'string') {
       this.settings.console = { executed: false, skipped: false };
-      this.settings.console[options.log] = true ;
+      this.settings.console[options.log] = true ;  
     } else if (typeof options.log === 'boolean') {
+      
       this.settings.console = {
         executed: options.log,
         skipped: options.log
-      };
+      };  
     }
     // Set execute `false` or `Array<number>`.
     if (options.execute !== undefined) {
