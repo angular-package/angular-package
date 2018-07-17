@@ -6,6 +6,6 @@ import { Execute } from '../type';
  * @export
  */
 export interface Settings {
-  console?: Log;
+  console: Log;
   execute: Execute;
 }
