@@ -49,7 +49,9 @@ export abstract class SelectorClass<T> extends MatchersClass<T> {
     this.clear('query');
 
     // Store new query result.
-    this.result.query = this.debugElement.query(By.css(selector));
+    if (this.debugElement !== undefined) {
+      this.result.query = this.debugElement.query(By.css(selector));
+    }
 
     // Add last result store name.
     this.result.name = 'query';
