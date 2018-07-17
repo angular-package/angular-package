@@ -1,8 +1,9 @@
+import { Settings } from './settings.interface';
 
 /**
  * Structure of providing specs where key is specific spec name. For example `it(`key`, () => {});
  * @export
  */
 export interface Spec {
-  [name: string]: () => any;
+  [name: string]: (settings: Settings) => any;
 }
