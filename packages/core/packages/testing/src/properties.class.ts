@@ -47,10 +47,10 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
    * Stored result of `before()` `query` method with last name.
    */
   protected _result: Result = {};
-  set result(result: Result) {
+  protected set result(result: Result) {
     this._result = result;
   }
-  get result(): Result {
+  protected get result(): Result {
     return this._result;
   }
 
@@ -73,7 +73,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * List of specs for execution.
    */
-  protected specs: Spec = {};
+  protected specs: Spec<T> = {};
 
   /**
    * Stored settings, used in `spec()` method.
@@ -106,7 +106,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     protected description: string,
     protected moduleDef: TestModuleMetadata,
     public componentTest: Type<T>,
-    options?: Options
+    protected options?: Options
   ) {
     super();
     if (options) {
@@ -143,7 +143,6 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
       this.settings.console = { executed: false, skipped: false };
       this.settings.console[options.log] = true ;  
     } else if (typeof options.log === 'boolean') {
-      
       this.settings.console = {
         executed: options.log,
         skipped: options.log
