@@ -1,9 +1,9 @@
-import { Settings } from './settings.interface';
+import { TestingClass } from '../src';
 
 /**
  * Structure of providing specs where key is specific spec name. For example `it(`key`, () => {});
  * @export
  */
-export interface Spec {
-  [name: string]: (settings: Settings) => any;
+export interface Spec<T> {
+  [name: string]: (instance: TestingClass<T>) => any;
 }
