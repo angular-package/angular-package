@@ -1,24 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PropertyClass } from '../src';
-
-class TargetClass {
-  firstname: string;
-  surname: string;
-}
+import { TargetClass } from './target.class';
 
 @Component({
-  template: `
-  `
+  template: ``
 })
 export class TestPropertyComponent implements OnInit {
 
   propertyClass: PropertyClass = new PropertyClass();
+  checker = false;
+  checker_true = true;
+  checker_false = false;
 
-  firstname: string;
-  surname: string;
+  firstname = 'my firstname';
+  surname = 'my surname';
 
-  _age: number;
+  data = {
+    firstname: 'my firstname',
+    surname: 'my surname',
+    age: 27
+  };
+
+  _age = 27;
   set age(age: number) {
     this._age = age;
   }
