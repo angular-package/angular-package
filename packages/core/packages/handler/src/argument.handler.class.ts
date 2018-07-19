@@ -8,7 +8,7 @@ export class ArgumentHandlerClass {
    * Spread argument values to object.
    * @param args Array object.
    */
-  spreadToObject(...args: Array<Object>): Object {
+  protected spreadToObject(...args: Array<Object>): Object {
     let obj = {};
     args.forEach((add: Object) => obj = { ...obj, ...add });
 
@@ -19,7 +19,7 @@ export class ArgumentHandlerClass {
    * Argument value to array.
    * @template T Argument type.
    */
-  toArray<T>(result: Argument<T>): Array<T> {
+  protected toArray<T>(result: Argument<T>): Array<T> {
     if (typeGuard<T>(result) && Array.isArray(result)) {
       return result;
     }
