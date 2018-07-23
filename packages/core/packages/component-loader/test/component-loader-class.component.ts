@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 
-import { ComponentLoaderClass } from './../src';
+import { ComponentLoaderClass } from '../src';
 import { DynamicComponent } from './dynamic.component';
 
 @Component({
