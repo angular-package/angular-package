@@ -111,6 +111,8 @@ export
     } else {
       throw new Error(`ComponentLoaderCommonAClass.__get(property ${property}) : property length is 0`);
     }
+
+    return;
   }
 
   /**
