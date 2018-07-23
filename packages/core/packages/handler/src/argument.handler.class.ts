@@ -19,7 +19,7 @@ export class ArgumentHandlerClass {
    * Argument value to array.
    * @template T Argument type.
    */
-  protected toArray<T>(result: Argument<T>): Array<T> {
+  protected toArray<T>(result: Argument<T>): Array<T | undefined> {
     if (typeGuard<T>(result) && Array.isArray(result)) {
       return result;
     }
