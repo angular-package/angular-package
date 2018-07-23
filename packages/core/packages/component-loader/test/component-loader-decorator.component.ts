@@ -1,7 +1,7 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { ComponentLoaderService, ComponentLoader } from './..';
-import { ComponentLoaderServiceInterface, ComponentLoaderCommonInterface } from '../interface';
+import { ComponentLoader, ComponentLoaderService } from '..';
+import { ComponentLoaderCommonInterface } from '../interface';
 import { DynamicComponent } from './dynamic.component';
 
 const config = {
@@ -30,14 +30,13 @@ export class ComponentLoaderDecoratorComponent implements ComponentLoaderCommonI
 
   // LoaderService.
   __component: any;
-  __properties: string[];
-
-  constructor(public componentLoaderService: ComponentLoaderService<DynamicComponent>) { }
+  __properties: Array<string>;
 
   // LoaderService.
-  __assign: <S>(p: string | string[], s?: S) => void;
+  __assign: <S>(p: string | Array<string>, s?: S) => void;
   __create: () => this;
   __destroy: () => void;
-  __subscribe: (property: string, ...args: any[]) => void;
-}
+  __subscribe: (property: string, ...args: Array<any>) => void;
 
+  constructor(public componentLoaderService: ComponentLoaderService<DynamicComponent>) { }
+}
