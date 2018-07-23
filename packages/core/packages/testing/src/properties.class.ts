@@ -6,16 +6,9 @@ import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
 
 // internal
 import { ArgumentHandlerClass } from '../../handler';
-import { Options, Settings, Spec } from '../interface';
-import { ResultName } from '../type';
+import { Options, Result, Settings, Spec } from '../interface';
 import { PropertyClass } from '../../property';
 import { ConsoleClass } from '../../src';
-
-export interface Result {
-  before?: any;
-  query?: DebugElement;
-  name?: ResultName;
-}
 
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
