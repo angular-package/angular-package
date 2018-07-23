@@ -2,11 +2,13 @@
 import {
 
 } from 'jasmine';
+import { async, TestBed, TestModuleMetadata } from '@angular/core/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 // internal.
 import { SelectorClass } from './selector.class';
-import { ConsoleLog, Execute, SpecIt } from '../type';
-import { Spec } from '../interface';
+import { ConsoleLog, Execute, Testing } from '../type';
+import { Spec, TestingClassMethods } from '../interface';
 
 /**
  * Class to instantiate spec to execute.
@@ -14,22 +16,22 @@ import { Spec } from '../interface';
  * @extends {SelectorClass<T>}
  * @template T Component type to test.
  */
-export class TestingClass<T> extends SelectorClass<T> {
+export class TestingClass<T> extends SelectorClass<T> implements TestingClassMethods<T> {
+
   /**
    * Execute specs list declared before by using `spec()` method.
    * It also restores original settings before each execute and use settings from arguments.
    * @param [execute] Filter executed specs.
-   * @param [consoleLog] What logs to display.
+   * @param [log] What logs to display.
    */
-  execute(execute?: Execute, consoleLog?: ConsoleLog): this {
+  execute(execute?: Execute, log?: ConsoleLog): this {
     this
+      .instance()
       .restoreSettings()
-      .describe(
-        () => this
-        .setSettings({ log: consoleLog, execute })
-        .eachIt()
-      );
-
+      .setSettings({ log, execute })
+      .spec(this.specDescription, this.specs)
+      .describe();
+    
     return this;
   }
 
@@ -40,7 +42,7 @@ export class TestingClass<T> extends SelectorClass<T> {
    * @param spec Spec where key is its name.
    * @param [reset=true] Reset specs list for executing.
    */
-  spec(description: string, spec: Spec, reset = true): this {
+  spec(description: string, spec: Spec<T>, reset = true): this {
     this.specDescription = description;
     // Reset specs.
     if (reset === true) {
@@ -53,10 +55,118 @@ export class TestingClass<T> extends SelectorClass<T> {
   }
 
   /**
+   * Primary describe with environment and module definition.
+   * @param specToExecute Tests to execute.
+   * @param [description=this.description] Jasmine textual description of the main group.
+   * @param [moduleDef=this.moduleDef] Angular module definition.
+   */
+  protected describe(
+    // specToExecute?: Function,
+    description: string = this.description,
+    moduleDef: TestModuleMetadata = this.moduleDef
+  ): this {
+
+    // Environment.
+    beforeAll(() => {
+      TestBed.resetTestEnvironment();
+      TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+    });
+    
+    // Main describe.
+    describe(description, () => {
+
+      // Angular TestBed configure and compile.
+      beforeEach(async(() => {
+        TestBed
+          .configureTestingModule(moduleDef)
+          .compileComponents();
+
+        this.fixture = TestBed.createComponent(this.componentTest);
+      }));
+
+      this.eachIt();
+    });
+    
+    return this;
+  }
+
+  /**
    * Uses jasmine function `it()` for asynchronous execution stored list of specs.
    */
-  private eachIt(): this {
+  protected eachIt(): this {
     (async (): Promise<any> => {
+      let i = 0;
+      let displayStart = true;
+
+      ((this.settings.execute !== false && this.specs) ? Object.keys({ ...{}, ...this.specs }) : []).forEach(name => {
+        i++;
+        const number = i;
+
+        it(name, done => {
+          // Display start.
+          this.consoleClass
+            .green(`Describe ${this.description} ${this.specDescription}`, ['bold'])
+            .log(displayStart);
+          
+          if (this.specs[name] instanceof Function && this.execution(number) === true) {
+            this.consoleClass
+              .green(`#${number}. ${name}`)
+              .log(this.settings.console.executed);
+
+            // Run spec.
+            const testing: Testing<T> = this;
+            this.specs[name](testing);
+          } else if (this.execution(number) === false) {
+            this.consoleClass
+              .text(`Skipped #${number}. ${name}`, undefined, ['faint'])
+              .log(this.settings.console.skipped);
+          }
+          // Do not display start log anymore.
+          displayStart = false;
+
+          if (this.execution(number) === false) {
+            pending(`Skipped #${number}. ${name}`);
+          }
+
+          done();
+        });
+      });
+
+    })();
+
+    return this;
+  }
+
+  /**
+   * Create new TestingClass instance.
+   */
+  private instance(): TestingClass<T> {
+    const instance: TestingClass<T> = new TestingClass<T>(
+      this.description,
+      this.moduleDef,
+      this.componentTest,
+      this.options
+    );
+
+    return instance;
+  }
+}
+
+      /* Default spec to check fixture and comp is defined.
+      if (this.componentTest !== undefined) {
+        it('should have fixture and comp defined.', async(() => {
+          expect(this.fixture)
+            .toBeDefined();
+          expect(this.componentInstance)
+            .toBeTruthy();
+        }));  
+      }
+     */
+      // Execute tests.
+      /* if (specToExecute) {
+        specToExecute();
+      } */
+
       /*
       const finalResult = await Promise.all([specIt.specs].map(async (spec: Spec) => {
         it('aaa', done => {
@@ -70,7 +180,6 @@ export class TestingClass<T> extends SelectorClass<T> {
       }));
       console.info(finalResult);
       // return finalResult;
-      */
 
       this.specIt((specNames, specs, settings, execution) => {
         let i = 0;
@@ -107,36 +216,10 @@ export class TestingClass<T> extends SelectorClass<T> {
           });
         });
       });
-    })();
+      */
+      // this.specIt((specNames, specs, settings, execution) => {
 
-    return this;
-  }
-
-  /**
-   * Inject new - `private` instance of all requested parameters for execution list of specs.
-   * It is used in `eachIt()` method, and is needed because of asynchronous executing.
-   * @param specIt Callback function to use private requested arguments to execute list of specs.
-   */
-  private specIt(specIt: SpecIt): void {
-    const settings = { ...{}, ...this.settings };
-
-    specIt(
-      (settings.execute !== false) ? Object.keys({ ...{}, ...this.specs }) : [], 
-      { ...{}, ...this.specs }, 
-      {
-        ...{},
-        ...this.settings,
-        ...{
-          description: this.description,
-          displayStart: true,
-          specDescription: this.specDescription
-        }
-      }, (number: number): boolean => {
-        return this.execution(settings, number);
-      });
-  }
-
-  /*
+/*
   private displayLog(number?: number, specs?: Array<Spec>): {
     start: boolean,
     executed: {
@@ -186,4 +269,27 @@ export class TestingClass<T> extends SelectorClass<T> {
     };
   }
   */
-}
+
+  /**
+   * Inject new - `private` instance of all requested parameters for execution list of specs.
+   * It is used in `eachIt()` method, and is needed because of asynchronous executing.
+   * @param specIt Callback function to use private requested arguments to execute list of specs.
+   */
+  /* private specIt(specIt: SpecIt): void {
+    const settings = { ...{}, ...this.settings };
+
+    specIt(
+      (settings.execute !== false) ? Object.keys({ ...{}, ...this.specs }) : [], 
+      { ...{}, ...this.specs }, 
+      {
+        ...{},
+        ...this.settings,
+        ...{
+          description: this.description,
+          displayStart: true,
+          specDescription: this.specDescription
+        }
+      }, (number: number): boolean => {
+        return this.execution(settings, number);
+      });
+  } */
