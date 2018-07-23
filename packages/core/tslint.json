@@ -28,6 +28,7 @@
     "class-name": true,
     "no-multi-spaces": true,
     "prefer-for-of": true,
+    "no-null-keyword": false,
     "comment-format": [
       true,
       "check-space"
