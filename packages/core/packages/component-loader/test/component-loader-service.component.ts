@@ -1,7 +1,7 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { ComponentLoaderService } from './..';
-import { ComponentLoaderServiceInterface, ComponentLoaderConfigInterface, ComponentLoaderCommonInterface } from '../interface';
+import { ComponentLoaderService } from '..';
+import { ComponentLoaderCommonInterface } from '../interface';
 import { DynamicComponent } from './dynamic.component';
 
 
@@ -16,26 +16,27 @@ export class ComponentLoaderServiceComponent
   __prefix = '_';
   __suffix = '_';
 
-  public model = {};
-  public key = 'defined';
+  model = {};
+  key = 'defined';
 
   constructor(public componentLoaderService: ComponentLoaderService<DynamicComponent>) { }
 
-  get __component() {
+  get __component(): any {
     return this.componentLoaderService.__component;
   }
-  __assign(p) {
+  __assign(p): void {
     this.componentLoaderService.__assign(p, this);
   }
-  __link(properties?: string[]): this {
+  __link(properties?: Array<string>): this {
     this.componentLoaderService.__link(properties, this);
+
     return this;
   }
 
   __createSimple(): ComponentLoaderService<DynamicComponent> {
     return this.componentLoaderService.init({
       component: DynamicComponent,
-      container: '.container',
+      container: '.container'
     });
   }
 
@@ -48,15 +49,16 @@ export class ComponentLoaderServiceComponent
       prefix: this.__prefix, //  <-- optional
       suffix: this.__suffix // <-- optional
     }, this);
+
     return this;
   }
 
-  __destroy() {
+  __destroy(): void {
     this.componentLoaderService.__destroy();
   }
   __subscribe(property, ...args): void {
     this.componentLoaderService.__subscribe(property, ...args);
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 }
