@@ -1,36 +1,38 @@
 
 // internal
 import { TestPropertyComponent } from '../test/component';
-import { PropertyClass } from '.';
+import { TestModule } from '../test/test.module';
+
 import { TestingClass } from '../../testing';
 import { Options } from '../../testing/interface';
+import { PropertyClass } from './property.class';
 
 const TESTING_OPTIONS: Options = {
   log: false,
-  execute: true
+  execute: false
 };
 
-const testing: TestingClass<TestPropertyComponent> =
+const testingClass: TestingClass<TestPropertyComponent> =
   new TestingClass<TestPropertyComponent>('TestPropertyComponent', {
-    declarations: [
-      TestPropertyComponent
+    imports: [
+      TestModule
     ]
   },
     TestPropertyComponent,
     TESTING_OPTIONS);
 
-testing
+testingClass
   .spec('should have', {
-    '`propertyClass` instance.': () => testing
+    '`propertyClass` instance.': testing => testing
       .before(comp => comp.propertyClass instanceof PropertyClass)
       .truthy(),
-    'bind working when properties is string.': () => testing
+    'bind working when properties is string.': testing => testing
       .before(comp => {
         comp.propertyClass.bind(comp, 'firstname', 'target');
         comp.firstname = 'Lucas';
       })
       .equal('target.firstname', 'Lucas'),
-    'bind working when properties is array of string.': () => {
+    'bind working when properties is array of string.': testing => {
       testing
         .before(comp => {
           comp.propertyClass.bind(comp, ['firstname', 'surname'], 'target');
@@ -40,7 +42,7 @@ testing
         .equal(['firstname', 'target.firstname'], 'Lucas')
         .equal(['surname', 'target.surname'], 'Tramp');
     },
-    'firstname changed after bind with array of string.': () => {
+    'firstname changed after bind with array of string.': testing => {
       const firstname = 'Lucas';
       const surname = 'Tramp';
       testing
@@ -48,6 +50,7 @@ testing
           comp.propertyClass.bind(comp, ['firstname', 'surname'], 'target');
           comp.firstname = firstname;
           comp.surname = surname;
+          console.log(comp.firstname, comp.surname);
         })
         .equal(['firstname', 'target.firstname'], firstname)
         .equal(['surname', 'target.surname'], surname)
@@ -57,9 +60,9 @@ testing
   })
   .execute(true, true);
 
-testing
+testingClass
   .spec('', {
-    'Remove binded.': () => testing
+    'Remove binded.': testing => testing
       .before(comp => {
         comp.propertyClass.bind(comp, ['firstname', 'surname'], 'target');
         if (comp.propertyClass.binded instanceof Array) {
