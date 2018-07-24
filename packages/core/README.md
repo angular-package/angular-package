@@ -16,18 +16,19 @@ import '@angular-package/core';
 
 ----
 
-* [Available packages](#available-packages)
+* [Packages](#packages)
 * [Style guide](#style-guide)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
 * [License](#license)
+* [Donate](#donate)
 
 ----
 
-## Available packages
+## Packages
 
-| Package | Description | Status | Readme |
+| Name | Description | Status | Readme |
 |---------|-------------|--------|--------|
 | component-loader | To make handle dynamic component easier. | **Ready** | [Readme][0] |
 | handler | Services to handle [HTMLElement][433] [attributes][437]. | **Ready** | [Readme][1] |
