@@ -51,7 +51,7 @@ export class PropertyClass extends PrefixSuffixClass {
   /**
    * Creates an instance of PropertyClass.
    * @param [prefix] Prefix of new property name.
-   * @param [suffix] Prefix of new property name.
+   * @param [suffix] Suffix of new property name.
    */
   constructor(prefix?: string, suffix?: string) {
     super(prefix, suffix);
