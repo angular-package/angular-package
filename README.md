@@ -1,86 +1,92 @@
 # angular-package
 
-Useful packages written on Angular framework.
+[![Build Status](https://travis-ci.org/angular-package/angular-package.svg?branch=master)](https://travis-ci.org/angular-package/angular-package)
+[![GitHub issues](https://img.shields.io/github/issues/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/issues)
+[![GitHub stars](https://img.shields.io/github/stars/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/stargazers)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
-#### Available packages
+Useful **javascript/typescript** packages written for **[Angular][508]** framework.
 
-| Package          | Description                                                                              | Status        | Readme      |
+----
+
+* [Packages](#packages)
+* [Organization](#organization)
+* [Style guide](#style-guide)
+* [Git](#git)
+* [License](#license)
+* [Donate](#donate)
+
+----
+
+## Packages
+
+| Name             | Description                                                                              | Status        | Readme      |
 |------------------|------------------------------------------------------------------------------------------|---------------|-------------|
-| change-detection | Improve application performance.                                                         | **Ready**     | [Readme][0] |
+| change-detection | Improve application performance.                                                         | [![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection) | [Readme][0] |
 | chart            | Re-usable charts - especially on nvd3.                                                   | Not ready     | [Readme][1] |
-| core             | Some core features used in other **angular-package** libraries.                          | *In progress* | [Readme][2] |
+| core             | Some core features used in other **angular-package** libraries.                          | [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore) | [Readme][2] |
 | common           |                                                                                          | Not ready     | [Readme][3] |
-| docs             | Modules to create documentation with **[MaterialDesign](https://material.angular.io/)**. | *In progress* | [Readme][4] |
+| docs             | Modules to create documentation with **[MaterialDesign](https://material.angular.io/)**. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fdocs.svg)](https://badge.fury.io/js/%40angular-package%2Fdocs) | [Readme][4] |
 | form             | Dynamic forms or html form elements.                                                     | Not started   | [Readme][5] |
 | markdown         | Markdown to html using marked a markdown <br/>parser and comiler.                        | Not started   | [Readme][6] |
-| prism            | `Prism` highlighter module.                                                              | **Ready**     | [Readme][7] |
-| reactive         | Automatize process of creating some **[`rxjs/Rx`](http://reactivex.io/rxjs/)** features. | **Ready**     | [Readme][8] |
+| prism            | `Prism` highlighter module.                                                              | [![npm version](https://badge.fury.io/js/%40angular-package%2Fprism.svg)](https://badge.fury.io/js/%40angular-package%2Fprism) | [Readme][7] |
+| reactive         | Automatize process of creating some **[`rxjs/Rx`](http://reactivex.io/rxjs/)** features. | [![npm version](https://badge.fury.io/js/%40angular-package%2Freactive.svg)](https://badge.fury.io/js/%40angular-package%2Freactive) | [Readme][8] |
 | ui               | User interface based on **[MaterialDesign](https://material.angular.io/)**.              | *In Progress* | [Readme][9] |
 
- [0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection#readme
- [1]: https://
- [2]: https://github.com/angular-package/angular-package/tree/master/packages/core#readme
- [3]: https://
- [4]: https://github.com/angular-package/angular-package/tree/master/packages/docs#readme
- [5]: https://
- [6]: https://
- [7]: https://github.com/angular-package/angular-package/tree/master/packages/prism#readme
- [8]: https://github.com/angular-package/angular-package/tree/master/packages/reactive#readme
- [9]: https://
+## Organization
 
-## Folder and file structure
+Folders and files [organization][301].
 
-Organization of most files that can be found in this repository.
+## Style guide
 
-```
- packages/                                          * All packages files are placed here.
- ├──change-detection/                               * Example `@angular-package/change-detection` package.
- |   ├──demo/                                       * Package change-detection demonstration, based mostly on `@angular/cli`.
- |   ├──packages/                                   * Sub-packages of change-detection, it is the same folder like /dist or /build.
- |   |   ├──demo/                                   * Package change-detection demonstration, based mostly on `@angular/cli`.
- |   |   ├──subject/                                * Sub-package subject `@angular-package/change-detection/subject`.
- |   |   |   ├──async/                              * Sub-package subject/async `@angular-package/change-detection/subject/async`.
- |   |   |   |   ├──demo/
- |   |   |   |   ├──src/
- |   |   |   |   ├──test/
- |   |   |   |   └──index.ts
- |   |   |   ├──demo/
- |   |   |   ├──src/
- |   |   |   |   ├──subject-async.component.html
- |   |   |   |   ├──subject-async.component.ts
- |   |   |   |   ├──subject-async.module.ts
- |   |   |   |   └──index.ts                        * Export `ApSubjectAsyncModule`.
- |   |   |   ├──test/
- |   |   |   ├──index.ts
- |   |   |   └──README.md
- |   |   ├──subscribe/                              * Sub-package subscribe `@angular-package/change-detection/subscribe`.
- |   |   |   ├──demo/                               * subscribe sub-package demonstration, based mostly on `@angular/cli`.
- |   |   |   ├──src/                                * Source files for sub-package subscribe.
- |   |   |   ├──test/                               * Test files for sub-package subscribe.
- |   |   |   ├──index.ts                            * Exports importants of subscribe sub-package.
- |   |   |   └──README.md                           * Subscribe sub-package documentation.
- |   |   ├──src/                                    * Primary source `@angular-package/change-detection` folder.
- |   |   └──index.ts                                * Export sub-packages, then you can get all from `@angular-package/change-detection`.
- |   ├──subject/                                    * Rollup compiled folder based on packages/subject.
- |   ├──subscribe/                                  * Rollup compiled folder based on packages/subscribe.
- |   ├──test/                                       * All tests, if we don't want to have in separate folders.
- |   ├──.gitignore                                  * Ignore files in repository.
- |   ├──.npmignore                                  * Ignore files in npm.
- |   ├──.travis.yml                                 * Travis configuration.
- |   ├──bundle.umd.js                               * Rollup bundle.
- |   ├──bundle.umd.js.map                           * Rollup bundle.
- |   ├──index.d.ts
- |   ├──index.js
- |   ├──index.js.map
- |   ├──index.metadata.json
- |   ├──karma.conf.js
- |   ├──LICENSE
- |   ├──package-lock.json
- |   ├──package.json
- |   ├──README.md
- |   ├──rollup.config.js
- |   ├──tsconfig.json
- |   ├──tslint.json
- |   └──yarn.lock
- └──reactive/                                       * Another example package.
-```
+Coding with included [style guides][302].
+
+## GIT
+
+Git commit conventions and versioning described [here][300].
+
+## License
+
+MIT © angular-package ([license][303])
+
+## Donate
+
+Package is under [MIT License][303]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][100] or by [paypal][101].
+
+**Why donate ?**
+**wwwdev.io** organization is non-profit, has a volunteer board, no employees or any paid person. Its goal is to work on **javascript/typescript** software, especially dedicated to [angular.io][508] framework and to help open-source software grow by using [MIT License][303] which allows it to be used comercially. So, it is hope you consider supporting our efforts.
+
+[![donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)][101]
+
+<!--- This package -->
+[0]: https://github.com/angular-package/angular-package/tree/master/packages/change-detection#readme
+[1]: https://
+[2]: https://github.com/angular-package/angular-package/tree/master/packages/core#readme
+[3]: https://
+[4]: https://github.com/angular-package/angular-package/tree/master/packages/docs#readme
+[5]: https://
+[6]: https://
+[7]: https://github.com/angular-package/angular-package/tree/master/packages/prism#readme
+[8]: https://github.com/angular-package/angular-package/tree/master/packages/reactive#readme
+[9]: https://
+
+<!--- General -->
+[100]: https://donorbox.org/help-creating-open-source-software
+[101]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
+
+<!--- @angular-package -->
+[300]: https://github.com/angular-package/angular-package/blob/master/GIT.md
+[301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
+[302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
+[303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+
+<!--- @angular -->
+[500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
+[501]: https://angular.io/api/core/Component
+[502]: https://angular.io/tutorial/toh-pt4
+[503]: https://angular.io/api/core/ChangeDetectorRef
+[504]: https://angular.io/api/core/testing/TestModuleMetadata
+[505]: https://angular.io/api/core/Type
+[506]: https://angular.io/guide/dynamic-component-loader
+[507]: https://angular.io/guide/lifecycle-hooks
+[508]: https://angular.io/
