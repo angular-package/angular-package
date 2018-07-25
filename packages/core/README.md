@@ -14,6 +14,8 @@ import '@angular-package/core';
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 
+*Please, give feedback about found any pros and especially cons.*
+
 ----
 
 * [Packages](#packages)
@@ -32,7 +34,7 @@ import '@angular-package/core';
 |---------|-------------|--------|--------|
 | component-loader | To make handle [dynamic component loader][438] easier. | **Ready** | [\>\>][0] |
 | handler | Services to handle [HTMLElement][433] [attributes][437]. | *Beta* | [\>\>][1] |
-| property | Bind or wrap indicated [component][443] properties with specific target. | **Ready** | [\>\>][2] |
+| property | Bind or wrap indicated [component][443] properties with specific target. | *Beta* | [\>\>][2] |
 | store | Stores target [setters][439]/[getters][440] and [cycle-hooks][441]. | **Ready**  | [\>\>][3] |
 | testing | Wrapper class to control the execution of [jasmine][442] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | *Beta*  | [\>\>][4] |
 
