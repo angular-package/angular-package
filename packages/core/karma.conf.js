@@ -5,7 +5,22 @@ const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const typescript = require('rollup-plugin-typescript');
 
-module.exports = function(config) {
+
+module.exports = function (config) {
+  const package = `packages/${config.package}/src/*.spec.ts`;
+
+  const files = [
+    // Make sure to disable Karma’s file watcher
+    // because the preprocessor will use its own.
+    { pattern: 'test/index.ts', watched: false },
+    { pattern: package, watched: false },
+  ];
+
+  preprocessors = {
+    'test/index.ts': ['rollup'],
+    [package]: ['rollup'],
+  };
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -18,12 +33,7 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: [
-      // Make sure to disable Karma’s file watcher
-      // because the preprocessor will use its own.
-      { pattern: 'test/index.ts', watched: false },
-      { pattern: 'packages/component-loader/src/*.spec.ts', watched: false }
-    ],
+    files: files,
 
 
     plugins: [
@@ -40,10 +50,7 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'test/index.ts': ['rollup'],
-      'packages/component-loader/src/*.spec.ts': ['rollup']
-    },
+    preprocessors: preprocessors,
 
     rollupPreprocessor: {
       output: {
