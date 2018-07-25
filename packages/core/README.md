@@ -43,7 +43,7 @@ Folders and files [organization][426].
 
 ## Style guide
 
-Coded by including style guides - [click][427].
+Coded by including [this][427] style guides.
 
 ## GIT
 
