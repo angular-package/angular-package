@@ -32,10 +32,15 @@
     "prepare": "",
     "start": "npm run build && npm run bundle",
     "clean:start": "npm run clean:all && npm start",
-    "test": "./node_modules/karma/bin/karma start karma.conf.js ",
+    "test": "npm run test:component-loader && npm run test:property",
+    "test:component-loader": "./node_modules/karma/bin/karma start karma.conf.js --package=component-loader",
+    "test:property": "./node_modules/karma/bin/karma start karma.conf.js --package=property",
     "tslint": "./node_modules/tslint/bin/tslint -p tsconfig.json --force"
   },
   "license": "MIT",
+  "dependencies": {
+    "lodash-es": "^4.17.10"
+  },
   "devDependencies": {
     "@angular/common": "^5.2.6",
     "@angular/compiler": "^5.2.6",
@@ -84,9 +89,6 @@
     "typescript": "^2.7.2",
     "uglify-es": "^3.3.9",
     "zone.js": "^0.8.26"
-  },
-  "peerDependencies": {
-    "lodash-es": "^4.17.10"
   },
   "keywords": [],
   "repository": {
