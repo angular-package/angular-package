@@ -28,13 +28,13 @@ import '@angular-package/core';
 
 ## Packages
 
-| Name | Description | Status | Readme |
+| Name | Description | Status | |
 |---------|-------------|--------|--------|
-| component-loader | To make handle dynamic component easier. | **Ready** | [Readme][0] |
-| handler | Services to handle [HTMLElement][433] [attributes][437]. | **Ready** | [Readme][1] |
-| property | Bind or wrap indicated component properties with specific target. | **Ready** | [Readme][2] |
-| store | Stores target setters/getters and cycle-hooks. | **Ready**  | [Readme][3] |
-| testing | Wrapper class to control the execution of jasmine spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | **Ready**  | [Readme][4] |
+| component-loader | To make handle [dynamic component loader][438] easier. | **Ready** | [\>\>][0] |
+| handler | Services to handle [HTMLElement][433] [attributes][437]. | *Beta* | [\>\>][1] |
+| property | Bind or wrap indicated [component][443] properties with specific target. | **Ready** | [\>\>][2] |
+| store | Stores target [setters][439]/[getters][440] and [cycle-hooks][441]. | **Ready**  | [\>\>][3] |
+| testing | Wrapper class to control the execution of [jasmine][442] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | *Beta*  | [\>\>][4] |
 
 ## Style guide
 
@@ -84,7 +84,7 @@ Package is under [MIT License][432]. Feel invited to help to maintain it with yo
 [1]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/handler#readme
 [2]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/property#readme
 [3]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/store#readme
-[3]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/testing#readme
+[4]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/testing#readme
 
 [27]: https://donorbox.org/help-creating-open-source-software
 [127]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
@@ -103,3 +103,9 @@ Package is under [MIT License][432]. Feel invited to help to maintain it with yo
 [435]: https://angular.io/api/core/testing/TestModuleMetadata
 [436]: https://angular.io/api/core/Type
 [437]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+[438]: https://angular.io/guide/dynamic-component-loader
+[439]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+[440]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+[441]: https://angular.io/guide/lifecycle-hooks
+[442]: https://jasmine.github.io/2.0/introduction
+[443]: https://angular.io/api/core/Component
