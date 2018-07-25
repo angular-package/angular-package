@@ -21,8 +21,6 @@ import '@angular-package/core';
 * [Packages](#packages)
 * [Style guide](#style-guide)
 * [Git](#git)
-  * [Commit](#commit)
-  * [Versioning](#versioning)
 * [License](#license)
 * [Donate](#donate)
 
