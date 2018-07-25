@@ -90,7 +90,15 @@
     "uglify-es": "^3.3.9",
     "zone.js": "^0.8.26"
   },
-  "keywords": [],
+  "keywords": [
+    "Dynamic Component Loader",
+    "HTMLElement attributes handler",
+    "Property wrapper",
+    "Store Setter and Getter",
+    "Getter",
+    "Setter",
+    "Testing"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angular-package/angular-package.git"
