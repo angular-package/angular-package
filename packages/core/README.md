@@ -19,6 +19,7 @@ import '@angular-package/core';
 ----
 
 * [Packages](#packages)
+* [Organization](#organization)
 * [Style guide](#style-guide)
 * [Git](#git)
 * [License](#license)
@@ -36,13 +37,17 @@ import '@angular-package/core';
 | store | Stores target [setters][439]/[getters][440] and [cycle-hooks][441]. | **Ready**  | [\>\>][3] |
 | testing | Wrapper class to control the execution of [jasmine][442] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | *Beta*  | [\>\>][4] |
 
+## Organization
+
+Folders and files [organization][426].
+
 ## Style guide
 
-[Coded by including style guides][427]
+Coded by including style guides - [click][427].
 
 ## GIT
 
-[Git commit conventions and versioning][425]
+Git commit conventions and versioning described [here][425].
 
 ## License
 
@@ -64,8 +69,10 @@ Package is under [MIT License][432]. Feel invited to help to maintain it with yo
 [127]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
 
 [424]: https://rollupjs.org/#introduction
-[427]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
+
 [425]: https://github.com/angular-package/angular-package/blob/master/GIT.md
+[426]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
+[427]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
 
 [432]: https://github.com/angular-package/angular-package/blob/master/LICENSE
 [433]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
