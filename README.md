@@ -22,16 +22,16 @@ Useful **javascript/typescript** packages written for **[Angular][508]** framewo
 
 | Name             | Description                                                                              | Status        | Readme      |
 |------------------|------------------------------------------------------------------------------------------|---------------|-------------|
-| change-detection | Improve application performance.                                                         | [![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection) | [Readme][0] |
-| chart            | Re-usable charts - especially on nvd3.                                                   | Not ready     | [Readme][1] |
-| core             | Some core features used in other **angular-package** libraries.                          | [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore) | [Readme][2] |
-| common           |                                                                                          | Not ready     | [Readme][3] |
-| docs             | Modules to create documentation with **[MaterialDesign](https://material.angular.io/)**. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fdocs.svg)](https://badge.fury.io/js/%40angular-package%2Fdocs) | [Readme][4] |
-| form             | Dynamic forms or html form elements.                                                     | Not started   | [Readme][5] |
-| markdown         | Markdown to html using marked a markdown <br/>parser and comiler.                        | Not started   | [Readme][6] |
-| prism            | `Prism` highlighter module.                                                              | [![npm version](https://badge.fury.io/js/%40angular-package%2Fprism.svg)](https://badge.fury.io/js/%40angular-package%2Fprism) | [Readme][7] |
-| reactive         | Automatize process of creating some **[`rxjs/Rx`](http://reactivex.io/rxjs/)** features. | [![npm version](https://badge.fury.io/js/%40angular-package%2Freactive.svg)](https://badge.fury.io/js/%40angular-package%2Freactive) | [Readme][8] |
-| ui               | User interface based on **[MaterialDesign](https://material.angular.io/)**.              | *In Progress* | [Readme][9] |
+| change-detection | Improve application performance. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection) | [Readme][0] |
+| chart | Re-usable charts - especially on nvd3. | Not ready     | [Readme][1] |
+| core | Some core features used in other **angular-package** libraries. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore) | [Readme][2] |
+| common | | Not ready | [Readme][3] |
+| docs | Modules to create documentation with **[MaterialDesign](https://material.angular.io/)**. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fdocs.svg)](https://badge.fury.io/js/%40angular-package%2Fdocs) | [Readme][4] |
+| form | Dynamic forms or html form elements. | Not started   | [Readme][5] |
+| markdown | Markdown to html using marked a markdown <br/>parser and comiler. | Not started   | [Readme][6] |
+| prism | `Prism` highlighter module. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fprism.svg)](https://badge.fury.io/js/%40angular-package%2Fprism) | [Readme][7] |
+| reactive | Automatize process of creating some **[`rxjs/Rx`](http://reactivex.io/rxjs/)** features. | [![npm version](https://badge.fury.io/js/%40angular-package%2Freactive.svg)](https://badge.fury.io/js/%40angular-package%2Freactive) | [Readme][8] |
+| ui | User interface based on **[MaterialDesign](https://material.angular.io/)**. | *In Progress* | [Readme][9] |
 
 ## Organization
 
