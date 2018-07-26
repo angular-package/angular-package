@@ -1,6 +1,7 @@
 # angular-package
 
 [![Build Status](https://travis-ci.org/angular-package/angular-package.svg?branch=master)](https://travis-ci.org/angular-package/angular-package)
+[![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/Lobby)
 [![GitHub issues](https://img.shields.io/github/issues/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/issues)
 [![GitHub stars](https://img.shields.io/github/stars/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/stargazers)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
@@ -25,7 +26,6 @@ Useful **javascript/typescript** packages written for **[Angular][508]** framewo
 | change-detection | Improve application performance. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection) | [Readme][0] |
 | chart | Re-usable charts - especially on nvd3. | Not ready     | [Readme][1] |
 | core | Some core features used in other **angular-package** libraries. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore) | [Readme][2] |
-| common | | Not ready | [Readme][3] |
 | docs | Modules to create documentation with **[MaterialDesign](https://material.angular.io/)**. | [![npm version](https://badge.fury.io/js/%40angular-package%2Fdocs.svg)](https://badge.fury.io/js/%40angular-package%2Fdocs) | [Readme][4] |
 | form | Dynamic forms or html form elements. | Not started   | [Readme][5] |
 | markdown | Markdown to html using marked a markdown <br/>parser and comiler. | Not started   | [Readme][6] |
