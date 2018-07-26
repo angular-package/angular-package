@@ -32,4 +32,5 @@ This serves two purposes:
 - At release time, you can move the Unreleased section changes into a new release version section.
 
 ---
-Guiding principles are copied from [Keep a Changelog](http://keepachangelog.com/en/1.0.0/). We are just using their ideas.
+Guiding principles are copied from [Keep a Changelog](http://keepachangelog.com/en/1.0.0/). 
+We are just using their idea of making changelog with some modifies.
