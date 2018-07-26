@@ -1,8 +1,8 @@
 # @angular-package/core
 
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore)
-[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
 Some features used in other **angular-package** libraries.
 
@@ -10,9 +10,10 @@ Some features used in other **angular-package** libraries.
 import '@angular-package/core';
 ```
 
-* Treeshake bundle with **[Rollup][424]** - module bundler for JavaScript.
+* Treeshake bundle with **[Rollup][400]** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
+* Possible to test each package separately with npm command `npm run test:property`.
 
 *Please, give feedback about found any pros and especially cons.*
 
@@ -31,58 +32,70 @@ import '@angular-package/core';
 
 | Name | Description | Status | |
 |---------|-------------|--------|--------|
-| component-loader | To make handle [dynamic component loader][438] easier. | **Ready** | [\>\>][0] |
-| handler | Services to handle [HTMLElement][433] [attributes][437]. | *Beta* | [\>\>][1] |
-| property | Bind or wrap indicated [component][443] properties with specific target. | *Beta* | [\>\>][2] |
-| store | Stores target [setters][439]/[getters][440] and [cycle-hooks][441]. | **Ready**  | [\>\>][3] |
-| testing | Wrapper class to control the execution of [jasmine][442] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | *Beta*  | [\>\>][4] |
+| component-loader | To make handle [dynamic component loader][506] easier. | **Ready** | [\>\>][0] |
+| handler | Services to handle [HTMLElement][401] [attributes][402]. | *Beta* | [\>\>][1] |
+| property | Bind or wrap indicated [component][501] properties with specific target. | *Beta* | [\>\>][2] |
+| store | Stores target [setters][403]/[getters][404] and [cycle-hooks][507]. | **Ready**  | [\>\>][3] |
+| testing | Wrapper class to control the execution of [jasmine][405] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | *Beta*  | [\>\>][4] |
 
 ## Organization
 
-Folders and files [organization][426].
+Folders and files [organization][301].
 
 ## Style guide
 
-Coded by including [this][427] style guides.
+Coding with included [style guides][302].
 
 ## GIT
 
-Git commit conventions and versioning described [here][425].
+Git commit conventions and versioning described [here][300].
 
 ## License
 
-MIT © angular-package ([license][432])
+MIT © angular-package ([license][303])
 
 ## Donate
 
-Package is under [MIT License][432]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][27] or by paypal. Thank you.
+Package is under [MIT License][303]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][100] or by [paypal][101].
 
-[![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)][127]
+**Why donate ?**
+**wwwdev.io** organization is non-profit, has a volunteer board, no employees or any paid person. Its goal is to work on **javascript/typescript** software, especially dedicated to [angular.io][508] framework and to help open-source software grow by using [MIT License][303] which allows it to be used comercially. So, it is hope you consider supporting our efforts.
 
+[![donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)][101]
+
+<!--- This package -->
 [0]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/component-loader#readme
 [1]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/handler#readme
 [2]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/property#readme
 [3]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/store#readme
 [4]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/testing#readme
 
-[27]: https://donorbox.org/help-creating-open-source-software
-[127]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
+<!--- General -->
+[100]: https://donorbox.org/help-creating-open-source-software
+[101]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
 
-[424]: https://rollupjs.org/#introduction
+<!--- @angular-package -->
+[300]: https://github.com/angular-package/angular-package/blob/master/GIT.md
+[301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
+[302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
+[303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
 
-[425]: https://github.com/angular-package/angular-package/blob/master/GIT.md
-[426]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
-[427]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
+<!--- Other -->
+[400]: https://rollupjs.org/#introduction
+[401]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
+[402]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+[403]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+[404]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+[405]: https://jasmine.github.io/2.0/introduction
+[406]: https://www.w3schools.com/js/js_object_properties.asp
 
-[432]: https://github.com/angular-package/angular-package/blob/master/LICENSE
-[433]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
-[434]: https://angular.io/api/core/ChangeDetectorRef
-[435]: https://angular.io/api/core/testing/TestModuleMetadata
-[436]: https://angular.io/api/core/Type
-[437]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
-[438]: https://angular.io/guide/dynamic-component-loader
-[439]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
-[440]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
-[441]: https://angular.io/guide/lifecycle-hooks
-[442]: https://jasmine.github.io/2.0/introduction
-[443]: https://angular.io/api/core/Component
+<!--- @angular -->
+[500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
+[501]: https://angular.io/api/core/Component
+[502]: https://angular.io/tutorial/toh-pt4
+[503]: https://angular.io/api/core/ChangeDetectorRef
+[504]: https://angular.io/api/core/testing/TestModuleMetadata
+[505]: https://angular.io/api/core/Type
+[506]: https://angular.io/guide/dynamic-component-loader
+[507]: https://angular.io/guide/lifecycle-hooks
+[508]: https://angular.io/
