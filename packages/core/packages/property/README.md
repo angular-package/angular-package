@@ -1,8 +1,8 @@
 # @angular-package/core/property
 
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore)
-[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
+[![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
 Bind or wrap indicated source [component][501] [properties][406] with specific target.
 
@@ -27,17 +27,17 @@ new PropertyClass(
 * Treeshake bundle with **[Rollup][400]** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
-* It uses [`PrefixSuffixClass`][].
+* It uses `PrefixSuffixClass`.
 * It uses `@angular-package/core/store` to store [setter][403]/[getter][404] and cycle hooks.
 * Simple bind [component][501] [property][406] e.g. to [service][502] [property][406].
 * Wrap [component][501] [property][406] with specific functionality. e.g. to [service][502] [property][406].
 * Remove wrap/bind from [property][406].
-* [Decorator][500] [BindProperty][5] to easy handle its features.
+* [Decorator][500] [@BindProperty()][5] to easy handle its features.
 * Tested with [`@angular-package/core/testing`][4].
 
 **Cons(-):**
 
-* Methods `bind()`, `clear()`, `wrap` has try catch hack because of error.
+* Methods `bind()`, `clear()`, `wrap` have "try catch" hack because of unrecognized error.
 
 *Please, give feedback about found any pros and especially cons.*
 
@@ -86,9 +86,12 @@ MIT © angular-package ([license][303])
 
 ## Donate
 
-Package is under [MIT License][303]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][100] or by paypal. Thank you.
+Package is under [MIT License][303]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][100] or by [paypal][101].
 
-[![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)][101]
+**Why donate ?**
+**wwwdev.io** organization is non-profit, has a volunteer board, no employees or any paid person. Its goal is to work on **javascript/typescript** software, especially dedicated to [angular.io][508] framework and to help open-source software grow by using [MIT License][303] which allows it to be used comercially. So, it is hope you consider supporting our efforts.
+
+[![donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)][101]
 
 <!--- This package -->
 [0]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/component-loader#readme
@@ -126,3 +129,4 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [505]: https://angular.io/api/core/Type
 [506]: https://angular.io/guide/dynamic-component-loader
 [507]: https://angular.io/guide/lifecycle-hooks
+[508]: https://angular.io/
