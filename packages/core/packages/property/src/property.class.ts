@@ -8,14 +8,14 @@ import {
 // internal
 import { StoreOriginalClass } from '../../store';
 import { PrefixSuffixClass } from '../../src/prefixsuffix.class';
-import { Getter } from '../type/getter.type';
-import { Setter } from '../type/setter.type';
+import { Getter, Setter } from '../type';
+import { Property } from '../interface';
 
 /**
  * Wrap indicated properties of source component with instance dynamic component.
  * @export
  */
-export class PropertyClass extends PrefixSuffixClass {
+export class PropertyClass extends PrefixSuffixClass implements Property {
 
   /**
    * Instance of store.
