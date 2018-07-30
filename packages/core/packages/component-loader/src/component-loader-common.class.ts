@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 // internal
-import { ComponentLoaderCommonInterface } from '../interface';
+import { ComponentLoaderCommon } from '../interface';
 import { PropertyClass } from '../../property';
 import { Getter, Setter } from '../../property/type';
 
@@ -17,7 +17,7 @@ import { Getter, Setter } from '../../property/type';
  */
 export
   abstract class ComponentLoaderCommonClass<T>
-  implements ComponentLoaderCommonInterface<T> {
+  implements ComponentLoaderCommon<T> {
 
   __prefix = '_';
   __suffix = '';

@@ -12,7 +12,7 @@ import {
 
 // internal
 import { ComponentLoaderCommonClass } from './component-loader-common.class';
-import { ComponentLoaderConfigInterface, ComponentLoaderServiceInterface } from '../interface';
+import { ComponentLoaderConfig, ComponentLoaderS } from '../interface';
 
 /**
  * Service to make handle loading dynamic component easier.
@@ -25,7 +25,7 @@ import { ComponentLoaderConfigInterface, ComponentLoaderServiceInterface } from 
 export
   class ComponentLoaderService<T>
   extends ComponentLoaderCommonClass<T>
-  implements ComponentLoaderServiceInterface<T> {
+  implements ComponentLoaderS<T> {
 
   // Prefix
   set prefix(value: string) {
@@ -140,7 +140,7 @@ export
    * @param config Main configuration.
    * @param [source] Component which its properties are linked to dynamic component.
    */
-  init<S>(config: ComponentLoaderConfigInterface<T>, source?: S): this {
+  init<S>(config: ComponentLoaderConfig<T>, source?: S): this {
     Object.assign(this, config);
 
     this

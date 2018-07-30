@@ -7,7 +7,7 @@ import {
  * @export
  * @template T Type of component to load.
  */
-export interface ComponentLoaderCommonInterface<T> {
+export interface ComponentLoaderCommon<T> {
 
   __component?: ComponentRef<T>;
   __componentPropertyName?: string;

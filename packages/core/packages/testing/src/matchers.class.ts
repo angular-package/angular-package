@@ -6,12 +6,12 @@ import {
 import { MainClass } from './main.class';
 import { typeGuard } from '../../src';
 import { Argument, Matcher } from '../../type';
-import { MatchersClassMethods } from '../interface';
+import { Matchers } from '../interface';
 
 /**
  * @export
  */
-export abstract class MatchersClass<T> extends MainClass<T> implements MatchersClassMethods {
+export abstract class MatchersClass<T> extends MainClass<T> implements Matchers {
 
   protected _not = false;
   get not(): this {

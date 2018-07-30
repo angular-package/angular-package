@@ -8,7 +8,7 @@ import {
 
 // internal
 import { ComponentLoaderCommonClass } from './component-loader-common.class';
-import { ComponentLoaderClassInterface } from '../interface';
+import { ComponentLoader } from '../interface';
 
 /**
  * Class to handle loading dynamic component.
@@ -17,7 +17,7 @@ import { ComponentLoaderClassInterface } from '../interface';
 export
   class ComponentLoaderClass<T>
   extends ComponentLoaderCommonClass<T>
-  implements ComponentLoaderClassInterface<T> {
+  implements ComponentLoader<T> {
 
   /**
    * Container property where Dynamic Component will be put in.

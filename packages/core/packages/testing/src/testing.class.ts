@@ -7,8 +7,8 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 
 // internal.
 import { SelectorClass } from './selector.class';
-import { ConsoleLog, Execute, Testing } from '../type';
-import { Spec, TestingClassMethods } from '../interface';
+import { ConsoleLog, Execute, PickTesting } from '../type';
+import { Spec, Testing } from '../interface';
 
 /**
  * Class to instantiate spec to execute.
@@ -16,7 +16,7 @@ import { Spec, TestingClassMethods } from '../interface';
  * @extends {SelectorClass<T>}
  * @template T Component type to test.
  */
-export class TestingClass<T> extends SelectorClass<T> implements TestingClassMethods<T> {
+export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
 
   /**
    * Execute specs list declared before by using `spec()` method.
@@ -114,7 +114,7 @@ export class TestingClass<T> extends SelectorClass<T> implements TestingClassMet
               .log(this.settings.console.executed);
 
             // Run spec.
-            const testing: Testing<T> = this;
+            const testing: PickTesting<T> = this;
             this.specs[name](testing);
           } else if (this.execution(number) === false) {
             this.consoleClass

@@ -1,4 +1,4 @@
-import { ComponentLoaderConfigInterface } from '../interface';
+import { ComponentLoaderConfig } from '../interface';
 import { PropertyClass } from '../../property';
 
 /**
@@ -6,7 +6,7 @@ import { PropertyClass } from '../../property';
  * @export
  * @param config Main configuration.
  */
-export function ComponentLoader<T>(config: ComponentLoaderConfigInterface<T>): Function {
+export function ComponentLoader<T>(config: ComponentLoaderConfig<T>): Function {
   return (source: Function): void => {
     const wrapper: PropertyClass = new PropertyClass(config.prefix, config.suffix);
 
