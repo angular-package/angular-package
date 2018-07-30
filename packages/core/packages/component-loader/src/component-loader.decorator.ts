@@ -100,8 +100,8 @@ export function ComponentLoader<T>(config: ComponentLoaderConfig<T>): Function {
 
     if (config.properties) {
       wrapper.wrap<T, any>(source, config.properties,
-        (property: string, sourcePropertyName: string, s: Function | T | undefined) => {
-          if (s && s['__set'] instanceof Function) {
+        (property: string, s?: Function | T | undefined, sourcePropertyName?: string) => {
+          if (s && s['__set'] instanceof Function && sourcePropertyName) {
             s['__set'](property, s[sourcePropertyName]);
           }
         },

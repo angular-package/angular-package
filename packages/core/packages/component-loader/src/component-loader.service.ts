@@ -86,13 +86,13 @@ export
   __link<S>(properties: Array<string> = this.properties, source: S): this {
     if (properties instanceof Array) {
       this.__wrap<S>(properties, source,
-        (property: string, sourcePropertyName: string, s?: Function | S | undefined) => {
+        (property: string, s?: Function | S | undefined, sourcePropertyName?: string) => {
           // TODO
-          if (s && this.__set instanceof Function) {
+          if (s && this.__set instanceof Function && sourcePropertyName) {
             this.__set(property, s[sourcePropertyName]);
           }
         },
-        (property: string) => {
+        (property: string): any => {
           // TODO
           if (this.__get instanceof Function) {
             return this.__get(property);

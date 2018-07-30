@@ -65,8 +65,8 @@ export
    */
   __link(properties: Array<string> = this.__properties): this {
     this.__wrap(properties, this,
-      <PT>(property: string, sourcePropertyName: string) => {
-        if (this.__set instanceof Function) {
+      <PT>(property: string, source: Function | this = this, sourcePropertyName?: string) => {
+        if (this.__set instanceof Function && source && sourcePropertyName) {
           this.__set<PT>(property, this[sourcePropertyName]);
         }
       },
