@@ -64,18 +64,14 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param properties Properties names source object to be binded with target properties.
    * @param target Target to have properties binded to source properties.
    */
-  bind<S, T = string>(source: Function | S, properties: string | Array<string>, target: T): void {
+  bind<S, T = string>(source: Function | S, properties: string | Array<string>, target: T): this {
     try {
       if (source) {
         if (properties instanceof Array) {
           properties.forEach((property: string) => {
-            if (typeof target === 'string') {
-              this._bind(source, property, target);
-            } else {
-              this._bind(source, property, target);
-            }
+            this._bind(source, property, target);
           });
-        } else if (typeof target === 'string') {
+        } else {
           this._bind(source, properties, target);
         }
       }
@@ -87,6 +83,8 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
       }
       console.warn(e.message);
     } finally { }
+
+    return this;
   }
 
   /**
@@ -96,7 +94,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param source Usually component as Function or as json object to clear properties.
    * @param properties Name of properties to be cleared in source component.
    */
-  clear<S>(source: Function | S, properties?: string | Array<string>): void {
+  clear<S>(source: Function | S, properties?: string | Array<string>): this {
     try {
       if (source) {
         const p = (properties) ? (typeof properties === 'string') ? [properties] : properties : this.binded;
@@ -112,6 +110,8 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
       }
       console.warn(e.message);
     }
+
+    return this;
   }
 
   /**
@@ -279,9 +279,9 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param source Component as Function or as json object to wrap property.
    * @param property Name of component source property to be wrapped.
    * @param setter Function that is invoked in component source property `set`.
-   * @param getter Function that is invoked in component source property `get`.
+   * @param [getter] Function that is invoked in component source property `get`.
    */
-  private _wrap<S, R = any>(source: Function | S, property: string, setter: Setter<S, R>, getter: Getter<S, R>): void {
+  private _wrap<S, R = any>(source: Function | S, property: string, setter: Setter<S, R>, getter?: Getter<S, R>): void {
     // Check if property is already used.
     if (this.wrapped.includes(property) === false) {
 
