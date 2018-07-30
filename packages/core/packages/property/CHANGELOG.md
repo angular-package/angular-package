@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- [[8bb7fcc]][6] `Setter` type parameters order changed to have optional `source` as second.
 - [[c1b95d4]][4] [[541344c]][5] Added `Property` interface to `PropertyClass`.
 - [[788be88]][3] Use new way of testing package.
 - [[5e0a7e2]][1] [[1c7d729]][2] New tslint rules.
@@ -19,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]: https://github.com/angular-package/angular-package/compare/core
 <!--- [0.0.1]:  -->
 
+
+[6]: https://github.com/angular-package/angular-package/commit/8bb7fcc7576eba609a908b264418aba1416eb406
 [5]: https://github.com/angular-package/angular-package/commit/541344ca2eb569be01a1d7225ecd61af956f444d
 [4]: https://github.com/angular-package/angular-package/commit/c1b95d42f14a6acb5b0ce35457f2580a24b675d5
 [3]: https://github.com/angular-package/angular-package/commit/788be88ccdfed5eb2f648a3b9ece25908cb4a254#diff-6bd2c2696cf9923be4fed157d9039ffa
