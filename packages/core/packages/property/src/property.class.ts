@@ -63,7 +63,9 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param source Component as Function or as json object to bind its properties to the target.
    * @param properties Properties names source object to be binded with target properties.
    * @param target Target to have properties binded to source properties.
+   * @param [description] Give information about what this bind is for.
    */
+  // , description?: string
   bind<S, T = string>(source: Function | S, properties: string | Array<string>, target: T): this {
     try {
       if (source) {
@@ -114,21 +116,6 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
     return this;
   }
 
-  /**
-   * Define new property in source object.
-   * @template S Component source type.
-   * @param source Component as `Function` or `Object` to define property.
-   * @param property Name of defined property.
-   * @param descriptor Configuration of defining property.
-   */
-  define<S>(source: Function | S, property: string, descriptor: ThisType<any>): void {
-    Object.defineProperties(
-      (source instanceof Function) ? source.prototype : source, {
-        [property]: descriptor
-      }
-    );
-  }
-
   /*
   has(source: Object, path: any): boolean {
     console.info('1', source['__component'].instance.model, has(source, '__component.instance.model'));
@@ -160,7 +147,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
   }
 
   string(object: any): object is string {
-    return object;
+    return typeof object === 'string';
   }
 
   /**
@@ -172,7 +159,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param setter Callback function invoked on set.
    * @param getter Callback function invoked on get.
    */
-  wrap<S, R = any>(source: Function | S, properties: string | Array<string>, setter: Setter<S, R>, getter: Getter<S, R>): void {
+  wrap<S, R = any>(source: Function | S, properties: string | Array<string>, setter?: Setter<S, R>, getter?: Getter<S, R>): this {
     try {
       if (source) {
         if (properties instanceof Array) {
@@ -191,6 +178,8 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
       }
       console.warn(e.message);
     }
+
+    return this;
   }
 
   protected type(path: string, source?: Object): any {
@@ -199,6 +188,32 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
     }
 
     return path;
+  }
+
+  /**
+   * Define new property in source object.
+   * @template S Component source type.
+   * @param source Component as `Function` or `Object` to define property.
+   * @param property Name of defined property.
+   * @param descriptor Configuration of defining property.
+   */
+  private define<S>(source: Function | S, property: string, descriptor: ThisType<any>, type?: 'bind' | 'wrap'): this {
+    Object.defineProperties(
+      (source instanceof Function) ? source.prototype : source, {
+        [property]: descriptor
+      }
+    );
+    if (type === 'bind') {
+      // Property is used.
+      this.binded = property;
+    } else {
+      /* {
+        [property]: store[property]
+      } */
+      this.wrapped.push(property);
+    }
+
+    return this;
   }
 
   /**
@@ -243,10 +258,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
       };
 
       // Bind property to source.
-      Object.defineProperties((source instanceof Function) ? source.prototype : source, { [property]: { get: _get, set: _set } });
-
-      // Property is used.
-      this.binded = property;
+      this.define(source, property, { get: _get, set: _set }, 'bind');
     }
   }
 
@@ -261,8 +273,8 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
     if (this.binded instanceof Array && this.binded.includes(property) === true) {
 
       this.define(source, property, {
-        get: undefined,
-        set: undefined
+        get: this.stored.getter[property],
+        set: this.stored.setter[property]
       });
 
       // Property is removed from used.
@@ -281,7 +293,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param setter Function that is invoked in component source property `set`.
    * @param [getter] Function that is invoked in component source property `get`.
    */
-  private _wrap<S, R = any>(source: Function | S, property: string, setter: Setter<S, R>, getter?: Getter<S, R>): void {
+  private _wrap<S, R = any>(source: Function | S, property: string, setter?: Setter<S, R>, getter?: Getter<S, R>): void {
     // Check if property is already used.
     if (this.wrapped.includes(property) === false) {
 
@@ -300,7 +312,6 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
           }
           // Use new getter.
           if (getter instanceof Function) {
-            // return (getter(property, this)) ? getter(property, this) : this[sourcePropertyName];
             return getter(property, source) || this[sourcePropertyName];
           }
 
@@ -323,14 +334,11 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
 
         // Create property with prefix and suffix to be wrapped by original name.
         // this.define(source, sourcePropertyName, )
-        Object.defineProperty(
-          (source instanceof Function) ? source.prototype : source,
-          sourcePropertyName,
-          { writable: true, value: (source[property]) ? source[property] : source[sourcePropertyName] }
-        );
-
-        Object.defineProperties((source instanceof Function) ? source.prototype : source, { [property]: { get: _get, set: _set } });
-        this.wrapped.push(property);
+        this.define(source, sourcePropertyName, {
+          writable: true,
+          value: (source[property]) ? source[property] : source[sourcePropertyName]
+        }, 'wrap')
+          .define(source, property, { get: _get, set: _set }, 'wrap');
       } else {
         throw new Error(`sourcePropertyName is not generated.`);
       }
