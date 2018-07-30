@@ -1,4 +1,5 @@
 export class TargetClass {
-  firstname: string;
-  surname: string;
+  constructor(public firstname?: string, public surname?: string) {
+
+  }
 }
