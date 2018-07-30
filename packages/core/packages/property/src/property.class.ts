@@ -317,7 +317,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
           }
           // Use setter function.
           if (setter instanceof Function) {
-            setter(property, sourcePropertyName, source);
+            setter(property, source, sourcePropertyName);
           }
         };
 
