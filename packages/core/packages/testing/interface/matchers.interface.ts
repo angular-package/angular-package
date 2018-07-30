@@ -1,6 +1,6 @@
 import { Argument } from '../../type';
 
-export interface MatchersClassMethods {
+export interface Matchers {
   be<TYPE>(actual: Argument<TYPE>, expected?: TYPE, expectationFailOutput?: any): this;
   contain<E>(nameOrExpected: Argument<E>, expected?: E, expectationFailOutput?: any): this;
   defined<V>(actualOrExpected?: Argument<V>, expectationFailOutput?: any): this;
