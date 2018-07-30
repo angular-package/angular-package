@@ -22,9 +22,11 @@ export class TestPropertyComponent implements OnInit {
     age: 27
   };
 
-  _age = 27;
+  _age: number;
+  _setAge: number = undefined;
   set age(age: number) {
     this._age = age;
+    this._setAge = age;
   }
   get age(): number {
     return this._age;
@@ -33,7 +35,9 @@ export class TestPropertyComponent implements OnInit {
   target = new TargetClass();
   targetObject = new TargetClass('Initial firstname', 'Initial surname');
 
-  constructor() {}
+  constructor() {
+    this.age = 27;
+  }
 
   ngOnInit(): void { }
 }
