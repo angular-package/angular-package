@@ -31,6 +31,7 @@ export class TestPropertyComponent implements OnInit {
   }
 
   target = new TargetClass();
+  targetObject = new TargetClass('Initial firstname', 'Initial surname');
 
   constructor() {}
 
