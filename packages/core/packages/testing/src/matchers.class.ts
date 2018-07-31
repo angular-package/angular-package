@@ -83,7 +83,7 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
    * @param [actual] Actual computed values or as component properties keys values to test expectations against false. 
    * @param [expectationFailOutput] Fail output.
    */
-  falsy<TYPE>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
+  falsy<TYPE = false>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
     this.matcher<TYPE>('falsy', actual, undefined, this.getResult<TYPE>(), expectationFailOutput);
 
     return this;
@@ -109,7 +109,7 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
    * @param [actual] Actual computed values or as component properties keys values to test expectations against truthy.
    * @param [expectationFailOutput] Fail output.
    */
-  truthy<TYPE>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
+  truthy<TYPE = true>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
     this.matcher<TYPE>('truthy', actual, undefined, this.getResult<TYPE>(), expectationFailOutput);
 
     return this;
@@ -227,7 +227,7 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
    * @param actual Actual computed value or value from component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  private _falsy<TYPE>(actual: TYPE, expectationFailOutput?: any): this {
+  private _falsy<TYPE = false>(actual: TYPE, expectationFailOutput?: any): this {
     this.consoleClass
       .green(`    `)
       .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toBeFalsy`, ['faint'])
@@ -321,7 +321,7 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
           }
 
         // `expected` is `undefined` and result is `defined`
-        } else if (result) {
+        } else if (result !== undefined || result !== null) {
           actualValue = result;
           expectedValue = (typeGuard<TYPE>(actualOrExpected)) ? actualOrExpected : undefined;
         }
