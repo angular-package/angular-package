@@ -1,5 +1,5 @@
 import { ComponentLoaderConfig } from '../interface';
-import { PropertyClass } from '../../property';
+import { PropertyService } from '../../property';
 
 /**
  * Decorator to wrap `ComponentLoaderService` methods and link properties to dynamic component.
@@ -8,7 +8,7 @@ import { PropertyClass } from '../../property';
  */
 export function ComponentLoader<T>(config: ComponentLoaderConfig<T>): Function {
   return (source: Function): void => {
-    const wrapper: PropertyClass = new PropertyClass(config.prefix, config.suffix);
+    const wrapper: PropertyService = new PropertyService(config.prefix, config.suffix);
 
     // Wrap component methods with loaderService methods.
     Object.defineProperties(source.prototype, {

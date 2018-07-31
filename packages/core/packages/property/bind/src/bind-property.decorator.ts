@@ -1,7 +1,7 @@
-import { PropertyClass } from '../../src';
+import { PropertyService } from '../../src';
 
 export function BindProperty<S>(properties: Array<string>, serviceName: string, debug = false): Function {
-  const propertyClass = new PropertyClass();
+  const propertyClass = new PropertyService();
 
   return (component: S): void => {
     // console.info(component, properties, service);

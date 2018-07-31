@@ -1,1 +1,1 @@
-export { PropertyClass } from './property.class';
+export { PropertyService } from './property.service';

@@ -8,7 +8,7 @@ import {
 
 // internal
 import { ComponentLoaderCommon } from '../interface';
-import { PropertyClass } from '../../property';
+import { PropertyService } from '../../property';
 import { Getter, Setter } from '../../property/type';
 
 /**
@@ -51,9 +51,9 @@ export
   /**
    * Handle property bind or wrap.
    */
-  protected _propertyClass?: PropertyClass;
-  get propertyClass(): PropertyClass | undefined {
-    this._propertyClass = (this._propertyClass) ? this._propertyClass : new PropertyClass(this.__prefix, this.__suffix);
+  protected _propertyClass?: PropertyService;
+  get propertyClass(): PropertyService | undefined {
+    this._propertyClass = (this._propertyClass) ? this._propertyClass : new PropertyService(this.__prefix, this.__suffix);
 
     return this._propertyClass;
   }
@@ -146,7 +146,7 @@ export
    * @param getter Callback function performed on get.
    */
   protected __wrap<S>(properties: Array<string> = this.__properties, source: S, setter: Setter<S>, getter: Getter<S>): this {
-    if (this.propertyClass instanceof PropertyClass) {
+    if (this.propertyClass instanceof PropertyService) {
       // Wrap properties with specified setter and getter.
       this.propertyClass.wrap<S>(source, properties, setter, getter);
     }

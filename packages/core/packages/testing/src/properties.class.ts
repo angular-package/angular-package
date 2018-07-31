@@ -7,7 +7,7 @@ import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
 // internal
 import { ArgumentHandlerClass } from '../../handler';
 import { Options, Result, Settings, Spec } from '../interface';
-import { PropertyClass } from '../../property';
+import { PropertyService } from '../../property';
 import { ConsoleClass } from '../../src';
 
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
@@ -34,7 +34,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * Object to handle property features.
    */
-  protected propertyClass: PropertyClass = new PropertyClass();
+  protected propertyClass: PropertyService = new PropertyService();
 
   /**
    * Stored result of `before()` `query` method with last name.
