@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PropertyClass } from '../src';
+import { PropertyService } from '../src';
 import { TargetClass } from './target.class';
+import { PropertyProvider } from '../src/property.provider';
 
 @Component({
-  template: ``
+  selector: 'ap-core-test',
+  template: ``,
+  providers: [
+    PropertyProvider('___', '___')
+  ]
 })
 export class TestPropertyComponent implements OnInit {
 
-  propertyClass: PropertyClass = new PropertyClass();
+  // propertyClass: PropertyService = new PropertyService();
   checker = false;
   checker_true = true;
   checker_false = false;
@@ -35,7 +40,7 @@ export class TestPropertyComponent implements OnInit {
   target = new TargetClass();
   targetObject = new TargetClass('Initial firstname', 'Initial surname');
 
-  constructor() {
+  constructor(public propertyService: PropertyService) {
     this.age = 27;
   }
 
