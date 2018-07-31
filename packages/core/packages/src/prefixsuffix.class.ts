@@ -15,4 +15,16 @@ export class PrefixSuffixClass {
   propertyName(property: string): string {
     return `${this.prefix}${property}${this.suffix}`;
   }
+
+  setPrefix(value: string): this {
+    this.prefix = value;
+
+    return this;
+  }
+
+  setSuffix(value: string): this {
+    this.suffix = value;
+
+    return this;
+  }
 }
