@@ -1,5 +1,5 @@
 // external
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   get,
   // has,
@@ -15,7 +15,7 @@ import { Getter, Setter } from '../type';
 import { Property } from '../interface';
 
 /**
- * Wrap indicated properties of source component with instance dynamic component.
+ * Component property features.
  * @export
  */
 @Injectable()
@@ -57,7 +57,7 @@ export class PropertyService extends PrefixSuffixClass implements Property {
    * @param [prefix] Prefix of new property name.
    * @param [suffix] Suffix of new property name.
    */
-  constructor(@Inject(PREFIX) prefix?: string, @Inject(SUFFIX) suffix?: string) {
+  constructor(@Inject(PREFIX) @Optional() prefix?: string, @Inject(SUFFIX) @Optional() suffix?: string) {
     super(prefix, suffix);
   }
 
