@@ -41,17 +41,17 @@ export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterIn
   }
 
   /**
-   * @param t Function or component.
-   * @param p Properties to store getter/setter.
+   * @param source Function or component.
+   * @param properties Properties to store getter/setter.
    */
-  setterGetter<T>(t: Function | T, p: string | Array<string>): StoreOriginalClass {
+  setterGetter<T>(source: Function | T, properties: string | Array<string>): StoreOriginalClass {
     try {
-      if (p instanceof Array) {
-        if (t instanceof Function) {
-          _.each(p, (property: string) => this.merge(t, property));
+      if (properties instanceof Array) {
+        if (source instanceof Function) {
+          _.each(properties, (property: string) => this.merge(source, property));
         }
       } else {
-        this.merge(t, p);
+        this.merge(source, properties);
       }
     } catch (e) {
     }
@@ -61,17 +61,19 @@ export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetterIn
 
   /**
    * Method to merge found setter/getter in this object.
-   * @param t Function or component.
-   * @param p Properties to store getter/setter.
+   * @param source Function or component.
+   * @param property Properties to store getter/setter.
    */
-  private merge<T>(t: Function | T, p: string): void {
-    if (t) {
+  private merge<T>(source: Function | T, property: string): void {
+    if (source) {
       _.merge(this, {
         getter: {
-          [p]: (t instanceof Function) ? t.prototype.__lookupGetter__(p) : t['__proto__'].__lookupGetter__(p)
+          [property]: (source instanceof Function)
+            ? source.prototype.__lookupGetter__(property) : source['__proto__'].__lookupGetter__(property)
         },
         setter: {
-          [p]: (t instanceof Function) ? t.prototype.__lookupSetter__(p) : t['__proto__'].__lookupSetter__(p)
+          [property]: (source instanceof Function)
+            ? source.prototype.__lookupSetter__(property) : source['__proto__'].__lookupSetter__(property)
         }
       });
     } else {
