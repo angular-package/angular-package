@@ -1,4 +1,5 @@
 // external
+import { Inject, Injectable } from '@angular/core';
 import {
   get,
   // has,
@@ -6,6 +7,8 @@ import {
 } from 'lodash-es';
 
 // internal
+import { PREFIX } from './prefix.token';
+import { SUFFIX } from './suffix.token';
 import { StoreOriginalClass } from '../../store';
 import { PrefixSuffixClass } from '../../src/prefixsuffix.class';
 import { Getter, Setter } from '../type';
@@ -15,7 +18,8 @@ import { Property } from '../interface';
  * Wrap indicated properties of source component with instance dynamic component.
  * @export
  */
-export class PropertyClass extends PrefixSuffixClass implements Property {
+@Injectable()
+export class PropertyService extends PrefixSuffixClass implements Property {
 
   /**
    * Instance of store.
@@ -53,7 +57,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param [prefix] Prefix of new property name.
    * @param [suffix] Suffix of new property name.
    */
-  constructor(prefix?: string, suffix?: string) {
+  constructor(@Inject(PREFIX) prefix?: string, @Inject(SUFFIX) suffix?: string) {
     super(prefix, suffix);
   }
 
