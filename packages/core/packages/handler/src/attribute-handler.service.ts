@@ -3,7 +3,7 @@ import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import { difference } from 'lodash-es';
 
 // internal
-import { GenericObject } from '../../interface';
+import { GenericObject } from '../../interface/generic-object.interface';
 
 @Injectable()
 export class AttributeHandlerService {
