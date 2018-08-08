@@ -1,6 +1,6 @@
 
-import { Argument } from '../../type';
-import { typeGuard } from '../../src';
+import { Argument } from '../../type/argument.type';
+import { typeGuard } from '../../src/type-guard.func';
 
 export class ArgumentHandlerClass {
 
