@@ -4,8 +4,8 @@ import { SUFFIX } from './suffix.token';
 
 export function PropertyProvider(prefix = '_', suffix = ''): Array<{}> {
   return [
-    PropertyService,
     { provide: PREFIX, useValue: prefix },
-    { provide: SUFFIX, useValue: suffix }
+    { provide: SUFFIX, useValue: suffix },
+    { provide: PropertyService, useClass: PropertyService, deps: [PREFIX, SUFFIX] }
   ];
 }
