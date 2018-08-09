@@ -1,2 +1,2 @@
 export { BindProperty } from './bind';
-export { PropertyService } from './src';
+export { PropertyClass, PropertyProvider, PropertyService } from './src';
