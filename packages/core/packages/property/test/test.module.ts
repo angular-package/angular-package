@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { TestPropertyComponent } from './component';
+// internal
+import { PropertyClassComponent } from './class.component';
+import { PropertyDecoratorComponent } from './decorator.component';
+import { PropertyServiceComponent } from './service.component';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [
-    TestPropertyComponent
+    PropertyClassComponent,
+    PropertyDecoratorComponent,
+    PropertyServiceComponent
   ]
 })
 export class TestModule { }
