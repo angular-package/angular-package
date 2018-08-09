@@ -1,5 +1,5 @@
 // external
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import * as _ from 'lodash-es';
 
 // internal
