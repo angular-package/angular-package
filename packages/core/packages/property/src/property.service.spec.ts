@@ -1,22 +1,22 @@
 // internal
-import { PropertyClassComponent } from '../test/class.component';
+import { PropertyServiceComponent } from '../test/service.component';
 import { TestingClass } from '../../testing';
-import { PropertyClass } from './property.class';
-import { testModuleMetadata } from '../test/config/testmodulemetadata.config';
+import { PropertyService } from './property.service';
 import { options } from '../test/config/options.config';
+import { testModuleMetadata } from '../test/config/testmodulemetadata.config';
 
-const testingClass: TestingClass<PropertyClassComponent> =
-  new TestingClass<PropertyClassComponent>('PropertyClass', testModuleMetadata, PropertyClassComponent, options);
+const testingClass: TestingClass<PropertyServiceComponent> =
+  new TestingClass<PropertyServiceComponent>('PropertyService', testModuleMetadata, PropertyServiceComponent, options);
 
-const name = 'propertyClass';
+const name = 'propertyService';
 
 testingClass
   .spec('should have prefix and suffix', {
-    '`propertyClass`, `propertyClass` instance.': testing => testing
-      .before(comp => comp[name] instanceof PropertyClass)
+    '`propertyService`, `propertyService` instance.': testing => testing
+      .before(comp => comp[name] instanceof PropertyService)
       .truthy()
   })
-  .execute(true)
+  .execute()
 
   .spec('should have prefix and suffix', {
     'working.': testing => {
@@ -30,8 +30,8 @@ testingClass
         })
         .equal('__test__')
         .before(component => {
-          component[name].wrap<PropertyClassComponent, number>(component, 'age',
-            (property: string, source?: PropertyClassComponent, sourcePropertyName?: string): number => {
+          component[name].wrap<PropertyServiceComponent, number>(component, 'age',
+            (property: string, source?: PropertyServiceComponent, sourcePropertyName?: string): number => {
               source['target'][property] = source[sourcePropertyName];
               source['target'][sourcePropertyName] = source[sourcePropertyName];
 
@@ -82,7 +82,7 @@ testingClass
     'properly remove and restore.': testing => {
       testing
         .before(component => {
-          component[name].bind<PropertyClassComponent, string>(component, 'age', 'target');
+          component[name].bind<PropertyServiceComponent, string>(component, 'age', 'target');
           component.age = 27;
         })
         .equal<number>(['age', '_setAge'], 27)
@@ -98,9 +98,9 @@ testingClass
   .spec('should have `bind()` method', {
     'with `String` argument.': testing => testing
       .before(comp => {
-        comp[name].bind<PropertyClassComponent, string>(comp, 'firstname', 'target');
+        comp[name].bind<PropertyServiceComponent, string>(comp, 'firstname', 'target');
         comp.firstname = 'Lucas';
-        comp[name].bind<PropertyClassComponent, string>(comp, 'surname', 'target');
+        comp[name].bind<PropertyServiceComponent, string>(comp, 'surname', 'target');
         comp.surname = 'Natko';
       })
       .equal<string>('target.firstname', 'Lucas')
@@ -108,7 +108,7 @@ testingClass
     'with `Array` argument.': testing => {
       testing
         .before(comp => {
-          comp[name].bind<PropertyClassComponent, string>(comp, ['firstname', 'surname'], 'target');
+          comp[name].bind<PropertyServiceComponent, string>(comp, ['firstname', 'surname'], 'target');
           comp.firstname = 'Lucas';
           comp.surname = 'Tramp';
         })
@@ -117,8 +117,8 @@ testingClass
         .before(comp => {
           comp[name]
             .unbind(comp, ['firstname', 'surname'])
-            .bind<PropertyClassComponent, any>(comp, 'firstname', comp.targetObject)
-            .bind<PropertyClassComponent, any>(comp, 'surname', comp.targetObject);
+            .bind<PropertyServiceComponent, any>(comp, 'firstname', comp.targetObject)
+            .bind<PropertyServiceComponent, any>(comp, 'surname', comp.targetObject);
           comp.firstname = 'testfirstname';
           comp.surname = 'testsurname';
         })
@@ -132,7 +132,7 @@ testingClass
         .before(comp => {
           comp[name]
             .unbind(comp, ['firstname', 'surname'])
-            .bind<PropertyClassComponent, string>(comp, ['firstname', 'surname'], 'target');
+            .bind<PropertyServiceComponent, string>(comp, ['firstname', 'surname'], 'target');
 
           comp.firstname = firstname;
           comp.surname = surname;
@@ -149,7 +149,7 @@ testingClass
         .before(comp => {
           comp[name]
             .unbind(comp, ['firstname', 'surname'])
-            .bind<PropertyClassComponent, {}>(comp, ['firstname', 'surname'], comp.targetObject);
+            .bind<PropertyServiceComponent, {}>(comp, ['firstname', 'surname'], comp.targetObject);
 
           comp.firstname = firstname;
           comp.surname = surname;
@@ -166,21 +166,11 @@ testingClass
     wrap()
   */
   .spec('should have `wrap`()` method', {
-    'without defining `setter` or `getter` `String` argument.': testing => testing
-      .before(comp => {
-        comp[name]
-          .unbind(comp, 'firstname')
-          .wrap<PropertyClassComponent, string>(comp, 'firstname');
-
-        comp.firstname = 'Michael string';
-      })
-      .equal(['_firstname', 'firstname'], 'Michael string'),
-
     'with `String` argument.': testing => testing
       .before(comp => {
         comp[name]
           .unbind(comp, 'firstname')
-          .wrap<PropertyClassComponent, string>(comp, 'firstname',
+          .wrap<PropertyServiceComponent, string>(comp, 'firstname',
             (property, source): string => source['target'][property] = source[property],
             (property, source) => source['target'][property]
           );
@@ -193,13 +183,13 @@ testingClass
       .before(comp => {
         comp[name]
           .unbind(comp, ['firstname', 'surname'])
-          .wrap<PropertyClassComponent, string>(
+          .wrap<PropertyServiceComponent, string>(
             comp,
             'firstname',
             (property, source) => source['target'][property] = source[property],
             (property, source) => source['target'][property]
           )
-          .wrap<PropertyClassComponent, string>(
+          .wrap<PropertyServiceComponent, string>(
             comp,
             'surname',
             (property, source) => source['target'][property] = source[property],
