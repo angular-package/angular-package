@@ -158,21 +158,7 @@ testingClass
         .equal<string>(['surname', 'targetObject.surname'], surname)
         .set<string>('firstname', 'Donald')
         .equal<string>(['firstname', 'targetObject.firstname'], 'Donald');
-    },
-    'Remove binded.': testing => testing
-      .before(comp => {
-        comp[name].bind<PropertyClassComponent, string>(comp, ['firstname', 'surname'], 'target');
-        if (comp[name].binded instanceof Array) {
-          const index: number = comp[name].binded.indexOf('surname');
-          if (index > -1) {
-            comp[name].binded = index;
-          }
-        }
-        if (comp[name].binded instanceof Array) {
-          return comp[name].binded.indexOf('surname');
-        }
-      })
-      .equal<number>(-1)
+    }
   })
   .execute()
 
