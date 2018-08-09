@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-
 - [[530b708]][12] tokens for `prefix` and `suffix` properties.
 - [[c1c7ff0]][11] methods `setPrefix()` `setSuffix()` to set `prefix` and `suffix` property to `PrefixSuffixClass`.
 - [[c1b95d4]][4] [[541344c]][5] `Property` interface to `PropertyClass`.
