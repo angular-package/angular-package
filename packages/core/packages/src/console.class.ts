@@ -1,4 +1,5 @@
-import { ConsoleColor, ConsoleStyle } from '../type';
+import { ConsoleColor } from '../type/console-color.type';
+import { ConsoleStyle } from '../type/console-style.type';
 
 export class ConsoleClass {
   private colors = {
