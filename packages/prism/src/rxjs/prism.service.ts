@@ -2,10 +2,7 @@
 // external
 import { ElementRef, Injectable, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { PartialObserver } from 'rxjs/Observer';
+import { Observable, Subject, Subscription, PartialObserver } from 'rxjs';
 import Prism from 'prismjs';
 import * as _ from 'lodash-es';
 
