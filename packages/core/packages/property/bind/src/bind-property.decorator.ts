@@ -1,37 +1,23 @@
-import { PropertyService } from '../../src';
 
-export function BindProperty<S>(properties: Array<string>, serviceName: string, debug = false): Function {
-  const propertyClass = new PropertyService();
+// external
+import { Injector } from '@angular/core';
+// internal
+import { PropertyProvider } from '../../src/property.provider';
+import { PropertyService } from '../../src/property.service';
 
-  return (component: S): void => {
-    // console.info(component, properties, service);
-    if (debug) {
-
-    }
-    propertyClass.wrap<S>(component, properties,
-      (property: string, sourcePropertyName: string, source?: Function | S) => {
-        if (source && !source[sourcePropertyName]) {
-          // throw new Error('');
-        }
-        // this.prismService.properties = this._properties = { ...this._properties, ...properties };
-
-        if (property && sourcePropertyName && source && serviceName && source[serviceName] && source[sourcePropertyName]) {
-          /*
-          if (property === 'properties') {
-            source[serviceName][property] = source['_properties'] = { ...source['_properties'] , ...source[sourcePropertyName] };
-            console.info(property, source['_properties'], source[serviceName][property]);
-          } else {
-            source[serviceName][property] = source[sourcePropertyName];
-          }
-          */
-          source[serviceName][property] = source[sourcePropertyName];
-        }
-      },
-      (property: string, source?: Function | S) => {
-        if (source && property && serviceName && source[serviceName]) {
-          return source[serviceName][property];
-        }
-      }
-    );
+/**
+ * Bind specified source component properties to the target object, respectively.
+ * @export
+ * @template S Source component type.
+ * @param properties Properties names to bind.
+ * @param targetName name of property
+ */
+export function BindProperty<S>(properties: Array<string>, targetName: string): Function {
+  return (source: Function): void => {
+    const injector = Injector.create([
+      PropertyProvider('_', '_')
+    ]);
+    const propertyService: PropertyService = injector.get(PropertyService);
+    propertyService.bind<S>(source, properties, targetName);
   };
 }
