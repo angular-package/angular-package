@@ -4,7 +4,7 @@
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
-Some features used in other **angular-package** libraries.
+Features used in other **angular-package** libraries.
 
 ```typescript
 import '@angular-package/core';
@@ -20,7 +20,7 @@ import '@angular-package/core';
 ----
 
 * [Packages](#packages)
-* [Organization](#organization)
+* [Structure](#structure)
 * [Style guide](#style-guide)
 * [Git](#git)
 * [License](#license)
@@ -32,15 +32,17 @@ import '@angular-package/core';
 
 | Name | Description | Status | |
 |---------|-------------|--------|--------|
-| component-loader | To make handle [dynamic component loader][506] easier. | **Ready** | [\>\>][0] |
-| handler | Services to handle [HTMLElement][401] [attributes][402]. | *Beta* | [\>\>][1] |
-| property | Bind or wrap indicated [component][501] properties with specific target. | *Beta* | [\>\>][2] |
-| store | Stores target [setters][403]/[getters][404] and [cycle-hooks][507]. | **Ready**  | [\>\>][3] |
-| testing | Wrapper class to control the execution of [jasmine][405] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | *Beta*  | [\>\>][4] |
+| `component-loader` | Makes handle [dynamic component loader][506] easier. | [**Ready**][5] | [README][0] |
+| `handler` | Services to handle [HTMLElement][401] [attributes][402]. | [*Beta*][6] | [README][1] |
+| `property` | Bind or wrap indicated [component][501] properties with specific target. | [*Beta*][7] | [README][2] |
+| `store` | Stores target [setters][403]/[getters][404] and [cycle-hooks][507]. | [**Ready**][8] | [README][3] |
+| `testing` | Wrapper class to control the execution of [jasmine][405] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | [*Beta*][9] | [README][4] |
 
-## Organization
+Click status e.g. **Ready**, *Beta* to go to **CHANGELOG.md** file.
 
-Folders and files [organization][301].
+## Structure
+
+Folders and files [structure][301].
 
 ## Style guide
 
@@ -70,6 +72,12 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [3]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/store#readme
 [4]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/testing#readme
 
+[5]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/component-loader/CHANGELOG.md
+[6]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/handler/CHANGELOG.md
+[7]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/property/CHANGELOG.md
+[8]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/store/CHANGELOG.md
+[9]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/testing/CHANGELOG.md
+
 <!--- General -->
 [100]: https://donorbox.org/help-creating-open-source-software
 [101]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
@@ -88,6 +96,8 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [404]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
 [405]: https://jasmine.github.io/2.0/introduction
 [406]: https://www.w3schools.com/js/js_object_properties.asp
+[407]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+[408]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 <!--- @angular -->
 [500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
