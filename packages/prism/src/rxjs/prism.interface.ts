@@ -1,6 +1,6 @@
 // external
 import { ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 // internal
 import { CallbackType, SanitizedType } from './prism.type';
