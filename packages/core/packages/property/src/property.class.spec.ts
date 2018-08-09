@@ -1,30 +1,19 @@
-
 // internal
-import { TestPropertyComponent } from '../test/component';
-import { TestModule } from '../test/test.module';
-
+import { PropertyClassComponent } from '../test/class.component';
 import { TestingClass } from '../../testing';
-import { Options } from '../../testing/interface';
-import { PropertyService } from './property.service';
+import { PropertyClass } from './property.class';
+import { testModuleMetadata } from '../test/config/testmodulemetadata.config';
+import { options } from '../test/config/options.config';
 
-const TESTING_OPTIONS: Options = {
-  log: true,
-  execute: false
-};
+const testingClass: TestingClass<PropertyClassComponent> =
+  new TestingClass<PropertyClassComponent>('PropertyClass', testModuleMetadata, PropertyClassComponent, options);
 
-const testingClass: TestingClass<TestPropertyComponent> =
-  new TestingClass<TestPropertyComponent>('TestPropertyComponent', {
-    imports: [
-      TestModule
-    ]
-  },
-    TestPropertyComponent,
-    TESTING_OPTIONS);
+const name = 'propertyClass';
 
 testingClass
   .spec('should have prefix and suffix', {
-    '`propertyService`, `propertyService` instance.': testing => testing
-      .before(comp => comp.propertyService instanceof PropertyService)
+    '`propertyClass`, `propertyClass` instance.': testing => testing
+      .before(comp => comp[name] instanceof PropertyClass)
       .truthy()
   })
   .execute(true)
@@ -33,16 +22,16 @@ testingClass
     'working.': testing => {
       testing
         .before(component => {
-          component.propertyService
+          component[name]
             .setPrefix('__')
             .setSuffix('__');
 
-          return component.propertyService.propertyName('test');
+          return component[name].propertyName('test');
         })
         .equal('__test__')
         .before(component => {
-          component.propertyService.wrap<TestPropertyComponent, number>(component, 'age',
-            (property: string, source?: TestPropertyComponent, sourcePropertyName?: string): number => {
+          component[name].wrap<PropertyClassComponent, number>(component, 'age',
+            (property: string, source?: PropertyClassComponent, sourcePropertyName?: string): number => {
               source['target'][property] = source[sourcePropertyName];
               source['target'][sourcePropertyName] = source[sourcePropertyName];
 
@@ -53,65 +42,65 @@ testingClass
         .equal<number>(['age', '__age__', 'target.age', 'target.__age__'], 37);
     }
   })
-  .execute(true)
+  .execute()
 
   .spec('should have `string()` method', {
     'properly working.': testing => {
       testing
-        .before(component => component.propertyService.string(component.firstname))
+        .before(component => component[name].string(component.firstname))
         .truthy()
-        .before(component => component.propertyService.string(component._setAge))
+        .before(component => component[name].string(component._setAge))
         .not
         .truthy()
-        .before(component => component.propertyService.string(component.age))
+        .before(component => component[name].string(component.age))
         .falsy();
     }
   })
-  .execute(true)
+  .execute()
 
   .spec('should have `set()` method', {
     'properly working.': testing => {
       testing
         .before(component => {
-          component.propertyService.set(component, 'age', 27);
+          component[name].set(component, 'age', 27);
         })
         .equal<number>('age', 27);
     }
   })
-  .execute(true)
+  .execute()
 
   .spec('should have `get()` method', {
     'properly working.': testing => {
       testing
-        .before(component => component.propertyService.get(component, 'data.age'))
+        .before(component => component[name].get(component, 'data.age'))
         .equal<number>(27);
     }
   })
-  .execute(true)
+  .execute()
 
   .spec('should have `clear()` method', {
     'properly remove and restore.': testing => {
       testing
         .before(component => {
-          component.propertyService.bind<TestPropertyComponent, string>(component, 'age', 'target');
+          component[name].bind<PropertyClassComponent, string>(component, 'age', 'target');
           component.age = 27;
         })
         .equal<number>(['age', '_setAge'], 27)
         .before(component => {
-          component.propertyService.clear(component, 'age');
+          component[name].unbind(component, 'age');
           component.age = 37;
         })
         .equal<number>(['age', '_setAge'], 37);
     }
   })
-  .execute(true)
+  .execute()
 
   .spec('should have `bind()` method', {
     'with `String` argument.': testing => testing
       .before(comp => {
-        comp.propertyService.bind<TestPropertyComponent, string>(comp, 'firstname', 'target');
+        comp[name].bind<PropertyClassComponent, string>(comp, 'firstname', 'target');
         comp.firstname = 'Lucas';
-        comp.propertyService.bind<TestPropertyComponent, string>(comp, 'surname', 'target');
+        comp[name].bind<PropertyClassComponent, string>(comp, 'surname', 'target');
         comp.surname = 'Natko';
       })
       .equal<string>('target.firstname', 'Lucas')
@@ -119,17 +108,17 @@ testingClass
     'with `Array` argument.': testing => {
       testing
         .before(comp => {
-          comp.propertyService.bind<TestPropertyComponent, string>(comp, ['firstname', 'surname'], 'target');
+          comp[name].bind<PropertyClassComponent, string>(comp, ['firstname', 'surname'], 'target');
           comp.firstname = 'Lucas';
           comp.surname = 'Tramp';
         })
         .equal<string>(['firstname', 'target.firstname'], 'Lucas')
         .equal<string>(['surname', 'target.surname'], 'Tramp')
         .before(comp => {
-          comp.propertyService
-            .clear(comp, ['firstname', 'surname'])
-            .bind<TestPropertyComponent, any>(comp, 'firstname', comp.targetObject)
-            .bind<TestPropertyComponent, any>(comp, 'surname', comp.targetObject);
+          comp[name]
+            .unbind(comp, ['firstname', 'surname'])
+            .bind<PropertyClassComponent, any>(comp, 'firstname', comp.targetObject)
+            .bind<PropertyClassComponent, any>(comp, 'surname', comp.targetObject);
           comp.firstname = 'testfirstname';
           comp.surname = 'testsurname';
         })
@@ -141,9 +130,9 @@ testingClass
       const surname = 'Tramp';
       testing
         .before(comp => {
-          comp.propertyService
-            .clear(comp, ['firstname', 'surname'])
-            .bind<TestPropertyComponent, string>(comp, ['firstname', 'surname'], 'target');
+          comp[name]
+            .unbind(comp, ['firstname', 'surname'])
+            .bind<PropertyClassComponent, string>(comp, ['firstname', 'surname'], 'target');
 
           comp.firstname = firstname;
           comp.surname = surname;
@@ -158,9 +147,9 @@ testingClass
       const surname = 'Tramp string object';
       testing
         .before(comp => {
-          comp.propertyService
-            .clear(comp, ['firstname', 'surname'])
-            .bind<TestPropertyComponent, {}>(comp, ['firstname', 'surname'], comp.targetObject);
+          comp[name]
+            .unbind(comp, ['firstname', 'surname'])
+            .bind<PropertyClassComponent, {}>(comp, ['firstname', 'surname'], comp.targetObject);
 
           comp.firstname = firstname;
           comp.surname = surname;
@@ -172,30 +161,40 @@ testingClass
     },
     'Remove binded.': testing => testing
       .before(comp => {
-        comp.propertyService.bind<TestPropertyComponent, string>(comp, ['firstname', 'surname'], 'target');
-        if (comp.propertyService.binded instanceof Array) {
-          const index: number = comp.propertyService.binded.indexOf('surname');
+        comp[name].bind<PropertyClassComponent, string>(comp, ['firstname', 'surname'], 'target');
+        if (comp[name].binded instanceof Array) {
+          const index: number = comp[name].binded.indexOf('surname');
           if (index > -1) {
-            comp.propertyService.binded = index;
+            comp[name].binded = index;
           }
         }
-        if (comp.propertyService.binded instanceof Array) {
-          return comp.propertyService.binded.indexOf('surname');
+        if (comp[name].binded instanceof Array) {
+          return comp[name].binded.indexOf('surname');
         }
       })
       .equal<number>(-1)
   })
-  .execute(true)
+  .execute()
 
   /*
     wrap()
   */
   .spec('should have `wrap`()` method', {
+    'without defining `setter` or `getter` `String` argument.': testing => testing
+      .before(comp => {
+        comp[name]
+          .unbind(comp, 'firstname')
+          .wrap<PropertyClassComponent, string>(comp, 'firstname');
+
+        comp.firstname = 'Michael string';
+      })
+      .equal(['_firstname', 'firstname'], 'Michael string'),
+
     'with `String` argument.': testing => testing
       .before(comp => {
-        comp.propertyService
-          .clear(comp, 'firstname')
-          .wrap<TestPropertyComponent, string>(comp, 'firstname',
+        comp[name]
+          .unbind(comp, 'firstname')
+          .wrap<PropertyClassComponent, string>(comp, 'firstname',
             (property, source): string => source['target'][property] = source[property],
             (property, source) => source['target'][property]
           );
@@ -206,15 +205,15 @@ testingClass
 
     ' with `Array` argument.': testing => testing
       .before(comp => {
-        comp.propertyService
-          .clear(comp, ['firstname', 'surname'])
-          .wrap<TestPropertyComponent, string>(
+        comp[name]
+          .unbind(comp, ['firstname', 'surname'])
+          .wrap<PropertyClassComponent, string>(
             comp,
             'firstname',
             (property, source) => source['target'][property] = source[property],
             (property, source) => source['target'][property]
           )
-          .wrap<TestPropertyComponent, string>(
+          .wrap<PropertyClassComponent, string>(
             comp,
             'surname',
             (property, source) => source['target'][property] = source[property],
@@ -227,4 +226,4 @@ testingClass
       .equal('firstname', 'Michael array')
       .equal('surname', 'Cors array')
   })
-  .execute(true, true);
+  .execute();
