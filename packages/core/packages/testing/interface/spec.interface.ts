@@ -5,5 +5,5 @@ import { PickTesting } from '../type';
  * @export
  */
 export interface Spec<T> {
-  [name: string]: (testing: PickTesting<T>) => any;
+  [name: string]: (testing: PickTesting<T>, ...args: Array<any>) => any;
 }
