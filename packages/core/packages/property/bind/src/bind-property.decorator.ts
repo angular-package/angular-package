@@ -10,7 +10,7 @@ import { PropertyService } from '../../src/property.service';
  * @export
  * @template S Source component type.
  * @param properties Properties names to bind.
- * @param targetName name of property
+ * @param targetName Name of property object in component.
  */
 export function BindProperty<S>(properties: Array<string>, targetName: string): Function {
   return (source: Function): void => {
