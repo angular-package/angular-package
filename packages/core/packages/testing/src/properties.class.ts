@@ -121,7 +121,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
       ...{},
       ...this.settings,
       ...this.storedSettings
-    };  
+    };
 
     return this;
   }
@@ -134,12 +134,12 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
     // Set console.
     if (typeof options.log === 'string') {
       this.settings.console = { executed: false, skipped: false };
-      this.settings.console[options.log] = true ;  
+      this.settings.console[options.log] = true ;
     } else if (typeof options.log === 'boolean') {
       this.settings.console = {
         executed: options.log,
         skipped: options.log
-      };  
+      };
     }
     // Set execute `false` or `Array<number>`.
     if (options.execute !== undefined) {
