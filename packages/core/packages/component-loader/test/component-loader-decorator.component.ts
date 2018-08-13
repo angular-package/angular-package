@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ComponentLoader, ComponentLoaderService } from '..';
-import { ComponentLoaderCommonInterface } from '../interface';
+import { ComponentLoaderCommon } from '../interface';
 import { DynamicComponent } from './dynamic.component';
 
 const config = {
@@ -22,7 +22,7 @@ const config = {
   ]
 })
 @ComponentLoader<DynamicComponent>(config)
-export class ComponentLoaderDecoratorComponent implements ComponentLoaderCommonInterface<DynamicComponent> {
+export class ComponentLoaderDecoratorComponent implements ComponentLoaderCommon<DynamicComponent> {
 
   model = {};
   key = 'notdefined';
