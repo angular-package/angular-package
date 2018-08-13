@@ -1,7 +1,7 @@
 // test.component.spec.ts
 // Step 1. Create `test.component.spec.ts` file and import `TestingClass`, `TestComponent`
 import { Observable } from 'rxjs';
-import { TestingClass } from '../../testing';
+import { TestingClass } from '..';
 import { TestComponent } from './test.component';
 // End Step 1.
 
