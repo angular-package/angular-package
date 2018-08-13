@@ -5,7 +5,7 @@ import { } from 'jasmine';
 import { NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
-import { ComponentLoaderService } from '../src';
+import { ComponentLoaderService } from '.';
 import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
 
 // internal
@@ -88,12 +88,14 @@ describe('ComponentLoaderService', () => {
       (result: any) => { },
       (error: any) => { }, f.complete);
     comp.__component.instance.emitComplete();
-    expect(f.complete).toHaveBeenCalled();
+    expect(f.complete)
+      .toHaveBeenCalled();
   }));
   it('this.__component should be destroyed', async(() => {
     comp.__create();
     comp.__destroy();
-    expect(comp.__component).toBeUndefined();
+    expect(comp.__component)
+      .toBeUndefined();
   }));
   it('property `key`, `model` should be connected with dynamic instance component.', async(() => {
     const model = { defined: false };
