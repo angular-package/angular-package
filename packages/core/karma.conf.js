@@ -7,7 +7,7 @@ const typescript = require('rollup-plugin-typescript');
 
 
 module.exports = function (config) {
-  const package = `packages/${config.package}/src/*.spec.ts`;
+  const package = `packages/${config.package}/**/*.spec.ts`;
 
   const files = [
     // Make sure to disable Karma’s file watcher
