@@ -1,13 +1,17 @@
+import { ArgumentHandlerClass } from '../handler/src/argument.handler.class';
+
 /**
  * @export
  */
-export class PrefixSuffixClass {
+export class PrefixSuffixClass extends ArgumentHandlerClass {
   /**
    * Creates an instance of PrefixSuffixClass.
    * @param [prefix='_'] Source property prefix - property that will be connected with targeted dynamic component.
    * @param [suffix=''] Source property suffix - property that will be connected with targeted dynamic component.
    */
-  constructor(private prefix: string = '_', private suffix: string = '') { }
+  constructor(private prefix: string = '_', private suffix: string = '') {
+    super();
+  }
 
   /**
    * @param property x
