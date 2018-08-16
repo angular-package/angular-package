@@ -11,7 +11,8 @@ Useful **javascript/typescript** packages written for **[Angular][508]** framewo
 ----
 
 * [Packages](#packages)
-* [Organization](#organization)
+* [ChangeLog](#changelog)
+* [Structure](#structure)
 * [Style guide](#style-guide)
 * [Git](#git)
 * [License](#license)
@@ -33,9 +34,14 @@ Useful **javascript/typescript** packages written for **[Angular][508]** framewo
 | reactive | Automatize process of creating some **[`rxjs/Rx`](http://reactivex.io/rxjs/)** features. | [![npm version](https://badge.fury.io/js/%40angular-package%2Freactive.svg)](https://badge.fury.io/js/%40angular-package%2Freactive) | [Readme][8] |
 | ui | User interface based on **[MaterialDesign](https://material.angular.io/)**. | *In Progress* | [Readme][9] |
 
-## Organization
+## ChangeLog
 
-Folders and files [organization][301].
+* Guiding principles based on [Keep a Changelog][304].
+* All notable changes to this package are documented in [**CHANGELOG.md**][10].
+
+## Structure
+
+Folders and files [structure][301] organization.
 
 ## Style guide
 
@@ -69,6 +75,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [7]: https://github.com/angular-package/angular-package/tree/master/packages/prism#readme
 [8]: https://github.com/angular-package/angular-package/tree/master/packages/reactive#readme
 [9]: https://
+[10]: https://
 
 <!--- General -->
 [100]: https://donorbox.org/help-creating-open-source-software
@@ -79,6 +86,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
 [302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
 [303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+[304]: https://github.com/angular-package/angular-package/blob/master/MAKECHANGELOG.md
 
 <!--- @angular -->
 [500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
