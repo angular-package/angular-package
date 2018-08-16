@@ -20,6 +20,7 @@ import '@angular-package/core';
 ----
 
 * [Packages](#packages)
+* [ChangeLog](#changelog)
 * [Structure](#structure)
 * [Style guide](#style-guide)
 * [Git](#git)
@@ -40,9 +41,13 @@ import '@angular-package/core';
 
 Click status e.g. **Ready**, *Beta* to go to **CHANGELOG.md** file.
 
+## ChangeLog
+
+Guiding principles based on [Keep a Changelog][304]
+
 ## Structure
 
-Folders and files [structure][301].
+Folders and files [structure][301] organization.
 
 ## Style guide
 
@@ -87,6 +92,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
 [302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
 [303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+[304]: https://github.com/angular-package/angular-package/blob/master/MAKECHANGELOG.md
 
 <!--- Other -->
 [400]: https://rollupjs.org/#introduction
