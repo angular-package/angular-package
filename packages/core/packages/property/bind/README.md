@@ -174,7 +174,8 @@ export class BindPropertyComponent implements OnInit {
 
 ## Changelog
 
-All notable changes to this package are documented in [**CHANGELOG.md**][5].
+* Guiding principles based on [Keep a Changelog][304].
+* All notable changes to this package are documented in [**CHANGELOG.md**][5].
 
 ## Structure
 
@@ -218,6 +219,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
 [302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
 [303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+[304]: https://github.com/angular-package/angular-package/blob/master/MAKECHANGELOG.md
 
 <!--- Other -->
 [400]: https://rollupjs.org/#introduction
