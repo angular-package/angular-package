@@ -1,6 +1,10 @@
 # Folder and file structure
 
 Organization of most files that can be found in this repository.
+All packages files are placed in `packages` named folder. Source of each package is located in `src` folder.
+
+- Component file has `.component.ts` in name.
+- Service file has `.service.ts` in name.
 
 ```javascript
  packages/                                          * All packages files are placed here.
