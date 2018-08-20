@@ -1,4 +1,5 @@
 export { Log } from './log.interface';
+export { Main } from './main.interface';
 export { Matchers } from './matchers.interface';
 export { Options } from './options.interface';
 export { Result } from './result.interface';

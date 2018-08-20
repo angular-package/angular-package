@@ -5,8 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { typeGuard } from '../../src';
 import { ResultName } from '../type';
 import { PropertiesClass } from './properties.class';
+import { Main } from '../interface';
 
-export abstract class MainClass<T> extends PropertiesClass<T> {
+export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T> {
   /**
    * Make some operations on component before expectation.
    * @param callback Function with injected component and `this` object.
