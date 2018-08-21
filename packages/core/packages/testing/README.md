@@ -14,9 +14,10 @@ import { TestingClass } from '@angular-package/core/testing';
 new TestingClass<T>(                        // T - component to create type.
   protected description: string,            // Main description of describe(description, () => {}).
   protected moduleDef: TestModuleMetadata,  // Configure of TestBed.configureTestingModule(moduleDef).
-  public component: Type<T>,                // Component to create with TestBed.createComponent(component);
-  options?: Options                         // Control of execution and display `console.log()`.
+  public componentTest: Type<T>,            // Component to create with TestBed.createComponent(component);
+  protected options?: Options               // Control of execution and display `console.log()`.
 );
+
 ```
 
  Parameter | Type | Description
