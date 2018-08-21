@@ -10,6 +10,14 @@ import { Options, Result, Settings, Spec } from '../interface';
 import { PropertyService } from '../../property';
 import { ConsoleClass } from '../../src';
 
+/**
+ * Class with all possible properties used in `TestingClass`.
+ * @description Class with all possible properties used in `TestingClass`.
+ * @author wwwdev.io
+ * @date 2018-08-21
+ * @export
+ * @template T Component type.
+ */
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * Angular `componentInstance` fixture. It can be `undefined`.
@@ -74,7 +82,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   protected storedSettings: Settings;
 
   /**
-   * Get and set all needed element from fixture to specific properties in object.
+   * @description Get and set all needed element from fixture to specific properties in object.
    */
   private _fixture?: ComponentFixture<T>;
   set fixture(fixture: ComponentFixture<T> | undefined) {
@@ -90,10 +98,13 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   }
 
   /**
-   * @param description Jasmine textual description of the main group.
-   * @param moduleDef Angular module definition.
-   * @param componentTest Component to test.
-   * @param [options] Used to set console information and execute control.
+   * Creates an instance of PropertiesClass.
+   * @author wwwdev.io
+   * @date 2018-08-21
+   * @param description Main description of e.g. `describe(description, () => {})`.
+   * @param moduleDef Configure testing module e.g. `TestBed.configureTestingModule(moduleDef)`.
+   * @param componentTest Component to create with e.g. `TestBed.createComponent(component)`.
+   * @param [options] Execution and log display control.
    */
   constructor(
     protected description: string,
@@ -114,7 +125,9 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   }
 
   /**
-   * Restores settings to default, or to settings that was set on instantiation.
+   * @description Restores settings to default, or to settings that was set on instantiation.
+   * @author wwwdev.io
+   * @date 2018-08-21
    */
   protected restoreSettings(): this {
     this.settings = {
