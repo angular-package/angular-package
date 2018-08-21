@@ -10,6 +10,8 @@ import { Main } from '../interface';
 export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T> {
   /**
    * Make some operations on component before expectation.
+   * @author wwwdev.io
+   * @date 2018-08-21
    * @param callback Function with injected component and `this` object.
    */
   before(callback: (component: T, testingClass?: MainClass<T>) => any): this {
