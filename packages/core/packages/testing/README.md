@@ -4,7 +4,7 @@
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
 
-Wrapper class to control the execution of jasmine spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec.
+Wrapper class to control the execution of [jasmine][405] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec.
 
 ```typescript
 import { TestingClass } from '@angular-package/core/testing';
@@ -21,14 +21,16 @@ new TestingClass<T>(                        // T - component to create type.
 
  Parameter | Type | Description
 -----------|------|-------------
- description | string | Main description of `describe(description, () => {})`.
- moduleDef | [TestModuleMetadata][435] | Configure testing module `TestBed.configureTestingModule(moduleDef)`.
- component | [Type][436]\<T\> | Component to create with `TestBed.createComponent(component)`.
- options? | [Options][0] | Execution and log display control.
+ `description` | string | Main description of e.g. `describe(description, () => {})`.
+ `moduleDef` | [TestModuleMetadata][504] | Configure testing module e.g. `TestBed.configureTestingModule(moduleDef)`.
+ `component` | [Type][505]\<T\> | [Component][501] to create with e.g. `TestBed.createComponent(component)`.
+ `options`? | [Options][0] | Execution and [log][410] display control.
+
+---
 
 **Pros(+):**
 
-* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
+* Treeshake bundle with **[Rollup][400]** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * **Less code to write**
@@ -41,126 +43,109 @@ new TestingClass<T>(                        // T - component to create type.
 * Easy to make custom spec.
 * Control spec execution with its unique automatically given number.
 * Group spec depending on what is going to be tested by using spread operator or method `spec()`.
+* All notable changes to this package are documented in [**CHANGELOG.md**][4].
+* Organized folders and files [**structure**][301].
 
 **Cons(-):**
 
 * Need to learn how it works.
-* Some jasmine matchers are not available at the moment.
+* Some [jasmine][405] matchers are not available at the moment.
 
 *Please, give feedback about any found cons and pros.*
 
-----
+---
 
+* [Demo](#demo)
 * [Installation](#installation)
 * [Methods](#methods)
   * [Matchers](#matchers)
     * [Passing arguments](#passing-arguments)
   * [Selectors](#selectors)
 * [Usage](#usage)
+* [ChangeLog](#changelog)
+* [Structure](#structure)
 * [Style guide](#style-guide)
 * [Git](#git)
-  * [Commit](#commit)
-  * [Versioning](#versioning)
 * [License](#license)
 * [Donate](#donate)
 
-----
+---
+
+## Demo
+
+### Live
+
+~~[Live demonstration](http://angular-package.wwwdev.io/core/property)~~
+
+### Inside repository
+
+Clone this repository:
+
+```bash
+git clone https://github.com/angular-package/angular-package.git
+```
+
+Go to demo folder:
+
+```bash
+cd packages/core/demo
+```
+
+Install and run:
+
+```bash
+npm i && npm start
+```
+
+Open [http://localhost:4200/](http://localhost:4200/) in your browser.
 
 ## Installation
 
 First, install `@angular-package/core` package with command:
 
 ```bash
-npm i --save @angular-package/core
-```
-
-Add peer dependencies:
-
-```bash
-npm i --save lodash-es@4.17.10
+npm i --save @angular-package/core@latest
 ```
 
 ## Methods
 
-### before()
+### .before()
 
-Do some operations on component before expectation.
-
-**Important:**
+Make some operations on [component][501] before expectation.
 
 * Returned value is used in chained method.
-* If method does not return any value matcher depends on actual and expected arguments.
+* If method does not return any value matcher depends on actual and expected argument.
+
+```typescript
+before(callback: (component: T, testingClass?: MainClass<T>) => any): this;
+```
 
  Parameter | Type | Description
 -----------|------|-------------
- callback | (component: T, testingClass?: TestingClass\<T\>) => any | Function with injected component and `this` object.
-
-```typescript
-/**
- * Do some operations on component before expectation.
- * @param callback Function with injected component and `this` object.
- */
-before(callback: (component: T, testingClass?: TestingClass<T>) => any): this
-```
+ `callback` | (component: T, testingClass?: TestingClass\<T\>) => any | [Function][409] with injected [component][501] and `this` object.
 
 Example:
 
 ```typescript
-'How to use `before()` method': {
-  true: () => testing
+{
+  'How to use `before()` method': () => testing
     .before(() => 27) // `before()` returns number 27 value.
     .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
-  };
+    .equal<number>(27)
+}
 ```
 
-### clear()
+### .clear()
 
-Uses jasmine function `it()` to execute tests.
-
- Parameter | Type | Description
------------|------|-------------
- name?  | [ResultName][2] | Name of result to set `undefined`.
+Clear result `before` or `query`.
 
 ```typescript
-/**
- * Clear result `before` or `query`.
- * @param name Name of result to set `undefined`.
- */
 clear(name?: ResultName): this
 ```
 
-Example:
-
-```typescript
-'How to use `before()` method': {
-  true: () => testing
-    .before(() => 27) // `before()` returns number 27 value.
-    .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
-    .clear('before')  // Clear last result before(). Chaining method won't use it anymore.
-  };
-```
-
-### describe()
-
-Uses jasmine function `it()` to execute tests.
-
  Parameter | Type | Description
 -----------|------|-------------
- name?  | [ResultName][2] | Name of result to set `undefined`.
-
-```typescript
-/**
- * Primary describe with environment and module definition.
- * @param specToExecute Spec to execute.
- * @param [description=this.description] Jasmine textual description of the main group.
- * @param [moduleDef=this.moduleDef] Angular module definition.
- */
-describe(
-  specToExecute: Function,
-  description: string = this.description,
-  moduleDef: TestModuleMetadata = this.moduleDef
-): this
-```
+ `name`?  | [ResultName][2] | Name of result to set `undefined`.
 
 Example:
 
@@ -169,110 +154,72 @@ Example:
   true: () => testing
     .before(() => 27) // `before()` returns number 27 value.
     .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
+    .equal<number>(27)
     .clear('before')  // Clear last result before(). Chaining method won't use it anymore.
   };
 ```
 
-### eachIt()
+### .execute()
 
-Uses jasmine function `it()` to execute spec.
+Execute specs list declared before by using `spec()` method. It also restores original settings before each execute and use settings from arguments.
+
+```typescript
+execute(execute?: Execute, log?: ConsoleLog): this;
+```
 
  Parameter | Type | Description
 -----------|------|-------------
- ...args  | Array\<Spec\> | Spread json object with tests to execute.
+ `execute`?  | [Execute][4] | Filter executing specs.
+ `log`?  | [ConsoleLog][5] | Which logs to display. Four Options are available: boolean `true` = Both executed and skipped specs are logged. Boolean `false` = Executed and skipped specs are'nt logged. String `executed` = Executed specs are logged. String `skipped` = skipped specs are logged.
+
+Example:
 
 ```typescript
-/**
- * Uses jasmine function `it()` to execute tests.
- * @param args Spread json object with tests to execute.
- */
-eachIt(...args: Array<Spec>): void
+
 ```
+
+### .spec()
+
+Add description and create new specs to execute when `reset` is `true` or add to existing specs when reset is `false`.
+
+```typescript
+spec(description: string, spec: Spec<T>, reset = true): this;
+```
+
+ Parameter | Type | Description
+-----------|------|-------------
+ `description` | string | Spec description that is added to the main description.
+ `spec` | [Spec][1]\<T\> | Specs to execute, where `index` is the spec name.
+ `reset` | boolean = `true` | Reset the specs to execute.
 
 Example:
 
 ```typescript
 ```
 
-### execute()
-
-Execute spec as spread json objects. Every spec has `true` or `false` key name and when
-its value is `true` spec will be executed.
-
- Parameter | Type | Description
------------|------|-------------
- execute  | Array\<number\> | Select spec to execute.
- ...specs  | Array\<Spec\> | Spread json object with spec to execute.
-
-```typescript
-/**
- * Execute specs as spread json objects.
- * @param execute Select spec to execute.
- * @param specs Spread json objects to execute.
- */
-execute(execute: Array<number> = [], ...specs: Array<Spec>): this
-```
-
-Example:
-
-```typescript
-testing.execute({
-  'How to use `before()` method': { // Here is test name.
-    true: () => testing // Set property key name from `true` to `false` to remove from executing.
-      .before(() => { }) // `before()` returns nothing.
-      .be<number>(27, 27)   // `be()` method expect value `27` to be `27`.
-      .be<string>('test fragment', 'test fragment')
-      .be<any>({
-        'test object': 'test object'
-      })
-      .be('firstname', 'Eve') // `firstname` property is available in component so `be()` test `component.firstname` against 'Eve'.
-  }
-});
-```
-
-### spec()
-
-Add spec to execute. Each spec has `'true'` or `'false'` key name and only with value `'true'` spec is executed.
-
- Parameter | Type | Description
------------|------|-------------
- spec  | [Spec][1] | List of spec to execute, where `index` is spec name and its value is json object with key name `'false'` or `'true'` and its value is just a `Function`.
-
-```typescript
-/**
-  * Add spec to list of specs to execute.
-  * @param spec Spec to execute.
-  * @param [reset=true] Reset specs list to execute, when resseting it is execute group of spec.
-  */
-spec(spec: Spec, reset = true): this
-```
-
-Example:
-
-```typescript
-testing.spec({
-    'Spec name [index: string]': {
-      true: () => testing // Test will be executed because of 'true' key value.
-        .selector('div')
-        .clear()
-    });
-```
-
-### property()
-
-Get component property value by using lodash `get()` function.
+### .get()
 
  Parameter | Type | Description
 -----------|------|-------------
  actualOrPropertyName  | string | x
 
 ```typescript
-/**
- * Get component property value by using lodash `get()` function.
- * @template PT Returned component property value type.
- * @param [actualOrPropertyName] Component property name (key).
- */
-property<PT>(actualOrPropertyName: string): PT | null
+get<PT>(path: string): PT | undefined;
+```
+
+Example:
+
+```typescript
+```
+
+### .set()
+
+ Parameter | Type | Description
+-----------|------|-------------
+ actualOrPropertyName  | string | x
+
+```typescript
+set<PT>(path: string, value: PT): this;
 ```
 
 Example:
@@ -880,57 +827,50 @@ testing
 // End Step 3.
 ```
 
+## ChangeLog
+
+* Guiding principles based on [Keep a Changelog][304]
+* All notable changes to this package are documented in [**CHANGELOG.md**][10].
+
+## Structure
+
+Folders and files [structure][301] organization.
+
 ## Style guide
 
-Coded by including style guides below.
-
-* [Angular style guide][427]
-* [Angular 5 TSLint configuration (best practices)][428]
-* [Angular v5 Snippets][429]
-* [Angular 6 Snippets - TypeScript, Html, Angular Material, ngRx, RxJS & Flex Layout][430]
+Coding with included [style guides][302].
 
 ## GIT
 
-### Commit
-
-* [AngularJS Git Commit Message Conventions][425]
-* [Karma Git Commit Msg](426)
-
-### Versioning
-
-[Semantic Versioning 2.0.0][431]
-
-**Given a version number MAJOR.MINOR.PATCH, increment the:**
-
-* MAJOR version when you make incompatible API changes,
-* MINOR version when you add functionality in a backwards-compatible manner, and
-* PATCH version when you make backwards-compatible bug fixes.
-
-Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
-
-**FAQ**
-How should I deal with revisions in the 0.y.z initial development phase?
->The simplest thing to do is start your initial development release at 0.1.0 and then increment the minor version for each subsequent release.
-
-How do I know when to release 1.0.0?
-
->If your software is being used in production, it should probably already be 1.0.0. If you have a stable API on which users have come to depend, you should be 1.0.0. If you’re worrying a lot about backwards compatibility, you should probably already be 1.0.0.
+Git commit conventions and versioning described [here][300].
 
 ## License
 
-MIT © angular-package ([license][432])
+MIT © angular-package ([license][303])
 
 ## Donate
 
-@angular-package is under [MIT License][432], but if you want to help to maintain otherwise than with your coding skills, please click to [donate with Donorbox][27] or with paypal.
+Package is under [MIT License][303]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][100] or by [paypal][101].
 
-[![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6)
+**Why donate ?**
+**wwwdev.io** organization is non-profit, has a volunteer board, no employees or any paid person. Its goal is to work on **javascript/typescript** software, especially dedicated to [angular.io][508] framework and to help open-source software grow by using [MIT License][303] which allows it to be used comercially. So, it is hope you consider supporting our efforts.
 
+[![donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)][101]
+
+<!--- This package -->
 [0]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/interface/options.interface.ts
 [1]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/interface/spec.interface.ts
 [2]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/type/result-name.type.ts
 [3]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/type/argument.type.ts
+[4]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/type/execute.type.ts
+[5]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/type/console-log.type.ts
+
+[10]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/CHANGELOG.md
+
 [27]: https://donorbox.org/help-creating-open-source-software
+[127]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
+
+<!--
 [425]: https://gist.github.com/stephenparish/9941e89d80e2bc58a153
 [426]: http://karma-runner.github.io/0.10/dev/git-commit-msg.html
 [427]: https://angular.io/docs/ts/latest/guide/style-guide.html
@@ -943,3 +883,35 @@ MIT © angular-package ([license][432])
 [434]: https://angular.io/api/core/ChangeDetectorRef
 [435]: https://angular.io/api/core/testing/TestModuleMetadata
 [436]: https://angular.io/api/core/Type
+[437]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+
+<!--- @angular-package -->
+[300]: https://github.com/angular-package/angular-package/blob/core/GIT.md
+[301]: https://github.com/angular-package/angular-package/blob/core/ORGANIZATION.md
+[302]: https://github.com/angular-package/angular-package/blob/core/STYLE-GUIDE.md
+[303]: https://github.com/angular-package/angular-package/blob/core/LICENSE
+[304]: https://github.com/angular-package/angular-package/blob/core/MAKECHANGELOG.md
+
+<!--- Other -->
+[400]: https://rollupjs.org/#introduction
+[401]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
+[402]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+[403]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+[404]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+[405]: https://jasmine.github.io/2.0/introduction
+[406]: https://www.w3schools.com/js/js_object_properties.asp
+[407]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+[408]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+[409]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
+[410]: https://developer.mozilla.org/en-US/docs/Web/API/Console/log
+
+<!--- @angular -->
+[500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
+[501]: https://angular.io/api/core/Component
+[502]: https://angular.io/tutorial/toh-pt4
+[503]: https://angular.io/api/core/ChangeDetectorRef
+[504]: https://angular.io/api/core/testing/TestModuleMetadata
+[505]: https://angular.io/api/core/Type
+[506]: https://angular.io/guide/dynamic-component-loader
+[507]: https://angular.io/guide/lifecycle-hooks
+[508]: https://angular.io/
