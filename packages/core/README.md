@@ -10,16 +10,21 @@ Features used in other **angular-package** libraries.
 import '@angular-package/core';
 ```
 
+---
+
 * Treeshake bundle with **[Rollup][400]** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
-* Possible to test each package separately with npm command `npm run test:property`.
+* Possible to test each package separately with npm command e.g. `npm run test:property`, `npm run test:testing`.
+* All notable changes to this package are documented in [**CHANGELOG.md**][10].
+* Organized folders and files [**structure**][301].
 
 *Please, give feedback about found any pros and especially cons.*
 
-----
+---
 
-* [Packages](#packages)
+* [Demo](#demo)
+* [Installation](#installation)
 * [ChangeLog](#changelog)
 * [Structure](#structure)
 * [Style guide](#style-guide)
@@ -27,23 +32,58 @@ import '@angular-package/core';
 * [License](#license)
 * [Donate](#donate)
 
-----
+---
 
-## Packages
-
-| Name | Description | Status | |
+| Package | Description | Status | |
 |---------|-------------|--------|--------|
 | `component-loader` | Makes handle [dynamic component loader][506] easier. | [**Ready**][5] | [README][0] |
-| `handler` | Services to handle [HTMLElement][401] [attributes][402]. | [*Beta*][6] | [README][1] |
-| `property` | Bind or wrap indicated [component][501] properties with specific target. | [*Beta*][7] | [README][2] |
+| `handler` | Services to handle [HTMLElement][401] [attributes][402] and [class][407] method arguments. | [*Beta*][6] | [README][1] |
+| `property` | [Component][501] [property][406] features that are using javascript [`set`][403]/[`get`][404] syntax e.g. to create a type of pseudo-property. | [*Beta*][7] | [README][2] |
 | `store` | Stores target [setters][403]/[getters][404] and [cycle-hooks][507]. | [**Ready**][8] | [README][3] |
 | `testing` | Wrapper class to control the execution of [jasmine][405] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | [*Beta*][9] | [README][4] |
 
 Click status e.g. **Ready**, *Beta* to go to **CHANGELOG.md** file.
 
+---
+
+## Demo
+
+### Live
+
+~~[Live demonstration](http://angular-package.wwwdev.io/core/property)~~
+
+### Inside repository
+
+Clone this repository:
+
+```bash
+git clone https://github.com/angular-package/angular-package.git
+```
+
+Go to demo folder:
+
+```bash
+cd packages/core/demo
+```
+
+Install and run:
+
+```bash
+npm i && npm start
+```
+
+Open [http://localhost:4200/](http://localhost:4200/) in your browser.
+
+## Installation
+
+```bash
+npm i @angular-package/core@latest --save
+```
+
 ## ChangeLog
 
-Guiding principles based on [Keep a Changelog][304]
+* Guiding principles based on [Keep a Changelog][304]
+* All notable changes to this package are documented in [**CHANGELOG.md**][10].
 
 ## Structure
 
@@ -82,6 +122,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [7]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/property/CHANGELOG.md
 [8]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/store/CHANGELOG.md
 [9]: https://github.com/angular-package/angular-package/tree/master/packages/core/packages/testing/CHANGELOG.md
+[10]: https://github.com/angular-package/angular-package/tree/master/packages/core/CHANGELOG.md
 
 <!--- General -->
 [100]: https://donorbox.org/help-creating-open-source-software
@@ -104,6 +145,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [406]: https://www.w3schools.com/js/js_object_properties.asp
 [407]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 [408]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+[409]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
 
 <!--- @angular -->
 [500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
