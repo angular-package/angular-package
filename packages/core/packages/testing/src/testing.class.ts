@@ -17,10 +17,11 @@ import { Spec, Testing } from '../interface';
  * @template T Component type to test.
  */
 export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
-
   /**
    * Execute specs list declared before by using `spec()` method.
    * It also restores original settings before each execute and use settings from arguments.
+   * @author wwwdev.io
+   * @date 2018-08-21
    * @param [execute] Filter executed specs.
    * @param [log] What logs to display.
    */
@@ -36,10 +37,12 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
   }
 
   /**
-   * Add description only to selected spec and add spec to specs list for future executing.
-   * It also reset stored specs list when argument `reset` is `true` which is defaultly `true`.
+   * Add description and create new specs to execute when `reset` is `true` or add to existing specs when reset is `false`.
+   * @description Add description only to selected spec and add spec to specs list for future executing.
+   * @author wwwdev.io
+   * @date 2018-08-21
    * @param description Spec description that will be added to description.
-   * @param spec Spec where key is its name.
+   * @param spec List of spec to execute, where `index` is spec name.
    * @param [reset=true] Reset specs list for executing.
    */
   spec(description: string, spec: Spec<T>, reset = true): this {
@@ -56,15 +59,13 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
 
   /**
    * Primary describe with environment and module definition.
-   * @param specToExecute Tests to execute.
+   * @description Primary describe with environment and module definition.
+   * @author wwwdev.io
+   * @date 2018-08-21
    * @param [description=this.description] Jasmine textual description of the main group.
    * @param [moduleDef=this.moduleDef] Angular module definition.
    */
-  protected describe(
-    // specToExecute?: Function,
-    description: string = this.description,
-    moduleDef: TestModuleMetadata = this.moduleDef
-  ): this {
+  protected describe(description: string = this.description, moduleDef: TestModuleMetadata = this.moduleDef): this {
 
     // Environment.
     beforeAll(() => {
@@ -92,6 +93,9 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
 
   /**
    * Uses jasmine function `it()` for asynchronous execution stored list of specs.
+   * @description Uses jasmine function `it()` for asynchronous execution stored list of specs.
+   * @author wwwdev.io
+   * @date 2018-08-21
    */
   protected eachIt(): this {
     (async (): Promise<any> => {
@@ -139,6 +143,8 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
 
   /**
    * Create new TestingClass instance.
+   * @author wwwdev.io
+   * @date 2018-08-21
    */
   private instance(): TestingClass<T> {
     const instance: TestingClass<T> = new TestingClass<T>(
