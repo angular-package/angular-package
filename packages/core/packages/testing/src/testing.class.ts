@@ -18,12 +18,16 @@ import { Spec, Testing } from '../interface';
  */
 export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
   /**
-   * Execute specs list declared before by using `spec()` method.
+   * Execute spec expectations declared before by using `spec()` method. 
    * It also restores original settings before each execute and use settings from arguments.
    * @author wwwdev.io
    * @date 2018-08-21
-   * @param [execute] Filter executed specs.
-   * @param [log] What logs to display.
+   * @param [execute] Filter executing specs.
+   * @param [log] Which logs to display. Four Options are available: 
+   * Boolean `true` = Both executed and skipped specs are logged. 
+   * Boolean `false` = Executed and skipped specs are'nt logged. 
+   * String `executed` = Executed specs are logged. 
+   * String `skipped` = skipped specs are logged.
    */
   execute(execute?: Execute, log?: ConsoleLog): this {
     this
@@ -37,13 +41,13 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
   }
 
   /**
-   * Add description and create new specs to execute when `reset` is `true` or add to existing specs when reset is `false`.
-   * @description Add description only to selected spec and add spec to specs list for future executing.
+   * Add more information about actual spec to the main description and new specs to execute when `reset` is `true` 
+   * or add to existing specs when reset is `false`.
    * @author wwwdev.io
    * @date 2018-08-21
-   * @param description Spec description that will be added to description.
-   * @param spec List of spec to execute, where `index` is spec name.
-   * @param [reset=true] Reset specs list for executing.
+   * @param description Additional description.
+   * @param spec Specs to execute, where `key` is jasmine it description `it(key, () => {});`.
+   * @param [reset=true] Reset the specs to execute.
    */
   spec(description: string, spec: Spec<T>, reset = true): this {
     this.specDescription = description;
@@ -59,7 +63,6 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
 
   /**
    * Primary describe with environment and module definition.
-   * @description Primary describe with environment and module definition.
    * @author wwwdev.io
    * @date 2018-08-21
    * @param [description=this.description] Jasmine textual description of the main group.
@@ -93,7 +96,6 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
 
   /**
    * Uses jasmine function `it()` for asynchronous execution stored list of specs.
-   * @description Uses jasmine function `it()` for asynchronous execution stored list of specs.
    * @author wwwdev.io
    * @date 2018-08-21
    */
