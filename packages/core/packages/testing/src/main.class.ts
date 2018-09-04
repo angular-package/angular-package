@@ -7,6 +7,12 @@ import { ResultName } from '../type';
 import { PropertiesClass } from './properties.class';
 import { Main } from '../interface';
 
+/**
+ * @author wwwdev.io
+ * @date 2018-08-23
+ * @export
+ * @template T Component to test.
+ */
 export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T> {
   /**
    * Make some operations on component before expectation.
@@ -25,8 +31,9 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
   }
 
   /**
-   * Clear result `before` or `query`.
-   * @param name Name of result to set `undefined`.
+   * Clear returned result of `.before()` method when name is set to `before` and `.attribute()` `.class()` `.selector()` method 
+   * when name is set to `query` or both when name is `undefined`.
+   * @param name Name of the result to be cleared. It can be set to `before` or `query`, when `undefined` it clears both.
    */
   clear(name?: ResultName): this {
     if (name) {
@@ -42,8 +49,9 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
 
   /**
    * Get component property value by using lodash `get()` function.
-   * @template PT Returned component property value type.
-   * @param [path] Component property name (key).
+   * @template PT Returned value type.
+   * @param path  The path of the property to get.
+   * @param [callback] x
    */
   get<PT>(path: string): PT | undefined {
     if (this.componentInstance !== undefined) {
@@ -55,9 +63,9 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
 
   /**
    * Set component property value by using lodash `get()` function.
-   * @template PT Returned component property value type.
-   * @param [path] Component property name (key).
-   * @param [value] Component property value.
+   * @template PT Value to set type.
+   * @param [path] The path of the property to set.
+   * @param [value] The value to set.
    */
   set<PT>(path: string, value: PT): this {
     if (this.componentInstance !== undefined) {
@@ -67,27 +75,37 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
     return this;
   }
 
-  subscribe<PT>(propertyName: string, callback: Function): this {
-    const observable: Observable<PT> | undefined = this.get<Observable<PT>>(propertyName);
-    let i = 0;
-    if (typeGuard<Observable<PT>>(observable)) {
-      observable.subscribe(
-        (value: PT): void => {
-          if (callback) {
-            callback(value);
-          }
-          i++;
-        },
-        () => i++,
-        () => i++
-      );
+  /**
+   * @author wwwdev.io
+   * @date 2018-08-23
+   * @template PT x
+   * @param path x
+   * @param callback x
+   */
+  subscribe<PT>(path: string, callback: (value: PT) => any): this {
+    if (this.componentInstance !== undefined) {
+      const observable: Observable<PT> | undefined = this.propertyClass.get<Observable<PT>>(this.componentInstance, path);
+      let i = 0;
+      if (typeGuard<Observable<PT>>(observable)) {
+        observable.subscribe(
+          (value: PT): void => {
+            if (callback) {
+              callback(value);
+            }
+            i++;
+          },
+          () => i++,
+          () => i++
+        );
+      }
     }
 
     return this;
   }
 
   /**
-   * @param options ts
+   * @author wwwdev.io
+   * @date 2018-08-23
    * @param [number] Number of spec to execute.
    */
   protected execution(number: number): boolean {
@@ -105,6 +123,11 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
     );
   }
 
+  /**
+   * @author wwwdev.io
+   * @date 2018-08-23
+   * @template TYPE Result type.
+   */
   protected getResult<TYPE>(): TYPE {
     if (this.result.name === 'query' && this.result.query !== undefined) {
       return this.result.query.nativeElement.innerHTML;
