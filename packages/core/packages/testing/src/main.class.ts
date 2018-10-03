@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 // internal
 import { typeGuard } from '../../src';
-import { ResultName } from '../type';
+import { mode, ResultName } from '../type';
 import { PropertiesClass } from './properties.class';
 import { Main } from '../interface';
 
@@ -48,10 +48,23 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
   }
 
   /**
+   * Change working mode.
+   * @author wwwdev.io
+   * @date 2018-10-03
+   * @param value Select between two modes - component and variable.
+   */
+  mode(value: mode): this {
+    this._mode = value;
+
+    return this;
+  }
+
+  /**
    * Get component property value by using lodash `get()` function.
+   * @author wwwdev.io
+   * @date 2018-10-03
    * @template PT Returned value type.
-   * @param path  The path of the property to get.
-   * @param [callback] x
+   * @param path The path of the property to get.
    */
   get<PT>(path: string): PT | undefined {
     if (this.componentInstance !== undefined) {
