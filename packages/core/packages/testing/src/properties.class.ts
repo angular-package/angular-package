@@ -9,6 +9,7 @@ import { ArgumentHandlerClass } from '../../handler';
 import { Options, Result, Settings, Spec } from '../interface';
 import { PropertyService } from '../../property';
 import { ConsoleClass } from '../../src';
+import { mode } from '../type';
 
 /**
  * Class with all possible properties used in `TestingClass`.
@@ -38,6 +39,9 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
    * Object to display logs with specific colors.
    */
   protected consoleClass = new ConsoleClass();
+
+  // protected _mode: 'component' | 'variable' = 'component';
+  protected _mode: mode = 0;
 
   /**
    * Object to handle property features.
@@ -150,8 +154,11 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
       this.settings.console[options.log] = true ;
     } else if (typeof options.log === 'boolean') {
       this.settings.console = {
-        executed: options.log,
-        skipped: options.log
+        ...{},
+        ...{
+          executed: options.log,
+          skipped: options.log
+        }
       };
     }
     // Set execute `false` or `Array<number>`.
