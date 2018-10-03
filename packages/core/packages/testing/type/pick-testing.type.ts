@@ -9,6 +9,8 @@ export type PickTesting<T> = Pick<TestingClass<T>,
   'componentInstance' |
   'contain' |
   'debugElement' |
+  'match' |
+  'mode' |
   'nativeElement' |
   'not' |
   'defined' |
