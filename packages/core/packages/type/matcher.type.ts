@@ -1,1 +1,1 @@
-export type Matcher = 'be' | 'contain' | 'defined' | 'equal' | 'falsy' | 'null' | 'truthy' | 'undefined';
+export type Matcher = 'be' | 'contain' | 'defined' | 'equal' | 'falsy' | 'match' | 'null' | 'truthy' | 'undefined';
