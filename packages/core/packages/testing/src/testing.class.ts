@@ -22,7 +22,8 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * It also restores original settings before each execute and use settings from arguments.
    * @author wwwdev.io
    * @date 2018-08-21
-   * @param [execute] Filter executing specs.
+   * @param [execute] Filter executing specs by declaring its unique given number as array. When it is `[1, 5]` 
+   * it executes number `1` and `5`, when `true` or `undefined` it executes all, when `false` it is not executing anything
    * @param [log] Which logs to display. Four Options are available: 
    * Boolean `true` = Both executed and skipped specs are logged. 
    * Boolean `false` = Executed and skipped specs are'nt logged. 
@@ -35,6 +36,7 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
       .restoreSettings()
       .setSettings({ log, execute })
       .spec(this.specDescription, this.specs)
+      .environment()
       .describe();
     
     return this;
@@ -47,7 +49,7 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * @date 2018-08-21
    * @param description Additional description.
    * @param spec Specs to execute, where `key` is jasmine it description `it(key, () => {});`.
-   * @param [reset=true] Reset the specs to execute.
+   * @param [reset=true] Reset the specs to execute, it means create new list.
    */
   spec(description: string, spec: Spec<T>, reset = true): this {
     this.specDescription = description;
@@ -69,26 +71,14 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * @param [moduleDef=this.moduleDef] Angular module definition.
    */
   protected describe(description: string = this.description, moduleDef: TestModuleMetadata = this.moduleDef): this {
-
-    // Environment.
-    beforeAll(() => {
-      TestBed.resetTestEnvironment();
-      TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
-    });
-    
     // Main describe.
     describe(description, () => {
+      this
+        // Angular TestBed configure and compile.
+        .configure(moduleDef)
 
-      // Angular TestBed configure and compile.
-      beforeEach(async(() => {
-        TestBed
-          .configureTestingModule(moduleDef)
-          .compileComponents();
-
-        this.fixture = TestBed.createComponent(this.componentTest);
-      }));
-
-      this.eachIt();
+        // Execute `it()`.
+        .eachIt();
     });
     
     return this;
@@ -144,7 +134,39 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
   }
 
   /**
-   * Create new TestingClass instance.
+   * Configure and compile testing module and create TestingComponent fixture.
+   * @author wwwdev.io
+   * @date 2018-09-04
+   * @param moduleDef Angular module definition.
+   */
+  private configure(moduleDef: TestModuleMetadata): this {
+    beforeEach(async(() => {
+      TestBed
+        .configureTestingModule(moduleDef)
+        .compileComponents();
+
+      this.fixture = TestBed.createComponent(this.componentTest);
+    }));
+
+    return this;
+  }
+
+  /**
+   * Reset and init test environment by using `beforeAll` jasmine function.
+   * @author wwwdev.io
+   * @date 2018-09-04
+   */
+  private environment(): this {
+    beforeAll(() => {
+      TestBed.resetTestEnvironment();
+      TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+    });
+
+    return this;
+  }
+
+  /**
+   * Instantiate class `TestingClass`.
    * @author wwwdev.io
    * @date 2018-08-21
    */
