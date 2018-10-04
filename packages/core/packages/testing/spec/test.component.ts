@@ -11,6 +11,9 @@ export class TestComponent implements OnInit {
   age = 127;
   active = false;
   removed = true;
+  additional = null;
+  additional_information = null;
+  place = undefined;
 
   observable$: Observable<number>;
  
@@ -20,6 +23,10 @@ export class TestComponent implements OnInit {
     age: number,
     active: boolean
   };
+
+  componentNull = null;
+  componentUndefined = undefined;
+  componentContain = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.`;
 
   constructor() {
     this.data = {
