@@ -22,10 +22,10 @@ new TestingClass<T>(                        // T - component to create type.
 
  Parameter | Type | Description
 -----------|------|-------------
- `description` | string | Main description of e.g. `describe(description, () => {})`.
- `moduleDef` | [TestModuleMetadata][504] | Configure testing module e.g. `TestBed.configureTestingModule(moduleDef)`.
- `component` | [Type][505]\<T\> | [Component][501] to create with e.g. `TestBed.createComponent(component)`.
- `options`? | [Options][0] | Execution and [log][410] display control.
+ `description` | string | Main description in `describe(description, () => {})`.
+ `moduleDef` | [TestModuleMetadata][504] | Configure testing module with `TestBed.configureTestingModule(moduleDef)`.
+ `component` | [Type][505]\<T\> | [Component][501] to create with `TestBed.createComponent(component)`.
+ `options?` | [Options][0] | Execution and [log][410] display control.
 
 ---
 
@@ -35,22 +35,21 @@ new TestingClass<T>(                        // T - component to create type.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 * **Less code to write**
-  * Automatized configuring environment with `beforeAll()` function.
-  * Every selector is tested to not to be `null`.
+  * Automatize process of configuring environment.
+  * Automatically test each selector to not to be `null`.
   * Pass spec as json object.
   * Chaining methods.
-  * Fast component testing.
-* Autodetect type of passed arguments when using matchers.
-* Easy to make custom spec.
+  * Autodetect type of passed arguments when using matchers.
+* Easy way to make custom spec.
 * Control spec execution with its unique automatically given number.
-* Group spec depending on what is going to be tested by using spread operator or method `spec()`.
-* All notable changes to this package are documented in [**CHANGELOG.md**][4].
+* Group spec depending on what is going to be tested by using method `spec()`.
+* All notable changes to this package are documented in [**CHANGELOG.md**][10].
 * Organized folders and files [**structure**][301].
 
 **Cons(-):**
 
 * Need to learn how it works.
-* Some [jasmine][405] matchers are not available at the moment.
+* Not all [jasmine][405] matchers are available at the moment.
 
 *Please, give feedback about any found cons and pros.*
 
@@ -114,136 +113,189 @@ npm i --save @angular-package/core@latest
 
 Make some operations on [component][501] before expectation.
 
-* Returned value is used in chained method.
-* If method does not return any value matcher depends on actual and expected argument.
+* Returned value is used in the next chained **matcher** method.
+* If the next matcher method does not return any value it depends on its arguments.
 
 ```typescript
+// main.class.ts
 before(callback: (component: T, testingClass?: MainClass<T>) => any): this;
 ```
 
  Parameter | Type | Description
 -----------|------|-------------
- `callback` | (component: T, testingClass?: TestingClass\<T\>) => any | [Function][409] with injected [component][501] and `this` object.
+ `callback` | (component: T, testingClass?: [MainClass][6]\<T\>) => any | [Function][409] with injected [component][501] and `this` [object][408].
 
 Example:
 
 ```typescript
-{
-  'How to use `before()` method': () => testing
-    .before(() => 27) // `before()` returns number 27 value.
-    .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
-    .equal<number>(27)
-}
+testingClass // <--------------- TestingClass instance.
+  .spec('Expect how to use', {
+    '`before()` method': testing => testing
+      .before(() => 27) // <---- `before()` returns number 27 value.
+      .be<number>(27) // <------ `be()` method expect returned value from `before()` to be number `27`.
+      .equal<number>(27) // <--- `equal()` method expect returned value from `before()` to equal number `27`.
+  });
 ```
 
 ### .clear()
 
-Clear result `before` or `query`.
+Clear returned result of `.before()` method when name is set to `before` and `.attribute()` `.class()` `.selector()` method when name is set to `query` or both when name is `undefined`.
 
 ```typescript
-clear(name?: ResultName): this
+// main.class.ts
+clear(name?: ResultName): this;
 ```
 
  Parameter | Type | Description
 -----------|------|-------------
- `name`?  | [ResultName][2] | Name of result to set `undefined`.
+ `name?`  | [ResultName][2] | Name of the result to be cleared. It can be set to `before` or `query`, when `undefined` it clears both.
 
 Example:
 
 ```typescript
-'How to use `before()` method': {
-  true: () => testing
-    .before(() => 27) // `before()` returns number 27 value.
-    .be<number>(27)   // `be()` method expect returned value from `before()` to be number `27`.
-    .equal<number>(27)
-    .clear('before')  // Clear last result before(). Chaining method won't use it anymore.
-  };
+testingClass // <--------------- TestingClass instance.
+  .spec('Expect how to use', {
+    '`before()` method': testing => testing
+      .before(() => 27) // <---- `before()` returns number 27 value.
+      .be<number>(27) // <------ `be()` method expect returned value from `before()` to be number `27`.
+      .equal<number>(27) // <--- `equal()` method expect returned value from `before()` to equal number `27`.
+      .clear('before') // <-----  Clear last result before(). Chained method won't use it anymore.
+
+      .be<number>(27) // <------ `be()` method expect returned value from `before()` to be number `27` but it is `undefined`.
+  });
 ```
 
 ### .execute()
 
-Execute specs list declared before by using `spec()` method. It also restores original settings before each execute and use settings from arguments.
+Execute spec expectations declared before by using `spec()` method. It also restores original settings before each execute and use settings from arguments.
 
 ```typescript
+// testing.class.ts
 execute(execute?: Execute, log?: ConsoleLog): this;
 ```
 
  Parameter | Type | Description
 -----------|------|-------------
- `execute`?  | [Execute][4] | Filter executing specs.
- `log`?  | [ConsoleLog][5] | Which logs to display. Four Options are available: boolean `true` = Both executed and skipped specs are logged. Boolean `false` = Executed and skipped specs are'nt logged. String `executed` = Executed specs are logged. String `skipped` = skipped specs are logged.
+ `execute?`  | [Execute][4] | Filter executing specs by declaring its unique given number as array. When it is `[1, 5]` it executes number `1` and `5`, when `true` or `undefined` it executes all, when `false` it is not executing anything.
+ `log?`  | [ConsoleLog][5] | Which logs to display. Four Options are available: boolean `true` = Both executed and skipped specs are logged. Boolean `false` = Executed and skipped specs are'nt logged. String `executed` = Executed specs are logged. String `skipped` = skipped specs are logged.
 
 Example:
 
 ```typescript
-
+testingClass // <--------------- TestingClass instance.
+  .spec('Expect how to use', {
+    '`before()` method': testing => testing
+      .before(() => 27) // <---- `before()` returns number 27 value.
+      .be<number>(27) // <------ `be()` method expect returned value from `before()` to be number `27`.
+      .equal<number>(27) // <--- `equal()` method expect returned value from `before()` to equal number `27`.
+  })
+  .execute([1], true); // <----- Execute expectation `it()` with number `1` declared by `spec()`
+                       //        method with displaying all logs.
 ```
 
 ### .spec()
 
-Add description and create new specs to execute when `reset` is `true` or add to existing specs when reset is `false`.
+Add more information about actual spec to the main description and new specs to execute when `reset` is `true` or add to existing specs when reset is `false`.
 
 ```typescript
+// testing.class.ts
 spec(description: string, spec: Spec<T>, reset = true): this;
 ```
 
  Parameter | Type | Description
 -----------|------|-------------
- `description` | string | Spec description that is added to the main description.
- `spec` | [Spec][1]\<T\> | Specs to execute, where `index` is the spec name.
- `reset` | boolean = `true` | Reset the specs to execute.
+ `description` | string | Additional description.
+ `spec` | [Spec][1]\<T\> | Specs to execute, where `key` is jasmine it description `it(key, () => {});`.
+ `reset` | boolean = `true` | Reset the specs to execute, it means create new list.
 
 Example:
 
 ```typescript
+testingClass // <--------------- TestingClass instance.
+  .spec('Expect method `be()`', {
+    'to check expectation against 27': testing => testing
+      .before(() => 27) // <---- `before()` returns number 27 value.
+      .be<number>(27) // <------ `be()` method expect returned value from `before()` to be number `27`.
+  })
+  // Push spec with seperate description.
+  .spec('Expect method `clear()`', {
+    'to clear before result': testing => testing
+      .before(() => 27) // <---- `before()` returns number 27 value.
+      .equal<number>(27) // <--- `equal()` method expect returned value from `before()` to equal number `27`.
+      .clear('before') // <-----  Clear last result before(). Chaining method won't use it anymore.
+  }, false) // <----------------  DO NOT remove spec declared before.
+  .execute(); // <--------------- It executes both spec.
 ```
 
 ### .get()
 
- Parameter | Type | Description
------------|------|-------------
- actualOrPropertyName  | string | x
+Get component property value by using lodash `get()` function.
 
 ```typescript
+// main.class.ts
 get<PT>(path: string): PT | undefined;
 ```
+
+ Parameter | Type | Description
+-----------|------|-------------
+ `path`  | string |  The path of the property to get.
 
 Example:
 
 ```typescript
+testingClass // <---------------------- TestingClass instance.
+  .spec('Should get', {
+    'property `observable$`': testing => testing
+      // Get component propery `observable$` and use it with subscribe method.
+      .get<Observable<any>>('observable$')
+      .subscribe((value: any): void => console.log(value), () => { }, () => { })
+  });
 ```
 
 ### .set()
 
- Parameter | Type | Description
------------|------|-------------
- actualOrPropertyName  | string | x
+Set component property value by using lodash `get()` function.
 
 ```typescript
+// main.class.ts
 set<PT>(path: string, value: PT): this;
 ```
+
+ Parameter | Type | Description
+-----------|------|-------------
+ `path`  | string | The path of the property to set.
+ `value`  | PT | The value to set.
 
 Example:
 
 ```typescript
+testingClass // <---------------------- TestingClass instance.
+  .spec('expect age to', {
+    'be or equal number 27': testing => testing
+      .set<number>('age', 27) // <----- Set component property `age` to 27.
+      .be<number>('age', 27) // <------ `be()` method expect component property 'age' value to be `27`.
+      .equal<number>('age', 27) // <--- `equal()` method expect component property 'age' value to equal `27`.
+  });
 ```
 
 ### Matchers
 
 #### Passing arguments
 
-Each matcher can accept specific type of [Argument][3]\<T\>. Examples below explain this.
+Examples below explain how each matcher accept specific type of [Argument][3]\<T\>.
 
 How to check component `firstname` property value:
 
 ```typescript
-testing
+testingClass // <---------------------- TestingClass instance.
   .spec({
     'firstname should be `Eve`': {
       true: () => testing
-        .be<string>('firstname', 'Eve')   // One property check.
-        .be<string>({ firstname: 'Eve' }) // Possible many properties check. with different values
+        .be<string>('firstname', 'Eve')   // One property check by providing `string`.
+        .be<string>({ firstname: 'Eve' }) // Possible many properties check with different values.
+                                          // By providing `object` where `key` is property name.
         .be<string>(['firstname'], 'Eve') // Possible many properties check with one value.
+                                          // By providing list of property names with one value.
     }
   })
   .execute();
@@ -252,7 +304,7 @@ testing
 How to check component `removed` property value is set to `true`:
 
 ```typescript
-testing
+testingClass // <---------------------- TestingClass instance.
   .spec({
     'component property `removed` should be `true`': {
       true: () => testing
@@ -265,7 +317,7 @@ testing
   .execute();
 ```
 
-How to check component many properties with the same and different values:
+How to check many component properties with the same and different values:
 
 ```typescript
 testing
@@ -307,9 +359,9 @@ Actual value to be the expected value.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrExpected  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
- expected? | V | "The actual value to be equal to the expected, using deep equality comparison".
- expectationFailOutput? | any | Fail output.
+ `actualOrExpected`  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ `expected?` | V | "The actual value to be equal to the expected, using deep equality comparison".
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -329,9 +381,9 @@ Expect the actual value to contain a specific value.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrContain  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
- contain? | V | *"The value to look for."*
- expectationFailOutput? | any | Fail output.
+ `actualOrContain`  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ `contain?` | V | *"The value to look for."*
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -351,8 +403,8 @@ Expect the actual value to be defined. (Not undefined)
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrExpected  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
- expectationFailOutput? | any | Fail output.
+ `actualOrExpected`  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -371,9 +423,9 @@ Expect the actual value to be defined. (Not undefined)
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrExpected  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
- expected? | V | "The actual value to be equal to the expected, using deep equality comparison".
- expectationFailOutput? | any | Fail output.
+ `actualOrExpected`  | [Argument][3]\<T\> | Acts as expected value when chaining, actual value as component property name, actual value as component property name list or as component property name with defined value to test expectations against.
+ `expected?` | V | "The actual value to be equal to the expected, using deep equality comparison".
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -393,8 +445,8 @@ Expect the actual value to be falsy.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrPropertyName  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against false.
- expectationFailOutput? | any | Fail output.
+ `actualOrPropertyName`  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against false.
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -412,8 +464,8 @@ Expect the actual value to be truthy.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrPropertyName  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against undefined.
- expectationFailOutput? | any | Fail output.
+ `actualOrPropertyName`  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against undefined.
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -430,8 +482,8 @@ Expect the actual value to be undefined.
 
  Parameter | Type | Description
 -----------|------|-------------
- actualOrPropertyName  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against undefined.
- expectationFailOutput? | any | Fail output.
+ `actualOrPropertyName`  | [Argument][3]\<T\> | Actual computed values or as component properties keys values to test expectations against undefined.
+ `expectationFailOutput?` | any | Fail output.
 
 ```typescript
 /**
@@ -452,8 +504,8 @@ Look for specific attribute by using `DebugElement` with pattern `[${name}="${va
 
  Parameter | Type | Description
 -----------|------|-------------
- name  | string | Attribue name to look for.
- value? | string | Attribute value to look for.
+ `name`  | string | Attribue name to look for.
+ `value?` | string | Attribute value to look for.
 
 ```typescript
 /**
@@ -470,7 +522,7 @@ Look for specific class by using `DebugElement`.
 
  Parameter | Type | Description
 -----------|------|-------------
- name  | string | `class` name to look for.
+ `name`  | string | `class` name to look for.
 
 ```typescript
 /**
@@ -486,7 +538,7 @@ Typical `By.css` query.
 
  Parameter | Type | Description
 -----------|------|-------------
- selector  | string | Look for specific HTMLElement.
+ `selector`  | string | Look for specific HTMLElement.
 
 ```typescript
 /**
@@ -865,6 +917,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [3]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/type/argument.type.ts
 [4]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/type/execute.type.ts
 [5]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/type/console-log.type.ts
+[6]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/src/main.class.ts
 
 [10]: https://github.com/angular-package/angular-package/blob/core/packages/core/packages/testing/CHANGELOG.md
 
