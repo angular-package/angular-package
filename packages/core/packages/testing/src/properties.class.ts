@@ -1,12 +1,12 @@
 // TestingClass extends SelectorClass extends MatchersClass extends MainClass extends PropertiesClass extends ArgumentHandlerClass
 
 // external
-import { DebugElement, ElementRef, Type } from '@angular/core';
-import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
+import { DebugElement, ElementRef } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
 
 // internal
 import { ArgumentHandlerClass } from '../../handler';
-import { Options, Result, Settings, Spec } from '../interface';
+import { Result, Settings, Spec } from '../interface';
 import { PropertyService } from '../../property';
 import { ConsoleClass } from '../../src';
 import { mode } from '../type';
@@ -20,10 +20,13 @@ import { mode } from '../type';
  * @template T Component type.
  */
 export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
+  callback?: Function;
+
   /**
    * Angular `componentInstance` fixture. It can be `undefined`.
    */
   componentInstance?: T;
+  originalComponentInstance?: T;
 
   /**
    * Angular `debugElement` fixture. It can be `undefined`.
@@ -35,10 +38,14 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
    */
   nativeElement?: HTMLElement | ElementRef;
 
+  protected beforeEach?: (component: T, done: any) => void;
+
   /**
    * Object to display logs with specific colors.
    */
   protected consoleClass = new ConsoleClass();
+
+  protected description = '';
 
   // protected _mode: 'component' | 'variable' = 'component';
   protected _mode: mode = 0;
@@ -83,7 +90,7 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
   /**
    * Stored settings, used in `spec()` method.
    */
-  protected storedSettings: Settings;
+  protected storedSettings?: Settings;
 
   /**
    * @description Get and set all needed element from fixture to specific properties in object.
@@ -95,77 +102,15 @@ export abstract class PropertiesClass<T> extends ArgumentHandlerClass {
       this.debugElement = fixture.debugElement;
       this.nativeElement = fixture.debugElement.nativeElement;
       this.componentInstance = fixture.componentInstance;
+      this.originalComponentInstance = fixture.componentInstance;
     }
   }
   get fixture(): ComponentFixture<T> | undefined {
     return this._fixture;
   }
 
-  /**
-   * Creates an instance of PropertiesClass.
-   * @author wwwdev.io
-   * @date 2018-08-21
-   * @param description Main description of e.g. `describe(description, () => {})`.
-   * @param moduleDef Configure testing module e.g. `TestBed.configureTestingModule(moduleDef)`.
-   * @param componentTest Component to create with e.g. `TestBed.createComponent(component)`.
-   * @param [options] Execution and log display control.
-   */
-  constructor(
-    protected description: string,
-    protected moduleDef: TestModuleMetadata,
-    public componentTest: Type<T>,
-    protected options?: Options
-  ) {
-    super();
-    if (options) {
-      this.setSettings(options);
-    }
-    this.storedSettings = {
-      ...{},
-      ...this.settings
-    };
-
-    return this;
-  }
-
-  /**
-   * @description Restores settings to default, or to settings that was set on instantiation.
-   * @author wwwdev.io
-   * @date 2018-08-21
-   */
-  protected restoreSettings(): this {
-    this.settings = {
-      ...{},
-      ...this.settings,
-      ...this.storedSettings
-    };
-
-    return this;
-  }
-
-  /**
-   * Set settings with specific options.
-   * @param options Argument executed or log to set settings.
-   */
-  protected setSettings(options: Options): this {
-    // Set console.
-    if (typeof options.log === 'string') {
-      this.settings.console = { executed: false, skipped: false };
-      this.settings.console[options.log] = true ;
-    } else if (typeof options.log === 'boolean') {
-      this.settings.console = {
-        ...{},
-        ...{
-          executed: options.log,
-          skipped: options.log
-        }
-      };
-    }
-    // Set execute `false` or `Array<number>`.
-    if (options.execute !== undefined) {
-      this.settings.execute = options.execute;
-    }
-
-    return this;
-  }
+  /* protected beforeEach: (component: T, action: () => {}) => void = (component: T, action) => {
+    beforeEach(() => {
+    });
+  } */
 }
