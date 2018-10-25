@@ -28,6 +28,8 @@ export class TestComponent implements OnInit {
   componentUndefined = undefined;
   componentContain = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.`;
 
+  testowo = 'test';
+
   constructor() {
     this.data = {
       firstname: this.firstname,
