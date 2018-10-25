@@ -1,11 +1,14 @@
 // external
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import { Type } from '@angular/core';
+import { async, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 
 // internal
 import { typeGuard } from '../../src';
 import { mode, ResultName } from '../type';
 import { PropertiesClass } from './properties.class';
-import { Main } from '../interface';
+import { Main, Options } from '../interface';
 
 /**
  * @author wwwdev.io
@@ -15,6 +18,33 @@ import { Main } from '../interface';
  */
 export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T> {
   /**
+   * Creates an instance of PropertiesClass.
+   * @author wwwdev.io
+   * @date 2018-08-21
+   * @param description Main description of e.g. `describe(description, () => {})`.
+   * @param moduleDef Configure testing module e.g. `TestBed.configureTestingModule(moduleDef)`.
+   * @param componentTest Component to create with e.g. `TestBed.createComponent(component)`.
+   * @param [options] Execution and log display control.
+   */
+  constructor(
+    protected moduleDef: TestModuleMetadata,
+    public componentTest: Type<T>,
+    protected options?: Options
+  ) {
+    super();
+    this.environment();
+    if (options) {
+      this.setSettings(options);
+    }
+    this.storedSettings = {
+      ...{},
+      ...this.settings
+    };
+
+    return this;
+  }
+
+  /**
    * Make some operations on component before expectation.
    * @author wwwdev.io
    * @date 2018-08-21
@@ -22,9 +52,10 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
    */
   before(callback: (component: T, testingClass?: MainClass<T>) => any): this {
     this.clear('before');
+    this.callback = callback;
     if (this.componentInstance) {
       this.result.before = callback(this.componentInstance, this);
-      this.result.name = 'before';  
+      this.result.name = 'before';
     }
 
     return this;
@@ -117,6 +148,24 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
   }
 
   /**
+   * Configure and compile testing module then create TestingComponent fixture.
+   * @author wwwdev.io
+   * @date 2018-09-04
+   * @param [moduleDef=this.moduleDef] Angular module definition.
+   */
+  protected configure(moduleDef: TestModuleMetadata = this.moduleDef): this {
+    beforeEach(async(() => {
+      TestBed
+        .configureTestingModule(moduleDef)
+        .compileComponents();
+
+      this.fixture = TestBed.createComponent(this.componentTest);
+    }));
+
+    return this;
+  }
+
+  /**
    * @author wwwdev.io
    * @date 2018-08-23
    * @param [number] Number of spec to execute.
@@ -147,5 +196,60 @@ export abstract class MainClass<T> extends PropertiesClass<T> implements Main<T>
     }
 
     return this.result.before;
+  }
+
+  /**
+   * @description Restores settings to default, or to settings that was set on instantiation.
+   * @author wwwdev.io
+   * @date 2018-08-21
+   */
+  protected restoreSettings(): this {
+    this.settings = {
+      ...{},
+      ...this.settings,
+      ...this.storedSettings
+    };
+
+    return this;
+  }
+
+  /**
+   * Set settings with specific options.
+   * @param options Argument executed or log to set settings.
+   */
+  protected setSettings(options: Options): this {
+    // Set console.
+    if (typeof options.log === 'string') {
+      this.settings.console = { executed: false, skipped: false };
+      this.settings.console[options.log] = true ;
+    } else if (typeof options.log === 'boolean') {
+      this.settings.console = {
+        ...{},
+        ...{
+          executed: options.log,
+          skipped: options.log
+        }
+      };
+    }
+    // Set execute `false` or `Array<number>`.
+    if (options.execute !== undefined) {
+      this.settings.execute = options.execute;
+    }
+
+    return this;
+  }
+
+  /**
+   * Reset and init test environment by using `beforeAll` jasmine function.
+   * @author wwwdev.io
+   * @date 2018-09-04
+   */
+  private environment(): this {
+    beforeAll(() => {
+      TestBed.resetTestEnvironment();
+      TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+    });
+
+    return this;
   }
 }
