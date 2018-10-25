@@ -2,8 +2,6 @@
 import {
 
 } from 'jasmine';
-import { async, TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 // internal.
 import { SelectorClass } from './selector.class';
@@ -31,13 +29,13 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * String `skipped` = skipped specs are logged.
    */
   execute(execute?: Execute, log?: ConsoleLog): this {
-    this
+    const instance = this.instance();
+    instance
       .instance()
       .restoreSettings()
       .setSettings({ log, execute })
-      .spec(this.specDescription, this.specs)
-      .environment()
-      .describe();
+      .spec(this.description, this.beforeEach, this.specs)
+      .eachIt();
     
     return this;
   }
@@ -47,40 +45,20 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * or add to existing specs when reset is `false`.
    * @author wwwdev.io
    * @date 2018-08-21
-   * @param description Additional description.
+   * @param description Describe description.
    * @param spec Specs to execute, where `key` is jasmine it description `it(key, () => {});`.
    * @param [reset=true] Reset the specs to execute, it means create new list.
    */
-  spec(description: string, spec: Spec<T>, reset = true): this {
-    this.specDescription = description;
+  spec(description: string, beforeEach?: (component: T, done: any) => void, spec?: Spec<T>, reset = true): this {
+    this.description = description;
     // Reset specs.
     if (reset === true) {
       this.specs = {};
     }
     // Add spec.
     this.specs = { ...this.specs, ...spec };
+    this.beforeEach = beforeEach;
 
-    return this;
-  }
-
-  /**
-   * Primary describe with environment and module definition.
-   * @author wwwdev.io
-   * @date 2018-08-21
-   * @param [description=this.description] Jasmine textual description of the main group.
-   * @param [moduleDef=this.moduleDef] Angular module definition.
-   */
-  protected describe(description: string = this.description, moduleDef: TestModuleMetadata = this.moduleDef): this {
-    // Main describe.
-    describe(description, () => {
-      this
-        // Angular TestBed configure and compile.
-        .configure(moduleDef)
-
-        // Execute `it()`.
-        .eachIt();
-    });
-    
     return this;
   }
 
@@ -90,15 +68,27 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * @date 2018-08-21
    */
   protected eachIt(): this {
-    (async (): Promise<any> => {
+    describe(this.description, () => {
+      this.configure();
+
       let i = 0;
       let displayStart = true;
-
+  
       ((this.settings.execute !== false && this.specs) ? Object.keys({ ...{}, ...this.specs }) : []).forEach(name => {
         i++;
         const number = i;
 
+        if (this.beforeEach instanceof Function) {
+          beforeEach(done => {
+            if (this.componentInstance !== undefined && this.beforeEach instanceof Function) {
+              this.beforeEach(this.componentInstance, done);
+            }
+          });
+        }
+
         it(name, done => {
+          // const a: T | undefined = this.originalComponentInstance;
+          // this.componentInstance = a;
           // Display start.
           this.consoleClass
             .green(`Describe ${this.description} ${this.specDescription}`, ['bold'])
@@ -108,10 +98,10 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
             this.consoleClass
               .green(`#${number}. ${name}`)
               .log(this.settings.console.executed);
-
+  
             // Run spec.
             const testing: PickTesting<T> = this;
-            this.specs[name](testing);
+            this.specs[name](testing, done);
           } else if (this.execution(number) === false) {
             this.consoleClass
               .text(`Skipped #${number}. ${name}`, undefined, ['faint'])
@@ -119,47 +109,14 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
           }
           // Do not display start log anymore.
           displayStart = false;
-
+  
           if (this.execution(number) === false) {
             pending(`Skipped #${number}. ${name}`);
           }
-
+  
           done();
         });
-      });
-
-    })();
-
-    return this;
-  }
-
-  /**
-   * Configure and compile testing module and create TestingComponent fixture.
-   * @author wwwdev.io
-   * @date 2018-09-04
-   * @param moduleDef Angular module definition.
-   */
-  private configure(moduleDef: TestModuleMetadata): this {
-    beforeEach(async(() => {
-      TestBed
-        .configureTestingModule(moduleDef)
-        .compileComponents();
-
-      this.fixture = TestBed.createComponent(this.componentTest);
-    }));
-
-    return this;
-  }
-
-  /**
-   * Reset and init test environment by using `beforeAll` jasmine function.
-   * @author wwwdev.io
-   * @date 2018-09-04
-   */
-  private environment(): this {
-    beforeAll(() => {
-      TestBed.resetTestEnvironment();
-      TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+      });  
     });
 
     return this;
@@ -171,14 +128,12 @@ export class TestingClass<T> extends SelectorClass<T> implements Testing<T> {
    * @date 2018-08-21
    */
   private instance(): TestingClass<T> {
-    const instance: TestingClass<T> = new TestingClass<T>(
-      this.description,
-      this.moduleDef,
-      this.componentTest,
-      this.options
-    );
+    const t = this;
 
-    return instance;
+    return new TestingClass<T>(
+      { ...{}, ...t.moduleDef },
+      t.componentTest,
+      { ...{}, ...t.options });
   }
 }
 
