@@ -10,8 +10,8 @@ import { ComponentLoader } from '@angular-package/core/component-loader';
 @ComponentLoader<T>(config: ComponentLoaderConfigInterface)
 ```
 
-
 **Pros(+):**
+
 * Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
@@ -22,10 +22,12 @@ import { ComponentLoader } from '@angular-package/core/component-loader';
 * Tested with jasmine.
 
 **Cons(-):**
+
 * Need to inject `ComponentLoaderService` in constructor to use decorator with specific name `componentLoaderService`.
 * There is no interface implementation for added method and properties in component.
 
 **Important!**
+
 * Add `ComponentLoaderService` to component `providers`.
 
 ----
@@ -80,8 +82,8 @@ Install peer dependencies:
 npm i lodash-es@4.17.7 --save
 ```
 
-
 ## Config
+
 ```typescript
 interface ComponentLoaderConfigInterface<T> {
   component: Type<T>;
