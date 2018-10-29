@@ -40,7 +40,6 @@ import '@angular-package/core';
 | `handler` | Services to handle [HTMLElement][401] [attributes][402] and [class][407] method arguments. | [*Beta*][6] | [README][1] |
 | `property` | [Component][501] [property][406] features that are using javascript [`set`][403]/[`get`][404] syntax e.g. to create a type of pseudo-property. | [*Beta*][7] | [README][2] |
 | `store` | Stores target [setters][403]/[getters][404] and [cycle-hooks][507]. | [**Ready**][8] | [README][3] |
-| `testing` | Wrapper class to control the execution of [jasmine][405] spec, automatize some its features to help reduce code to write, or maybe even simplify writing some simple spec. | [*Beta*][9] | [README][4] |
 
 Click status e.g. **Ready**, *Beta* to go to **CHANGELOG.md** file.
 
