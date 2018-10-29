@@ -1,10 +1,10 @@
-# core/handler
+# @angular-package/core/handler
 
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
 
-Features to handle things.
+Services to handle [HTMLElement][401] [attributes][402] and [class][407] method arguments.
 
 ```typescript
 import {
@@ -14,83 +14,126 @@ import {
 } from '@angular-package/core/handler';
 ```
 
-----
+---
 
-* [Available features](#available-features)
+* [Demo](#demo)
+* [Installation](#installation)
+* [ChangeLog](#changelog)
+* [Structure](#structure)
 * [Style guide](#style-guide)
 * [Git](#git)
-  * [Commit](#commit)
-  * [Versioning](#versioning)
 * [License](#license)
 * [Donate](#donate)
 
-----
-
-## Available features
+---
 
 | Feature | Description | Status | Readme |
 |---------|-------------|--------|--------|
-| ArgumentHandlerClass | Method argument handle. | **Ready** | [Readme][0] |
-| AttributeHandlerService | General [HTMLElement][433] attribute handle. | **Ready** | [Readme][1] |
-| ClassHandlerService | [HTMLElement][433] class attribute handle. | **Ready** | [Readme][2] |
+| `ArgumentHandlerClass` | Method argument handle. | **Ready** | [Readme][0] |
+| `AttributeHandlerService` | General [HTMLElement][401] [attribute][402] handle. | **Ready** | [Readme][1] |
+| `ClassHandlerService` | [HTMLElement][401] [class][407] [attribute][402] handle. | **Ready** | [Readme][2] |
+
+---
+
+## Demo
+
+### Live
+
+[Live demonstration](http://angular-package.wwwdev.io/core/handler)
+
+### Inside repository
+
+Clone this repository:
+
+```bash
+git clone https://github.com/angular-package/angular-package.git
+```
+
+Go to demo folder:
+
+```bash
+cd packages/core/demo
+```
+
+Install and run:
+
+```bash
+npm i && npm start
+```
+
+Open [http://localhost:4200/](http://localhost:4200/) in your browser.
+
+## Installation
+
+```bash
+npm i @angular-package/core@latest --save
+```
+
+## ChangeLog
+
+* Guiding principles based on [Keep a Changelog][304]
+* All notable changes to this package are documented in [**CHANGELOG.md**][10].
+
+## Structure
+
+Folders and files [structure][301] organization.
 
 ## Style guide
 
-Coded by including style guides below.
-
-* [Angular style guide][427]
-* [Angular 5 TSLint configuration (best practices)][428]
-* [Angular v5 Snippets][429]
-* [Angular 6 Snippets - TypeScript, Html, Angular Material, ngRx, RxJS & Flex Layout][430]
+Coding with included [style guides][302].
 
 ## GIT
 
-### Commit
-
-* [AngularJS Git Commit Message Conventions][425]
-* [Karma Git Commit Msg](426)
-
-### Versioning
-
-[Semantic Versioning 2.0.0][431]
-
-**Given a version number MAJOR.MINOR.PATCH, increment the:**
-
-* MAJOR version when you make incompatible API changes,
-* MINOR version when you add functionality in a backwards-compatible manner, and
-* PATCH version when you make backwards-compatible bug fixes.
-
-Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
-
-**FAQ**
-How should I deal with revisions in the 0.y.z initial development phase?
->The simplest thing to do is start your initial development release at 0.1.0 and then increment the minor version for each subsequent release.
-
-How do I know when to release 1.0.0?
-
->If your software is being used in production, it should probably already be 1.0.0. If you have a stable API on which users have come to depend, you should be 1.0.0. If you’re worrying a lot about backwards compatibility, you should probably already be 1.0.0.
+Git commit conventions and versioning described [here][300].
 
 ## License
 
-MIT © angular-package ([license][432])
+MIT © angular-package ([license][303])
 
 ## Donate
 
-@angular-package is under [MIT License][432], but if you want to help to maintain otherwise than with your coding skills, please click to [donate with Donorbox][27] or with paypal.
+Package is under [MIT License][303]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][100] or by [paypal][101].
 
-[![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6)
+**Why donate ?**
+**wwwdev.io** organization is non-profit, has a volunteer board, no employees or any paid person. Its goal is to work on **javascript/typescript** software, especially dedicated to [angular.io][508] framework and to help open-source software grow by using [MIT License][303] which allows it to be used comercially. So, it is hope you consider supporting our efforts.
 
-[0]: x
-[1]: x
-[2]: x
-[27]: https://donorbox.org/help-creating-open-source-software
-[425]: https://gist.github.com/stephenparish/9941e89d80e2bc58a153
-[426]: http://karma-runner.github.io/0.10/dev/git-commit-msg.html
-[427]: https://angular.io/docs/ts/latest/guide/style-guide.html
-[428]: https://gist.github.com/stas-kh/2fc80c11c6db0fc4c64354400e29a2b8
-[429]: https://marketplace.visualstudio.com/items?itemName=Mikael.Angular-BeastCode
-[430]: https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2
-[431]: http://semver.org/
-[432]: https://github.com/angular-package/angular-package/blob/master/LICENSE
-[433]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
-[434]: https://angular.io/api/core/ChangeDetectorRef
+[![donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)][101]
+
+[0]: https://github.com/angular-package/angular-package/tree/master/packages/core/handler/ArgumentHandlerClass.md
+[1]: https://github.com/angular-package/angular-package/tree/master/packages/core/handler/AttributeHandlerService.md
+[2]: https://github.com/angular-package/angular-package/tree/master/packages/core/handler/ClassHandlerService.md
+
+[10]: https://github.com/angular-package/angular-package/tree/master/packages/core/handler/CHANGELOG.md
+
+<!--- General -->
+[100]: https://donorbox.org/help-creating-open-source-software
+[101]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6
+
+<!--- @angular-package -->
+[300]: https://github.com/angular-package/angular-package/blob/master/GIT.md
+[301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
+[302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
+[303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+[304]: https://github.com/angular-package/angular-package/blob/master/MAKECHANGELOG.md
+
+<!--- Other -->
+[400]: https://rollupjs.org/#introduction
+[401]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
+[402]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+[403]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+[404]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+[405]: https://jasmine.github.io/2.0/introduction
+[406]: https://www.w3schools.com/js/js_object_properties.asp
+[407]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+[408]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+<!--- @angular -->
+[500]: https://angular-2-training-book.rangle.io/v/v2.3/handout/features/decorators.html
+[501]: https://angular.io/api/core/Component
+[502]: https://angular.io/tutorial/toh-pt4
+[503]: https://angular.io/api/core/ChangeDetectorRef
+[504]: https://angular.io/api/core/testing/TestModuleMetadata
+[505]: https://angular.io/api/core/Type
+[506]: https://angular.io/guide/dynamic-component-loader
+[507]: https://angular.io/guide/lifecycle-hooks
+[508]: https://angular.io/

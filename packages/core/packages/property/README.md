@@ -4,7 +4,7 @@
 [![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
-[Component][501] [property][406] features that are using javascript [`set`][403] and [`get`][404] syntax e.g. to create a type of pseudo-property.
+[Component][501] [property][406] features that are using javascript [`set`][403]/[`get`][404] syntax e.g. to create a type of pseudo-property.
 
 ```typescript
 import {
@@ -15,6 +15,8 @@ import {
 } from '@angular-package/core/property';
 ```
 
+----
+
 * Treeshake bundle with **[Rollup][400]** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * Can be used commercially: [**MIT** License][303].
@@ -23,7 +25,7 @@ import {
 
 ----
 
-* [Features](#features)
+* [Demo](#demo)
 * [Installation](#installation)
 * [Changelog](#changelog)
 * [Structure](#structure)
@@ -34,14 +36,42 @@ import {
 
 ----
 
-## Features
-
 | Feature | Description | Status | |
 |---------|-------------|--------|-|
 | `BindProperty()` | [Decorator][500] to bind specified source [component][501] [properties][406] to the target by using `PropertyService`. | **Ready** | [README][0] |
 | `PropertyClass` |  [Class][407] to help link [component][501] [properties][406] in bind or wrap way with e.g. [service][407] [properties][406] by using [set][403]/[get][404] syntax. | **Ready** | [README][1] |
 | `PropertyProvider()` | Preconfigured `provider` for `PropertyService`. | **Ready** | [README][2] |
 | `PropertyService` | [Service][407] based on `PropertyClass` with the same functionalities. | **Ready** | [README][3] |
+
+----
+
+## Demo
+
+### Live
+
+[Live demonstration](http://angular-package.wwwdev.io/core/property)
+
+### Inside repository
+
+Clone this repository:
+
+```bash
+git clone https://github.com/angular-package/angular-package.git
+```
+
+Go to demo folder:
+
+```bash
+cd packages/core/demo
+```
+
+Install and run:
+
+```bash
+npm i && npm start
+```
+
+Open [http://localhost:4200/](http://localhost:4200/) in your browser.
 
 ## Installation
 
@@ -51,7 +81,8 @@ npm i @angular-package/core@latest --save
 
 ## Changelog
 
-All notable changes to this package are documented in [**CHANGELOG.md**][5].
+* Guiding principles based on [Keep a Changelog][304].
+* All notable changes to this package are documented in [**CHANGELOG.md**][5].
 
 ## Structure
 
@@ -95,6 +126,7 @@ Package is under [MIT License][303]. Feel invited to help to maintain it with yo
 [301]: https://github.com/angular-package/angular-package/blob/master/ORGANIZATION.md
 [302]: https://github.com/angular-package/angular-package/blob/master/STYLE-GUIDE.md
 [303]: https://github.com/angular-package/angular-package/blob/master/LICENSE
+[304]: https://github.com/angular-package/angular-package/blob/master/MAKECHANGELOG.md
 
 <!--- Other -->
 [400]: https://rollupjs.org/#introduction

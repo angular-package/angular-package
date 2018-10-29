@@ -1,8 +1,8 @@
-# core/store
+# angular-package/core/store
 
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fcore.svg)](https://badge.fury.io/js/%40angular-package%2Fcore)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
-[![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/store)
+[![Gitter join](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angularpackage/core)
 
 ```typescript
 import { StoreOriginalClass } from '@angular-package/core/store';
@@ -10,7 +10,7 @@ import { StoreOriginalClass } from '@angular-package/core/store';
 
 **Pros(+):**
 
-* Treeshake bundle with **[Rollup](https://rollupjs.org/#introduction)** - module bundler for JavaScript.
+* Treeshake bundle with **[Rollup][424]** - module bundler for JavaScript.
 * **AOT** (Ahead Of Time Compilation) package: *faster rendering*, *fewer asynchronous requests*, *smaller Angular framework download size*, *detect template errors earlier*, *better security*.
 * **MIT** License: it can be used commercially.
 
@@ -97,14 +97,16 @@ MIT © angular-package ([license][432])
 
 ## Donate
 
-@angular-package is under [MIT License][432], but if you want to help to maintain otherwise than with your coding skills, please click to [donate with Donorbox][27] or with paypal.
+Package is under [MIT License][432]. Feel invited to help to maintain it with your programming skills, you can also [donate by Donorbox][27] or by paypal. Thank you.
 
 [![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V98VLPSG6NQA6)
 
 [0]: x
 [1]: x
 [2]: x
+
 [27]: https://donorbox.org/help-creating-open-source-software
+[424]: https://rollupjs.org/#introduction
 [425]: https://gist.github.com/stephenparish/9941e89d80e2bc58a153
 [426]: http://karma-runner.github.io/0.10/dev/git-commit-msg.html
 [427]: https://angular.io/docs/ts/latest/guide/style-guide.html
@@ -115,3 +117,5 @@ MIT © angular-package ([license][432])
 [432]: https://github.com/angular-package/angular-package/blob/master/LICENSE
 [433]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
 [434]: https://angular.io/api/core/ChangeDetectorRef
+[435]: https://angular.io/api/core/testing/TestModuleMetadata
+[436]: https://angular.io/api/core/Type
