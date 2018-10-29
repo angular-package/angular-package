@@ -22,83 +22,97 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
 
   /**
    * Actual value to be expected value.
-   * @template V Expected type.
+   * @template V Actual and expected type.
    * @param actualOrExpected Acts as expected value when chaining, actual value as component property name,
-   * actual value as component property name list or as component property name with defined value to test expectations against.
+   * or as component property name with defined value to test expectations against.
    * @param [expected] "The actual value to be equal to the expected, using deep equality comparison".
    * @param [expectationFailOutput] Fail output.
    * @tested #1-11
    */
-  be<TYPE>(actualOrExpected: Argument<TYPE>, expected?: TYPE, expectationFailOutput?: any): this {
-    this.matcher<TYPE>('be', actualOrExpected, expected, this.getResult<TYPE>(), expectationFailOutput);
+  be<AE = any>(actualOrExpected: Argument<AE>, expected?: AE, expectationFailOutput?: any): this {
+    this.matcher<AE>('be', actualOrExpected, expected, expectationFailOutput);
 
     return this;
   }
 
   /**
    * Expect the actual value to contain a specific value.
-   * @template TYPE Expected type.
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template AE Actual and expected type.
    * @param actualOrExpected Acts as expected value when chaining, actual value as component property name,
-   * actual value as component property name list or as component property name with defined value to test expectations against.
+   * or as component property name with defined value to test expectations against.
    * @param [expected] "The value to look for."
    * @param [expectationFailOutput] Fail output.
    */
-  contain<TYPE>(actualOrExpected: Argument<TYPE>, expected?: TYPE, expectationFailOutput?: any): this {
-    this.matcher<TYPE>('contain', actualOrExpected, expected, this.getResult<TYPE>(), expectationFailOutput);
+  contain<AE = any>(actualOrExpected: Argument<AE>, expected?: AE, expectationFailOutput?: any): this {
+    this.matcher<AE>('contain', actualOrExpected, expected, expectationFailOutput);
 
     return this;
   }
 
   /**
    * Expect the actual value to be defined. (Not undefined)
-   * @template TYPE Expected type.
-   * @param [actual] Acts as expected value when chaining, actual value as component property name,
-   * actual value as component property name list or as component property name with defined value to test expectations against.
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template A Actual type.
+   * @param [actual] Actual computed value or component property key to test expectations against false.
    * @param [expectationFailOutput] Fail output.
    */
-  defined<TYPE>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
-    this.matcher<TYPE>('defined', actual, undefined, this.getResult<TYPE>(), expectationFailOutput);
+  defined<A = any>(actual?: Argument<A>, expectationFailOutput?: any): this {
+    this.matcher<A>('defined', actual, undefined, expectationFailOutput);
 
     return this;
   }
 
   /**
    * Actual value to be equal to the expected value.
-   * @template TYPE Expected type.
+   * @template A Expected type.
    * @param actualOrExpected Acts as expected value when chaining, actual value as component property name,
    * actual value as component property name list or as component property name with defined value to test expectations against.
    * @param expected "The actual value to be equal to the expected, using deep equality comparison".
    * @param [expectationFailOutput] Fail output.
    * @tested #12-21
    */
-  equal<TYPE>(actualOrExpected: Argument<TYPE>, expected?: TYPE, expectationFailOutput?: any): this {
-    this.matcher<TYPE>('equal', actualOrExpected, expected, this.getResult<TYPE>(), expectationFailOutput);
+  equal<AE = any>(actualOrExpected: Argument<AE>, expected?: AE, expectationFailOutput?: any): this {
+    this.matcher<AE>('equal', actualOrExpected, expected, expectationFailOutput);
 
     return this;
   }
 
   /**
    * Expect the actual value to be falsy.
-   * @template TYPE Expected type.
-   * @param [actual] Actual computed values or as component properties keys values to test expectations against false. 
+   *
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template A Actual type.
+   * @param [actual] Actual computed value or component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  falsy<TYPE = false>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
-    this.matcher<TYPE>('falsy', actual, undefined, this.getResult<TYPE>(), expectationFailOutput);
+  falsy<A = any>(actual?: Argument<A>, expectationFailOutput?: any): this {
+    this.matcher<A | any>('falsy', actual, false, expectationFailOutput);
+
+    return this;
+  }
+
+  match<AE = any>(actualOrExpected: Argument<AE>, expected?: AE, expectationFailOutput?: any): this {
+    this.matcher<AE>('match', actualOrExpected, expected, expectationFailOutput);
 
     return this;
   }
 
   /**
    * Expect the actual value to be null.
-   * @template TYPE Expected type.
-   * @param [actual] Actual computed values or as component properties keys values to test expectations against false. 
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template A Actual type.
+   * @param [actual] Actual computed value or component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  null<TYPE>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
+  null<A = any>(actual?: Argument<A>, expectationFailOutput?: any): this {
     const expected = null;
-    if (typeGuard<TYPE>(expected)) {
-      this.matcher<TYPE>('null', actual, expected, this.getResult<TYPE>(), expectationFailOutput);
+    if (typeGuard <A>(expected) === null || typeGuard <A>(expected)) {
+      this.matcher<A | null>('null', actual, expected, expectationFailOutput);
     }
 
     return this;
@@ -106,24 +120,33 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
 
   /**
    * Expect the actual value to be truthy.
-   * @param [actual] Actual computed values or as component properties keys values to test expectations against truthy.
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template A Actual type.
+   * @param [actual] Actual computed value or component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  truthy<TYPE = true>(actual?: Argument<TYPE>, expectationFailOutput?: any): this {
-    this.matcher<TYPE>('truthy', actual, undefined, this.getResult<TYPE>(), expectationFailOutput);
+  truthy<A = any>(actual?: Argument<A>, expectationFailOutput?: any): this {
+    const expected = true;
+    if (typeGuard<A>(expected)) {
+      this.matcher<A>('truthy', actual, expected, expectationFailOutput);
+    }
 
     return this;
   }
 
   /**
    * Name of component properties or actual computed values to check expectation against undefined.
-   * @param [actual] Actual computed values or as component properties keys values to test expectations against undefined. 
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template A Actual type.
+   * @param [actualOrPropertyName] Actual computed value or component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  undefined<TYPE = undefined>(actual?: TYPE, expectationFailOutput?: any): this {
+  undefined<A = any>(actualOrPropertyName?: Argument<A>, expectationFailOutput?: any): this {
     const expected = undefined;
-    if (typeGuard<TYPE>(expected)) {
-      this.matcher<TYPE>('undefined', actual, expected, this.getResult<TYPE>(), expectationFailOutput);
+    if (typeGuard<A>(expected) === undefined || typeGuard<A>(expected)) {
+      this.matcher<A>('undefined', actualOrPropertyName, expected, expectationFailOutput);
     }
 
     return this;
@@ -131,18 +154,29 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
 
   /**
    * Actual value to be expected value.
-   * @template TYPE Expected type.
-   * @param actual Actual computed value or value from component property key to test expectations against.
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template AE Actual and expected type.
+   * @param actual Actual computed value or component property key to test expectations against.
    * @param expected "The actual value to be equal to the expected, using deep equality comparison".
    * @param [expectationFailOutput] Fail output.
    */
-  private _be<TYPE>(actual: TYPE, expected: TYPE, expectationFailOutput?: any): this {
+  private expectToBe<AE = any>(actual: AE, expected: AE, expectationFailOutput?: any): this {
+    /*
+    const propertyName = this['propertyName'];
     this.consoleClass
       .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toBe: \`${expected}\``, ['faint'])
+      .green(`\`${propertyName}\` = \`${
+        (actual && actual.constructor === {}.constructor) ? JSON.stringify(actual) : actual
+      }\` ${this._not === true ? 'not' : ''} toBe: \`${
+        (expected && expected.constructor === {}.constructor) ? JSON.stringify(expected) : expected
+      }\``, ['faint'])
       .log({ ...{}, ...this.settings }.console.executed);
+    */
 
-    this._expect(actual)
+    this
+      .log(actual, 'toBe', expected)
+      .expect(actual)
       .toBe(expected, expectationFailOutput);
 
     return this;
@@ -150,144 +184,349 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
 
   /**
    * Expect the actual value to contain a specific value.
-   * @template TYPE Expected type.
-   * @param actual Actual computed value or value from component property key to test expectations against.
+   * @author wwwdev.io
+   * @date 2018-09-27
+   * @template AE Actual and expected type.
+   * @param actual Actual computed value or component property key to test expectations against.
    * @param expected "The value to look for."
    * @param [expectationFailOutput] Fail output.
+   * @param [propertyName] Component property name.
    */
-  private _contain<TYPE>(actual: TYPE, expected: TYPE, expectationFailOutput?: any): this {
-    this.consoleClass
-      .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toContain: \`${expected}\``, ['faint'])
-      .log({ ...{}, ...this.settings }.console.executed);
-
-    expect(actual)
+  private expectToContain<AE>(actual: AE, expected: AE, expectationFailOutput?: any, propertyName?: string): this {
+    this
+      .log(actual, 'toContain', expected, propertyName)
+      .expect(actual)
       .toContain(expected, expectationFailOutput);
+
+    return this;
+  }
+  private containExpectation<AE>(actualOrPropertyName: AE, expected?: AE, expectationFailOutput?: any): this { 
+    if (expected !== undefined) {
+      if (typeof actualOrPropertyName === 'string' && this.componentInstance && actualOrPropertyName in this.componentInstance) {
+        this.expectToContain<AE | undefined>(this.get<AE>(actualOrPropertyName), expected, expectationFailOutput, actualOrPropertyName);
+      } else {
+        this.expectToContain<AE>(actualOrPropertyName, expected, expectationFailOutput);
+      }
+    } else if (this.result.name !== undefined) {
+      this.expectToContain<AE | undefined>(this.getResult<AE>(), expected, expectationFailOutput);
+    }
 
     return this;
   }
 
   /**
    * Check expectation against defined.
-   * @template TYPE Expected type.
-   * @param actual Actual computed value or value of component property to test expectations against.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template Type `actual` value type.
+   * @param actual Actual computed value to test expectations against.
    * @param [expectationFailOutput] Fail output.
+   * @param [propertyName] Component property name.
    */
-  private _defined<TYPE>(actual: TYPE, expectationFailOutput?: any): this {
-    this.consoleClass
-      .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toBeDefined`, ['faint'])
-      .log({ ...{}, ...this.settings }.console.executed);
-
+  private expectToBeDefined<A>(actual: A, expectationFailOutput?: any, propertyName?: string): this {
     this
-      ._expect(actual)
+      .log(actual, 'toBeDefined', '', propertyName)
+      .expect(actual)
       .toBeDefined(expectationFailOutput);
 
     return this;
   }
 
   /**
+   * Run expectation dependently.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actualOrPropertyName` type.
+   * @param actualOrPropertyName Actual computed value or value from component property key to test expectations against.
+   * @param [expectationFailOutput] Fail output.
+   */
+  private definedExpectation<A>(actualOrPropertyName: A, expectationFailOutput?: any): this { 
+    if (this.result.name !== undefined) {
+      this.expectToBeDefined<A>(this.getResult<A>(), expectationFailOutput);
+    } else if (typeof actualOrPropertyName === 'string' && this.componentInstance && actualOrPropertyName in this.componentInstance) {
+      this.expectToBeDefined<A | undefined>(this.get<A>(actualOrPropertyName), expectationFailOutput, actualOrPropertyName);
+    } else {
+      this.expectToBeDefined<A>(actualOrPropertyName, expectationFailOutput);
+    }
+
+    return this;
+  }
+
+  /**
    * Actual value to be equal to expected value.
-   * @template TYPE Actual and expected type.
+   * @template AE Actual and expected type.
    * @param actual Actual computed value or value from component property key to test expectations against.
    * @param expected "The actual value to be equal to the expected, using deep equality comparison".
    * @param [expectationFailOutput] Fail output.
    */
-  private _equal<TYPE>(actual: TYPE, expected: TYPE, expectationFailOutput?: any): this {
-    this.consoleClass
-      .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toEqual: \`${expected}\``, ['faint'])
-      .log({ ...{}, ...this.settings }.console.executed);
-
+  private expectToEqual<AE>(actual: AE, expected: AE, expectationFailOutput?: any, propertyName?: string): this {
     this
-      ._expect(actual)
+      .log(actual, 'toEqual', expected, propertyName)
+      .expect(actual)
       .toEqual(expected, expectationFailOutput);
     
     return this;    
   }
+  private equalComponentExpectation<AE>(actualOrPropertyName: AE, expectedOrPropertyName?: AE, expectationFailOutput?: any): this {
+
+  }
+  private equalExpectation<AE>(aep: AE, expected?: AE, expectationFailOutput?: any): this { 
+    if (expected !== undefined) {
+      if (typeof aep === 'string' && this.componentInstance && aep in this.componentInstance) {
+        this.expectToEqual<AE | undefined>(this.get<AE>(aep), expected, expectationFailOutput, aep);
+      } else {
+        this.expectToEqual<AE>(aep, expected, expectationFailOutput);
+      }
+    } else if (this.result.name !== undefined) {
+      const actual: any = this.getResult<AE>();
+      if (typeof aep === 'string' && this.componentInstance && aep in this.componentInstance) {
+        this.expectToEqual<AE | undefined>(actual, this.get<AE>(aep), expectationFailOutput);
+      } else {
+        this.expectToEqual<AE | undefined>(actual, aep, expectationFailOutput);
+      }
+    } else {
+      this.expectToEqual<AE | undefined>(aep, expected, expectationFailOutput);
+    }
+
+    return this;
+  }
 
   /**
    * Expect just returned result or from parameter.
-   * @template TYPE `propertyName` type.
+   * @template A `propertyName` type.
    * @param actual Actual computed value to test expectations against.
    */
-  private _expect<TYPE>(actual: Argument<TYPE>): jasmine.Matchers<any> {
+  private expect<A>(actual: A): jasmine.Matchers<any> {
     // First expected looks stored value in beforeResult, next 
     const e = expect(actual);
 
     // Store expect result.
-    const result = (this._not === true) ? e.not : e;
+    const result = this._not === true ? e.not : e;
 
     return result;
   }
 
   /**
-   * Check expectation against to false.
-   * @template TYPE Expected type.
-   * @param actual Actual computed value or value from component property key to test expectations against.
+   * Check expectation against false.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actual` value type.
+   * @param actual Actual computed value to test expectations against.
    * @param [expectationFailOutput] Fail output.
+   * @param [propertyName] Component property name.
    */
-  private _falsy<TYPE = false>(actual: TYPE, expectationFailOutput?: any): this {
-    this.consoleClass
-      .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toBeFalsy`, ['faint'])
-      .log({ ...{}, ...this.settings }.console.executed);
-
+  private expectToBeFalsy<A>(actual: A, expectationFailOutput?: any, propertyName?: string): this {
     this
-      ._expect(actual)
+      .log(actual, 'toBeFalsy', '', propertyName)
+      .expect(actual)
       .toBeFalsy(expectationFailOutput);
 
     return this;    
   }
 
-  private _null<TYPE>(actualOrPropertyName: Argument<TYPE>, expectationFailOutput?: any): this { 
+  /**
+   * Run expectation dependently.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actualOrPropertyName` type.
+   * @param actualOrPropertyName Actual computed value or value from component property key to test expectations against.
+   * @param [expectationFailOutput] Fail output.
+   */
+  private falsyExpectation<A>(actualOrPropertyName: A, expectationFailOutput?: any): this { 
+    if (this.result.name !== undefined) {
+      this.expectToBeFalsy<A>(this.getResult<A>(), expectationFailOutput);
+    } else if (typeof actualOrPropertyName === 'string' && this.componentInstance && actualOrPropertyName in this.componentInstance) {
+      this.expectToBeFalsy<A | any>(this.get<A>(actualOrPropertyName), expectationFailOutput, actualOrPropertyName);
+    } else {
+      this.expectToBeFalsy<A>(actualOrPropertyName, expectationFailOutput);
+    }
+
+    return this;
+  }
+
+  /**
+   *
+   *
+   * @author wwwdev.io
+   * @date 2018-09-20
+   * @template AE x
+   * @param actualOrPropertyName x
+   * @param expected x
+   * @param [expectationFailOutput] x
+   */
+  private expectToMatch<AE>(actual: AE, expected: AE, expectationFailOutput?: any, propertyName?: string): this {
+    if (typeof expected === 'string' || expected instanceof RegExp) {
+      this
+        .log(actual, 'toMatch', expected, propertyName)
+        .expect(actual)
+        .toMatch(expected, expectationFailOutput);
+    }
+
+    /*
+    if (expected instanceof Array) {
+      expected.forEach(getExpected => {
+        this.consoleClass
+          .green(`    `)
+          .green(`\`${propertyName}\` = \`${
+            (actual && actual.constructor === {}.constructor) ? JSON.stringify(actual) : actual
+          }\` ${this._not === true ? 'not' : ''} toMatch: \`${
+            getExpected
+          }\``, ['faint'])
+          .log({ ...{}, ...this.settings }.console.executed);
+  
+        this
+        .expect(actual)
+        .toMatch(getExpected, expectationFailOutput);
+      });
+    } else if (typeof expected === 'string' || expected instanceof RegExp) {
+      this.consoleClass
+        .green(`    `)
+        .green(`\`${propertyName}\` = \`${actual}\` ${this._not === true ? 'not' : ''} toMatch: \`${expected}\``, ['faint'])
+        .log({ ...{}, ...this.settings }.console.executed);
+
+      this
+        .expect(actual)
+        .toMatch(expected, expectationFailOutput);
+    }
+    */
+    
+    return this;
+  }
+  
+  private matchExpectation(actualOrPropertyName: any, expected?: any, expectationFailOutput?: any): this { 
+    if (expected !== undefined) {
+      if (typeof actualOrPropertyName === 'string' && this.componentInstance && actualOrPropertyName in this.componentInstance) {
+        this.expectToMatch(this.get(actualOrPropertyName), expected, expectationFailOutput, actualOrPropertyName);
+      } else {
+        this.expectToMatch(actualOrPropertyName, expected, expectationFailOutput);
+      }
+    } else if (this.result.name !== undefined) {
+      this.expectToMatch(this.getResult<T>(), expected, expectationFailOutput);
+    }
+
+    return this;
+  }
+
+  /**
+   * Check expectation against null.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actual` value type.
+   * @param actual Actual computed value or component property key to test expectations against.
+   * @param [expectationFailOutput] Fail output.
+   * @param [propertyName] Component property name.
+   */
+  private expectToBeNull<A>(actual: A, expectationFailOutput?: any, propertyName?: string): this { 
     this
-      ._expect(actualOrPropertyName)
+      .log(actual, 'toBeNull', '', propertyName)
+      .expect(actual)
       .toBeNull(expectationFailOutput);
     
     return this;
   }
 
   /**
-   * Check expectation against truthy.
-   * @param actual Actual computed value to test expectations against.
+   * Run expectation dependently.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template Type `actualOrPropertyName` type.
+   * @param actualOrPropertyName Actual computed value or value from component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  private _truthy<TYPE = true>(actual: TYPE, expectationFailOutput?: any): this {
-    this.consoleClass
-      .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toBeTruthy`, ['faint'])
-      .log({ ...{}, ...this.settings }.console.executed);
-
-    this
-      ._expect(actual)
-      .toBeTruthy(expectationFailOutput);
+  private nullExpectation<A = any>(actualOrPropertyName: A, expectationFailOutput?: any): this { 
+    if (this.result.name !== undefined) {
+      this.expectToBeNull(this.getResult(), expectationFailOutput);
+    } else if (
+      this._mode === 0 && typeof actualOrPropertyName === 'string' &&
+      this.componentInstance && actualOrPropertyName in this.componentInstance) {
+      this.expectToBeNull(this.get(actualOrPropertyName), expectationFailOutput, actualOrPropertyName);
+    } else {
+      this.expectToBeNull(actualOrPropertyName, expectationFailOutput);
+    }
 
     return this;
   }
 
   /**
-   * Check expectation against undefined.
-   * @template TYPE Expected type.
-   * @param actual Actual computed value or value of component property to test expectations against.
+   * Check expectation against truthy.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actual` value type.
+   * @param actual Actual computed value to test expectations against.
+   * @param [expectationFailOutput] Fail output.
+   * @param [propertyName] Component property name.
+   */
+  private expectToBeTruthy<A = any>(actual: A, expectationFailOutput?: any, propertyName?: string): this {
+    this
+      .log(actual, 'toBeTruthy', '', propertyName)
+      .expect(actual)
+      .toBeTruthy(expectationFailOutput);
+
+    return this;
+  }
+  
+  /**
+   * Run expectation dependently.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actualOrPropertyName` type.
+   * @param actualOrPropertyName Actual computed value or value from component property key to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  private _undefined<TYPE = undefined>(actual: TYPE, expectationFailOutput?: any): this {
-    this.consoleClass
-      .green(`    `)
-      .green(`\`${actual}\` ${(this._not === true) ? 'not' : ''} toBeUndefined`, ['faint'])
-      .log({ ...{}, ...this.settings }.console.executed);
+  private truthyExpectation<A = any>(actualOrPropertyName: A, expectationFailOutput?: any): this { 
+    if (this.result.name !== undefined) {
+      this.expectToBeTruthy<A>(this.getResult<A>(), expectationFailOutput);
+    } else if (
+      this._mode === 0 && typeof actualOrPropertyName === 'string' &&
+      this.componentInstance && actualOrPropertyName in this.componentInstance) {
+      this.expectToBeTruthy<A | undefined>(this.get<A>(actualOrPropertyName), expectationFailOutput, actualOrPropertyName);
+    } else {
+      this.expectToBeTruthy<A>(actualOrPropertyName, expectationFailOutput);
+    }
 
+    return this;
+  }  
+
+  /**
+   * Check expectation against undefined.
+   * @template A Expected type.
+   * @param actual Actual computed value or component property key to test expectations against false.
+   * @param [expectationFailOutput] Fail output.
+   */
+  private toBeUndefined<A = any>(actual: A, expectationFailOutput?: any, propertyName?: string): this {
     this
-      ._expect(actual)
+      .log(actual, 'toBeUndefined', '', propertyName)
+      .expect(actual)
       .toBeUndefined(expectationFailOutput);
 
     return this;
   }
 
   /**
-   *
-   *
+   * Run expectation dependently.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @template A `actualOrPropertyName` type.
+   * @param actualOrPropertyName Actual computed value or value from component property key to test expectations against.
+   * @param [expectationFailOutput] Fail output.
+   */
+  private undefinedExpectation<A = any>(actualOrPropertyName: A, expectationFailOutput?: any): this {
+    if (this.result.name !== undefined) {
+      console.log(`this.result.name !== undefined`, this.result.name, actualOrPropertyName, this.getResult<A>());
+      this.toBeUndefined<A>(this.getResult<A>(), expectationFailOutput);
+    } else if (
+      this._mode === 0 && typeof actualOrPropertyName === 'string' &&
+      this.componentInstance && actualOrPropertyName in this.componentInstance) {
+      console.log(`actualOrPropertyName in this.componentInstance`, actualOrPropertyName, this.getResult<A>());
+      this.toBeUndefined<A | undefined>(this.get<A>(actualOrPropertyName), expectationFailOutput, actualOrPropertyName);
+    } else {
+      this.toBeUndefined<A>(actualOrPropertyName, expectationFailOutput);
+    }
+
+    return this;
+  }
+
+  /**
    * @template V Expected type.
    * @param matcher Matcher method name to call.
    * @param argument Acts as expected value when chaining, actual value as component property name, 
@@ -295,47 +534,77 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
    * @param [expected] Expected value to test expectations against.
    * @param [expectationFailOutput] Fail output.
    */
-  private matcher<TYPE>(matcher: Matcher, argument: Argument<TYPE>, expected?: TYPE, result?: TYPE, expectationFailOutput?: any): this {
-    this
-      .toArray<Argument<TYPE>>(argument)
-      .forEach((actualOrExpected: Argument<TYPE>) => {
-        let actualValue: TYPE | undefined;
-        let expectedValue: TYPE | undefined = (expected !== undefined) ? expected : undefined;
+  // private matcher<TYPE>(matcher: Matcher, argument: Argument<TYPE>, expected?: TYPE, result?: TYPE, expectationFailOutput?: any): this {
+  private matcher<AE>(matcher: Matcher, argument: Argument<AE>, expected?: AE, expectationFailOutput?: any): this {
+    this.switch(matcher, argument, expected, expectationFailOutput);
 
+        /*
+    this
+      .toArray<Argument<A>>(argument)
+      .forEach((value: Argument<A>) => {
+        if (expected === undefined) {
+          if (matcher === 'undefined' && argument && argument.constructor === {}.constructor) {
+
+          }
+        } else {
+          this.switch(matcher, value, expected, expectationFailOutput);
+        }
+        if (expected === undefined && argument && argument.constructor === {}.constructor) {
+          if (matcher === 'undefined' && typeof value === 'string' && typeGuard<TYPE>(argument[value]) === undefined) {
+            this.switch(matcher, value, argument[value], expectationFailOutput);
+          }
+          if (typeof value === 'string' && typeGuard<TYPE>(argument[value])) {
+            this.switch(matcher, value, argument[value], expectationFailOutput);
+          }
+        } else {
+          this.switch(matcher, value, expected, expectationFailOutput);
+        }
+      });
+    */
+    /*
+    if (expected === undefined && argument && argument.constructor === {}.constructor) {
+      this
+        .toArray<Argument<TYPE>>(argument)
+        .forEach((actualOrExpected: Argument<TYPE>) => {
+          if (typeof actualOrExpected === 'string' && typeGuard<TYPE>(argument[actualOrExpected])) {
+            this.switch(matcher, actualOrExpected, argument[actualOrExpected], expectationFailOutput);
+          }
+        });
+    } else {
+      this
+        .toArray<Argument<TYPE>>(argument)
+        .forEach((actualOrExpected: Argument<TYPE>) => this.switch(matcher, actualOrExpected, expected, expectationFailOutput));
+    }
+    */
+    /*
+    this
+      .toArray<Argument<TYPE>>(actualOrExpected)
+      .forEach((actualOrExpected: Argument<TYPE>) => {
         // If `expected` is defined.
         if (expected !== undefined) {
-          // Get `actualValue` depends on type string.
-          if (typeof actualOrExpected === 'string') {
-            actualValue = this.get<TYPE>(actualOrExpected);
-          } else if (typeGuard<TYPE>(actualOrExpected)) {
-            actualValue = actualOrExpected;
-          }
+          // Run the right spec.
+          this.switch(matcher,
+            (argument && argument.constructor === {}.constructor) ?
+              argument : (typeof actualOrExpected === 'string') ?
+                this.get<TYPE>(actualOrExpected) === undefined ?
+                  actualOrExpected : this.get<TYPE>(actualOrExpected) : actualOrExpected,
+            expected,
+            expectationFailOutput
+          );
         // `expected` is `undefined` and `actualOrExpected` is JSON object.
-        } else if (argument && argument.constructor === {}.constructor && typeof actualOrExpected === 'string') {
-          if (result) {
-            actualValue = result;
-            expectedValue = (typeGuard<TYPE>(argument)) ? argument : undefined;
-          } else if (typeGuard<TYPE>(argument[actualOrExpected])) {
-            actualValue = this.get<TYPE>(actualOrExpected);
-            expectedValue = argument[actualOrExpected];
-          }
-
-        // `expected` is `undefined` and result is `defined`
-        } else if (result !== undefined || result !== null) {
-          actualValue = result;
-          expectedValue = (typeGuard<TYPE>(actualOrExpected)) ? actualOrExpected : undefined;
+        } else if (
+          argument && argument.constructor === {}.constructor &&
+          typeof actualOrExpected === 'string' && typeGuard<TYPE>(argument[actualOrExpected])
+        ) {
+          // Run the spec.
+          this.switch(matcher, this.get<TYPE>(actualOrExpected), argument[actualOrExpected], expectationFailOutput);
+        } else if (this.getResult<TYPE>() === undefined && typeof actualOrExpected === 'string' && typeGuard<TYPE>(actualOrExpected)) {
+          this.switch(matcher, this.get<TYPE>(actualOrExpected) || actualOrExpected, undefined, expectationFailOutput);
+        } else {
+          this.switch(matcher, actualOrExpected, this.getResult<TYPE>(), expectationFailOutput);
         }
-
-        // Run the right spec.
-        this.switch(matcher, actualValue, expectedValue, expectationFailOutput);
+       
       });
-
-    // Resetting `_not` after use.
-    if (this._not === true) {
-      this._not = false;
-    }
-
-    /*
             // If `Observable` detected.
             if (typeof actual === 'string' && actual.endsWith('$')) {
               let i = 0;
@@ -347,21 +616,94 @@ export abstract class MatchersClass<T> extends MainClass<T> implements Matchers 
             } 
     */
 
+    // Resetting `_not` after use.
+    if (this._not === true) {
+      this._not = false;
+    }
+
     return this;
   }
 
-  private switch<TYPE>(name: Matcher, actual: TYPE, expected: TYPE, expectationFailOutput?: any): this {
-    switch (name) {
-      case 'be': this._be<TYPE>(actual, expected, expectationFailOutput); break;
-      case 'contain': this._contain<TYPE>(actual, expected, expectationFailOutput); break;
-      case 'equal': this._equal<TYPE>(actual, expected, expectationFailOutput); break;
+  /**
+   * Display log.
+   * @author wwwdev.io
+   * @date 2018-09-19
+   * @param actual Text to display.
+   */
+  private log(actual: any, expectation: string, expected: any, propertyName?: string): this {
+    const a = (actual && actual.constructor === {}.constructor)
+      ? JSON.stringify(actual) : typeof actual === 'string'
+        ? `'${actual}'` : actual;
+    const e = (expected && expected.constructor === {}.constructor)
+      ? JSON.stringify(expected) : typeof expected === 'string' && expected.length > 0
+        ? `'${expected}'` : expected;
+    this.consoleClass
+      .green(propertyName !== undefined ? `${`component['${propertyName}'] => ${a}`}` : `${a}`, ['faint'])
+      .green(` => ${this._not === true ? 'not ' : ''}${expectation}`, ['faint', 'bold'])
+      .green(`(${e})`, ['faint'])
+      .log({ ...{}, ...this.settings }.console.executed);
+
+    return this;
+  }
+
+  /**
+   * Switch between expectations
+   * @author wwwdev.io
+   * @date 2018-09-20
+   * @template A x
+   * @param matcher x
+   * @param actual x
+   * @param expected x
+   * @param [expectationFailOutput] x
+   */
+  private switch<AE = any>(matcher: Matcher, actual: AE, expected: AE, expectationFailOutput?: any): this {
+    switch (matcher) {
+      case 'be': this.expectToBe<AE>(actual, expected, expectationFailOutput); break;
+      case 'contain': this.containExpectation<AE>(actual, expected, expectationFailOutput); break;
+      case 'equal': this.equalExpectation<AE>(actual, expected, expectationFailOutput); break;
+      case 'match': this.matchExpectation(actual, expected, expectationFailOutput); break;
 
       // expected is always undefined.
-      case 'defined': this._defined<TYPE>(actual, expectationFailOutput); break;
-      case 'falsy': this._falsy<TYPE>(actual, expectationFailOutput); break;
-      case 'null': this._null<TYPE>(actual, expectationFailOutput); break;
-      case 'truthy': this._truthy<TYPE>(actual, expectationFailOutput); break;
-      case 'undefined': this._undefined<TYPE>(actual, expectationFailOutput); break;
+      case 'defined': this.definedExpectation<AE>(actual, expectationFailOutput); break;
+      case 'falsy': this.falsyExpectation<AE>(actual, expectationFailOutput); break;
+      case 'null':
+        if (actual && actual.constructor === [].constructor) {
+          this
+            .toArray<Argument<AE>>(actual)
+            .forEach((e: Argument<AE>) => {
+              this.nullExpectation<AE | any>(e, expectationFailOutput);
+            });
+        } else {
+          this.nullExpectation<AE>(actual, expectationFailOutput);
+        }
+        break;
+      case 'truthy':
+        if (actual && actual.constructor === [].constructor) {
+          this
+            .toArray<Argument<AE>>(actual)
+            .forEach((e: Argument<AE>) => {
+              this.truthyExpectation<AE | any>(e, expectationFailOutput);
+            });
+        } else {
+          this.truthyExpectation<AE>(actual, expectationFailOutput);
+        }
+        break;
+      case 'undefined':
+        if (this._mode === 0) {
+
+        } else {
+          this.undefinedExpectation<AE>(actual, expectationFailOutput);
+        }
+        if (actual && actual.constructor === [].constructor) {
+          this
+            .toArray<Argument<AE>>(actual)
+            .forEach((e: Argument<AE>) => {
+              this.undefinedExpectation<AE | any>(e, expectationFailOutput);
+            });
+        } else {
+          this.undefinedExpectation<AE>(actual, expectationFailOutput);
+        }
+        break;
       default: break;
     }
 
