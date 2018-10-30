@@ -1,1 +1,0 @@
-export { TestingClass } from './src';
