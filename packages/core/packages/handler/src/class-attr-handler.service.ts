@@ -2,7 +2,7 @@ import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import { difference } from 'lodash-es';
 
 @Injectable()
-export class ClassHandlerService {
+export class ClassAttrHandlerService {
 
   constructor(public renderer: Renderer2) { }
 

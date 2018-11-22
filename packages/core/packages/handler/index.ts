@@ -1,1 +1,1 @@
-export { ArgumentHandlerClass, AttributeHandlerService, ClassHandlerService } from './src';
+export { ArgumentHandlerClass, AttributeHandlerService, ClassAttrHandlerService } from './src';
