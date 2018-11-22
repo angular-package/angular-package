@@ -7,7 +7,7 @@ const typescript = require('rollup-plugin-typescript');
 
 
 module.exports = function (config) {
-  const package = `packages/${config.package}/**/*.spec.ts`;
+  const package = `packages/${config.package}/**/src/*.spec.ts`;
 
   const files = [
     // Make sure to disable Karma’s file watcher
@@ -110,7 +110,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage', 'kjhtml'],
+    reporters: ['progress', 'coverage'],
 
     // optionally, configure the reporter
     coverageReporter: {
