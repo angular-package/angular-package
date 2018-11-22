@@ -1,4 +1,4 @@
-import { ArgumentHandlerClass } from '../handler/src/argument.handler.class';
+import { ArgumentHandlerClass } from '../handler/src/argument-handler.class';
 
 /**
  * @export
