@@ -156,7 +156,7 @@ export class PropertyClass extends PrefixSuffixClass implements Property {
    * @param property Name of defined property.
    * @param descriptor Configuration of defining property.
    */
-  private define<S>(source: Function | S, property: string, descriptor: PropertyDescriptor): this {
+  define<S>(source: Function | S, property: string, descriptor: PropertyDescriptor): this {
     if (!descriptor.get) {
       delete descriptor.get;
     }
