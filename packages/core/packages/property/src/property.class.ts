@@ -3,6 +3,7 @@ import {
   get as _get,
   set as _set
 } from 'lodash-es';
+import { Injectable } from '@angular/core';
 
 // internal
 import { StoreOriginalClass } from '../../store';
@@ -15,6 +16,7 @@ import { Property } from '../interface/property.interface';
  * Class to help link component properties with e.g. service properties by using set/get.
  * @export
  */
+@Injectable()
 export class PropertyClass extends PrefixSuffixClass implements Property {
   /**
    * `StoreOriginalClass` instance.

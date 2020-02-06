@@ -62,6 +62,7 @@ Thumbs.db
 /.vscode
 /build
 /dist
+*.deprecated.ts
 
 # Ignore one of dist subpackage
 /component-loader
@@ -70,7 +71,6 @@ Thumbs.db
 /src
 /store
 /testing
-/packages/testing
 /type
 /property
 
