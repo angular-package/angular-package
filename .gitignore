@@ -89,18 +89,3 @@ build
 dist
 graphics
 fonts
-
-# Packages
-/packages/demo
-# /packages/change-detection
-/packages/chart
-# /packages/common
-# /packages/core
-# /packages/docs
-/packages/form
-/packages/markdown
-# /packages/prism
-# /packages/prism/demo
-# /packages/reactive
-/packages/ui
-
