@@ -1,1 +1,0 @@
-export { ApDocsExampleModule } from './src';
