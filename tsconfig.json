@@ -16,17 +16,9 @@
       "dom"
     ],
     "paths": {
-      "spectre": [
-        "dist/spectre/spectre",
-        "dist/spectre"
-      ],
-      "change-detection": [
-        "dist/change-detection/change-detection",
-        "dist/change-detection"
-      ],
-      "core": [
-        "dist/core/core",
-        "dist/core"
+      "layout": [
+        "dist/layout/layout",
+        "dist/layout"
       ]
     }
   }
