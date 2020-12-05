@@ -1,9 +1,0 @@
-@import 'assets/scss/loading.scss';
-@import 'assets/scss/theme.scss';
-
-app-root {
-  > div#loading {
-    @extend .loading;
-  }
-}
-

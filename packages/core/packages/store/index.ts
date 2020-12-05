@@ -1,1 +1,0 @@
-export { StoreOriginalClass } from './src';
