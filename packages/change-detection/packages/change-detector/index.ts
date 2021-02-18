@@ -1,1 +1,0 @@
-export { ApChangeDetectorClass } from './src';
