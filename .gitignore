@@ -89,3 +89,7 @@ build
 dist
 graphics
 fonts
+
+projects/component-loader
+projects/change-detection
+# projects/core
