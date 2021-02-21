@@ -1,6 +1,5 @@
-// core/type
-import { Types } from '../../type';
-import { typeObjectGuard, typeGuard } from '../../type/guard';
+import { typeGuard, typeObjectGuard } from '@angular-package/type/guard';
+import { Types } from '@angular-package/type';
 
 export function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K], type?: Types<T>): void {
   if (typeObjectGuard<T>(obj)) {
