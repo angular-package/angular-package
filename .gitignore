@@ -84,12 +84,16 @@ Thumbs.db
 
 # Ignored files
 /.vscode/*
+*.code-workspace
 !.vscode/tasks.json
 build
 dist
 graphics
 fonts
 
-projects/component-loader
+# Projects
 projects/change-detection
-# projects/core
+projects/component-loader
+projects/core
+projects/property
+# projects/type
