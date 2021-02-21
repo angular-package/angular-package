@@ -2,10 +2,10 @@
  * Public API Surface of property
  */
 
-// core/property
+// property
 export { getProperty, PropertyClass, setProperty, StoreOriginalClass } from './lib';
 
-// core/property/bind
+// property/bind
 export { BindParam, BindProperties } from './bind';
 
 // property/type
