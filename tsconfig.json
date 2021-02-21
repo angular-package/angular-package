@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "core": [
+        "dist/core/core",
+        "dist/core"
+      ],
+      "component-loader": [
+        "dist/component-loader/component-loader",
+        "dist/component-loader"
+      ],
+      "change-detection": [
+        "dist/change-detection/change-detection",
+        "dist/change-detection"
+      ],
+      "type": [
+        "dist/type/type",
+        "dist/type"
+      ],
+      "property": [
+        "dist/property/property",
+        "dist/property"
+      ]
+    }
+  }
+}
