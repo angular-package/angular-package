@@ -1,4 +1,4 @@
-import { FunctionType } from '@angular-package/core/type';
+import { FunctionType } from '@angular-package/type';
 
 // internal
 import { configureDetector } from './configure-detector.func';
