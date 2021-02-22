@@ -2,6 +2,8 @@
   "name": "@angular-package/component-loader",
   "version": "0.0.1",
   "peerDependencies": {
+    "@angular-package/property": "^0.0.1",
+    "@angular-package/type": "^0.0.1",
     "@angular/common": "^11.0.9",
     "@angular/core": "^11.0.9"
   },
