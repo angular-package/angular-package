@@ -2,7 +2,7 @@
   "name": "@angular-package/property",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular-package/type": "file:angular-package-type-0.0.1.tgz",
+    "@angular-package/type": "^0.0.1",
     "@angular/core": "^11.0.9"
   },
   "dependencies": {
