@@ -1,10 +1,9 @@
 // ChangeDetectorRef
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Type } from '@angular/core';
 
 // @angular-package
-import { PropertyClass } from '@angular-package/core/property';
-import { ComponentType } from '@angular-package/core/type';
-import { instanceOf, typeGuard, typeObjectGuard } from '@angular-package/core/type/guard';
+import { PropertyClass } from '@angular-package/property';
+import { instanceOf, typeGuard, typeObjectGuard } from '@angular-package/type/guard';
 
 // internal
 import { DetectionProperties } from '../../interface';
@@ -32,10 +31,10 @@ export class ChangeDetectorClass<C> {
   }
 
   // Component to search change detector.
-  get component(): ComponentType<C> {
+  get component(): Type<C> {
     return this.component$$;
   }
-  set component(component: ComponentType<C>) {
+  set component(component: Type<C>) {
     this.component$$ = component;
   }
 
@@ -45,7 +44,7 @@ export class ChangeDetectorClass<C> {
    * ChangeDetectorClass instance.
    * @param component$$ Component to handle change detection.
    */
-  constructor(private component$$?: ComponentType<C>, public properties?: DetectionProperties) {}
+  constructor(private component$$?: Type<C>, public properties?: DetectionProperties) {}
 
   /**
    * Add detection to setter to specific properties.
@@ -54,7 +53,7 @@ export class ChangeDetectorClass<C> {
     if (typeObjectGuard<DetectionProperties>(this.properties)) {
       if (Array.isArray(Object.keys(this.properties))) {
         Object.keys(this.properties).forEach((property: string): any => {
-          this.propertyClass$$.wrap<ComponentType<C>, any>(this.component, property, undefined, (): any => this.detect(property));
+          this.propertyClass$$.wrap<Type<C>, any>(this.component, property, undefined, (): any => this.detect(property));
         });
       }
     }
