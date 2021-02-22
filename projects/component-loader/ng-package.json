@@ -4,7 +4,8 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
-      "@angular-package/core": "angular-package.core"
+      "@angular-package/property": "angular-package.property",
+      "@angular-package/type": "angular-package.type"
     }
   }
 }
