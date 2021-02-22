@@ -5,7 +5,9 @@ import {
   ComponentRef,
   ViewContainerRef
 } from '@angular/core';
-import { PropertyClass, Types } from '@angular-package/core';
+
+import { PropertyClass } from '@angular-package/property';
+import { Types } from '@angular-package/type';
 
 // internal
 import { ComponentLoader} from '../interface/component-loader.interface';
