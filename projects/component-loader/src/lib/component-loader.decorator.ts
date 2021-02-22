@@ -1,9 +1,9 @@
-import { PropertyClass } from '@angular-package/core';
+import { PropertyClass } from '@angular-package/property';
 import { ComponentLoaderConfig } from '../interface';
 import { ComponentLoaderService } from './component-loader.service';
 import { COMPONENT_PROPERTY_NAME } from './component-loader.class';
 
-import { FunctionType, typeObjectGuard } from '@angular-package/core';
+import { FunctionType, typeObjectGuard } from '@angular-package/type';
 
 /**
  * Decorator to wrap `ComponentLoaderService` service with passed variables.
