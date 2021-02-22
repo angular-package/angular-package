@@ -1,7 +1,7 @@
 {
   "name": "@angular-package/type",
   "version": "0.0.1",
-  "peerDependencies": { },
+  "peerDependencies": {},
   "dependencies": {
     "tslib": "^2.0.0"
   }
