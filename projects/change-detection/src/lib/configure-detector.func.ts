@@ -1,5 +1,5 @@
-import { FunctionType } from '@angular-package/core/type';
-import { typeObjectGuard } from '@angular-package/core/type/guard';
+import { FunctionType } from '@angular-package/type';
+import { typeObjectGuard } from '@angular-package/type/guard';
 
 // internal
 import { ChangeDetectorClass } from '../change-detector/lib/change-detector.class';
