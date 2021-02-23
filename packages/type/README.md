@@ -52,13 +52,20 @@ Check `object` type with `T` and its instance by finding a property `find` in th
 ```typescript
 instanceOf<T>(object: any, find: string): object is T
 ```
+### instanceOf
 
+Check `object` type with `T` and its instance by finding a property `find` in the `object`. The return value is a `boolean` value.
+
+```typescript
+typeFuncGuard = (find, func): boolean => find in func
+```
 ## Usage
+
+
 
 ## Library 
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.9.
-
 ### Code scaffolding
 
 Run `ng generate component component-name --project type` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project type`.
