@@ -19,8 +19,6 @@ import { instanceOf, typeFuncGuard, typeGuard, typeObjectGuard } from '@angular-
 * Check `Constructor<T>` `string` `number` `boolean` type with `typeGuard` function.
 * 
 
-
-## Table of contents
 ----
 
 * [Installation](#installation)
@@ -52,9 +50,9 @@ Check `object` type with `T` and its instance by finding a property `find` in th
 ```typescript
 instanceOf<T>(object: any, find: string): object is T
 ```
-### instanceOf
+### typeFuncGuard
 
-Check `object` type with `T` and its instance by finding a property `find` in the `object`. The return value is a `boolean` value.
+Check function `func` instance by finding `find` in the function `func`. The return value is a `boolean` value.
 
 ```typescript
 typeFuncGuard = (find, func): boolean => find in func
