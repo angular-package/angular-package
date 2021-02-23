@@ -94,3 +94,5 @@ fonts
 projects/change-detection
 # projects/component-loader
 projects/core
+projects/property
+projects/type
