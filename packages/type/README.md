@@ -47,7 +47,7 @@ npm i --save @angular-package/type
 
 ### instanceOf
 
-Check object type with `T` and its instance by finding a property in the object. The return value is a boolean value.
+Check `object` type with `T` and its instance by finding a property `find` in the `object`. The return value is a `boolean` value.
 
 ```typescript
 instanceOf<T>(object: any, find: string): object is T
