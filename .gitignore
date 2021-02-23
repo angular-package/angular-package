@@ -91,9 +91,9 @@ dist
 graphics
 fonts
 
-# Projects
-projects/change-detection
-projects/component-loader
-projects/core
-projects/property
-# projects/type
+# Packages
+packages/change-detection
+packages/component-loader
+packages/core
+packages/property
+# packages/type
