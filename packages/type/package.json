@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/type",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Common types and guards for angular-package library",
   "author": "Angular Package <angular-package@wvvw.dev> (http://wvvw.dev)",
   "homepage": "https://github.com/angular-package/angular-package#readme",
@@ -26,5 +26,6 @@
   },
   "bugs": {
     "url": "https://github.com/angular-package/angular-package/issues"
-  }
+  },
+  "license": "MIT"
 }
