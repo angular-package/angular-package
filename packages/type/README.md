@@ -1,11 +1,11 @@
 # Type
 
-
 [![npm version](https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg)](https://badge.fury.io/js/%40angular-package%2Fchange-detection)
 [![GitHub issues](https://img.shields.io/github/issues/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/issues)
 [![GitHub stars](https://img.shields.io/github/stars/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/stargazers)
 [![GitHub license](https://img.shields.io/github/license/angular-package/angular-package.svg)](https://github.com/angular-package/angular-package/blob/master/LICENSE)
 
+Common types, function guards and checkers for `angular-package` library.
 
 ```typescript
 // Types
@@ -16,8 +16,23 @@ import { instanceOf, typeFuncGuard, typeGuard, typeObjectGuard } from '@angular-
 ```
 
 **Features**
-* Check `Constructor<T>` `string` `number` `boolean` type with `typeGuard` function.
-* 
+* **Checks** function by finding a name in it with an `isFunction` function.
+* **Checks** any object is a generic `Type` type with an `isObject<Type>` function.
+* **Guards** the value to be `number` type with the `isNumber` function.
+* **Guards** the value to be `string` type with `isString` function.
+* **Type guards** an object with a generic type and **checks** by finding a `property` in the `object` with a `isObjectType<Type>` function.
+* **Type guards** value with the generic type and **checks** its type with `boolean` `bigint` `number` `string` with `isPrimitiveType<Type>` function.
+ l
+**How angular-package understands**
+
+Check
+> is to check argument value type to not let it be different than in type guard.
+
+Type guard
+> is to guard type in the code editor: it not let provides unexpected value.
+
+Guard
+> is a combination both above to type guard and check.
 
 ----
 
@@ -43,22 +58,68 @@ npm i --save @angular-package/type
 
 ## Functions
 
-### instanceOf
+### isFunction
 
-Check `object` type with `T` and its instance by finding a property `find` in the `object`. The return value is a `boolean` value.
+Check function `func` by finding `name` in the `func`. The return value is a `boolean` value.
 
 ```typescript
-instanceOf<T>(object: any, find: string): object is T
+const isFunction = (name: string, func: FunctionType): func is FunctionType => name in func;
+```
+### isNumber
+
+Guard the `value` to be `number` type. The return value is a `boolean` value.
+
+```typescript
+const isNumber = (value: number): value is number => typeof value === 'number';
+```
+### isObjectType
+
+Guard the `object` to be `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
+
+```typescript
+const isObjectType = <Type>(object: Type, property: string): object is Type => property in object;
+```
+
+### isObject
+
+Check any `object` to be `Type`. The return value is a `boolean` value.
+
+```typescript
+const isObject = <Type>(object: any): object is Type => object;
+```
+
+
+## Usage
+
+
+
+### instanceOf
+
+```typescript
+
 ```
 ### typeFuncGuard
 
-Check function `func` instance by finding `find` in the function `func`. The return value is a `boolean` value.
+Check function `func` instance by finding a name `find` in the function `func`. The return value is a `boolean` value.
 
 ```typescript
-typeFuncGuard = (find, func): boolean => find in func
+const typeFuncGuard = (find, func): boolean => find in func;
 ```
-## Usage
+### typeGuard
 
+Guard and check `value` type with `Type` in `Types`. The return value is a `boolean` value.
+
+```typescript
+const typeGuard = <Type>(value, type: Types<Type>): value is Type => (typeof type === 'string') ? typeof value === type : value instanceof type;
+```
+
+### typeObjectGuard
+
+Guard `object` type with `Type`. The return value
+
+```typescript
+const typeObjectGuard = <Type>(object: any): object is Type => object;
+```
 
 
 ## Library 
