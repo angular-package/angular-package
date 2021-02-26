@@ -1,4 +1,6 @@
-export { instanceOf } from './lib/instance-of.func';
-export { typeFuncGuard } from './lib/type-func-guard.func';
-export { typeGuard } from './lib/type-guard.func';
-export { typeObjectGuard } from './lib/type-object-guard.func';
+export { isFunction } from './lib/is-function.func';
+export { isNumber } from './lib/is-number.func';
+export { isObjectType } from './lib/is-object-type.func';
+export { isObject } from './lib/is-object.func';
+export { isString } from './lib/is-string.func';
+export { isPrimitiveType } from './lib/is-primitive-type.func';
