@@ -21,7 +21,6 @@ import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-p
 * **Guards** the value to be `string` type with `isString` function.
 * **Type guards** an object with a generic type and **checks** by finding a `property` in the `object` with a `isObjectType<Type>` function.
 * **Type guards** value with the generic type and **checks** its type with `boolean` `bigint` `number` `string` with `isPrimitiveType<Type>` function.
- l
 **How angular-package understands**
 
 Check
