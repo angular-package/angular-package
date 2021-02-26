@@ -66,10 +66,11 @@ Check function `func` by finding `name` in the `func`. The return value is a `bo
 const isFunction = (name: string, func: FunctionType): func is FunctionType => name in func;
 ```
 
-parameter   | type           | description
+Parameter   | Type           | Description
 ------------|      :---:     |---------------
-name        | `string`       | Name to find in function parameter `func`
+name        | `string`       | Name to find in function argument `func`
 func        | `FunctionType` | Function to find `name` in
+
 ### isNumber()
 
 Guard the `value` to be `number` type. The return value is a `boolean` value.
@@ -77,6 +78,12 @@ Guard the `value` to be `number` type. The return value is a `boolean` value.
 ```typescript
 const isNumber = (value: number): value is number => typeof value === 'number';
 ```
+
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `number`       | Number value to type guard and check with typeof
+
+
 ### isObjectType()
 
 Guard the `object` to be `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
@@ -85,6 +92,12 @@ Guard the `object` to be `Type` type and check by finding `property` in the `obj
 const isObjectType = <Type>(object: Type, property: string): object is Type => property in object;
 ```
 
+Parameter   | Type         | Description
+------------|      :---:   |---------------
+object      | `Type`       | Generic type object to find `property` name in
+property    | `string`     | Property name to find in argument `object`
+
+
 ### isObject()
 
 Check any `object` to be `Type`. The return value is a `boolean` value.
@@ -92,6 +105,10 @@ Check any `object` to be `Type`. The return value is a `boolean` value.
 ```typescript
 const isObject = <Type>(object: any): object is Type => object;
 ```
+
+Parameter   | Type        | Description
+------------|      :---:  |---------------
+object      | `any`       | Any object to check to be a generic type 
 
 
 ## Usage
