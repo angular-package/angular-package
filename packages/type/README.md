@@ -8,11 +8,11 @@
 Common types, function guards and checkers for `angular-package` library.
 
 ```typescript
-// Types
-import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-package/type';
-
 // Type guards
 import { instanceOf, typeFuncGuard, typeGuard, typeObjectGuard } from '@angular-package/type'; 
+
+// Types
+import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-package/type';
 ```
 
 **Features**
@@ -38,9 +38,6 @@ Guard
 
 * [Installation](#installation)
 * [Functions](#functions)
-* [Types](#types)
-* [Usage](#usage)
-* [Library](#library)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -59,7 +56,6 @@ npm i --save @angular-package/type
 ## Functions
 
 ### isFunction()
-
 Check function `func` by finding `name` in the `func`. The return value is a `boolean` value.
 
 ```typescript
@@ -72,7 +68,6 @@ name        | `string`       | Name to find in function argument `func`
 func        | `FunctionType` | Function to find `name` in
 
 ### isNumber()
-
 Guard the `value` to be `number` type. The return value is a `boolean` value.
 
 ```typescript
@@ -110,34 +105,6 @@ Parameter   | Type        | Description
 ------------|      :---:  |---------------
 object      | `any`       | Any object to check to be a generic type 
 
-
-## Usage
-
-
-
-## Library 
-
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.9.
-### Code scaffolding
-
-Run `ng generate component component-name --project type` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project type`.
-> Note: Don't forget to add `--project type` or else it will be added to the default project in your `angular.json` file. 
-
-### Build
-
-Run `ng build type` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-### Publishing
-
-After building your library with `ng build type`, go to the dist folder `cd dist/type` and run `npm publish`.
-
-### Running unit tests
-
-Run `ng test type` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-### Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## GIT
 
