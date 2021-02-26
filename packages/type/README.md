@@ -93,35 +93,6 @@ const isObject = <Type>(object: any): object is Type => object;
 
 
 
-### instanceOf
-
-```typescript
-
-```
-### typeFuncGuard
-
-Check function `func` instance by finding a name `find` in the function `func`. The return value is a `boolean` value.
-
-```typescript
-const typeFuncGuard = (find, func): boolean => find in func;
-```
-### typeGuard
-
-Guard and check `value` type with `Type` in `Types`. The return value is a `boolean` value.
-
-```typescript
-const typeGuard = <Type>(value, type: Types<Type>): value is Type => (typeof type === 'string') ? typeof value === type : value instanceof type;
-```
-
-### typeObjectGuard
-
-Guard `object` type with `Type`. The return value
-
-```typescript
-const typeObjectGuard = <Type>(object: any): object is Type => object;
-```
-
-
 ## Library 
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.9.
