@@ -1,8 +1,27 @@
 {
   "name": "@angular-package/type",
   "version": "0.0.1",
+  "description": "",
+  "author": "Angular Package <angular-package@wvvw.dev> (http://wvvw.dev)",
+  "homepage": "https://github.com/angular-package/angular-package#readme",
   "peerDependencies": {},
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "angular-package",
+    "@angular-package/type",
+    "type"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-package/angular-package.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-package/angular-package/issues"
   }
 }
