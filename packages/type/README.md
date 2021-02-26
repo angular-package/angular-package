@@ -65,6 +65,11 @@ Check function `func` by finding `name` in the `func`. The return value is a `bo
 ```typescript
 const isFunction = (name: string, func: FunctionType): func is FunctionType => name in func;
 ```
+
+parameter   | type           | description
+------------|----------------|---------------
+`name`      | `string`       | Name to find in function parameter `func`
+`func`      | `FunctionType` | Function to find `name` in
 ### isNumber
 
 Guard the `value` to be `number` type. The return value is a `boolean` value.
