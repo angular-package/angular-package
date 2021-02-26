@@ -1,7 +1,7 @@
 {
   "name": "@angular-package/type",
   "version": "0.0.1",
-  "description": "",
+  "description": "Common types and guards for angular-package library",
   "author": "Angular Package <angular-package@wvvw.dev> (http://wvvw.dev)",
   "homepage": "https://github.com/angular-package/angular-package#readme",
   "peerDependencies": {},
@@ -15,7 +15,10 @@
   "keywords": [
     "angular-package",
     "@angular-package/type",
-    "type"
+    "type",
+    "types",
+    "guards",
+    "type guards"
   ],
   "repository": {
     "type": "git",
