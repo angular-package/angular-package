@@ -58,7 +58,7 @@ npm i --save @angular-package/type
 
 ## Functions
 
-### isFunction
+### isFunction()
 
 Check function `func` by finding `name` in the `func`. The return value is a `boolean` value.
 
@@ -67,17 +67,17 @@ const isFunction = (name: string, func: FunctionType): func is FunctionType => n
 ```
 
 parameter   | type           | description
-------------|----------------|---------------
-`name`      | `string`       | Name to find in function parameter `func`
-`func`      | `FunctionType` | Function to find `name` in
-### isNumber
+------------|      :---:     |---------------
+name        | `string`       | Name to find in function parameter `func`
+func        | `FunctionType` | Function to find `name` in
+### isNumber()
 
 Guard the `value` to be `number` type. The return value is a `boolean` value.
 
 ```typescript
 const isNumber = (value: number): value is number => typeof value === 'number';
 ```
-### isObjectType
+### isObjectType()
 
 Guard the `object` to be `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
 
@@ -85,7 +85,7 @@ Guard the `object` to be `Type` type and check by finding `property` in the `obj
 const isObjectType = <Type>(object: Type, property: string): object is Type => property in object;
 ```
 
-### isObject
+### isObject()
 
 Check any `object` to be `Type`. The return value is a `boolean` value.
 
