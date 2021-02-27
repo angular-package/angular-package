@@ -5,7 +5,7 @@
 import { CycleHookMethods, StoreGetterSetter } from '../interface';
 
 // @angular-package/type
-import { CycleHook, typeGuard } from '@angular-package/type';
+import { CycleHook, isPrimitiveType } from '@angular-package/type';
 
 /**
  * Class to store original `setter`, `getter` and angular cycle hooks.
@@ -54,7 +54,7 @@ export class StoreOriginalClass implements CycleHookMethods, StoreGetterSetter {
    * @param properties Properties to store getter/setter.
    */
   public properties<Source>(properties: string | Array<string>, source: Source): this {
-    if (typeGuard<string>(properties, 'string')) {
+    if (isPrimitiveType<string>(properties, 'string')) {
       properties = [properties];
     }
     properties.forEach((property: string) => {

@@ -8,8 +8,8 @@ import { getProperty } from './get-property.function';
 import { GetterCallback, SetterCallback } from '../type';
 
 // @angular-package/type
-import { FunctionType, Types } from '@angular-package/type';
-import { typeObjectGuard, typeGuard } from '@angular-package/type/guard';
+import { FunctionType } from '@angular-package/type';
+import { Constructor, isObject, isObjectType, isPrimitiveType, isString, Primitives } from '@angular-package/type';
 
 @Injectable()
 export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
@@ -47,10 +47,11 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
    * @param value Property value in object.
    * @param type Property value type in object to check.
    */
-  public set<Obj, Key extends keyof Obj>(obj: Obj, key: Key, value: Obj[Key], type?: Types<Obj>): this {
-    setProperty<Obj, Key>(obj, key, value, type);
-    return this;
-  }
+  // TODO: Add Types instead of Primitives to handle objects
+  // public set<Obj, Key extends keyof Obj>(obj: Obj, key: Key, value: Obj[Key], type?: Primitives): this {
+  //   setProperty<Obj, Key>(obj, key, value, type);
+  //   return this;
+  // }
 
 
   /**
@@ -66,17 +67,17 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
     getterCallback?: GetterCallback<Source, Key>,
     setterCallback?: SetterCallback<Source, Key>
   ): this {
-    if (typeObjectGuard<Source>(source)) {
-      if (typeGuard<string>(key, 'string')) {
+    if (isObject<Source>(source)) {
+      // Use key as string.
+      const property: string = key.toString();
+      if (isPrimitiveType<string>(property, 'string')) {
         if (this.wrapped$$ instanceof Array && this.wrapped$$.includes(key) === false) {
-          // Use key as string.
-          const property: string = key;
           // Store original property getter and setter.
-          const stored = new StoreOriginalClass().properties(key, source);
+          const stored = new StoreOriginalClass().properties(property, source);
           // Create property with prefix and suffix to be wrapped by original name.
-          const privatePropertyName = this.name(key);
+          const privatePropertyName = this.name(property);
           // Wrap property.
-          if (typeGuard<string>(privatePropertyName, 'string')) {
+          if (isString(privatePropertyName)) {
             Object.defineProperties(source instanceof Function ? source.prototype : source, {
               [privatePropertyName]: {
                 writable: true,
@@ -88,7 +89,7 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
                 configurable: true,
                 get(): Source[Key] {
                   // Custom getter.
-                  if (typeObjectGuard<GetterCallback<Source, Key>>(getterCallback)) {
+                  if (isObject<GetterCallback<Source, Key>>(getterCallback)) {
                     getterCallback(key, this);
                   }
                   // Perform stored getter.
@@ -108,7 +109,7 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
                     stored.setter[property].apply(this, arguments);
                   }
                   // Use custom setter.
-                  if (typeObjectGuard<SetterCallback<Source, Key>>(setterCallback)) {
+                  if (isObject<SetterCallback<Source, Key>>(setterCallback)) {
                     setterCallback(value, oldValue, this);
                   }
                 }
@@ -135,16 +136,16 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
    * @param to Bind to target object.
    */
   private bind$$<Key extends keyof Source, Source, Target = string>(key: Key, source: Source, to: Target): void {
-    if (typeObjectGuard<Source>(source)) {
-      if (typeGuard<string>(key, 'string')) {
-        if (this.bound$$ instanceof Array && this.bound$$.includes(key) === false) {
-          // Use key as string.
-          const property: string = key;
+    if (isObject<Source>(source)) {
+      // Use key as string.
+      const property: string = key.toString();
+      if (isPrimitiveType<string>(property, 'string')) {
+        if (this.bound$$ instanceof Array && this.bound$$.includes(property) === false) {
           // Store original setters and getters.
-          const stored = new StoreOriginalClass().properties(key, source);
+          const stored = new StoreOriginalClass().properties(property, source);
           const initial = { };
           // Bind property to source.
-          Object.defineProperties(source instanceof Function ? source.prototype : source, { [key]: {
+          Object.defineProperties(source instanceof Function ? source.prototype : source, { [property]: {
             get(): Source[Key] {
               // Use stored getter.
               if (stored.getter[property]) {
@@ -152,13 +153,13 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
               }
               // Return value from this[to] object.
               if (typeof to === 'string' && this[to] instanceof Object) {
-                return getProperty<any, string>(this[to], key);
+                return getProperty<any, string>(this[to], property);
               }
               if (to instanceof Object) {
                 if (to[property] === undefined) {
-                  setProperty<any, string>(to, key, initial[property]);
+                  setProperty<any, string>(to, property, initial[property]);
                 }
-                return getProperty<any, string>(to, key);
+                return getProperty<any, string>(to, property);
               }
             },
             set(value: Source[Key]): void {
@@ -170,14 +171,14 @@ export class PropertyClass<From = FunctionType> extends PrefixSuffixClass {
                 stored.setter[property].apply(this, arguments);
               }
               // TODO: Check source.
-              if (typeGuard<string>(to, 'string')) {
-                setProperty<any, string>(this[to], key, value);
-              } else {
-                setProperty<any, string>(to, key, value);
+              if (isObject<Target>(to)) {
+                setProperty<any, string>(to, property, value);
+              } else if (isString(to)) {
+                setProperty<any, string>(this[to], property, value);
               }
             }
           }});
-          this.bound$$.push(key);
+          this.bound$$.push(property);
         }
       }
     } else {

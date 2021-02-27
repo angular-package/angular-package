@@ -1,15 +1,12 @@
-import { typeGuard, typeObjectGuard } from '@angular-package/type/guard';
-import { Types } from '@angular-package/type';
+import { Constructor, isObject, Primitives, isPrimitiveType } from '@angular-package/type';
 
-export function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K], type?: Types<T>): void {
-  if (typeObjectGuard<T>(obj)) {
-    if (typeof type === 'string') {
-      if (typeGuard(value, type) === false) {
-        throw new Error(`Object (${obj}) property (${key}) value (${value}) must be type '${type}'`);
-      }
+export function setProperty<Obj, Key extends keyof Obj>(obj: Obj, key: Key, value: Obj[Key], type?: Primitives): void {
+  if (isObject<Obj>(obj)) {
+    if (type && isPrimitiveType(value, type) === false) {
+      throw new Error(`Object (${obj}) property (${key}) value (${value}) must be type '${type}'`);
     }
     Object.assign(obj, { [key]: value });
   } else {
-    throw new Error(`Argument(obj type T): must be type T`);
+    throw new Error(`setProperty<Obj, Key extends keyof Obj>(obj: Obj): must be type Obj`);
   }
 }
