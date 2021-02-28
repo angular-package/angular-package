@@ -27,6 +27,7 @@ import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-p
 * **Type guards** value with the generic type and **checks** its type with `boolean` `bigint` `number` `string` with `isPrimitiveType<Type>` function.
 
 **How angular-package understands**
+
 Checks
 > is to check argument value type to not let it be different than in type guard.
 
@@ -59,13 +60,6 @@ npm i --save @angular-package/type
 ## Checkers
 ### isFunction()
 Check function `func` by finding `name` in the `func`. The return value is a `boolean` value.
-
-Import function
-```typescript
-import { isFunction } from '@angular-package/type';
-```
-
-Imported function code
 ```typescript
 const isFunction = (name: string, func: FunctionType): func is FunctionType => name in func;
 ```
@@ -80,14 +74,9 @@ func        | `FunctionType` | Function type value to find `name` in.
 ### isNumber()
 Check is **any** `value` a `number` type. The return value is a `boolean` value.
 
-Import function
 ```typescript
+// Import function
 import { isNumber } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
-const isNumber = (value: any): value is number => typeof value === 'number';
 ```
 
 **Parameter description**
@@ -96,16 +85,10 @@ Parameter   | Type           | Description
 value       | `any`          | Any `value` to check it is a `number` type.
 
 
-### isObject()
+### isObject<Type>()
 Check is **any** `object` value a generic `Type` type. The return value is a `boolean` value.
-
-Import function
 ```typescript
-import { isObject } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code
 const isObject = <Type>(object: any): object is Type => object;
 ```
 
@@ -115,16 +98,10 @@ Parameter   | Type           | Description
 object      | `any`          | Any value to check it is a generic `Type` type.
 
 
-### isPrimitive()
-Check is any `value` a generic `Type` is one of the primitive `boolean`, `bigint`, `number`, `string` type.
-
-Import function
+### isPrimitive<Type>()
+Check is any `value` a generic `Type` one of the primitive `boolean`, `bigint`, `number`, `string` type.
 ```typescript
-import { isPrimitive } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code
 const isPrimitive = <Type>(value: any, type: Primitives): value is Type => typeof value === type;
 ```
 
@@ -137,14 +114,8 @@ type        | `Primitives`   | One of the `Primitives` `'boolean'`, `'bigint'`, 
 
 ### isString()
 Check is any `value` a `string` type. The return value is a `boolean` value.
-
-Import function
 ```typescript
-import { isString } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code
 const isString = (value: any): value is string => typeof value === 'string';
 ```
 
@@ -154,16 +125,10 @@ Parameter   | Type           | Description
 value       | `any`          | Any `value` to check it is a `string` type.
 
 
-### isType()
+### isType<Type>()
 Check is any `value` a class or primitive type.
-
-Import function
 ```typescript
-import { isNumber } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code
 const isType = <Type>(value: any, type: Types<Type>): value is Type => ss(typeof type === 'string') ? (typeof value === type) : value instanceof type;
 ```
 
@@ -177,14 +142,8 @@ type        | `Types<Type>`  | Constructor generic `Type` or one of the `Primiti
 ## Guards
 ### guardNumber()
 Guard the `value` to be `number` type. The return value is a `boolean` value.
-
-Import function
 ```typescript
-import { guardNumber } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code.
 const guardNumber = (value: number): value is number => typeof value === 'number';
 ```
 
@@ -194,16 +153,10 @@ Parameter   | Type           | Description
 value       | `number`       | Type `number` value to guard.
 
 
-### guardObject()
+### guardObject<Type>()
 Guard the `object` to be generic `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
-
-Import function
 ```typescript
-import { guardObject } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code.
 const guardObject = <Type>(object: Type, property: string): object is Type => property in object;
 ```
 
@@ -214,16 +167,10 @@ object      | `Type`       | Generic `Type` type object to find `property` name 
 property    | `string`     | Property name to find in argument `object`
 
 
-### guardPrimitive()
+### guardPrimitive<Type>()
 Guard the `value` to be a generic `Type` from one of the `Primitives`. The return value is a `boolean` value.
-
-Import function by using code below
 ```typescript
-import { guardPrimitive } from '@angular-package/type';
-```
-
-Imported function code below
-```typescript
+// Imported function code
 const guardPrimitive = <Type>(value: Type, type: Primitives): value is Type => typeof value === type;
 ```
 
@@ -236,14 +183,8 @@ type        | `Primitives` | One of the `Primitives` `'boolean'`, `'bigint'`, `'
 
 ### guardString()
 Guard the `value` to be a `string` type. The return value is a `boolean` value.
-
-Import function
 ```typescript
-import { guardString } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code
 const guardString = (value: string): value is string => typeof value === 'string';
 ```
 
@@ -254,14 +195,8 @@ value       | `string`       | `string` type value to guard.
 
 ### guardType()
 Guard the `value` to be a generic `Type` from one of the `Types` type. The return value is a `boolean` value.
-
-Import function
 ```typescript
-import { guardType } from '@angular-package/type';
-```
-
-Imported function code
-```typescript
+// Imported function code
 const guardType = <Type>(value: Type, type: Types<Type>): value is Type => (typeof type === 'string') ? (typeof value === type) : value instanceof type;
 ```
 
