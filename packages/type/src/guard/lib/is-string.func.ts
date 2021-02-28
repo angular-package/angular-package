@@ -1,5 +1,6 @@
 /**
  * Check is the `value` a `string` type.
+ * Use `guardString()` function for full string guard.
  * @param value to check.
  * @returns boolean.
  */
