@@ -8,9 +8,9 @@
  * interface Company { name: string; taxId: number; }
  * const person: Person = { firstName: 'Ścibor', surname: 'Rudnicki' };
  * const company: Company = { name: 'STER.Black', taxId: 7822239908 }
- * isObjectType<Person>(person, 'firstName');
- * isObjectType<Company>(company, 'taxId');
- * isObjectType<Company>(person, 'firstName'); // Guarding parameter object as `person` with `Company` interface.
- * isObjectType<Person>(company, 'taxId'); // Guarding parameter object as `company` with `Person` interface.
+ * guardObject<Person>(person, 'firstName');
+ * guardObject<Company>(company, 'taxId');
+ * guardObject<Company>(person, 'firstName'); // Guarding parameter object as `person` with `Company` interface.
+ * guardObject<Person>(company, 'taxId'); // Guarding parameter object as `company` with `Person` interface.
  */
-export const isObjectType = <Type>(object: Type, property: string): object is Type => property in object;
+export const guardObject = <Type>(object: Type, property: string): object is Type => property in object;
