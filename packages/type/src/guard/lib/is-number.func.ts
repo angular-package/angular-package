@@ -1,6 +1,6 @@
 /**
- * Guard the `value` to be `number` type.
- * @param value to guard and check.
+ * Check is the `value` a `number` type.
+ * @param value to check.
  * @returns boolean
  */
-export const isNumber = (value: number): value is number => typeof value === 'number';
+export const isNumber = (value: any): value is number => typeof value === 'number';
