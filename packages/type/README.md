@@ -85,7 +85,7 @@ Parameter   | Type           | Description
 value       | `any`          | Any `value` to check it is a `number` type.
 
 
-### isObject<Type>()
+### isObject()
 Check is **any** `object` value a generic `Type` type. The return value is a `boolean` value.
 ```typescript
 // Imported function code
@@ -98,7 +98,7 @@ Parameter   | Type           | Description
 object      | `any`          | Any value to check it is a generic `Type` type.
 
 
-### isPrimitive<Type>()
+### isPrimitive()
 Check is any `value` a generic `Type` one of the primitive `boolean`, `bigint`, `number`, `string` type.
 ```typescript
 // Imported function code
@@ -125,7 +125,7 @@ Parameter   | Type           | Description
 value       | `any`          | Any `value` to check it is a `string` type.
 
 
-### isType<Type>()
+### isType()
 Check is any `value` a class or primitive type.
 ```typescript
 // Imported function code
@@ -153,7 +153,7 @@ Parameter   | Type           | Description
 value       | `number`       | Type `number` value to guard.
 
 
-### guardObject<Type>()
+### guardObject()
 Guard the `object` to be generic `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
 ```typescript
 // Imported function code.
@@ -167,7 +167,7 @@ object      | `Type`       | Generic `Type` type object to find `property` name 
 property    | `string`     | Property name to find in argument `object`
 
 
-### guardPrimitive<Type>()
+### guardPrimitive()
 Guard the `value` to be a generic `Type` from one of the `Primitives`. The return value is a `boolean` value.
 ```typescript
 // Imported function code
