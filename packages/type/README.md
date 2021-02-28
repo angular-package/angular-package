@@ -8,7 +8,10 @@ Common types, function guards and checkers for `angular-package` library.
 
 ```typescript
 // Type guards
-import { instanceOf, typeFuncGuard, typeGuard, typeObjectGuard } from '@angular-package/type'; 
+import { guardNumber, guardObject, guardPrimitive, guardString, guardType } from '@angular-package/type'; 
+
+// Check types
+import { isFunction, isNumber, isObject, isPrimitive, isString, isType } from '@angular-package/type';
 
 // Types
 import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-package/type';
@@ -35,7 +38,8 @@ Guard
 ----
 
 * [Installation](#installation)
-* [Functions](#functions)
+* [Checks](#checks)
+* [Guards](#guards)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -51,61 +55,221 @@ Install `@angular-package/type` package with command:
 npm i --save @angular-package/type
 ```
 
-## Functions
-
+## Checks
 ### isFunction()
 Check function `func` by finding `name` in the `func`. The return value is a `boolean` value.
 
+Import function
+```typescript
+import { isFunction } from '@angular-package/type';
+```
+
+Imported function code
 ```typescript
 const isFunction = (name: string, func: FunctionType): func is FunctionType => name in func;
 ```
 
+**Parameter description**
 Parameter   | Type           | Description
 ------------|      :---:     |---------------
 name        | `string`       | Name to find in function argument `func`
-func        | `FunctionType` | Function to find `name` in
+func        | `FunctionType` | The function to find `name` in it
+
 
 ### isNumber()
-Guard the `value` to be `number` type. The return value is a `boolean` value.
+Check is **any** `value` a `number` type. The return value is a `boolean` value.
 
+Import function
 ```typescript
-const isNumber = (value: number): value is number => typeof value === 'number';
+import { isNumber } from '@angular-package/type';
 ```
 
+Imported function code
+```typescript
+const isNumber = (value: any): value is number => typeof value === 'number';
+```
+
+**Parameter description**
 Parameter   | Type           | Description
 ------------|      :---:     |---------------
-value       | `number`       | Number value to type guard and check with typeof
-
-
-### isObjectType()
-
-Guard the `object` to be `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
-
-```typescript
-const isObjectType = <Type>(object: Type, property: string): object is Type => property in object;
-```
-
-Parameter   | Type         | Description
-------------|      :---:   |---------------
-object      | `Type`       | Generic type object to find `property` name in
-property    | `string`     | Property name to find in argument `object`
+value       | `any`          | Any `value` to check to be `number`
 
 
 ### isObject()
+Check is **any** `object` a generic `Type` type. The return value is a `boolean` value.
 
-Check any `object` to be `Type`. The return value is a `boolean` value.
+Import function
+```typescript
+import { isObject } from '@angular-package/type';
+```
 
+Imported function code
 ```typescript
 const isObject = <Type>(object: any): object is Type => object;
 ```
 
-Parameter   | Type        | Description
-------------|      :---:  |---------------
-object      | `any`       | Any object to check to be a generic type 
+**Parameter description**
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+object      | `any`          | Any `object` to check to be generic `Type` object
+
+
+### isPrimitive()
+Check is **any** `value` a `number` type. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { isNumber } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const isNumber = (value: any): value is number => typeof value === 'number';
+```
+
+**Parameter description**
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `any`          | Any `value` to check to be `number`
+
+
+### isString()
+Check is **any** `value` a `number` type. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { isNumber } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const isNumber = (value: any): value is number => typeof value === 'number';
+```
+
+**Parameter description**
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `any`          | Any `value` to check to be `number`
+
+
+### isType()
+Check is **any** `value` a `number` type. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { isNumber } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const isType = <Type>(value: any, type: Types<Type>): value is Type => (typeof type === 'string') ? (typeof value === type) : value instanceof type;
+```
+
+**Parameter description**
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `any`          | Any `value` to check to be `Types<Type>`
+type        | `Types<Type>`  | Constructor `Constructor<Type>` type or one of `'boolean'`, `'bigint'`, `'number'`, `'string'` type to check
+
+
+## Guards
+### guardNumber()
+Guard the `value` to be `number` type. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { guardNumber } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const guardNumber = (value: number): value is number => typeof value === 'number';
+```
+
+**Parameter description**
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `number`       | Number value to type guard and check
+
+
+### guardObject()
+Guard the `object` to be generic `Type` type and check by finding `property` in the `object`. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { guardObject } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const guardObject = <Type>(object: Type, property: string): object is Type => property in object;
+```
+
+**Parameter description**
+Parameter   | Type         | Description
+------------|      :---:   |---------------
+object      | `Type`       | Generic `Type` type object to find `property` name in it 
+property    | `string`     | Property name to find in argument `object`
+
+
+### guardPrimitive()
+Guard the `value` to be one of the `Primitives` type. The return value is a `boolean` value.
+
+Import function by using code below
+```typescript
+import { guardPrimitive } from '@angular-package/type';
+```
+
+Imported function code below
+```typescript
+const guardPrimitive = <Type>(value: Type, type: Primitives): value is Type => typeof value === type;
+```
+
+**Parameter description**
+Parameter   | Type         | Description
+------------|      :---:   |---------------
+value       | `Type`       | Generic `Type` value to type guard and check
+type        | `Primitives` | One of the primitive `'boolean'`, `'bigint'`, `'number'`, `'string'` type to check
+
+
+### guardString()
+Guard the `value` to be `string` type. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { guardString } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const guardString = (value: string): value is string => typeof value === 'string';
+```
+
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `string`       | String value to type guard and check
+
+
+### guardType()
+Guard the `value` to be a `constructor` generic `Type` type or on of the primitive `boolean`, `bigint`, `number`, `string` type. The return value is a `boolean` value.
+
+Import function
+```typescript
+import { guardType } from '@angular-package/type';
+```
+
+Imported function code
+```typescript
+const guardType = <Type>(value: Type, type: Types<Type>): value is Type => (typeof type === 'string') ? (typeof value === type) : value instanceof type;
+```
+
+Parameter   | Type           | Description
+------------|      :---:     |---------------
+value       | `Type`         | Generic `Type` value to type guard and check
+type        | `Types<Type>`  | Constructor `Constructor<Type>` type or one of `'boolean'`, `'bigint'`, `'number'`, `'string'` type to check
 
 
 ## GIT
-
 ### Commit
 
 * [AngularJS Git Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
