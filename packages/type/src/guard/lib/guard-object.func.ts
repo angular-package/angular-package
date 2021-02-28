@@ -1,5 +1,6 @@
 /**
  * Guard the `object` to be `Type` type and check by finding `property` in the `object`.
+ * Use `isObject()` function for check ONLY.
  * @param object to guard and to find `property` in.
  * @param property to find in `object`.
  * @returns boolean
