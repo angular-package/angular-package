@@ -75,8 +75,8 @@ func        | `FunctionType` | Function type value to find `name` in.
 Check is **any** `value` a `number` type. The return value is a `boolean` value.
 
 ```typescript
-// Import function
-import { isNumber } from '@angular-package/type';
+// Imported function code
+const isNumber = (value: any): value is number => typeof value === 'number';
 ```
 
 **Parameter description**
