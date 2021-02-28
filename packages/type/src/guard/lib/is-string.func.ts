@@ -1,5 +1,6 @@
 /**
- * Guard the `value` to be `string` type.
- * @param value to guard.
+ * Check is the `value` a `string` type.
+ * @param value to check.
+ * @returns boolean.
  */
-export const isString = (value: string): value is string => typeof value === 'string';
+export const isString = (value: any): value is string => typeof value === 'string';
