@@ -61,6 +61,7 @@ npm i --save @angular-package/type
 ### isFunction()
 Check function `func` by finding `name` in the `func`. The return value is a `boolean` value.
 ```typescript
+// Imported function code.
 const isFunction = (name: string, func: FunctionType): func is FunctionType => name in func;
 ```
 
@@ -75,7 +76,7 @@ func        | `FunctionType` | Function type value to find `name` in.
 Check is **any** `value` a `number` type. The return value is a `boolean` value.
 
 ```typescript
-// Imported function code
+// Imported function code.
 const isNumber = (value: any): value is number => typeof value === 'number';
 ```
 
@@ -88,7 +89,7 @@ value       | `any`          | Any `value` to check it is a `number` type.
 ### isObject()
 Check is **any** `object` value a generic `Type` type. The return value is a `boolean` value.
 ```typescript
-// Imported function code
+// Imported function code.
 const isObject = <Type>(object: any): object is Type => object;
 ```
 
@@ -101,7 +102,7 @@ object      | `any`          | Any value to check it is a generic `Type` type.
 ### isPrimitive()
 Check is any `value` a generic `Type` one of the primitive `boolean`, `bigint`, `number`, `string` type.
 ```typescript
-// Imported function code
+// Imported function code.
 const isPrimitive = <Type>(value: any, type: Primitives): value is Type => typeof value === type;
 ```
 
@@ -115,7 +116,7 @@ type        | `Primitives`   | One of the `Primitives` `'boolean'`, `'bigint'`, 
 ### isString()
 Check is any `value` a `string` type. The return value is a `boolean` value.
 ```typescript
-// Imported function code
+// Imported function code.
 const isString = (value: any): value is string => typeof value === 'string';
 ```
 
@@ -128,7 +129,7 @@ value       | `any`          | Any `value` to check it is a `string` type.
 ### isType()
 Check is any `value` a class or primitive type.
 ```typescript
-// Imported function code
+// Imported function code.
 const isType = <Type>(value: any, type: Types<Type>): value is Type => ss(typeof type === 'string') ? (typeof value === type) : value instanceof type;
 ```
 
@@ -170,7 +171,7 @@ property    | `string`     | Property name to find in argument `object`
 ### guardPrimitive()
 Guard the `value` to be a generic `Type` from one of the `Primitives`. The return value is a `boolean` value.
 ```typescript
-// Imported function code
+// Imported function code.
 const guardPrimitive = <Type>(value: Type, type: Primitives): value is Type => typeof value === type;
 ```
 
@@ -184,7 +185,7 @@ type        | `Primitives` | One of the `Primitives` `'boolean'`, `'bigint'`, `'
 ### guardString()
 Guard the `value` to be a `string` type. The return value is a `boolean` value.
 ```typescript
-// Imported function code
+// Imported function code.
 const guardString = (value: string): value is string => typeof value === 'string';
 ```
 
@@ -196,7 +197,7 @@ value       | `string`       | `string` type value to guard.
 ### guardType()
 Guard the `value` to be a generic `Type` from one of the `Types` type. The return value is a `boolean` value.
 ```typescript
-// Imported function code
+// Imported function code.
 const guardType = <Type>(value: Type, type: Types<Type>): value is Type => (typeof type === 'string') ? (typeof value === type) : value instanceof type;
 ```
 
