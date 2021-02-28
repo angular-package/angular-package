@@ -1,6 +1,5 @@
-export { isFunction } from './lib/is-function.func';
-export { isNumber } from './lib/is-number.func';
-export { isObjectType } from './lib/is-object-type.func';
-export { isObject } from './lib/is-object.func';
-export { isString } from './lib/is-string.func';
-export { isPrimitiveType } from './lib/is-primitive-type.func';
+export { guardNumber } from './lib/guard-number.func';
+export { guardObject } from './lib/guard-object.func';
+export { guardPrimitive } from './lib/guard-primitive.func';
+export { guardString } from './lib/guard-string.func';
+export { guardType } from './lib/guard-type.func';
