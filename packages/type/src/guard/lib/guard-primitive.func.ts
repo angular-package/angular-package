@@ -1,8 +1,8 @@
 import { Primitives } from '../../lib/primitives.type';
 /**
- * Guard the `value` to be `Type` from `Primitives`.
+ * Guard the `value` to be a generic `Type` from one of the `Primitives`.
  * Use `isPrimitive()` function for check ONLY.
- * @param value to guard.
- * @param type to check `value` value is `Primitive` type.
+ * @param value A generic `Type` type value to guard.
+ * @param type One of the `Primitives` `'boolean'`, `'bigint'`, `'number'`, `'string'` to check `value`.
  */
 export const guardPrimitive = <Type>(value: Type, type: Primitives): value is Type => typeof value === type;
