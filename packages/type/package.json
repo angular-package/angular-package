@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/type",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Common types and guards for angular-package library",
   "author": "Angular Package <angular-package@wvvw.dev> (http://wvvw.dev)",
   "homepage": "https://github.com/angular-package/angular-package#readme",
@@ -22,7 +22,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/angular-package/angular-package.git"
+    "url": "git+https://github.com/angular-package/angular-package.git",
+    "directory": "tree/type/packages/type"
   },
   "bugs": {
     "url": "https://github.com/angular-package/angular-package/issues"
