@@ -19,7 +19,7 @@ import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-p
 
 **Features**
 * Check ...
-  * is **any** `value` a `number` type with [isNumber()](#isNumber()) function.
+  * is **any** `value` a `number` type with [isNumber()](#isNumber) function.
   * is **any** `object` value a generic type with [isObject()](#isObject()) function.
   * is **any** `value` a generic type one of the primitive `boolean`, `bigint`, `number`, `string` type with [isPrimitive()](#isPrimitive()) function.
   * is **any** `value` a `string` type with [isString()](#isString()) function.
