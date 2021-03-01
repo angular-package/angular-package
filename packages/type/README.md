@@ -20,16 +20,16 @@ import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-p
 **Features**
 * Check ...
   * is **any** `value` a `number` type with [isNumber()](#isNumber) function.
-  * is **any** `object` value a generic type with [isObject()](#isObject()) function.
-  * is **any** `value` a generic type one of the primitive `boolean`, `bigint`, `number`, `string` type with [isPrimitive()](#isPrimitive()) function.
-  * is **any** `value` a `string` type with [isString()](#isString()) function.
-  * is **any** `value` a generic constructor or primitive type with [isType()](#isType()) function.
+  * is **any** `object` value a generic type with [isObject()](#isObject function.
+  * is **any** `value` a generic type one of the primitive `boolean`, `bigint`, `number`, `string` type with [isPrimitive()](#isPrimitive) function.
+  * is **any** `value` a `string` type with [isString()](#isString) function.
+  * is **any** `value` a generic constructor or primitive type with [isType()](#isType) function.
 * Guard
-  * the `value` to be `number` type with [guardNumber()](#guardNumber()) function.
-  * the `object` to be a generic specified type and also by finding `property` in the `object` with [guardObject()](#guardObject()) function.
-  * the `value` to be a generic type from one of the `Primitives` with [guardPrimitive()](#guardPrimitive()) function. 
-  * the `value` to be a `string` type with [guardString()](#guardString()) function.
-  * the `value` to be a generic type from one of the `Types` type with [guardType()](#guardType()) function.
+  * the `value` to be `number` type with [guardNumber()](#guardNumber) function.
+  * the `object` to be a generic specified type and also by finding `property` in the `object` with [guardObject()](#guardObject) function.
+  * the `value` to be a generic type from one of the `Primitives` with [guardPrimitive()](#guardPrimitive) function. 
+  * the `value` to be a `string` type with [guardString()](#guardString) function.
+  * the `value` to be a generic type from one of the `Types` type with [guardType()](#guardType) function.
 
 **How angular-package understands**
 
