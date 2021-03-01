@@ -1,7 +1,7 @@
 {
   "name": "@angular-package/type",
   "version": "1.0.0",
-  "description": "Common types and guards for angular-package library",
+  "description": "Common types, function guards and checkers for @angular-package library.",
   "author": "Angular Package <angular-package@wvvw.dev> (http://wvvw.dev)",
   "homepage": "https://github.com/angular-package/type#readme",
   "peerDependencies": {},
