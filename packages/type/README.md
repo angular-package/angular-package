@@ -26,21 +26,21 @@ import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-p
   * is **any** `value` a generic constructor or primitive type with [isType()](#isType) function.
 * Guard
   * the `value` to be `number` type with [guardNumber()](#guardNumber) function.
-  * the `object` to be a generic specified type and also by finding `property` in the `object` with [guardObject()](#guardObject) function.
+  * the `object` to be a generic type and also by finding `property` in the `object` with [guardObject()](#guardObject) function.
   * the `value` to be a generic type from one of the `Primitives` with [guardPrimitive()](#guardPrimitive) function. 
   * the `value` to be a `string` type with [guardString()](#guardString) function.
   * the `value` to be a generic type from one of the `Types` type with [guardType()](#guardType) function.
 
 **How angular-package understands**
 
-Checks
-> is to check argument value type to not let it be different than in type guard.
+Check
+> Is to check the return value to be the same as expected.
 
 Type guard
-> is to guard type in the code editor: it not let provides unexpected value.
+> Is to guard type from parameter to not let input unexpected value in the code editor.
 
 Guard
-> is a combination both above to type guard and check.
+> Is a combination of both above to type guard input in the code editor and check the return. 
 
 ----
 
