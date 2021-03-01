@@ -18,13 +18,18 @@ import { Constructor, CycleHook, FunctionType, Partial, Types } from '@angular-p
 ```
 
 **Features**
-* **Checks** function by finding a name in it with an `isFunction()` function.
-* **Checks** is `any` value a `number` type with the `isNumber()` function.
-* **Checks** is `any` object a generic `Type` type with an `isObject<Type>()` function.
-* **Checks** is `any` value a `string` type with the `isString()` function.
-
-* **Type guards** an object with a generic type and **checks** by finding a `property` in the `object` with a `isObjectType<Type>` function.
-* **Type guards** value with the generic type and **checks** its type with `boolean` `bigint` `number` `string` with `isPrimitiveType<Type>` function.
+* Check ...
+  * is **any** `value` a `number` type with [isNumber()](#isNumber()) function.
+  * is **any** `object` value a generic type with [isObject()](#isObject()) function.
+  * is **any** `value` a generic type one of the primitive `boolean`, `bigint`, `number`, `string` type with [isPrimitive()](#isPrimitive()) function.
+  * is **any** `value` a `string` type with [isString()](#isString()) function.
+  * is **any** `value` a generic constructor or primitive type with [isType()](#isType()) function.
+* Guard
+  * the `value` to be `number` type with [guardNumber()](#guardNumber()) function.
+  * the `object` to be a generic specified type and also by finding `property` in the `object` with [guardObject()](#guardObject()) function.
+  * the `value` to be a generic type from one of the `Primitives` with [guardPrimitive()](#guardPrimitive()) function. 
+  * the `value` to be a `string` type with [guardString()](#guardString()) function.
+  * the `value` to be a generic type from one of the `Types` type with [guardType()](#guardType()) function.
 
 **How angular-package understands**
 
@@ -42,6 +47,7 @@ Guard
 * [Installation](#installation)
 * [Checkers](#checkers)
 * [Guards](#guards)
+* [Types](#types)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -87,7 +93,7 @@ value       | `any`          | Any `value` to check it is a `number` type.
 
 
 ### isObject()
-Check is **any** `object` value a generic `Type` type. The return value is a `boolean` value.
+Check is **any** `object` value a generic `Type` type. The return value is a `object` value.
 ```typescript
 // Imported function code.
 const isObject = <Type>(object: any): object is Type => object;
@@ -100,7 +106,7 @@ object      | `any`          | Any value to check it is a generic `Type` type.
 
 
 ### isPrimitive()
-Check is any `value` a generic `Type` one of the primitive `boolean`, `bigint`, `number`, `string` type.
+Check is any `value` a generic `Type` one of the primitive `boolean`, `bigint`, `number`, `string` type. The return value is a `boolean` value.
 ```typescript
 // Imported function code.
 const isPrimitive = <Type>(value: any, type: Primitives): value is Type => typeof value === type;
@@ -127,7 +133,7 @@ value       | `any`          | Any `value` to check it is a `string` type.
 
 
 ### isType()
-Check is any `value` a class or primitive type.
+Check is any `value` a class or primitive type. The return value is a `boolean` value.
 ```typescript
 // Imported function code.
 const isType = <Type>(value: any, type: Types<Type>): value is Type => ss(typeof type === 'string') ? (typeof value === type) : value instanceof type;
@@ -205,6 +211,38 @@ Parameter   | Type           | Description
 ------------|      :---:     |---------------
 value       | `Type`         | A generic `Type` value to guard.
 type        | `Types<Type>`  | Constructor generic `Type` or one of the `Primitives` `'boolean'`, `'bigint'`, `'number'`, `'string'` to check `value`.
+
+
+## Types
+### Constructor
+```typescript
+type Constructor<Type> = new (...args: any[]) => Type;
+```
+### CycleHook
+```typescript
+type CycleHook = 'ngAfterContentInit' | 'ngAfterContentChecked' | 'ngAfterViewInit' | 'ngAfterViewChecked'
+  | 'ngAfterViewChecked' | 'ngOnInit' | 'ngOnDestroy' | 'ngOnChanges';
+``` 
+### FunctionType
+```typescript
+type FunctionType = (...param: any) => any;
+```
+### PartialType
+```typescript
+export type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+```
+### Primitives
+There are 7 primitive data types: `string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, and `null`.
+```typescript
+type Primitives = 'boolean' | 'bigint' | 'number' | 'string';
+```
+### Types
+Types is generic `Constructor` object and `Primitives`.
+```typescript
+type Types<Obj> = Constructor<Obj> | Primitives;
+```
 
 
 ## GIT
