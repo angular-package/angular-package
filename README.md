@@ -7,6 +7,15 @@
 
 Useful packages written on Angular framework.
 
+## Packages on the newest version of angular (12.0.1)
+
+> Some of the features will be updated to 12.0.1
+
+| Package          | Description                                  | Status                                         | Readme                                                 |
+| :--------------- | :------------------------------------------- | :--------------------------------------------: | :----------------------------------------------------- |
+| type             | Common types, type guards and type checkers. | [![npm version][type-npm-svg]][type-npm-badge] | [Github][type-readme-github] \| [npm][type-readme-npm] |
+
+
 #### Available packages
 
 | Package          | Description                                                                              | Status        | Readme      |
@@ -89,3 +98,8 @@ Organization of most files that can be found in this repository.
  |   └──yarn.lock
  └──reactive/                                       * Another example package.
 ```
+
+[type-readme-github]: https://github.com/angular-package/type#readme
+[type-readme-npm]: https://www.npmjs.com/package/@angular-package/type#readme
+[type-npm-svg]: https://badge.fury.io/js/%40angular-package%2Ftype.svg
+[type-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftype
