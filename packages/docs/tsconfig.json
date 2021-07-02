@@ -68,7 +68,7 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "files": [
-    "./src/index.ts"
+    "./packages/index.ts"
   ]
   // "exclude": [] // The "exclude" property defaults to excluding the node_modules, bower_components, jspm_packages and <outDir> directories when not specified.
 }
