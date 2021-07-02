@@ -1,0 +1,10 @@
+<ap-prism id="ng-content" [interpolation]="this" [language]="language">{{code.content}}</ap-prism>
+<ap-prism id="code-css" [language]="'css'" [code]="code.css"></ap-prism>
+<ap-prism id="code-html" [language]="'html'" [code]="code.html"></ap-prism>
+<ap-prism 
+  id="code-interpolation" 
+  [interpolation]="this" 
+  [language]="language" 
+  [code]="code.html"
+  (changes)="subscription"
+></ap-prism>

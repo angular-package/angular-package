@@ -1,0 +1,1 @@
+export { ApPrismRxjsModule } from './src';

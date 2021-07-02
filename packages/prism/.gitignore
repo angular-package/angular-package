@@ -68,6 +68,7 @@ Thumbs.db
 # bundle
 /core
 /rxjs
+/src
 
 # index
 /index.*

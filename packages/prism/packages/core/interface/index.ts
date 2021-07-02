@@ -1,0 +1,1 @@
+export { ApPrismTemplate } from './src';

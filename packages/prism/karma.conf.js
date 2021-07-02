@@ -21,10 +21,10 @@ module.exports = function(config) {
       // Make sure to disable Karma’s file watcher
       // because the preprocessor will use its own.
       { pattern: 'test/index.ts', watched: false },
-      { pattern: 'test/*.spec.ts', watched: false },
-      { pattern: 'test/**/*.spec.ts', watched: false },
-      { pattern: 'src/*.spec.ts', watched: false },
-      { pattern: 'src/**/*.spec.ts', watched: false }
+      { pattern: 'packages/core/src/*.spec.ts', watched: false },
+      { pattern: 'packages/core/test/*.spec.ts', watched: false },
+      { pattern: 'packages/rxjs/src/*.spec.ts', watched: false },
+      { pattern: 'packages/rxjs/test/*.spec.ts', watched: false }
     ],
 
 
@@ -43,17 +43,18 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/*.ts': ['rollup'],
-      'test/**/*.ts': ['rollup'],
-      'src/*.spec.ts': ['rollup'],
-      'src/**/*.spec.ts': ['rollup']
+      'test/index.ts': ['rollup'],
+      'packages/core/src/*.spec.ts': ['rollup'],
+      'packages/core/test/*.spec.ts': ['rollup'],
+      'packages/rxjs/src/*.spec.ts': ['rollup'],
+      'packages/rxjs/test/*.spec.ts': ['rollup']
     },
 
     rollupPreprocessor: {
       // will help to prevent conflicts between different tests entries
       output: {
         format: 'umd',
-        name: 'ap.prismCore',
+        name: 'ap.prism',
         sourcemap: 'inline'  
       },
       // rollup settings. See Rollup documentation
