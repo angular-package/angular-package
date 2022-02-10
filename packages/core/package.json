@@ -61,7 +61,7 @@
     "karma-rollup-plugin": "^0.2.4",
     "karma-rollup-preprocessor": "^5.1.1",
     "lodash-es": "^4.17.7",
-    "node-sass": "^4.7.2",
+    "node-sass": "^7.0.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rollup": "^0.56.3",
