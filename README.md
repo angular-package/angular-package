@@ -15,7 +15,6 @@ Useful packages written on Angular framework.
 | :--------------- | :------------------------------------------- | :--------------------------------------------: | :----------------------------------------------------- |
 | type             | Common types, type guards and type checkers. | [![npm version][type-npm-svg]][type-npm-badge] | [Github][type-readme-github] \| [npm][type-readme-npm] |
 
-
 #### Available packages
 
 | Package          | Description                                                                              | Status        | Readme      |
