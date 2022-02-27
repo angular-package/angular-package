@@ -1,1 +1,0 @@
-export { ApSubjectBehavior } from './src';
