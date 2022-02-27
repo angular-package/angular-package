@@ -65,7 +65,7 @@
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-rollup-preprocessor": "^5.1.1",
-    "node-sass": "^4.7.2",
+    "node-sass": "^7.0.0",
     "prismjs": "^1.9.0",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^2.6.2",
