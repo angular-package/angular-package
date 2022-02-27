@@ -1,0 +1,99 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "removeComments": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "callback": [
+        "dist/callback/callback",
+        "dist/callback"
+      ],
+      "component-loader": [
+        "dist/component-loader/component-loader",
+        "dist/component-loader"
+      ],
+      "core": [
+        "dist/core/core",
+        "dist/core"
+      ],
+      "error": [
+        "dist/error/error",
+        "dist/error"
+      ],
+      "name": [
+        "dist/name/name",
+        "dist/name"
+      ],
+      "preferences": [
+        "dist/preferences/preferences",
+        "dist/preferences"
+      ],
+      "property": [
+        "dist/property/property",
+        "dist/property"
+      ],
+      "range": [
+        "dist/range/range",
+        "dist/range"
+      ],
+      "storage": [
+        "dist/storage/storage",
+        "dist/storage"
+      ],
+      "tag": [
+        "dist/tag/tag",
+        "dist/tag"
+      ],
+      "testing": [
+        "dist/testing/testing",
+        "dist/testing"
+      ],
+      "text": [
+        "dist/text/text",
+        "dist/text"
+      ],
+      "type": [
+        "dist/type/type",
+        "dist/type"
+      ],
+      "ui": [
+        "dist/ui/ui",
+        "dist/ui"
+      ],
+      "wrapper": [
+        "dist/wrapper/wrapper",
+        "dist/wrapper"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "fullTemplateTypeCheck": true, 
+    "preserveWhitespaces": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "trace": true
+  }
+}
