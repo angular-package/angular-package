@@ -58,7 +58,7 @@
     "html-minifier": "^3.5.8",
     "jasmine": "^2.8.0",
     "jasmine-core": "^2.8.0",
-    "karma": "^2.0.0",
+    "karma": "^6.3.14",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "^1.1.0",
