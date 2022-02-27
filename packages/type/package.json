@@ -1,0 +1,63 @@
+{
+  "name": "@angular-package/type",
+  "version": "5.0.0-rc.0",
+  "description": "Common types, type guards and type checkers.",
+  "author": "Angular Package <angular-package@wvvw.dev> (https://angular-package.dev)",
+  "homepage": "https://type.angular-package.dev",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "@angular-package/testing": "^2.0.0"
+  },
+  "keywords": [
+    "array",
+    "bigint",
+    "boolean",
+    "check",
+    "class",
+    "date",
+    "defined",
+    "determine",
+    "false",
+    "function",
+    "guard",
+    "instance",
+    "key",
+    "propertyKey",
+    "null",
+    "number",
+    "number between",
+    "number object",
+    "number type",
+    "object",
+    "primitive",
+    "RegExp",
+    "string",
+    "string length",
+    "string object",
+    "string type",
+    "symbol",
+    "undefined",
+    "true",
+    "type",
+    "types",
+    "type guards",
+    "typescript",
+    "angular-package",
+    "@angular-package",
+    "@angular-package/type"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-package/type.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-package/type/issues"
+  },
+  "license": "MIT"
+}

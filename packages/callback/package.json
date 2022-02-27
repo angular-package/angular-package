@@ -1,0 +1,37 @@
+{
+  "name": "@angular-package/callback",
+  "version": "3.0.0",
+  "description": "Manages the callback function.",
+  "author": "Angular Package <angular-package@wvvw.dev> (https://angular-package.dev)",
+  "homepage": "https://github.com/angular-package/callback#readme",
+  "peerDependencies": {
+    "@angular-package/error": "^3.0.0",
+    "@angular-package/type": "^5.0.0-rc.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular-package/testing": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "@angular",
+    "@angular-package",
+    "@angular-package/callback",
+    "angular-package",
+    "ResultCallback",
+    "callback"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-package/callback.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-package/callback/issues"
+  },
+  "license": "MIT"
+}

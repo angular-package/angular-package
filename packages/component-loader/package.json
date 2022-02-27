@@ -1,0 +1,30 @@
+{
+  "name": "@angular-package/component-loader",
+  "version": "1.0.0-alpha.0",
+  "description": "Handles dynamic loading components.",
+  "author": "angular-package <contact@angular-package.dev> (https://angular-package.dev)",
+  "homepage": "https://component-loader.angular-package.dev",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "peerDependencies": {
+    "@angular/common": "^13.2.3",
+    "@angular/core": "^13.2.3"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@angular-package/testing": "^2.0.0-rc",
+    "@angular-package/type": "^5.0.0-rc.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-package/component-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-package/component-loader/issues"
+  },
+  "license": "MIT"
+}

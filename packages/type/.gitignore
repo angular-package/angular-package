@@ -1,18 +1,18 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Compiled output
+# compiled output
 /dist
 /tmp
 /out-tsc
+# Only exists if Bazel was run
 /bazel-out
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
 
 # IDEs and editors
-.idea/
+/.idea
 .project
 .classpath
 .c9/
@@ -20,7 +20,7 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
-# Visual Studio Code
+# IDE - VSCode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -28,29 +28,16 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
+# misc
 /.sass-cache
 /connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
-.DS_Store
-Thumbs.db
-
-# profiling files
-chrome-profiler-events*.json
-speed-measure-plugin*.json
 
 # Logs
 /libpeerconnection.log
 logs
 *.log
 npm-debug.log*
+testem.log
 yarn-debug.log*
 yarn-error.log*
 
@@ -127,18 +114,20 @@ typings/
 #DynamoDB Local files 
 .dynamodb/ 
 
+# OS generated files
+Thumbs.db
+.DS_Store
+
 # Ignored files
-# /.vscode/*
+/.vscode/*
 *.code-workspace
+!.vscode/tasks.json
 build
 dist
 graphics
 fonts
+*.ignore*
 
-# Packages
-# packages
-# packages/change-detection
-# packages/component-loader
-# packages/core
-# packages/property
-# packages/type
+# demos
+demo
+
