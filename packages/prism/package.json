@@ -1,0 +1,101 @@
+{
+  "name": "@angular-package/prism",
+  "version": "2.0.3",
+  "description": "Simple Angular 5+ Prism highlighter module.",
+  "author": "Angular Package <angular-package@wwwdev.io> (http://angular-package.wwwwdev.io/prism)",
+  "homepage": "https://github.com/angular-package/angular-package/tree/master/packages/prism#readme",
+  "main": "./bundle.umd.js",
+  "module": "./index.js",
+  "jsnext:main": "./index.js",
+  "typings": "./index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/ngc -p tsconfig.json",
+    "bundle": "rollup -c rollup.config.js --environment BUILD:production",
+    "bundle:dev": "rollup -c rollup.config.js --environment BUILD:development",
+    "clean": "rimraf ./coverage ./index.* ./bundle.umd.* ./core ./rxjs ./node_modules",
+    "copyfiles:core": "cd src/core && copyfiles *.html *.scss *.css ../../core",
+    "copyfiles:rxjs": "cd src/rxjs && copyfiles *.html *.scss *.css ../../rxjs",
+    "copyfiles:all": "npm run copyfiles:core && npm run copyfiles:rxjs",
+    "postbuild": "npm run copyfiles:all",
+    "prebuild": "npm install",
+    "prepare": "",
+    "start": "npm run build && npm run bundle",
+    "clean:start": "npm run clean && npm start",
+    "test": "./node_modules/karma/bin/karma start karma.conf.js ",
+    "tslint": "./node_modules/tslint/bin/tslint -p tsconfig.json --force --type-check"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@angular-package/change-detection": "^0.1.2",
+    "@angular-package/reactive": "^0.1.2"
+  },
+  "devDependencies": {
+    "@angular/common": "^5.2.0",
+    "@angular/compiler": "^5.2.0",
+    "@angular/compiler-cli": "^5.2.0",
+    "@angular/core": "^5.2.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/platform-browser-dynamic": "^5.2.0",
+    "@types/angular": "^1.6.40",
+    "@types/jasmine": "^2.8.3",
+    "@types/karma": "^1.7.3",
+    "@types/lodash-es": "^4.17.0",
+    "@types/node": "^9.3.0",
+    "@types/prismjs": "^1.9.0",
+    "clean-css": "^4.1.9",
+    "codelyzer": "^4.0.2",
+    "copyfiles": "^1.2.0",
+    "html-minifier": "^3.5.8",
+    "jasmine": "^2.8.0",
+    "jasmine-core": "^2.8.0",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^1.1.1",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-rollup-preprocessor": "^5.1.1",
+    "lodash-es": "^4.17.4",
+    "node-sass": "^4.7.2",
+    "prismjs": "^1.9.0",
+    "reflect-metadata": "^0.1.10",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.54.0",
+    "rollup-plugin-angular": "^0.5.3",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-uglify": "^2.0.1",
+    "rxjs": "^5.5.6",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2",
+    "uglify-es": "^3.3.5",
+    "zone.js": "^0.8.20"
+  },
+  "peerDependencies": {
+    "@types/prismjs": "^1.9.0",
+    "prismjs": "^1.9.0"
+  },
+  "keywords": [
+    "angular prismjs",
+    "angular 5 prismjs",
+    "angular prism highlighter",
+    "angular prism highlighter",
+    "angular-package",
+    "angular-package/prism",
+    "ng prism",
+    "ng prismjs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-package/angular-package.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-package/angular-package/issues"
+  }
+}
