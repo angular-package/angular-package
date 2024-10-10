@@ -1,0 +1,8 @@
+
+main, nav {
+  display: flex;
+}
+
+main {
+  padding: 16px;
+}
