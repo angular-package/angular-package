@@ -142,3 +142,9 @@ fonts
 # packages/core
 # packages/property
 # packages/type
+
+# Token 
+access_token
+
+# Temporary files
+temp
