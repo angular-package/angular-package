@@ -1,0 +1,35 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenavLeft align="start" mode="side">
+    <mat-toolbar>Menu</mat-toolbar>
+    <ng-content select="[menu]"></ng-content>
+  </mat-sidenav>
+
+  <div>
+    <mat-toolbar>
+      <!--
+      <button mat-button (click)="sidenavLeft.toggle()" matTooltip="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      -->
+      {{title}}
+      &nbsp;&nbsp;&nbsp;
+      <span class="spacer"></span>
+      <button mat-button matTooltip="Github repository" (click)="location(github)">
+        <img src="assets/github.svg" style="height: 24px;" />
+      </button>
+      <!--
+      <button mat-button (click)="sidenavRight.toggle()" matTooltip="Settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+      -->
+    </mat-toolbar>
+
+    <ng-content select="[body]"></ng-content>
+  </div>
+
+  <mat-sidenav #sidenavRight class="sidenav-end" mode="side" opened="false" align="end">
+    <mat-toolbar>Settings</mat-toolbar>
+    <ng-content select="[sidenav=end]"></ng-content>
+  </mat-sidenav>
+
+</mat-sidenav-container>

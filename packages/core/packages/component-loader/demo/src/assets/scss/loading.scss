@@ -1,0 +1,76 @@
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc2e3e+0,ef473a+100 */
+  background: #cc2e3e; /* Old browsers */
+  background: -moz-linear-gradient(45deg, #cc2e3e 0%, #ef473a 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #cc2e3e 0%,#ef473a 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #cc2e3e 0%,#ef473a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc2e3e', endColorstr='#ef473a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+  font-family: 'Titillium Web', sans-serif;
+  color: #ffffff;
+
+  > span {
+    position: relative;
+    font-size: 3em;
+    text-shadow: 0px 0px 8px #cc2e3e;
+
+    > span {
+      font-size: 0.45em;
+      position: absolute;
+      left: 5rem;
+      top: 3rem;
+    }
+  }
+}
+.loading-dots {
+  position: relative;
+  top: -1rem;
+}
+.loading-dots span {
+  font-size: 3em;
+  animation-name: blink;
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+
+  text-shadow: 0 0 16px #ffffff;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: .3s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: .6s;
+}
+
+.loading-dots span:nth-child(4) {
+  animation-delay: .9s;
+}
+
+.loading-dots span:nth-child(5) {
+  animation-delay: 1.2s;
+}
+
+
+@keyframes blink {
+  0% {
+    opacity: .2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .2;
+  }
+}
