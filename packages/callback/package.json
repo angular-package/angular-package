@@ -5,14 +5,14 @@
   "author": "Angular Package <angular-package@wvvw.dev> (https://angular-package.dev)",
   "homepage": "https://github.com/angular-package/callback#readme",
   "peerDependencies": {
-    "@angular-package/error": "^3.0.0",
+    "@angular-package/error": "^3.0.0-rc",
     "@angular-package/type": "^5.0.0-rc.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular-package/testing": "^2.0.0"
+    "@angular-package/testing": "^2.0.0-rc"
   },
   "publishConfig": {
     "access": "public",
