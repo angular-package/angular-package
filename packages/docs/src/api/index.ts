@@ -1,0 +1,1 @@
+export { ApDocsApiModule } from './src';

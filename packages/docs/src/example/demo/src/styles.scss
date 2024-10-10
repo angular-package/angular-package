@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto'); // added
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:600&subset=latin-ext'); // added
+
+@import "~@angular-package/docs/example/src/docs-example.scss"; // added
+@import "~@angular-package/docs/api/src/docs-api.scss"; // added
+@import "~prismjs/themes/prism.css"; // added
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; // added
+@import 'assets/scss/loading.scss'; // added
+@import 'assets/scss/theme.scss'; // added
+
+html, body {
+  margin: 0;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  background: #ffffff;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+app-root {
+  > div#loading {
+    @extend .loading;
+  }
+}
+mat-sidenav {
+  padding: 16px;
+  width: 100%;
+  box-shadow: -20px 0 50px -20px rgba(0,0,0,0.1);
+  &.xs {
+    width: 100vw;
+  }
+  &.sm {
+    width: 35vw;
+    @media screen and (max-width: 650px ) {
+      width: 100vw;
+    }
+  }
+  &.md {
+    max-width: 45vw;
+  }
+  &.xl,
+  &.lg {
+    width: 50vw;
+  }
+}
+.my-content {
+  flex-direction: column !important;
+  width: 100%;
+  height: auto;
+  padding: 100px 16px;
+  padding-bottom: 0px;
+}
+.mat-drawer-container {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff !important;
+  color: rgba(0,0,0,.87);
+}
+
+
